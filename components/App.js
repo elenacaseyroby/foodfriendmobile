@@ -1,24 +1,26 @@
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
 import Landing from './Landing';
-import Login from './Login';
+import LoginOrSignUp from './LoginOrSignUp';
 //import ajax from '../ajax';
 
 class App extends React.Component {
   state = {
-    renderLandingPage: true,
+    // renderLandingPage: true,
+    // userLoggedIn: false,
+    renderLandingPage: false,
     userLoggedIn: false,
   };
-  componentDidMount() {
-    // Start counting when the page is loaded
-    this.timeoutHandle = setTimeout(() => {
-      this.setState({renderLandingPage: false});
-    }, 4000);
-  }
+  // componentDidMount() {
+  //   // Start counting when the page is loaded
+  //   this.timeoutHandle = setTimeout(() => {
+  //     this.setState({renderLandingPage: false});
+  //   }, 4000);
+  // }
 
-  componentWillUnmount() {
-    clearTimeout(this.timeoutHandle); // This is just necessary in the case that the screen is closed before the timeout fires, otherwise it would cause a memory leak that would trigger the transition regardless, breaking the user experience.
-  }
+  // componentWillUnmount() {
+  //   clearTimeout(this.timeoutHandle); // This is just necessary in the case that the screen is closed before the timeout fires, otherwise it would cause a memory leak that would trigger the transition regardless, breaking the user experience.
+  // }
 
   renderLanding = () => {
     if (!this.state.renderLandingPage) return;
@@ -27,7 +29,7 @@ class App extends React.Component {
 
   renderLogin = () => {
     if (this.state.userLoggedIn) return;
-    return <Login />;
+    return <LoginOrSignUp />;
   };
 
   render() {

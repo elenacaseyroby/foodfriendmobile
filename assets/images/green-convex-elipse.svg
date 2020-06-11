@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="375" height="175" viewBox="0 0 375 175">
+    <defs>
+        <linearGradient id="prefix__b" x1="50%" x2="50%" y1="20.265%" y2="100%">
+            <stop offset="0%" stop-color="#569E25"/>
+            <stop offset="100%" stop-color="#2B6510"/>
+        </linearGradient>
+        <ellipse id="prefix__a" cx="307.548" cy="213.215" rx="307.548" ry="213.215"/>
+    </defs>
+    <g fill="none" fill-rule="evenodd" transform="translate(-120 -252)">
+        <use fill="url(#prefix__b)" xlink:href="#prefix__a"/>
+    </g>
+</svg>
