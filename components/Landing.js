@@ -1,12 +1,12 @@
 import React from 'react';
-import {View, StyleSheet} from 'react-native';
-import Logo from './common/logo-green-background.svg';
+import {View, Image, StyleSheet} from 'react-native';
+import logo from '../assets/images/launch-logo.png';
 
 class Landing extends React.Component {
   render() {
     return (
       <View style={styles.rectangle}>
-        <Logo />
+        <Image source={logo} />
       </View>
     );
   }
