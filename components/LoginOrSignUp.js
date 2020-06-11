@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, TouchableOpacity, StyleSheet, Image} from 'react-native';
 import WideButton from './common/WideButton';
-import Elipse from '../assets/images/green-convex-elipse.svg';
+import Elipse from '../assets/images/top-elipse.svg';
 import LogoText from '../assets/images/white-logo-type.svg';
 import plateIcon from '../assets/images/plate-icon.png';
 

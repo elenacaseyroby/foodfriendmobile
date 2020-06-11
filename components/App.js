@@ -2,42 +2,53 @@ import React from 'react';
 import {View, StyleSheet} from 'react-native';
 import Landing from './Landing';
 import LoginOrSignUp from './LoginOrSignUp';
+import Login from './Login';
 //import ajax from '../ajax';
 
 class App extends React.Component {
   state = {
-    renderLandingPage: true,
-    userLoggedIn: false,
+    renderLandingPage: false,
+    renderLoginOrSignUp: false,
+    renderLogin: true,
+    renderSignUp: false,
   };
-  componentDidMount() {
-    this.timeoutHandle = setTimeout(() => {
-      this.setState({renderLandingPage: false});
-    }, 3000);
-  }
+  // componentDidMount() {
+  //   this.timeoutHandle = setTimeout(() => {
+  //     this.setState({renderLandingPage: false, renderLoginOrSignUp: true});
+  //   }, 3000);
+  // }
 
-  componentWillUnmount() {
-    // This is just necessary in the case that the screen is closed
-    // before the timeout fires, otherwise it would cause a memory
-    // leak that would trigger the transition regardless, breaking
-    // the user experience.
-    clearTimeout(this.timeoutHandle);
-  }
+  // componentWillUnmount() {
+  //   // This is just necessary in the case that the screen is closed
+  //   // before the timeout fires, otherwise it would cause a memory
+  //   // leak that would trigger the transition regardless, breaking
+  //   // the user experience.
+  //   clearTimeout(this.timeoutHandle);
+  // }
 
   renderLanding = () => {
     if (!this.state.renderLandingPage) return;
     return <Landing />;
   };
 
-  renderLogin = () => {
-    if (this.state.userLoggedIn) return;
+  renderLoginOrSignUp = () => {
+    if (!this.state.renderLoginOrSignUp) return;
     return <LoginOrSignUp />;
   };
-
+  renderLogin = () => {
+    if (!this.state.renderLogin) return;
+    return <Login />;
+  };
+  renderSignUp = () => {
+    return;
+  };
   render() {
     return (
       <View style={styles.container}>
         {this.renderLanding()}
+        {this.renderLoginOrSignUp()}
         {this.renderLogin()}
+        {this.renderSignUp()}
       </View>
     );
   }
