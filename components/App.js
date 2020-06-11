@@ -6,21 +6,22 @@ import LoginOrSignUp from './LoginOrSignUp';
 
 class App extends React.Component {
   state = {
-    // renderLandingPage: true,
-    // userLoggedIn: false,
-    renderLandingPage: false,
+    renderLandingPage: true,
     userLoggedIn: false,
   };
-  // componentDidMount() {
-  //   // Start counting when the page is loaded
-  //   this.timeoutHandle = setTimeout(() => {
-  //     this.setState({renderLandingPage: false});
-  //   }, 4000);
-  // }
+  componentDidMount() {
+    this.timeoutHandle = setTimeout(() => {
+      this.setState({renderLandingPage: false});
+    }, 3000);
+  }
 
-  // componentWillUnmount() {
-  //   clearTimeout(this.timeoutHandle); // This is just necessary in the case that the screen is closed before the timeout fires, otherwise it would cause a memory leak that would trigger the transition regardless, breaking the user experience.
-  // }
+  componentWillUnmount() {
+    // This is just necessary in the case that the screen is closed
+    // before the timeout fires, otherwise it would cause a memory
+    // leak that would trigger the transition regardless, breaking
+    // the user experience.
+    clearTimeout(this.timeoutHandle);
+  }
 
   renderLanding = () => {
     if (!this.state.renderLandingPage) return;
