@@ -10,15 +10,19 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "cocoapods": "0.0.0",
     "react": "16.11.0",
-    "react-native": "0.62.2"
+    "react-native": "0.62.2",
+    "react-native-svg": "^12.1.0",
+    "react-native-svg-transformer": "^0.14.3",
+    "typescript": "^3.9.5"
   },
   "devDependencies": {
     "@babel/core": "^7.10.2",
     "@babel/runtime": "^7.10.2",
     "@react-native-community/eslint-config": "^2.0.0",
     "babel-jest": "^26.0.1",
-    "eslint": "^7.2.0",
+    "eslint": "^5.16.0",
     "jest": "^26.0.1",
     "metro-react-native-babel-preset": "^0.59.0",
     "react-test-renderer": "16.11.0"
