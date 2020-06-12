@@ -3,14 +3,15 @@ import {View, StyleSheet} from 'react-native';
 import Landing from './Landing';
 import LoginOrSignUp from './LoginOrSignUp';
 import Login from './Login';
+import SignUp from './SignUp';
 //import ajax from '../ajax';
 
 class App extends React.Component {
   state = {
     renderLandingPage: false,
     renderLoginOrSignUp: false,
-    renderLogin: true,
-    renderSignUp: false,
+    renderLogin: false,
+    renderSignUp: true,
   };
   // componentDidMount() {
   //   this.timeoutHandle = setTimeout(() => {
@@ -40,7 +41,7 @@ class App extends React.Component {
     return <Login />;
   };
   renderSignUp = () => {
-    return;
+    return <SignUp />;
   };
   render() {
     return (
