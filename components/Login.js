@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import BackArrow from '../assets/images/back-arrow.svg';
 import plantMascot from '../assets/images/plant-mascot.png';
-import Elipse from '../assets/images/bottom-elipse.svg';
+import Elipse from '../assets/images/bottom-elipse-green.svg';
 import LoginButton from './common/LoginButton';
 import AppleLoginButton from './common/AppleLoginButton';
 import GoogleLoginButton from './common/GoogleLoginButton';
