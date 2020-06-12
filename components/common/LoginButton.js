@@ -27,7 +27,6 @@ const styles = StyleSheet.create({
     height: 57,
     paddingTop: 17,
     borderRadius: 28.5,
-    // boxShadow: '0 1px 1px 0',
     shadowColor: '#000',
     shadowOffset: {
       width: 0,

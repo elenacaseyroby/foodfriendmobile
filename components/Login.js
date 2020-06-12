@@ -7,8 +7,6 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from 'react-native';
-// import WideButton from './common/WideButton';
-// import plateIcon from '../assets/images/plate-icon.png';
 import BackArrow from '../assets/images/back-arrow.svg';
 import plantMascot from '../assets/images/plant-mascot.png';
 import Elipse from '../assets/images/bottom-elipse.svg';
