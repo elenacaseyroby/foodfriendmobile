@@ -4,6 +4,7 @@ import Landing from './Landing';
 import LoginOrSignUp from './LoginOrSignUp';
 import Login from './Login';
 import SignUp from './SignUp';
+import PasswordReset from './PasswordReset';
 //import ajax from '../ajax';
 
 class App extends React.Component {
@@ -11,7 +12,8 @@ class App extends React.Component {
     renderLandingPage: false,
     renderLoginOrSignUp: false,
     renderLogin: false,
-    renderSignUp: true,
+    renderSignUp: false,
+    renderPasswordReset: true,
   };
   // componentDidMount() {
   //   this.timeoutHandle = setTimeout(() => {
@@ -41,7 +43,12 @@ class App extends React.Component {
     return <Login />;
   };
   renderSignUp = () => {
+    if (!this.state.signUp) return;
     return <SignUp />;
+  };
+  renderPasswordReset = () => {
+    if (!this.state.renderPasswordReset) return;
+    return <PasswordReset />;
   };
   render() {
     return (
@@ -50,6 +57,7 @@ class App extends React.Component {
         {this.renderLoginOrSignUp()}
         {this.renderLogin()}
         {this.renderSignUp()}
+        {this.renderPasswordReset()}
       </View>
     );
   }
