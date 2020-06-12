@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, TouchableOpacity, StyleSheet, Image} from 'react-native';
-import WideButton from './common/WideButton';
+import SignUpButton from './common/SignUpButton';
 import Elipse from '../assets/images/top-elipse.svg';
 import LogoText from '../assets/images/white-logo-type.svg';
 import plateIcon from '../assets/images/plate-icon.png';
@@ -21,11 +21,7 @@ class LoginOrSignUp extends React.Component {
 food journey`}</Text>
         <Text style={styles.smallText}>Your guide to healthy eating.</Text>
         <View style={styles.signUpButton}>
-          <WideButton
-            title="Sign Up"
-            color="blue"
-            onClick={this.transitionToSignUpPage}
-          />
+          <SignUpButton onClick={this.transitionToSignUpPage} />
         </View>
         <View style={styles.viewAccountContainer}>
           <Text style={styles.viewAccountText}>Already have an account?</Text>
