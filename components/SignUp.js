@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import BackArrow from '../assets/images/back-arrow.svg';
 import plantMascot from '../assets/images/plant-mascot-blue.png';
-import LoginButton from './common/LoginButton';
+import SignUpButton from './common/SignUpButton';
 import AppleLoginButton from './common/AppleLoginButton';
 import GoogleLoginButton from './common/GoogleLoginButton';
 
@@ -57,7 +57,7 @@ class Login extends React.Component {
           </TouchableOpacity>
         </View>
         <View style={styles.loginButton}>
-          <LoginButton handleLogin={this.handleLogin} />
+          <SignUpButton onClick={this.handleLogin} />
         </View>
         <View style={styles.loginButton}>
           <AppleLoginButton handleLogin={this.handleLogin} />
