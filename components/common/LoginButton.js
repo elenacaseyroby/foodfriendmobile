@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
       height: 1,
     },
     backgroundColor: '#719e3d',
-    shadowOpacity: 0.22,
+    shadowOpacity: 0.35,
     shadowRadius: 2.22,
     elevation: 3,
   },
