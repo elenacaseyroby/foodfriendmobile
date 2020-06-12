@@ -31,7 +31,7 @@ class Login extends React.Component {
           <BackArrow />
         </View>
         <View style={styles.welcomeBackContainer}>
-          <Text style={styles.welcomeText}>Welcome back!</Text>
+          <Text style={styles.welcomeText}>Start your journey</Text>
           <Image source={plantMascot} />
         </View>
         <TextInput style={styles.formText} placeholder="First Name" />
