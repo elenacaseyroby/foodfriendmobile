@@ -5,7 +5,6 @@ import LoginOrSignUp from './LoginOrSignUp';
 import Login from './Login';
 import SignUp from './SignUp';
 import PasswordReset from './PasswordReset';
-//import ajax from '../ajax';
 
 class App extends React.Component {
   state = {
