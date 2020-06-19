@@ -14,9 +14,9 @@ export default {
           password: password,
         }),
       });
+      console.log(response);
       const responseJson = await response.json();
-      console.log(responseJson);
-      return responseJson;
+      return {response: responseJson, status: response.status};
     } catch (error) {
       console.log(error);
     }

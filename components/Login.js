@@ -14,6 +14,7 @@ import LoginButton from './common/LoginButton';
 // import AppleLoginButton from './common/AppleLoginButton';
 // import GoogleLoginButton from './common/GoogleLoginButton';
 import auth from '../services/auth';
+import asyncStorage from '../services/asyncStorage';
 
 class Login extends React.Component {
   state = {
@@ -31,6 +32,14 @@ class Login extends React.Component {
   };
   handleLogin = async () => {
     const loginToken = await auth.login(this.state.email, this.state.password);
+    if (loginToken.status !== '200') {
+      // CASEY TODO:
+      //print error on page
+      console.log(loginToken.response);
+    }
+    asyncStorage._storeData('ACCESS_TOKEN', loginToken.response.access_token);
+    asyncStorage._storeData('USER_ID', loginToken.response.id);
+    // if token, set login & redirect to home page
     console.log(loginToken);
   };
   render() {
