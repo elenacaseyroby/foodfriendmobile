@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-  View,
-  TextInput,
-  Text,
-  Image,
-  TouchableOpacity,
-  StyleSheet,
-} from 'react-native';
+import {View, TextInput, Text, Image, StyleSheet} from 'react-native';
 import BackArrow from '../assets/images/back-arrow.svg';
 import plantMascot from '../assets/images/plant-mascot-blue.png';
 import Elipse from '../assets/images/bottom-elipse-blue.svg';
