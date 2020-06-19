@@ -11,14 +11,28 @@ import BackArrow from '../assets/images/back-arrow.svg';
 import plantMascot from '../assets/images/plant-mascot.png';
 import Elipse from '../assets/images/bottom-elipse-green.svg';
 import LoginButton from './common/LoginButton';
-import AppleLoginButton from './common/AppleLoginButton';
-import GoogleLoginButton from './common/GoogleLoginButton';
+// import AppleLoginButton from './common/AppleLoginButton';
+// import GoogleLoginButton from './common/GoogleLoginButton';
+import auth from '../services/auth';
 
 class Login extends React.Component {
+  state = {
+    email: null,
+    password: null,
+  };
   transitionToForgotPasswordPage = () => {
     return;
   };
-  handleLogin = () => {};
+  handleEmail = (email) => {
+    this.setState({email: email});
+  };
+  handlePassword = (password) => {
+    this.setState({password: password});
+  };
+  handleLogin = async () => {
+    const loginToken = await auth.login(this.state.email, this.state.password);
+    console.log(loginToken);
+  };
   render() {
     return (
       <View style={styles.rectangle}>
@@ -29,12 +43,17 @@ class Login extends React.Component {
           <Text style={styles.welcomeText}>Welcome back!</Text>
           <Image source={plantMascot} />
         </View>
-        <TextInput style={styles.formText} placeholder="Email Address" />
+        <TextInput
+          style={styles.formText}
+          placeholder="Email Address"
+          onChangeText={this.handleEmail}
+        />
         <View style={styles.formEmailBox} />
         <TextInput
           style={styles.formText}
           secureTextEntry={true}
           placeholder="Password (8+ characters)"
+          onChangeText={this.handlePassword}
         />
         <View style={styles.formPasswordBox} />
         <TouchableOpacity onPress={this.transitionToForgotPasswordPage}>
@@ -43,12 +62,12 @@ class Login extends React.Component {
         <View style={styles.loginButton}>
           <LoginButton handleLogin={this.handleLogin} />
         </View>
-        <View style={styles.loginButton}>
+        {/* <View style={styles.loginButton}>
           <AppleLoginButton handleLogin={this.handleLogin} />
         </View>
         <View style={styles.loginButton}>
           <GoogleLoginButton handleLogin={this.handleLogin} />
-        </View>
+        </View> */}
         <Elipse style={styles.elipse} />
       </View>
     );
