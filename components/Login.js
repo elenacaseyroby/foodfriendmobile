@@ -7,12 +7,9 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from 'react-native';
-import BackArrow from '../assets/images/back-arrow.svg';
 import plantMascot from '../assets/images/plant-mascot.png';
 import Elipse from '../assets/images/bottom-elipse-green.svg';
 import LoginButton from './common/LoginButton';
-// import AppleLoginButton from './common/AppleLoginButton';
-// import GoogleLoginButton from './common/GoogleLoginButton';
 import auth from '../services/auth';
 import asyncStorage from '../services/asyncStorage';
 
@@ -45,9 +42,6 @@ class Login extends React.Component {
   render() {
     return (
       <View style={styles.rectangle}>
-        <View style={styles.backArrow}>
-          <BackArrow />
-        </View>
         <View style={styles.welcomeBackContainer}>
           <Text style={styles.welcomeText}>Welcome back!</Text>
           <Image source={plantMascot} />
@@ -71,12 +65,12 @@ class Login extends React.Component {
         <View style={styles.loginButton}>
           <LoginButton handleLogin={this.handleLogin} />
         </View>
-        {/* <View style={styles.loginButton}>
-          <AppleLoginButton handleLogin={this.handleLogin} />
+        <View style={styles.signUpContainer}>
+          <Text>Don't have an account? </Text>
+          <TouchableOpacity onPress={this.transitionToForgotPasswordPage}>
+            <Text style={styles.signUpText}>Sign up here</Text>
+          </TouchableOpacity>
         </View>
-        <View style={styles.loginButton}>
-          <GoogleLoginButton handleLogin={this.handleLogin} />
-        </View> */}
         <Elipse style={styles.elipse} />
       </View>
     );
@@ -84,13 +78,9 @@ class Login extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  backArrow: {
-    marginTop: 33,
-    marginLeft: 33,
-  },
   welcomeBackContainer: {
     marginBottom: 15,
-    marginTop: 20,
+    marginTop: 45,
     marginLeft: 33,
     marginRight: 33,
     flex: 1,
@@ -136,6 +126,18 @@ const styles = StyleSheet.create({
   loginButton: {
     alignSelf: 'center',
     marginBottom: 10,
+  },
+  signUpContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    alignSelf: 'center',
+    fontSize: 14,
+    fontFamily: 'Cabin-Regular',
+    color: '#555555',
+  },
+  signUpText: {
+    color: '#ed762c',
   },
   elipse: {
     position: 'absolute',
