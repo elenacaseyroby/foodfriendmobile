@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from 'react-native';
+import propTypes from 'prop-types';
 import plantMascot from '../assets/images/plant-mascot.png';
 import Elipse from '../assets/images/bottom-elipse-green.svg';
 import LoginButton from './common/LoginButton';
@@ -14,9 +15,16 @@ import auth from '../services/auth';
 import asyncStorage from '../services/asyncStorage';
 
 class Login extends React.Component {
+  static propTypes = {
+    handleSignIn: propTypes.func.isRequired,
+    onPasswordReset: propTypes.func.isRequired,
+    onSignUp: propTypes.func.isRequired,
+  };
   state = {
     email: null,
     password: null,
+    renderError: false,
+    errorMessage: '',
   };
   transitionToForgotPasswordPage = () => {
     return;
@@ -28,16 +36,48 @@ class Login extends React.Component {
     this.setState({password: password});
   };
   handleLogin = async () => {
-    const loginToken = await auth.login(this.state.email, this.state.password);
-    if (loginToken.status !== '200') {
-      // CASEY TODO:
-      //print error on page
-      console.log(loginToken.response);
+    if (
+      !this.state.email ||
+      !this.state.password
+      // uncomment for prod:
+      // || this.state.password.length < 8
+    ) {
+      this.setState({
+        renderError: true,
+        errorMessage: 'Please enter a valid email and password.',
+      });
+      return;
     }
-    asyncStorage._storeData('ACCESS_TOKEN', loginToken.response.access_token);
-    asyncStorage._storeData('USER_ID', loginToken.response.id);
-    // if token, set login & redirect to home page
-    console.log(loginToken);
+    const loginToken = await auth.login(this.state.email, this.state.password);
+    if (loginToken.status !== 200) {
+      this.setState({
+        renderError: true,
+        errorMessage: 'The email and password you have entered are incorrect.',
+      });
+      return;
+    }
+    console.log(
+      `from backend accessToken: ${loginToken.response.access_token}`,
+    );
+    const storedToken = await asyncStorage._storeData(
+      'ACCESS_TOKEN',
+      loginToken.response.access_token,
+    );
+    const storedId = await asyncStorage._storeData(
+      'USER_ID',
+      JSON.stringify(loginToken.response.id),
+    );
+    if (!storedToken || !storedId) {
+      this.setState({
+        renderError: true,
+        errorMessage: 'Login failed to process. Please try again.',
+      });
+    }
+    this.props.handleSignIn();
+  };
+  renderError = () => {
+    if (!this.state.renderError) return;
+    return <Text style={styles.errorText}>{this.state.errorMessage}</Text>;
   };
   render() {
     return (
@@ -59,6 +99,7 @@ class Login extends React.Component {
           onChangeText={this.handlePassword}
         />
         <View style={styles.formPasswordBox} />
+        {this.renderError()}
         <TouchableOpacity onPress={this.transitionToForgotPasswordPage}>
           <Text style={styles.forgotPasswordText}>Forgot your password?</Text>
         </TouchableOpacity>
@@ -115,6 +156,13 @@ const styles = StyleSheet.create({
     width: 310,
     alignSelf: 'center',
   },
+  errorText: {
+    marginTop: 10,
+    marginLeft: 33,
+    fontSize: 14,
+    fontFamily: 'Cabin-Regular',
+    color: '#ea1313',
+  },
   forgotPasswordText: {
     marginTop: 15,
     marginLeft: 33,
@@ -128,6 +176,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   signUpContainer: {
+    marginTop: 5,
     flex: 1,
     flexDirection: 'row',
     flexWrap: 'wrap',

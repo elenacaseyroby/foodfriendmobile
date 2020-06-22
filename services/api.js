@@ -1,18 +1,15 @@
 const API_HOST = 'http://localhost:5000';
 
 export default {
-  async login(email, password) {
+  async getUser(userId, accessToken) {
     try {
-      const response = await fetch(`${API_HOST}/login`, {
-        method: 'POST',
+      const response = await fetch(`${API_HOST}/users/${userId}`, {
+        method: 'GET',
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
+          Authorization: accessToken,
         },
-        body: JSON.stringify({
-          email: email,
-          password: password,
-        }),
       });
       const responseJson = await response.json();
       return {response: responseJson, status: response.status};
