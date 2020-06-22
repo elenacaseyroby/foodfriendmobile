@@ -4,8 +4,7 @@ export default {
   async _storeData(key, value) {
     try {
       await AsyncStorage.setItem(key, JSON.stringify(value));
-      console.log('Data successfully saved');
-      return 'success';
+      return {key, value};
     } catch (e) {
       console.log('Failed to save the data to the storage');
     }
@@ -13,11 +12,8 @@ export default {
   async _retrieveData(key) {
     try {
       const value = await AsyncStorage.getItem(key);
-
       if (value !== null) {
-        const parsedValue = await JSON.parse(value);
-        console.log(`parsed vlaue: ${parsedValue}`);
-        return parsedValue;
+        return value;
       }
     } catch (e) {
       console.log('Failed to fetch the data from storage');
