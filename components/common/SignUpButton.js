@@ -6,14 +6,9 @@ class SignUpButton extends React.Component {
   static propTypes = {
     onClick: propTypes.func.isRequired,
   };
-  renderLogoComponent = () => {
-    if (!this.props.logoComponent) return;
-    return this.props.logoComponent;
-  };
   render() {
     return (
       <TouchableOpacity onPress={this.props.onClick} style={styles.button}>
-        {this.renderLogoComponent}
         <Text style={styles.text}>Sign up</Text>
       </TouchableOpacity>
     );
@@ -32,7 +27,6 @@ const styles = StyleSheet.create({
     height: 57,
     paddingTop: 17,
     borderRadius: 28.5,
-    // boxShadow: '0 1px 1px 0',
     shadowColor: '#000',
     shadowOffset: {
       width: 0,

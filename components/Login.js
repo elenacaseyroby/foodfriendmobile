@@ -7,47 +7,110 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from 'react-native';
-import BackArrow from '../assets/images/back-arrow.svg';
+import propTypes from 'prop-types';
 import plantMascot from '../assets/images/plant-mascot.png';
 import Elipse from '../assets/images/bottom-elipse-green.svg';
 import LoginButton from './common/LoginButton';
-import AppleLoginButton from './common/AppleLoginButton';
-import GoogleLoginButton from './common/GoogleLoginButton';
+import auth from '../services/auth';
+import asyncStorage from '../services/asyncStorage';
 
 class Login extends React.Component {
+  static propTypes = {
+    handleSignIn: propTypes.func.isRequired,
+    onPasswordReset: propTypes.func.isRequired,
+    onSignUp: propTypes.func.isRequired,
+  };
+  state = {
+    email: null,
+    password: null,
+    renderError: false,
+    errorMessage: '',
+  };
   transitionToForgotPasswordPage = () => {
     return;
   };
-  handleLogin = () => {};
+  handleEmail = (email) => {
+    this.setState({email: email});
+  };
+  handlePassword = (password) => {
+    this.setState({password: password});
+  };
+  handleLogin = async () => {
+    if (
+      !this.state.email ||
+      !this.state.password
+      // uncomment for prod:
+      // || this.state.password.length < 8
+    ) {
+      this.setState({
+        renderError: true,
+        errorMessage: 'Please enter a valid email and password.',
+      });
+      return;
+    }
+    const loginToken = await auth.login(this.state.email, this.state.password);
+    if (loginToken.status !== 200) {
+      this.setState({
+        renderError: true,
+        errorMessage: 'The email and password you have entered are incorrect.',
+      });
+      return;
+    }
+    console.log(
+      `from backend accessToken: ${loginToken.response.access_token}`,
+    );
+    const storedToken = await asyncStorage._storeData(
+      'ACCESS_TOKEN',
+      loginToken.response.access_token,
+    );
+    const storedId = await asyncStorage._storeData(
+      'USER_ID',
+      JSON.stringify(loginToken.response.id),
+    );
+    if (!storedToken || !storedId) {
+      this.setState({
+        renderError: true,
+        errorMessage: 'Login failed to process. Please try again.',
+      });
+    }
+    this.props.handleSignIn();
+  };
+  renderError = () => {
+    if (!this.state.renderError) return;
+    return <Text style={styles.errorText}>{this.state.errorMessage}</Text>;
+  };
   render() {
     return (
       <View style={styles.rectangle}>
-        <View style={styles.backArrow}>
-          <BackArrow />
-        </View>
         <View style={styles.welcomeBackContainer}>
           <Text style={styles.welcomeText}>Welcome back!</Text>
           <Image source={plantMascot} />
         </View>
-        <TextInput style={styles.formText} placeholder="Email Address" />
+        <TextInput
+          style={styles.formText}
+          placeholder="Email Address"
+          onChangeText={this.handleEmail}
+        />
         <View style={styles.formEmailBox} />
         <TextInput
           style={styles.formText}
           secureTextEntry={true}
           placeholder="Password (8+ characters)"
+          onChangeText={this.handlePassword}
         />
         <View style={styles.formPasswordBox} />
+        {this.renderError()}
         <TouchableOpacity onPress={this.transitionToForgotPasswordPage}>
           <Text style={styles.forgotPasswordText}>Forgot your password?</Text>
         </TouchableOpacity>
         <View style={styles.loginButton}>
           <LoginButton handleLogin={this.handleLogin} />
         </View>
-        <View style={styles.loginButton}>
-          <AppleLoginButton handleLogin={this.handleLogin} />
-        </View>
-        <View style={styles.loginButton}>
-          <GoogleLoginButton handleLogin={this.handleLogin} />
+        <View style={styles.signUpContainer}>
+          <Text>Don't have an account? </Text>
+          <TouchableOpacity onPress={this.transitionToForgotPasswordPage}>
+            <Text style={styles.signUpText}>Sign up here</Text>
+          </TouchableOpacity>
         </View>
         <Elipse style={styles.elipse} />
       </View>
@@ -56,13 +119,9 @@ class Login extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  backArrow: {
-    marginTop: 33,
-    marginLeft: 33,
-  },
   welcomeBackContainer: {
     marginBottom: 15,
-    marginTop: 20,
+    marginTop: 45,
     marginLeft: 33,
     marginRight: 33,
     flex: 1,
@@ -97,6 +156,13 @@ const styles = StyleSheet.create({
     width: 310,
     alignSelf: 'center',
   },
+  errorText: {
+    marginTop: 10,
+    marginLeft: 33,
+    fontSize: 14,
+    fontFamily: 'Cabin-Regular',
+    color: '#ea1313',
+  },
   forgotPasswordText: {
     marginTop: 15,
     marginLeft: 33,
@@ -108,6 +174,19 @@ const styles = StyleSheet.create({
   loginButton: {
     alignSelf: 'center',
     marginBottom: 10,
+  },
+  signUpContainer: {
+    marginTop: 5,
+    flex: 1,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    alignSelf: 'center',
+    fontSize: 14,
+    fontFamily: 'Cabin-Regular',
+    color: '#555555',
+  },
+  signUpText: {
+    color: '#ed762c',
   },
   elipse: {
     position: 'absolute',
