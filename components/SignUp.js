@@ -10,8 +10,6 @@ import {
 import BackArrow from '../assets/images/back-arrow.svg';
 import plantMascot from '../assets/images/plant-mascot-blue.png';
 import SignUpButton from './common/SignUpButton';
-import AppleLoginButton from './common/AppleLoginButton';
-import GoogleLoginButton from './common/GoogleLoginButton';
 
 class Login extends React.Component {
   transitionToForgotPasswordPage = () => {
@@ -27,9 +25,11 @@ class Login extends React.Component {
   render() {
     return (
       <View style={styles.rectangle}>
-        <View style={styles.backArrow}>
+        <TouchableOpacity
+          style={styles.backArrow}
+          onPress={() => this.props.navigation.pop()}>
           <BackArrow />
-        </View>
+        </TouchableOpacity>
         <View style={styles.welcomeBackContainer}>
           <Text style={styles.welcomeText}>Start your journey</Text>
           <Image source={plantMascot} />
@@ -59,12 +59,6 @@ class Login extends React.Component {
         <View style={styles.loginButton}>
           <SignUpButton onClick={this.handleLogin} />
         </View>
-        <View style={styles.loginButton}>
-          <AppleLoginButton handleLogin={this.handleLogin} />
-        </View>
-        <View style={styles.loginButton}>
-          <GoogleLoginButton handleLogin={this.handleLogin} />
-        </View>
       </View>
     );
   }
@@ -72,7 +66,7 @@ class Login extends React.Component {
 
 const styles = StyleSheet.create({
   backArrow: {
-    marginTop: 33,
+    marginTop: 45,
     marginLeft: 33,
   },
   welcomeBackContainer: {

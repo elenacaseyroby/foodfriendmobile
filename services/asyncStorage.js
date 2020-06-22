@@ -5,7 +5,7 @@ export default {
     try {
       await AsyncStorage.setItem(key, value);
       return 'success';
-    } catch (e) {
+    } catch (error) {
       console.log('Failed to save the data to the storage');
     }
   },
@@ -15,8 +15,17 @@ export default {
       if (value !== null) {
         return value;
       }
-    } catch (e) {
+    } catch (error) {
       console.log('Failed to fetch the data from storage');
+    }
+  },
+  async _clearData() {
+    try {
+      const keys = await AsyncStorage.getAllKeys();
+      await AsyncStorage.multiRemove(keys);
+      return 'success';
+    } catch (error) {
+      console.error('Error clearing app data.');
     }
   },
 };

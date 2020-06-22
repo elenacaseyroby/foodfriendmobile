@@ -7,7 +7,6 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from 'react-native';
-import propTypes from 'prop-types';
 import plantMascot from '../assets/images/plant-mascot.png';
 import Elipse from '../assets/images/bottom-elipse-green.svg';
 import LoginButton from './common/LoginButton';
@@ -15,11 +14,6 @@ import auth from '../services/auth';
 import asyncStorage from '../services/asyncStorage';
 
 class Login extends React.Component {
-  static propTypes = {
-    handleSignIn: propTypes.func.isRequired,
-    onPasswordReset: propTypes.func.isRequired,
-    onSignUp: propTypes.func.isRequired,
-  };
   state = {
     email: null,
     password: null,
@@ -38,9 +32,8 @@ class Login extends React.Component {
   handleLogin = async () => {
     if (
       !this.state.email ||
-      !this.state.password
-      // uncomment for prod:
-      // || this.state.password.length < 8
+      !this.state.password ||
+      this.state.password.length < 8
     ) {
       this.setState({
         renderError: true,
@@ -56,9 +49,7 @@ class Login extends React.Component {
       });
       return;
     }
-    console.log(
-      `from backend accessToken: ${loginToken.response.access_token}`,
-    );
+    // If logs in successfully, store user_id and access_token in AsyncStorage.
     const storedToken = await asyncStorage._storeData(
       'ACCESS_TOKEN',
       loginToken.response.access_token,
@@ -73,7 +64,7 @@ class Login extends React.Component {
         errorMessage: 'Login failed to process. Please try again.',
       });
     }
-    this.props.handleSignIn();
+    return this.props.navigation.navigate('Home');
   };
   renderError = () => {
     if (!this.state.renderError) return;
@@ -100,7 +91,8 @@ class Login extends React.Component {
         />
         <View style={styles.formPasswordBox} />
         {this.renderError()}
-        <TouchableOpacity onPress={this.transitionToForgotPasswordPage}>
+        <TouchableOpacity
+          onPress={() => this.props.navigation.navigate('PasswordReset')}>
           <Text style={styles.forgotPasswordText}>Forgot your password?</Text>
         </TouchableOpacity>
         <View style={styles.loginButton}>
@@ -108,7 +100,8 @@ class Login extends React.Component {
         </View>
         <View style={styles.signUpContainer}>
           <Text>Don't have an account? </Text>
-          <TouchableOpacity onPress={this.transitionToForgotPasswordPage}>
+          <TouchableOpacity
+            onPress={() => this.props.navigation.navigate('SignUp')}>
             <Text style={styles.signUpText}>Sign up here</Text>
           </TouchableOpacity>
         </View>
