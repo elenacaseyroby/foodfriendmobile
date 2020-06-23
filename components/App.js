@@ -19,8 +19,8 @@ function App() {
           headerShown: false,
         }}>
         <Stack.Screen name="Landing" component={Landing} />
-        <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="SignUp" component={SignUp} />
+        <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="PasswordReset" component={PasswordReset} />
         <Stack.Screen name="Progress" component={Progress} />
         <Stack.Screen name="Onboarding" component={Onboarding} />

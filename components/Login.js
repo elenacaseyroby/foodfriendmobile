@@ -20,9 +20,6 @@ class Login extends React.Component {
     renderError: false,
     errorMessage: '',
   };
-  transitionToForgotPasswordPage = () => {
-    return;
-  };
   handleEmail = (email) => {
     this.setState({email: email});
   };
@@ -80,6 +77,7 @@ class Login extends React.Component {
         <TextInput
           style={styles.formText}
           placeholder="Email Address"
+          autoCapitalize="none"
           onChangeText={this.handleEmail}
         />
         <View style={styles.formEmailBox} />
