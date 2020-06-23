@@ -10,60 +10,139 @@ import {
 import BackArrow from '../assets/images/back-arrow.svg';
 import plantMascot from '../assets/images/plant-mascot-blue.png';
 import SignUpButton from './common/SignUpButton';
-import AppleLoginButton from './common/AppleLoginButton';
-import GoogleLoginButton from './common/GoogleLoginButton';
+import asyncStorage from '../services/asyncStorage';
+import auth from '../services/auth';
 
 class Login extends React.Component {
-  transitionToForgotPasswordPage = () => {
-    return;
+  state = {
+    email: null,
+    password: null,
+    first_name: null,
+    last_name: null,
+    renderError: false,
+    errorMessage: '',
   };
-  transitionToTermsNConditions = () => {
-    return;
+  handleEmail = (email) => {
+    this.setState({email: email});
   };
-  transitionToPrivacyPolicy = () => {
-    return;
+  handlePassword = (password) => {
+    this.setState({password: password});
   };
-  handleLogin = () => {};
+  handleFirstName = (first_name) => {
+    this.setState({first_name: first_name});
+  };
+  handleLastName = (last_name) => {
+    this.setState({last_name: last_name});
+  };
+  handleSignUp = async () => {
+    if (
+      !this.state.email ||
+      !this.state.password ||
+      !this.state.first_name ||
+      !this.state.last_name
+    ) {
+      this.setState({
+        renderError: true,
+        errorMessage: 'Please provide a response to all of the above fields.',
+      });
+      return;
+    } else if (
+      !this.state.email.includes('@') ||
+      this.state.email.length > 100 ||
+      this.state.password.length < 8 ||
+      this.state.password.length > 100 ||
+      this.state.first_name.length > 100 ||
+      this.state.last_name.length > 100
+    ) {
+      this.setState({
+        renderError: true,
+        errorMessage:
+          'Please make sure you provide a valid email address and that your responses are not too long.',
+      });
+      return;
+    }
+    console.log('MADE IT!');
+    const loginToken = await auth.signUp(
+      this.state.email,
+      this.state.password,
+      this.state.first_name,
+      this.state.last_name,
+    );
+    if (loginToken.status !== 200) {
+      this.setState({
+        renderError: true,
+        errorMessage: loginToken.response.message,
+      });
+      return;
+    }
+    // If logs in successfully, store user_id and access_token in AsyncStorage.
+    const storedToken = await asyncStorage._storeData(
+      'ACCESS_TOKEN',
+      loginToken.response.access_token,
+    );
+    const storedId = await asyncStorage._storeData(
+      'USER_ID',
+      JSON.stringify(loginToken.response.id),
+    );
+    return this.props.navigation.navigate('Home');
+  };
+  renderError = () => {
+    if (!this.state.renderError) return;
+    return <Text style={styles.errorText}>{this.state.errorMessage}</Text>;
+  };
   render() {
     return (
       <View style={styles.rectangle}>
-        <View style={styles.backArrow}>
+        <TouchableOpacity
+          style={styles.backArrow}
+          onPress={() => this.props.navigation.pop()}>
           <BackArrow />
-        </View>
+        </TouchableOpacity>
         <View style={styles.welcomeBackContainer}>
           <Text style={styles.welcomeText}>Start your journey</Text>
           <Image source={plantMascot} />
         </View>
-        <TextInput style={styles.formText} placeholder="First Name" />
+        <TextInput
+          style={styles.formText}
+          placeholder="First Name"
+          onChangeText={this.handleFirstName}
+        />
         <View style={styles.formTextBox} />
-        <TextInput style={styles.formText} placeholder="Last Name" />
+        <TextInput
+          style={styles.formText}
+          placeholder="Last Name"
+          onChangeText={this.handleLastName}
+        />
         <View style={styles.formTextBox} />
-        <TextInput style={styles.formText} placeholder="Email" />
+        <TextInput
+          style={styles.formText}
+          placeholder="Email"
+          autoCapitalize="none"
+          onChangeText={this.handleEmail}
+        />
         <View style={styles.formTextBox} />
         <TextInput
           style={styles.formText}
           secureTextEntry={true}
           placeholder="Password (8+ characters)"
+          onChangeText={this.handlePassword}
         />
         <View style={styles.formPasswordBox} />
+        {this.renderError()}
         <View style={styles.termsContainer}>
           <Text>By continuing, you agree to FoodFriend’s</Text>
-          <TouchableOpacity onPress={this.transitionToTermsNConditions}>
+          <TouchableOpacity
+            onPress={() => this.props.navigation.navigate('Home')}>
             <Text style={styles.termsTextOrange}>terms & conditions</Text>
           </TouchableOpacity>
           <Text>{` and `}</Text>
-          <TouchableOpacity onPress={this.transitionToPrivacyPolicy}>
+          <TouchableOpacity
+            onPress={() => this.props.navigation.navigate('Home')}>
             <Text style={styles.termsTextOrange}>privacy policy</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.loginButton}>
-          <SignUpButton onClick={this.handleLogin} />
-        </View>
-        <View style={styles.loginButton}>
-          <AppleLoginButton handleLogin={this.handleLogin} />
-        </View>
-        <View style={styles.loginButton}>
-          <GoogleLoginButton handleLogin={this.handleLogin} />
+          <SignUpButton onClick={this.handleSignUp} />
         </View>
       </View>
     );
@@ -72,7 +151,7 @@ class Login extends React.Component {
 
 const styles = StyleSheet.create({
   backArrow: {
-    marginTop: 33,
+    marginTop: 45,
     marginLeft: 33,
   },
   welcomeBackContainer: {
@@ -134,6 +213,13 @@ const styles = StyleSheet.create({
   loginButton: {
     alignSelf: 'center',
     marginBottom: 10,
+  },
+  errorText: {
+    marginTop: 10,
+    marginLeft: 33,
+    fontSize: 14,
+    fontFamily: 'Cabin-Regular',
+    color: '#ea1313',
   },
   rectangle: {
     backgroundColor: '#ffffff',

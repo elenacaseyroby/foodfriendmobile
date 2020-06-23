@@ -1,11 +1,16 @@
 import React from 'react';
-import {View, TextInput, Text, Image, StyleSheet} from 'react-native';
+import {
+  View,
+  TextInput,
+  Text,
+  Image,
+  StyleSheet,
+  TouchableOpacity,
+} from 'react-native';
 import BackArrow from '../assets/images/back-arrow.svg';
 import plantMascot from '../assets/images/plant-mascot-blue.png';
 import Elipse from '../assets/images/bottom-elipse-blue.svg';
 import SubmitButton from './common/SubmitButton';
-import AppleLoginButton from './common/AppleLoginButton';
-import GoogleLoginButton from './common/GoogleLoginButton';
 
 class PasswordReset extends React.Component {
   transitionToForgotPasswordPage = () => {
@@ -16,9 +21,11 @@ class PasswordReset extends React.Component {
   render() {
     return (
       <View style={styles.rectangle}>
-        <View style={styles.backArrow}>
+        <TouchableOpacity
+          style={styles.backArrow}
+          onPress={() => this.props.navigation.pop()}>
           <BackArrow />
-        </View>
+        </TouchableOpacity>
         <View style={styles.welcomeBackContainer}>
           <Text style={styles.welcomeText}>Forgot Password?</Text>
           <Image source={plantMascot} />
@@ -28,12 +35,6 @@ class PasswordReset extends React.Component {
         <View style={styles.button}>
           <SubmitButton onClick={this.handleSubmit} />
         </View>
-        <View style={styles.button}>
-          <AppleLoginButton handleLogin={this.handleLogin} />
-        </View>
-        <View style={styles.button}>
-          <GoogleLoginButton handleLogin={this.handleLogin} />
-        </View>
         <Elipse style={styles.elipse} />
       </View>
     );
@@ -42,7 +43,7 @@ class PasswordReset extends React.Component {
 
 const styles = StyleSheet.create({
   backArrow: {
-    marginTop: 33,
+    marginTop: 45,
     marginLeft: 33,
   },
   welcomeBackContainer: {
@@ -64,6 +65,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
   },
   formText: {
+    marginTop: 35,
     marginBottom: 8,
     fontSize: 16,
     fontFamily: 'Cabin-Regular',
@@ -72,7 +74,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   formEmailBox: {
-    marginBottom: 35,
+    marginBottom: 30,
     borderBottomWidth: 0.5,
     width: 310,
     alignSelf: 'center',
