@@ -29,10 +29,14 @@ export const fetchUserBegin = () => ({
 
 export const fetchUserSuccess = (user) => ({
   type: C.FETCH_USER_SUCCESS,
-  payload: {user},
+  payload: {
+    user: user,
+  },
 });
 
 export const fetchUserFailure = (error) => ({
   type: C.FETCH_USER_FAILURE,
-  payload: {error},
+  payload: {
+    error: error,
+  },
 });
