@@ -2,8 +2,8 @@ import C from '../constants';
 
 const API_HOST = 'http://localhost:5000';
 
-export function fetchUserDetails(userId, accessToken) {
-  fetchUserDetailsBegin();
+export function fetchUser(userId, accessToken) {
+  fetchUserBegin();
   return async function (dispatch) {
     return await fetch(`${API_HOST}/users/${userId}`, {
       method: 'GET',
@@ -15,23 +15,24 @@ export function fetchUserDetails(userId, accessToken) {
     })
       .then(async (res) => {
         if (res.status !== 200)
-          return dispatch(fetchUserDetailsFailure(res.response.message));
-        dispatch(fetchUserDetailsSuccess(res.response));
+          return dispatch(fetchUserFailure(res.response.message));
+        dispatch(fetchUserSuccess(res.response));
+        return res.response;
       })
-      .catch((error) => dispatch(fetchUserDetailsFailure(error)));
+      .catch((error) => dispatch(fetchUserFailure(error)));
   };
 }
 
-export const fetchUserDetailsBegin = () => ({
-  type: C.FETCH_USER_DETAILS_BEGIN,
+export const fetchUserBegin = () => ({
+  type: C.FETCH_USER_BEGIN,
 });
 
-export const fetchUserDetailsSuccess = (user) => ({
-  type: C.FETCH_USER_DETAILS_SUCCESS,
+export const fetchUserSuccess = (user) => ({
+  type: C.FETCH_USER_SUCCESS,
   payload: {user},
 });
 
-export const fetchUserDetailsFailure = (error) => ({
-  type: C.FETCH_USER_DETAILS_FAILURE,
+export const fetchUserFailure = (error) => ({
+  type: C.FETCH_USER_FAILURE,
   payload: {error},
 });
