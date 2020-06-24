@@ -10,11 +10,17 @@ import Onboarding from './Onboarding';
 import Home from './Home';
 import {Provider} from 'react-redux';
 import configureStore from '../redux/store';
+import SplashScreen from 'react-native-splash-screen';
 
 let store = configureStore();
 const Stack = createStackNavigator();
 
 class App extends React.Component {
+  componentDidMount() {
+    // do stuff while splash screen is shown
+    // After having done stuff (such as async tasks) hide the splash screen
+    SplashScreen.hide();
+  }
   render() {
     return (
       <Provider store={store}>
