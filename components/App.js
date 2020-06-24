@@ -1,7 +1,6 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import Landing from './Landing';
 import Login from './Login';
 import SignUp from './SignUp';
 import PasswordReset from './PasswordReset';
@@ -29,9 +28,8 @@ class App extends React.Component {
             screenOptions={{
               headerShown: false,
             }}>
-            <Stack.Screen name="Landing" component={Landing} />
-            <Stack.Screen name="SignUp" component={SignUp} />
             <Stack.Screen name="Login" component={Login} />
+            <Stack.Screen name="SignUp" component={SignUp} />
             <Stack.Screen name="PasswordReset" component={PasswordReset} />
             <Stack.Screen name="Progress" component={Progress} />
             <Stack.Screen name="Onboarding" component={Onboarding} />
