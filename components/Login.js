@@ -11,7 +11,7 @@ import plantMascot from '../assets/images/plant-mascot.png';
 import Elipse from '../assets/images/bottom-elipse-green.svg';
 import LoginButton from './common/LoginButton';
 import auth from '../services/auth';
-import asyncStorage from '../services/asyncStorage';
+import asyncStorage from '../asyncStorage';
 
 class Login extends React.Component {
   state = {

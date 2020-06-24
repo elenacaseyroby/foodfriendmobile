@@ -10,7 +10,7 @@ import {
 import BackArrow from '../assets/images/back-arrow.svg';
 import plantMascot from '../assets/images/plant-mascot-blue.png';
 import SignUpButton from './common/SignUpButton';
-import asyncStorage from '../services/asyncStorage';
+import asyncStorage from '../asyncStorage';
 import auth from '../services/auth';
 
 class Login extends React.Component {
