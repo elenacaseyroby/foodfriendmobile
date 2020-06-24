@@ -2,6 +2,8 @@ import C from '../constants';
 
 const API_HOST = 'http://localhost:5000';
 
+// ERROR: does not successfully retrieve & dispatch user OR error!!
+
 export function fetchUser(userId, accessToken) {
   fetchUserBegin();
   return async function (dispatch) {
@@ -14,8 +16,12 @@ export function fetchUser(userId, accessToken) {
       },
     })
       .then(async (res) => {
-        if (res.status !== 200)
-          return dispatch(fetchUserFailure(res.response.message));
+        if (res.status !== 200) {
+          const error = res.response.contains('message')
+            ? res.response.message
+            : JSON.stringify(res.response);
+          return dispatch(fetchUserFailure(error));
+        }
         dispatch(fetchUserSuccess(res.response));
         return res.response;
       })

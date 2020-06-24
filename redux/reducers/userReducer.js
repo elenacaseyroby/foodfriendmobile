@@ -1,4 +1,4 @@
-import C from './constants';
+import C from '../constants';
 
 // login inspired by: https://daveceddia.com/where-fetch-data-redux/
 
@@ -8,7 +8,7 @@ const initialState = {
   data: null,
 };
 
-export const user = (prevState = initialState, action) => {
+export const userReducer = (prevState = initialState, action) => {
   // If action is matched, return a new state else return prevState.
   if (action.type === C.FETCH_USER_BEGIN) {
     return {
