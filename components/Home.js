@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
-// import {connect} from 'react-redux';
-// import {fetchUser} from '../redux/actions/userActionCreator';
+import {connect} from 'react-redux';
+import {fetchUser} from '../redux/actions/userActionCreator';
 
 class Home extends React.Component {
   componentDidMount = () => {
@@ -29,10 +29,8 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Home;
+const mapStateToProps = (state) => ({
+  user: state.user,
+});
 
-// const mapStateToProps = (state) => ({
-//   user: state.user,
-// });
-
-// export default connect(mapStateToProps)(Home);
+export default connect(mapStateToProps)(Home);
