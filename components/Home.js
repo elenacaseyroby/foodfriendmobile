@@ -4,9 +4,6 @@ import {connect} from 'react-redux';
 import {fetchUser} from '../redux/actions/userActionCreator';
 
 class Home extends React.Component {
-  componentDidMount() {
-    this.props.dispatch(fetchUser(2));
-  }
   render() {
     return (
       <View style={styles.rectangle}>

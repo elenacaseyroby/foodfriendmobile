@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import {connect} from 'react-redux';
 import {fetchUser} from '../redux/actions/userActionCreator';
+import {setAuth} from '../redux/actions/authActionCreator';
 import plantMascot from '../assets/images/plant-mascot.png';
 import Elipse from '../assets/images/bottom-elipse-green.svg';
 import LoginButton from './common/LoginButton';
@@ -54,6 +55,8 @@ class Login extends React.Component {
     }
     // If login succeeds: store user_id and access_token in AsyncStorage
     // to persist login data.
+    // access token and user id will be used to get permission to
+    // access to user data from the api.
     const storedToken = await asyncStorage._storeData(
       'ACCESS_TOKEN',
       login.response.access_token,
@@ -72,7 +75,7 @@ class Login extends React.Component {
     }
     // Update user state
     this.props.dispatch(fetchUser(login.response.id));
-    this.props.navigation.navigate('Home');
+    this.props.dispatch(setAuth());
   };
   renderError = () => {
     if (!this.state.renderError) return;

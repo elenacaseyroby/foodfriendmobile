@@ -4,33 +4,30 @@ import {createStackNavigator} from '@react-navigation/stack';
 import SplashScreen from 'react-native-splash-screen';
 import {connect} from 'react-redux';
 import {fetchUser} from '../redux/actions/userActionCreator';
-import asyncStorage from '../asyncStorage';
+import {setAuth} from '../redux/actions/authActionCreator';
 import Login from './Login';
 import SignUp from './SignUp';
 import PasswordReset from './PasswordReset';
 import Progress from './Progress';
 import Onboarding from './Onboarding';
 import Home from './Home';
+import asyncStorage from '../asyncStorage';
 
 const Stack = createStackNavigator();
 
-async function getUserIdIfLoggedIn() {
-  const accessToken = await asyncStorage._retrieveData('ACCESS_TOKEN');
-  const userId = await asyncStorage._retrieveData('USER_ID');
-  if (!accessToken || !userId) return;
-  return userId;
-}
-
 class App extends React.Component {
   componentDidMount = async () => {
-    // do stuff while splash screen is shown
-    // After having done stuff (such as async tasks) hide the splash screen
+    // log out to test:
+    // import asyncStorage from '../asyncStorage';
+    // asyncStorage._clearData();
+
     this.timeoutHandle = setTimeout(() => {
       SplashScreen.hide();
     }, 3000);
-    const userId = await getUserIdIfLoggedIn();
-    if (userId) {
-      this.props.dispatch(fetchUser(userId));
+    // start loading data while splash screen is shown:
+    const authSet = await this.props.dispatch(setAuth());
+    if (authSet && this.props.auth.userId) {
+      this.props.dispatch(fetchUser(this.props.auth.userId));
     }
   };
   componentWillUnmount() {
@@ -47,21 +44,19 @@ class App extends React.Component {
           screenOptions={{
             headerShown: false,
           }}>
-          {this.props.user.id ? (
+          {this.props.auth.userId ? (
             <>
               <Stack.Screen name="Home" component={Home} />
-              <Stack.Screen name="Login" component={Login} />
+              <Stack.Screen name="Progress" component={Progress} />
+              <Stack.Screen name="Onboarding" component={Onboarding} />
             </>
           ) : (
             <>
               <Stack.Screen name="Login" component={Login} />
-              <Stack.Screen name="Home" component={Home} />
+              <Stack.Screen name="SignUp" component={SignUp} />
+              <Stack.Screen name="PasswordReset" component={PasswordReset} />
             </>
           )}
-          <Stack.Screen name="Progress" component={Progress} />
-          <Stack.Screen name="Onboarding" component={Onboarding} />
-          <Stack.Screen name="SignUp" component={SignUp} />
-          <Stack.Screen name="PasswordReset" component={PasswordReset} />
         </Stack.Navigator>
       </NavigationContainer>
     );
@@ -69,7 +64,7 @@ class App extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  user: state.user,
+  auth: state.auth,
 });
 
 export default connect(mapStateToProps)(App);
