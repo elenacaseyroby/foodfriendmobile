@@ -5,7 +5,7 @@ import C from '../constants';
 const initialState = {
   error: null,
   loading: false,
-  data: null,
+  id: null,
 };
 
 export const userReducer = (prevState = initialState, action) => {
@@ -14,19 +14,19 @@ export const userReducer = (prevState = initialState, action) => {
     return {
       error: null,
       loading: true,
-      data: prevState.data,
+      ...prevState.data,
     };
   } else if (action.type === C.FETCH_USER_SUCCESS) {
     return {
       error: null,
       loading: false,
-      data: action.payload.user,
+      ...action.payload.user,
     };
   } else if (action.type === C.FETCH_USER_FAILURE) {
     return {
       error: action.payload.error,
       loading: false,
-      data: action.payload.user,
+      ...action.payload.user,
     };
   } else {
     return prevState;

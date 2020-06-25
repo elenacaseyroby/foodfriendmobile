@@ -4,15 +4,13 @@ import {connect} from 'react-redux';
 import {fetchUser} from '../redux/actions/userActionCreator';
 
 class Home extends React.Component {
-  componentDidMount = () => {
-    // this.props.dispatch(fetchUser());
-  };
+  componentDidMount() {
+    this.props.dispatch(fetchUser(2));
+  }
   render() {
-    const {user} = this.props;
-    console.log(user);
     return (
       <View style={styles.rectangle}>
-        <Text>Home</Text>
+        <Text>Welcome, {this.props.user.first_name}!</Text>
       </View>
     );
   }

@@ -1,16 +1,10 @@
-const API_HOST = 'http://localhost:5000';
+import {getRequest} from './apiUtils';
 
 export default {
-  async getUser(userId, accessToken) {
+  async getUser(userId) {
     try {
-      const response = await fetch(`${API_HOST}/users/${userId}`, {
-        method: 'GET',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          Authorization: accessToken,
-        },
-      });
+      const endpoint = `/users/${userId}`;
+      const response = await getRequest(endpoint);
       const responseJson = await response.json();
       return {response: responseJson, status: response.status};
     } catch (error) {

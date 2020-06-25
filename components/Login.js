@@ -7,6 +7,8 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from 'react-native';
+import {connect} from 'react-redux';
+import {fetchUser} from '../redux/actions/userActionCreator';
 import plantMascot from '../assets/images/plant-mascot.png';
 import Elipse from '../assets/images/bottom-elipse-green.svg';
 import LoginButton from './common/LoginButton';
@@ -27,9 +29,11 @@ class Login extends React.Component {
     this.setState({password: password});
   };
   handleLogin = async () => {
+    // Validate fields.
     if (
       !this.state.email ||
       !this.state.password ||
+      (this.state.email && !this.state.email.includes('@')) ||
       this.state.password.length < 8
     ) {
       this.setState({
@@ -38,30 +42,37 @@ class Login extends React.Component {
       });
       return;
     }
-    const loginToken = await auth.login(this.state.email, this.state.password);
-    if (loginToken.status !== 200) {
+    // Login.
+    const login = await auth.login(this.state.email, this.state.password);
+    // If login fails: throw error.
+    if (login.status !== 200) {
       this.setState({
         renderError: true,
         errorMessage: 'The email and password you have entered are incorrect.',
       });
       return;
     }
-    // If logs in successfully, store user_id and access_token in AsyncStorage.
+    // If login succeeds: store user_id and access_token in AsyncStorage
+    // to persist login data.
     const storedToken = await asyncStorage._storeData(
       'ACCESS_TOKEN',
-      loginToken.response.access_token,
+      login.response.access_token,
     );
     const storedId = await asyncStorage._storeData(
       'USER_ID',
-      JSON.stringify(loginToken.response.id),
+      JSON.stringify(login.response.id),
     );
+    // If login data fails to store, throw error.
     if (!storedToken || !storedId) {
       this.setState({
         renderError: true,
         errorMessage: 'Login failed to process. Please try again.',
       });
+      return;
     }
-    return this.props.navigation.navigate('Home');
+    // Update user state
+    this.props.dispatch(fetchUser(login.response.id));
+    this.props.navigation.navigate('Home');
   };
   renderError = () => {
     if (!this.state.renderError) return;
@@ -190,4 +201,6 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Login;
+const mapStateToProps = (state) => ({});
+
+export default connect(mapStateToProps)(Login);
