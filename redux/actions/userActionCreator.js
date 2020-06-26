@@ -4,6 +4,7 @@ import {getRequest} from '../../services/apiUtils';
 // ERROR: does not successfully retrieve & dispatch user OR error!!
 
 export function fetchUser(userId) {
+  console.log('FETCH USER');
   fetchUserBegin();
   return async function (dispatch) {
     const endpoint = `/users/${userId}`;
@@ -15,8 +16,7 @@ export function fetchUser(userId) {
           : JSON.stringify(res.response);
         return dispatch(fetchUserFailure(error));
       }
-      dispatch(fetchUserSuccess(res.response));
-      return res.response;
+      return dispatch(fetchUserSuccess(res.response));
     } catch (error) {
       return dispatch(fetchUserFailure(error));
     }
