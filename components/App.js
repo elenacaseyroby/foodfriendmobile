@@ -5,7 +5,7 @@ import SplashScreen from 'react-native-splash-screen';
 import {connect} from 'react-redux';
 import {fetchUser} from '../redux/actions/userActionCreator';
 import {setAuth} from '../redux/actions/authActionCreator';
-import Login from './Login';
+import SignIn from './SignIn';
 import SignUp from './SignUp';
 import PasswordReset from './PasswordReset';
 import Progress from './Progress';
@@ -18,8 +18,7 @@ const Stack = createStackNavigator();
 class App extends React.Component {
   componentDidMount = async () => {
     // log out to test:
-    // import asyncStorage from '../asyncStorage';
-    // asyncStorage._clearData();
+    asyncStorage._clearData();
 
     this.timeoutHandle = setTimeout(() => {
       SplashScreen.hide();
@@ -52,7 +51,7 @@ class App extends React.Component {
             </>
           ) : (
             <>
-              <Stack.Screen name="Login" component={Login} />
+              <Stack.Screen name="SignIn" component={SignIn} />
               <Stack.Screen name="SignUp" component={SignUp} />
               <Stack.Screen name="PasswordReset" component={PasswordReset} />
             </>

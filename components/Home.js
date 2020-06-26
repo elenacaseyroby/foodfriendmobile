@@ -4,6 +4,17 @@ import {connect} from 'react-redux';
 import {fetchUser} from '../redux/actions/userActionCreator';
 
 class Home extends React.Component {
+  componentDidMount() {
+    // Fetch user data if not yet in state.
+    if (
+      this.props.user &&
+      !this.props.user.id &&
+      !this.props.user.loading &&
+      !this.props.user.error
+    ) {
+      this.props.dispatch(fetchUser(this.props.auth.userId));
+    }
+  }
   render() {
     return (
       <View style={styles.rectangle}>
@@ -25,6 +36,7 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => ({
+  auth: state.auth,
   user: state.user,
 });
 

@@ -7,13 +7,16 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from 'react-native';
+import {connect} from 'react-redux';
+import {fetchUser} from '../redux/actions/userActionCreator';
+import {setAuth} from '../redux/actions/authActionCreator';
 import BackArrow from '../assets/images/back-arrow.svg';
 import plantMascot from '../assets/images/plant-mascot-blue.png';
 import SignUpButton from './common/SignUpButton';
 import asyncStorage from '../asyncStorage';
 import auth from '../services/auth';
 
-class Login extends React.Component {
+class SignUp extends React.Component {
   state = {
     email: null,
     password: null,
@@ -61,30 +64,33 @@ class Login extends React.Component {
       });
       return;
     }
-    console.log('MADE IT!');
-    const loginToken = await auth.signUp(
+    const login = await auth.signUp(
       this.state.email,
       this.state.password,
       this.state.first_name,
       this.state.last_name,
     );
-    if (loginToken.status !== 200) {
+    if (login.status !== 200) {
       this.setState({
         renderError: true,
-        errorMessage: loginToken.response.message,
+        errorMessage: login.response.message,
       });
       return;
     }
     // If logs in successfully, store user_id and access_token in AsyncStorage.
     const storedToken = await asyncStorage._storeData(
       'ACCESS_TOKEN',
-      loginToken.response.access_token,
+      login.response.access_token,
     );
     const storedId = await asyncStorage._storeData(
       'USER_ID',
-      JSON.stringify(loginToken.response.id),
+      JSON.stringify(login.response.id),
     );
-    return this.props.navigation.navigate('Home');
+    // Update user state
+    if (storedToken && storedId) {
+      this.props.dispatch(fetchUser(login.response.id));
+      this.props.dispatch(setAuth());
+    }
   };
   renderError = () => {
     if (!this.state.renderError) return;
@@ -228,4 +234,6 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Login;
+const mapStateToProps = (state) => ({});
+
+export default connect(mapStateToProps)(SignUp);

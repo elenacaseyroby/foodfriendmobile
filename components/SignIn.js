@@ -16,7 +16,7 @@ import LoginButton from './common/LoginButton';
 import auth from '../services/auth';
 import asyncStorage from '../asyncStorage';
 
-class Login extends React.Component {
+class SignIn extends React.Component {
   state = {
     email: null,
     password: null,
@@ -206,4 +206,4 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => ({});
 
-export default connect(mapStateToProps)(Login);
+export default connect(mapStateToProps)(SignIn);
