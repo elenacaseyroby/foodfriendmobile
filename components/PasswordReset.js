@@ -13,10 +13,6 @@ import Elipse from '../assets/images/bottom-elipse-blue.svg';
 import SubmitButton from './common/SubmitButton';
 
 class PasswordReset extends React.Component {
-  transitionToForgotPasswordPage = () => {
-    return;
-  };
-  handleLogin = () => {};
   handleSubmit = () => {};
   render() {
     return (
@@ -26,8 +22,8 @@ class PasswordReset extends React.Component {
           onPress={() => this.props.navigation.pop()}>
           <BackArrow />
         </TouchableOpacity>
-        <View style={styles.welcomeBackContainer}>
-          <Text style={styles.welcomeText}>Forgot Password?</Text>
+        <View style={styles.ForgotPasswordContainer}>
+          <Text style={styles.forgotText}>Forgot Password?</Text>
           <Image source={plantMascot} />
         </View>
         <TextInput style={styles.formText} placeholder="Email Address" />
@@ -46,7 +42,7 @@ const styles = StyleSheet.create({
     marginTop: 45,
     marginLeft: 33,
   },
-  welcomeBackContainer: {
+  ForgotPasswordContainer: {
     marginBottom: 15,
     marginTop: 20,
     marginLeft: 33,
@@ -56,7 +52,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     maxHeight: 120,
   },
-  welcomeText: {
+  forgotText: {
     marginTop: 25,
     color: '#555555',
     width: 140,
