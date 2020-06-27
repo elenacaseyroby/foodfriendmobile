@@ -8,6 +8,7 @@ import {setAuth} from '../redux/actions/authActionCreator';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
 import PasswordReset from './PasswordReset';
+import UpdatePassword from './UpdatePassword';
 import Progress from './Progress';
 import Onboarding from './Onboarding';
 import Home from './Home';
@@ -54,6 +55,7 @@ class App extends React.Component {
               <Stack.Screen name="SignIn" component={SignIn} />
               <Stack.Screen name="SignUp" component={SignUp} />
               <Stack.Screen name="PasswordReset" component={PasswordReset} />
+              <Stack.Screen name="UpdatePassword" component={UpdatePassword} />
             </>
           )}
         </Stack.Navigator>
