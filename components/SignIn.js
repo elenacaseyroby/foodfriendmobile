@@ -1,5 +1,7 @@
 import React from 'react';
 import {
+  Platform,
+  Linking,
   View,
   TextInput,
   Text,
@@ -23,6 +25,39 @@ class SignIn extends React.Component {
     renderError: false,
     errorMessage: '',
   };
+  handleOpenURL = (event) => {
+    console.log('OPEN URL');
+    // Deep linking
+    this.navigate(event.url);
+  };
+  navigate = (url) => {
+    // Deep linking
+    // foodfriend://routeName/
+    const {navigate} = this.props.navigation;
+    const route = url.replace(/.*?:\/\//g, '');
+    const routeName = route.split('/')[0];
+
+    // foodfriend://updatepassword/:id/:token
+    if (routeName === 'updatepassword') {
+      const userId = route.split('/')[1];
+      const resetToken = route.split('/')[2];
+      navigate('UpdatePassword', {userId: userId, resetToken: resetToken});
+    }
+  };
+  componentDidMount() {
+    // Deep linking
+    if (Platform.OS === 'android') {
+      Linking.getInitialURL().then((url) => {
+        this.navigate(url);
+      });
+    } else {
+      Linking.addEventListener('url', this.handleOpenURL);
+    }
+  }
+  componentWillUnmount() {
+    // Deep linking
+    Linking.removeEventListener('url', this.handleOpenURL);
+  }
   handleEmail = (email) => {
     this.setState({email: email});
   };
