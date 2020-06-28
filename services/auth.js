@@ -38,12 +38,12 @@ export default {
       console.log(error);
     }
   },
-  async resetPassword(userId, password, passwordResetToken) {
+  async resetPassword(userId, newPassword, passwordResetToken) {
     try {
-      const endpoint = '/sendPasswordResetEmail';
+      const endpoint = '/resetPassword';
       const body = {
         userId: userId,
-        password: password,
+        newPassword: newPassword,
         passwordResetToken: passwordResetToken,
       };
       return postRequest(endpoint, body);

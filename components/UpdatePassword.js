@@ -19,12 +19,14 @@ class UpdatePassword extends React.Component {
   };
   handleSubmit = async () => {
     const reset = await auth.resetPassword(
-      this.props.userId,
+      this.props.route.params.userId,
       this.state.password,
-      this.props.passwordResetToken,
+      this.props.route.params.passwordResetToken,
     );
     if (reset.status !== 200) {
-      return this.setState({errorMessage: reset.response.message});
+      return this.setState({
+        errorMessage: JSON.stringify(reset.response.message),
+      });
     }
     this.setState({errorMessage: null});
     // If reset succeeds: store user id and accessToken in AsyncStorage

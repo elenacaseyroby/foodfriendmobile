@@ -48,7 +48,7 @@ class PasswordReset extends React.Component {
         </View>
         {this.state.submitted ? (
           <>
-            <Text>
+            <Text style={styles.successText}>
               A password reset email has been sent to {this.state.email}.
             </Text>
           </>
@@ -61,11 +61,11 @@ class PasswordReset extends React.Component {
             />
             <View style={styles.formEmailBox} />
             {this.renderError()}
+            <View style={styles.button}>
+              <SubmitButton onClick={this.handleSubmit} />
+            </View>
           </>
         )}
-        <View style={styles.button}>
-          <SubmitButton onClick={this.handleSubmit} />
-        </View>
         <Elipse style={styles.elipse} />
       </View>
     );
@@ -108,6 +108,14 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0.5,
     width: 310,
     alignSelf: 'center',
+  },
+  successText: {
+    marginTop: 35,
+    marginLeft: 33,
+    marginRight: 33,
+    fontSize: 20,
+    fontFamily: 'Cabin-Regular',
+    color: '#555555',
   },
   errorText: {
     marginTop: 10,
