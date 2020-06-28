@@ -1,42 +1,52 @@
-const API_HOST = 'http://localhost:5000';
+import {postRequest} from './apiUtils';
 
 export default {
   async login(email, password) {
     try {
-      const response = await fetch(`${API_HOST}/login`, {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: email,
-          password: password,
-        }),
-      });
-      const responseJson = await response.json();
-      return {response: responseJson, status: response.status};
+      const endpoint = '/login';
+      const body = {
+        email: email,
+        password: password,
+      };
+      return postRequest(endpoint, body);
     } catch (error) {
       console.log(error);
     }
   },
   async signUp(email, password, first_name, last_name) {
     try {
-      const response = await fetch(`${API_HOST}/signup`, {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: email,
-          password: password,
-          first_name: first_name,
-          last_name: last_name,
-        }),
-      });
-      const responseJson = await response.json();
-      return {response: responseJson, status: response.status};
+      const endpoint = '/signup';
+      const body = {
+        email: email,
+        password: password,
+        first_name: first_name,
+        last_name: last_name,
+      };
+      return postRequest(endpoint, body);
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  async requestPasswordResetEmail(email) {
+    try {
+      const endpoint = '/sendPasswordResetEmail';
+      const body = {
+        email: email,
+      };
+      return postRequest(endpoint, body);
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  async resetPassword(userId, password, passwordResetToken) {
+    try {
+      const endpoint = '/sendPasswordResetEmail';
+      const body = {
+        userId: userId,
+        password: password,
+        passwordResetToken: passwordResetToken,
+      };
+      return postRequest(endpoint, body);
     } catch (error) {
       console.log(error);
     }
