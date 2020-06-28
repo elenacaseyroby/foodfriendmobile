@@ -40,8 +40,11 @@ class SignIn extends React.Component {
     // foodfriend://updatepassword/:id/:token
     if (routeName === 'updatepassword') {
       const userId = route.split('/')[1];
-      const resetToken = route.split('/')[2];
-      navigate('UpdatePassword', {userId: userId, resetToken: resetToken});
+      const passwordResetToken = route.split('/')[2];
+      navigate('UpdatePassword', {
+        userId: userId,
+        passwordResetToken: passwordResetToken,
+      });
     }
   };
   componentDidMount() {

@@ -11,9 +11,29 @@ import BackArrow from '../assets/images/back-arrow.svg';
 import plantMascot from '../assets/images/plant-mascot-blue.png';
 import Elipse from '../assets/images/bottom-elipse-blue.svg';
 import SubmitButton from './common/SubmitButton';
+import auth from '../services/auth';
 
 class PasswordReset extends React.Component {
-  handleSubmit = () => {};
+  state = {
+    email: null,
+    submitted: false,
+    errorMessage: null,
+  };
+  handleEmail = (email) => {
+    this.setState({email: email});
+  };
+  handleSubmit = async () => {
+    console.log(this.state.email);
+    const response = await auth.requestPasswordResetEmail(this.state.email);
+    if (response.status !== 200) {
+      return this.setState({errorMessage: response.response.message});
+    }
+    this.setState({submitted: true});
+  };
+  renderError = () => {
+    if (!this.state.errorMessage) return;
+    return <Text style={styles.errorText}>{this.state.errorMessage}</Text>;
+  };
   render() {
     return (
       <View style={styles.rectangle}>
@@ -26,8 +46,23 @@ class PasswordReset extends React.Component {
           <Text style={styles.forgotText}>Forgot Password?</Text>
           <Image source={plantMascot} />
         </View>
-        <TextInput style={styles.formText} placeholder="Email Address" />
-        <View style={styles.formEmailBox} />
+        {this.state.submitted ? (
+          <>
+            <Text>
+              A password reset email has been sent to {this.state.email}.
+            </Text>
+          </>
+        ) : (
+          <>
+            <TextInput
+              style={styles.formText}
+              placeholder="Email Address"
+              onChangeText={this.handleEmail}
+            />
+            <View style={styles.formEmailBox} />
+            {this.renderError()}
+          </>
+        )}
         <View style={styles.button}>
           <SubmitButton onClick={this.handleSubmit} />
         </View>
@@ -70,12 +105,19 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   formEmailBox: {
-    marginBottom: 30,
     borderBottomWidth: 0.5,
     width: 310,
     alignSelf: 'center',
   },
+  errorText: {
+    marginTop: 10,
+    marginLeft: 33,
+    fontSize: 14,
+    fontFamily: 'Cabin-Regular',
+    color: '#ea1313',
+  },
   button: {
+    marginTop: 30,
     alignSelf: 'center',
     marginBottom: 10,
   },
