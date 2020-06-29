@@ -12,6 +12,7 @@ import {
 import {connect} from 'react-redux';
 import {fetchUser} from '../redux/actions/userActionCreator';
 import {setAuth} from '../redux/actions/authActionCreator';
+import {routeDeepLink} from '../utils/navigation';
 import plantMascot from '../assets/images/plant-mascot.png';
 import Elipse from '../assets/images/bottom-elipse-green.svg';
 import LoginButton from './common/LoginButton';
@@ -25,41 +26,25 @@ class SignIn extends React.Component {
     renderError: false,
     errorMessage: '',
   };
-  handleOpenURL = (event) => {
-    console.log('OPEN URL');
-    // Deep linking
-    this.navigate(event.url);
-  };
-  navigate = (url) => {
-    // Deep linking
-    // foodfriend://routeName/
-    const {navigate} = this.props.navigation;
-    const route = url.replace(/.*?:\/\//g, '');
-    const routeName = route.split('/')[0];
-
-    // foodfriend://updatepassword/:id/:token
-    if (routeName === 'updatepassword') {
-      const userId = route.split('/')[1];
-      const passwordResetToken = route.split('/')[2];
-      navigate('UpdatePassword', {
-        userId: userId,
-        passwordResetToken: passwordResetToken,
-      });
-    }
-  };
   componentDidMount() {
     // Deep linking
+    const {navigate} = this.props.navigation;
     if (Platform.OS === 'android') {
       Linking.getInitialURL().then((url) => {
-        this.navigate(url);
+        routeDeepLink(url, {navigate});
       });
     } else {
-      Linking.addEventListener('url', this.handleOpenURL);
+      Linking.addEventListener('url', (event) =>
+        routeDeepLink(event.url, {navigate}),
+      );
     }
   }
   componentWillUnmount() {
     // Deep linking
-    Linking.removeEventListener('url', this.handleOpenURL);
+    const {navigate} = this.props.navigation;
+    Linking.removeEventListener('url', (event) =>
+      routeDeepLink(event.url, {navigate}),
+    );
   }
   handleEmail = (email) => {
     this.setState({email: email});
