@@ -17,22 +17,42 @@ class PasswordReset extends React.Component {
   state = {
     email: null,
     submitted: false,
+    renderForm: true,
     errorMessage: null,
   };
   handleEmail = (email) => {
     this.setState({email: email});
   };
   handleSubmit = async () => {
-    console.log(this.state.email);
+    this.setState({renderForm: false});
     const response = await auth.requestPasswordResetEmail(this.state.email);
     if (response.status !== 200) {
-      return this.setState({errorMessage: response.response.message});
+      this.setState({errorMessage: response.response.message});
+      this.setState({renderForm: true});
+      return;
     }
     this.setState({submitted: true});
   };
   renderError = () => {
     if (!this.state.errorMessage) return;
     return <Text style={styles.errorText}>{this.state.errorMessage}</Text>;
+  };
+  renderForm = () => {
+    if (!this.state.renderForm) return;
+    return (
+      <>
+        <TextInput
+          style={styles.formText}
+          placeholder="Email Address"
+          onChangeText={this.handleEmail}
+        />
+        <View style={styles.formEmailBox} />
+        {this.renderError()}
+        <View style={styles.button}>
+          <SubmitButton onClick={this.handleSubmit} />
+        </View>
+      </>
+    );
   };
   render() {
     return (
@@ -47,24 +67,11 @@ class PasswordReset extends React.Component {
           <Image source={plantMascot} />
         </View>
         {this.state.submitted ? (
-          <>
-            <Text style={styles.successText}>
-              A password reset email has been sent to {this.state.email}.
-            </Text>
-          </>
+          <Text style={styles.successText}>
+            A password reset email has been sent to {this.state.email}.
+          </Text>
         ) : (
-          <>
-            <TextInput
-              style={styles.formText}
-              placeholder="Email Address"
-              onChangeText={this.handleEmail}
-            />
-            <View style={styles.formEmailBox} />
-            {this.renderError()}
-            <View style={styles.button}>
-              <SubmitButton onClick={this.handleSubmit} />
-            </View>
-          </>
+          this.renderForm()
         )}
         <Elipse style={styles.elipse} />
       </View>
