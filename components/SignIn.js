@@ -28,6 +28,8 @@ class SignIn extends React.Component {
   };
   componentDidMount() {
     // Deep linking
+    // (added to this page to link to UpdatePassword through link
+    // when logged out.)
     const {navigate} = this.props.navigation;
     if (Platform.OS === 'android') {
       Linking.getInitialURL().then((url) => {
