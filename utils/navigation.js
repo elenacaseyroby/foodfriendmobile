@@ -9,8 +9,8 @@ export async function routeDeepLink(url, {navigate}) {
   const routeName = route.split('/')[0];
 
   // Check if user is logged in & allow different routes based on that.
-  const userId = await asyncStorage._getData('USER_ID');
-  const accessToken = await asyncStorage._getData('ACCESS_TOKEN');
+  const userId = await asyncStorage._retrieveData('USER_ID');
+  const accessToken = await asyncStorage._retrieveData('ACCESS_TOKEN');
   const loggedIn = userId && accessToken;
 
   // logged in routing:
@@ -23,6 +23,8 @@ export async function routeDeepLink(url, {navigate}) {
     if (routeName === 'updatepassword') {
       const userId = route.split('/')[1];
       const passwordResetToken = route.split('/')[2];
+      console.log(userId);
+      console.log(passwordResetToken);
       navigate('UpdatePassword', {
         userId: userId,
         passwordResetToken: passwordResetToken,

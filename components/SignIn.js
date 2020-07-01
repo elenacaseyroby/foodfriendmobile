@@ -1,7 +1,5 @@
 import React from 'react';
 import {
-  Platform,
-  Linking,
   View,
   TextInput,
   Text,
@@ -12,12 +10,13 @@ import {
 import {connect} from 'react-redux';
 import {fetchUser} from '../redux/actions/userActionCreator';
 import {setAuth} from '../redux/actions/authActionCreator';
-import {routeDeepLink} from '../utils/navigation';
 import plantMascot from '../assets/images/plant-mascot.png';
 import Elipse from '../assets/images/bottom-elipse-green.svg';
 import LoginButton from './common/LoginButton';
 import auth from '../services/auth';
 import asyncStorage from '../asyncStorage';
+import {Platform, Linking} from 'react-native';
+import {routeDeepLink} from '../utils/navigation';
 
 class SignIn extends React.Component {
   state = {
