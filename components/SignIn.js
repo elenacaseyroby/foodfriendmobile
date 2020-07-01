@@ -15,6 +15,8 @@ import Elipse from '../assets/images/bottom-elipse-green.svg';
 import LoginButton from './common/LoginButton';
 import auth from '../services/auth';
 import asyncStorage from '../asyncStorage';
+import {Platform, Linking} from 'react-native';
+import {routeDeepLink} from '../utils/navigation';
 
 class SignIn extends React.Component {
   state = {
@@ -23,6 +25,28 @@ class SignIn extends React.Component {
     renderError: false,
     errorMessage: '',
   };
+  componentDidMount() {
+    // Deep linking
+    // (added to this page to link to UpdatePassword through link
+    // when logged out.)
+    const {navigate} = this.props.navigation;
+    if (Platform.OS === 'android') {
+      Linking.getInitialURL().then((url) => {
+        routeDeepLink(url, {navigate});
+      });
+    } else {
+      Linking.addEventListener('url', (event) =>
+        routeDeepLink(event.url, {navigate}),
+      );
+    }
+  }
+  componentWillUnmount() {
+    // Deep linking
+    const {navigate} = this.props.navigation;
+    Linking.removeEventListener('url', (event) =>
+      routeDeepLink(event.url, {navigate}),
+    );
+  }
   handleEmail = (email) => {
     this.setState({email: email});
   };

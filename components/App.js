@@ -8,17 +8,17 @@ import {setAuth} from '../redux/actions/authActionCreator';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
 import PasswordReset from './PasswordReset';
+import UpdatePassword from './UpdatePassword';
 import Progress from './Progress';
 import Onboarding from './Onboarding';
-import Home from './Home';
-//import asyncStorage from '../asyncStorage';
+// import asyncStorage from '../asyncStorage';
 
 const Stack = createStackNavigator();
 
 class App extends React.Component {
   componentDidMount = async () => {
     // log out to test:
-    //asyncStorage._clearData();
+    // asyncStorage._clearData();
 
     this.timeoutHandle = setTimeout(() => {
       SplashScreen.hide();
@@ -45,7 +45,6 @@ class App extends React.Component {
           }}>
           {this.props.auth.userId ? (
             <>
-              <Stack.Screen name="Home" component={Home} />
               <Stack.Screen name="Progress" component={Progress} />
               <Stack.Screen name="Onboarding" component={Onboarding} />
             </>
@@ -54,6 +53,7 @@ class App extends React.Component {
               <Stack.Screen name="SignIn" component={SignIn} />
               <Stack.Screen name="SignUp" component={SignUp} />
               <Stack.Screen name="PasswordReset" component={PasswordReset} />
+              <Stack.Screen name="UpdatePassword" component={UpdatePassword} />
             </>
           )}
         </Stack.Navigator>
