@@ -12,22 +12,22 @@
 		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		15FCD7035FFD4F9D886DAF51 /* Cabin-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA55B3A0EA04536BCB6FA59 /* Cabin-Medium.ttf */; };
 		1B7D9849CC6D023DE072855F /* libPods-foodfriendmobile.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4156D768988B014BCB66804E /* libPods-foodfriendmobile.a */; };
 		263915D2E580C589A1DE89DC /* libPods-foodfriendmobile-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E3CDA1C1D7A8A39AAAC3DEF8 /* libPods-foodfriendmobile-tvOS.a */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* foodfriendmobileTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* foodfriendmobileTests.m */; };
-		74677B96FD9FD40B2C2481ED /* libPods-foodfriendmobile-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CB8BE04D8DF17388F73A8B2A /* libPods-foodfriendmobile-tvOSTests.a */; };
-		91927A117271C65E5B676F79 /* libPods-foodfriendmobile-foodfriendmobileTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 313F2B4B4F0EDC68C5A8C1EB /* libPods-foodfriendmobile-foodfriendmobileTests.a */; };
-		85A0AD24553B4EF3A32B28E7 /* Cabin-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B5824692D6284400919C9080 /* Cabin-Bold.ttf */; };
-		ABB57C14DA854156A3F7A8F0 /* Cabin-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 398AF8DB06BB4EDDB5F5231F /* Cabin-BoldItalic.ttf */; };
 		2FA5EA21741E4A66B0C3D4BB /* Cabin-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9F87CD14F31B46268F81649E /* Cabin-Italic.ttf */; };
-		15FCD7035FFD4F9D886DAF51 /* Cabin-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EEA55B3A0EA04536BCB6FA59 /* Cabin-Medium.ttf */; };
-		E3D39249FA6E4887A2C10918 /* Cabin-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B218A5FE69FE4A1FA71D6DA2 /* Cabin-MediumItalic.ttf */; };
+		3A10E6CBC3D94551A6355CAB /* Cabin-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D6E473AEAC654E2D8251CFC5 /* Cabin-SemiBoldItalic.ttf */; };
+		74677B96FD9FD40B2C2481ED /* libPods-foodfriendmobile-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CB8BE04D8DF17388F73A8B2A /* libPods-foodfriendmobile-tvOSTests.a */; };
+		85A0AD24553B4EF3A32B28E7 /* Cabin-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B5824692D6284400919C9080 /* Cabin-Bold.ttf */; };
+		91927A117271C65E5B676F79 /* libPods-foodfriendmobile-foodfriendmobileTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 313F2B4B4F0EDC68C5A8C1EB /* libPods-foodfriendmobile-foodfriendmobileTests.a */; };
+		ABB57C14DA854156A3F7A8F0 /* Cabin-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 398AF8DB06BB4EDDB5F5231F /* Cabin-BoldItalic.ttf */; };
 		B8F81A5B6361493CAD10B4FE /* Cabin-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AA8F507A2C714DDE8D6D5D73 /* Cabin-Regular.ttf */; };
 		C4C7BC40039B4DED89788C09 /* Cabin-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 228E5BBE354547328FAD7C53 /* Cabin-SemiBold.ttf */; };
-		3A10E6CBC3D94551A6355CAB /* Cabin-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D6E473AEAC654E2D8251CFC5 /* Cabin-SemiBoldItalic.ttf */; };
+		E3D39249FA6E4887A2C10918 /* Cabin-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B218A5FE69FE4A1FA71D6DA2 /* Cabin-MediumItalic.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,7 +66,7 @@
 		00E356EE1AD99517003FC87E /* foodfriendmobileTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = foodfriendmobileTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* foodfriendmobileTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = foodfriendmobileTests.m; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* foodfriendmobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = foodfriendmobile.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07F961A680F5B00A75B9A /* FoodFriend.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FoodFriend.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = foodfriendmobile/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = foodfriendmobile/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB21A68108700A75B9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -75,29 +75,29 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = foodfriendmobile/main.m; sourceTree = "<group>"; };
 		1478B4C2293A21D75B523FD7 /* Pods-foodfriendmobile-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-foodfriendmobile-tvOS.release.xcconfig"; path = "Target Support Files/Pods-foodfriendmobile-tvOS/Pods-foodfriendmobile-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		17083A49B9B6E5FC261BF58F /* Pods-foodfriendmobile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-foodfriendmobile.release.xcconfig"; path = "Target Support Files/Pods-foodfriendmobile/Pods-foodfriendmobile.release.xcconfig"; sourceTree = "<group>"; };
+		228E5BBE354547328FAD7C53 /* Cabin-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Cabin-SemiBold.ttf"; path = "../assets/fonts/Cabin/Cabin-SemiBold.ttf"; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* foodfriendmobile-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "foodfriendmobile-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* foodfriendmobile-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "foodfriendmobile-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		313F2B4B4F0EDC68C5A8C1EB /* libPods-foodfriendmobile-foodfriendmobileTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-foodfriendmobile-foodfriendmobileTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		374D0CCC37EF27B926612724 /* Pods-foodfriendmobile-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-foodfriendmobile-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-foodfriendmobile-tvOS/Pods-foodfriendmobile-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
+		398AF8DB06BB4EDDB5F5231F /* Cabin-BoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Cabin-BoldItalic.ttf"; path = "../assets/fonts/Cabin/Cabin-BoldItalic.ttf"; sourceTree = "<group>"; };
 		4156D768988B014BCB66804E /* libPods-foodfriendmobile.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-foodfriendmobile.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		57E50298F8D65C40703FC8F5 /* Pods-foodfriendmobile-foodfriendmobileTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-foodfriendmobile-foodfriendmobileTests.release.xcconfig"; path = "Target Support Files/Pods-foodfriendmobile-foodfriendmobileTests/Pods-foodfriendmobile-foodfriendmobileTests.release.xcconfig"; sourceTree = "<group>"; };
 		782BBC852491B63B002BA84E /* RNSVG.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNSVG.xcodeproj; path = "../node_modules/react-native-svg/ios/RNSVG.xcodeproj"; sourceTree = "<group>"; };
+		9F87CD14F31B46268F81649E /* Cabin-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Cabin-Italic.ttf"; path = "../assets/fonts/Cabin/Cabin-Italic.ttf"; sourceTree = "<group>"; };
+		AA8F507A2C714DDE8D6D5D73 /* Cabin-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Cabin-Regular.ttf"; path = "../assets/fonts/Cabin/Cabin-Regular.ttf"; sourceTree = "<group>"; };
+		B218A5FE69FE4A1FA71D6DA2 /* Cabin-MediumItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Cabin-MediumItalic.ttf"; path = "../assets/fonts/Cabin/Cabin-MediumItalic.ttf"; sourceTree = "<group>"; };
+		B5824692D6284400919C9080 /* Cabin-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Cabin-Bold.ttf"; path = "../assets/fonts/Cabin/Cabin-Bold.ttf"; sourceTree = "<group>"; };
 		C112B873A6D7000F0C182D02 /* Pods-foodfriendmobile-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-foodfriendmobile-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-foodfriendmobile-tvOSTests/Pods-foodfriendmobile-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		CB8BE04D8DF17388F73A8B2A /* libPods-foodfriendmobile-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-foodfriendmobile-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D6E473AEAC654E2D8251CFC5 /* Cabin-SemiBoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Cabin-SemiBoldItalic.ttf"; path = "../assets/fonts/Cabin/Cabin-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
 		D9FD2A877A648EB4BC836BFE /* Pods-foodfriendmobile-foodfriendmobileTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-foodfriendmobile-foodfriendmobileTests.debug.xcconfig"; path = "Target Support Files/Pods-foodfriendmobile-foodfriendmobileTests/Pods-foodfriendmobile-foodfriendmobileTests.debug.xcconfig"; sourceTree = "<group>"; };
 		E3CDA1C1D7A8A39AAAC3DEF8 /* libPods-foodfriendmobile-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-foodfriendmobile-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
+		EEA55B3A0EA04536BCB6FA59 /* Cabin-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Cabin-Medium.ttf"; path = "../assets/fonts/Cabin/Cabin-Medium.ttf"; sourceTree = "<group>"; };
 		FCFA7890A5DC1E8BE543D7BA /* Pods-foodfriendmobile.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-foodfriendmobile.debug.xcconfig"; path = "Target Support Files/Pods-foodfriendmobile/Pods-foodfriendmobile.debug.xcconfig"; sourceTree = "<group>"; };
 		FF96B9EA2155C613BE6A6BF4 /* Pods-foodfriendmobile-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-foodfriendmobile-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-foodfriendmobile-tvOSTests/Pods-foodfriendmobile-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
-		B5824692D6284400919C9080 /* Cabin-Bold.ttf */ = {isa = PBXFileReference; name = "Cabin-Bold.ttf"; path = "../assets/fonts/Cabin/Cabin-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		398AF8DB06BB4EDDB5F5231F /* Cabin-BoldItalic.ttf */ = {isa = PBXFileReference; name = "Cabin-BoldItalic.ttf"; path = "../assets/fonts/Cabin/Cabin-BoldItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		9F87CD14F31B46268F81649E /* Cabin-Italic.ttf */ = {isa = PBXFileReference; name = "Cabin-Italic.ttf"; path = "../assets/fonts/Cabin/Cabin-Italic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		EEA55B3A0EA04536BCB6FA59 /* Cabin-Medium.ttf */ = {isa = PBXFileReference; name = "Cabin-Medium.ttf"; path = "../assets/fonts/Cabin/Cabin-Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		B218A5FE69FE4A1FA71D6DA2 /* Cabin-MediumItalic.ttf */ = {isa = PBXFileReference; name = "Cabin-MediumItalic.ttf"; path = "../assets/fonts/Cabin/Cabin-MediumItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		AA8F507A2C714DDE8D6D5D73 /* Cabin-Regular.ttf */ = {isa = PBXFileReference; name = "Cabin-Regular.ttf"; path = "../assets/fonts/Cabin/Cabin-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		228E5BBE354547328FAD7C53 /* Cabin-SemiBold.ttf */ = {isa = PBXFileReference; name = "Cabin-SemiBold.ttf"; path = "../assets/fonts/Cabin/Cabin-SemiBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		D6E473AEAC654E2D8251CFC5 /* Cabin-SemiBoldItalic.ttf */ = {isa = PBXFileReference; name = "Cabin-SemiBoldItalic.ttf"; path = "../assets/fonts/Cabin/Cabin-SemiBoldItalic.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -216,12 +216,27 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* foodfriendmobile.app */,
+				13B07F961A680F5B00A75B9A /* FoodFriend.app */,
 				00E356EE1AD99517003FC87E /* foodfriendmobileTests.xctest */,
 				2D02E47B1E0B4A5D006451C7 /* foodfriendmobile-tvOS.app */,
 				2D02E4901E0B4A5D006451C7 /* foodfriendmobile-tvOSTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		8C4ADCFBD5F14DCFB15D490E /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				B5824692D6284400919C9080 /* Cabin-Bold.ttf */,
+				398AF8DB06BB4EDDB5F5231F /* Cabin-BoldItalic.ttf */,
+				9F87CD14F31B46268F81649E /* Cabin-Italic.ttf */,
+				EEA55B3A0EA04536BCB6FA59 /* Cabin-Medium.ttf */,
+				B218A5FE69FE4A1FA71D6DA2 /* Cabin-MediumItalic.ttf */,
+				AA8F507A2C714DDE8D6D5D73 /* Cabin-Regular.ttf */,
+				228E5BBE354547328FAD7C53 /* Cabin-SemiBold.ttf */,
+				D6E473AEAC654E2D8251CFC5 /* Cabin-SemiBoldItalic.ttf */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 		B39E8E3EFE9D573E95088F9F /* Pods */ = {
@@ -238,22 +253,6 @@
 			);
 			path = Pods;
 			sourceTree = "<group>";
-		};
-		8C4ADCFBD5F14DCFB15D490E /* Resources */ = {
-			isa = "PBXGroup";
-			children = (
-				B5824692D6284400919C9080 /* Cabin-Bold.ttf */,
-				398AF8DB06BB4EDDB5F5231F /* Cabin-BoldItalic.ttf */,
-				9F87CD14F31B46268F81649E /* Cabin-Italic.ttf */,
-				EEA55B3A0EA04536BCB6FA59 /* Cabin-Medium.ttf */,
-				B218A5FE69FE4A1FA71D6DA2 /* Cabin-MediumItalic.ttf */,
-				AA8F507A2C714DDE8D6D5D73 /* Cabin-Regular.ttf */,
-				228E5BBE354547328FAD7C53 /* Cabin-SemiBold.ttf */,
-				D6E473AEAC654E2D8251CFC5 /* Cabin-SemiBoldItalic.ttf */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
-			path = "";
 		};
 /* End PBXGroup section */
 
@@ -294,7 +293,7 @@
 			);
 			name = foodfriendmobile;
 			productName = foodfriendmobile;
-			productReference = 13B07F961A680F5B00A75B9A /* foodfriendmobile.app */;
+			productReference = 13B07F961A680F5B00A75B9A /* FoodFriend.app */;
 			productType = "com.apple.product-type.application";
 		};
 		2D02E47A1E0B4A5D006451C7 /* foodfriendmobile-tvOS */ = {
@@ -731,7 +730,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = foodfriendmobile;
+				PRODUCT_NAME = FoodFriend;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -753,7 +752,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = foodfriendmobile;
+				PRODUCT_NAME = FoodFriend;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
