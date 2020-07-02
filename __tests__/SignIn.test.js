@@ -2,8 +2,10 @@ import 'react-native';
 // Note: test renderer must be required after react-native.
 // import renderer from 'react-test-renderer';
 import {validateEmail, validatePassword} from '../utils/formValidation';
+import {storeAsyncLoginData} from '../utils/auth';
+import asyncStorage from '../asyncStorage';
 
-// Test login functionality:
+// Unit tests for login functionality:
 
 // 1. Email validation
 test('Returns error when email field entry is null', () => {
@@ -49,6 +51,32 @@ test('Returns error when password field entry is less than 8 characters in lengt
   const errorMessage = validatePassword(password);
   expect(errorMessage).toMatch('Password must contain at least 8 characters.');
 });
+
+// 4. check access token and user id store in async storage
+test('Returns error if USER_ID and ACCESS_TOKEN not set in async storage.', async () => {
+  // mock _storeData function to output null as if USER_ID and ACCESS_TOKEN were not successfully stored.
+  jest.spyOn(asyncStorage, '_storeData').mockImplementation(() => {
+    return null;
+  });
+  const userId = 1;
+  const accessToken = 'lkasdflkj';
+  const errorMessage = await storeAsyncLoginData(userId, accessToken);
+  expect(errorMessage).toMatch(
+    'An error has occurred. Please try again. If issue persists reach out to customer support for further assistance.',
+  );
+});
+test('Returns "success" if USER_ID and ACCESS_TOKEN are set in async storage.', async () => {
+  // mock _storeData function to output 'success' as if USER_ID and ACCESS_TOKEN were successfully stored.
+  jest.spyOn(asyncStorage, '_storeData').mockImplementation(() => {
+    return 'success';
+  });
+  const userId = 1;
+  const accessToken = 'lkasdflkj';
+  const errorMessage = await storeAsyncLoginData(userId, accessToken);
+  expect(errorMessage).toMatch('success');
+});
+
+//storeAsyncLoginData(userId, accessToken)
 
 // test deep link to UpdatePassword works
 // test updating state works.
