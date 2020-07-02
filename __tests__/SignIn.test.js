@@ -31,7 +31,11 @@ test('Returns error when email field entry does not contain "@".', () => {
   const errorMessage = validateEmail(email);
   expect(errorMessage).toMatch('Please enter a valid email address.');
 });
-
+test('Returns undefined when email passes validation', () => {
+  const email = 'elenacaseyroby@gmail.com';
+  const errorMessage = validateEmail(email);
+  expect(errorMessage).toBeUndefined();
+});
 // 2. Password validation
 test('Returns error when password field entry is null', () => {
   const password = null;
@@ -50,6 +54,11 @@ test('Returns error when password field entry is less than 8 characters in lengt
   const password = '7777777';
   const errorMessage = validatePassword(password);
   expect(errorMessage).toMatch('Password must contain at least 8 characters.');
+});
+test('Returns undefined when password passes validation', () => {
+  const password = '88888888';
+  const errorMessage = validatePassword(password);
+  expect(errorMessage).toBeUndefined();
 });
 
 // 4. check access token and user id store in async storage

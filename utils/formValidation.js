@@ -1,6 +1,6 @@
 export function validateEmail(email) {
   // input string
-  // output error message or null
+  // output error message or undefined
   if (!email) {
     return 'Please enter a valid email address.';
   }
@@ -17,7 +17,7 @@ export function validateEmail(email) {
 }
 export function validatePassword(password) {
   // input string
-  // output error message or null
+  // output error message or undefined
   if (!password) {
     return 'Please enter a valid password.';
   }
