@@ -6,24 +6,25 @@ import {
   Image,
   TouchableOpacity,
   StyleSheet,
+  Platform,
+  Linking,
 } from 'react-native';
 import {connect} from 'react-redux';
 import {fetchUser} from '../redux/actions/userActionCreator';
 import {setAuth} from '../redux/actions/authActionCreator';
+import {validateEmail, validatePassword} from '../utils/formValidation';
+import {storeAsyncLoginData, getLoginError} from '../utils/auth';
+import {routeDeepLink} from '../utils/navigation';
 import plantMascot from '../assets/images/plant-mascot.png';
 import Elipse from '../assets/images/bottom-elipse-green.svg';
 import LoginButton from './common/LoginButton';
 import auth from '../services/auth';
-import asyncStorage from '../asyncStorage';
-import {Platform, Linking} from 'react-native';
-import {routeDeepLink} from '../utils/navigation';
 
 class SignIn extends React.Component {
   state = {
     email: null,
     password: null,
-    renderError: false,
-    errorMessage: '',
+    errorMessage: null,
   };
   componentDidMount() {
     // Deep linking
@@ -55,54 +56,37 @@ class SignIn extends React.Component {
   };
   handleLogin = async () => {
     // Validate fields.
-    if (
-      !this.state.email ||
-      !this.state.password ||
-      (this.state.email && !this.state.email.includes('@')) ||
-      this.state.password.length < 8
-    ) {
-      this.setState({
-        renderError: true,
-        errorMessage: 'Please enter a valid email and password.',
-      });
-      return;
+    let errorMessage = validateEmail(this.state.email);
+    if (!errorMessage) {
+      errorMessage = validatePassword(this.state.password);
+    }
+    if (errorMessage) {
+      return this.setState({errorMessage: errorMessage});
     }
     // Login.
     const login = await auth.login(this.state.email, this.state.password);
+    errorMessage = getLoginError(login);
     // If login fails: throw error.
-    if (login.status !== 200) {
-      this.setState({
-        renderError: true,
-        errorMessage: 'The email and password you have entered are incorrect.',
-      });
-      return;
+    if (errorMessage) {
+      this.setState({errorMessage: errorMessage});
     }
     // If login succeeds: store user_id and access_token in AsyncStorage
-    // to persist login data.
-    // access token and user id will be used to get permission to
+    // to persist user id and access token.
+    // user id and access token will be used to get permission to
     // access to user data from the api.
-    const storedToken = await asyncStorage._storeData(
-      'ACCESS_TOKEN',
+    const result = storeAsyncLoginData(
+      login.response.id,
       login.response.access_token,
     );
-    const storedId = await asyncStorage._storeData(
-      'USER_ID',
-      JSON.stringify(login.response.id),
-    );
-    // If login data fails to store, throw error.
-    if (!storedToken || !storedId) {
-      this.setState({
-        renderError: true,
-        errorMessage: 'Login failed to process. Please try again.',
-      });
-      return;
+    if (result !== 'success') {
+      this.setState({errorMessage: result});
     }
     // Update user state
     this.props.dispatch(fetchUser(login.response.id));
     this.props.dispatch(setAuth());
   };
   renderError = () => {
-    if (!this.state.renderError) return;
+    if (!this.state.errorMessage) return;
     return <Text style={styles.errorText}>{this.state.errorMessage}</Text>;
   };
   render() {
