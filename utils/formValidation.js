@@ -21,14 +21,14 @@ export function validateEmail(email) {
 export function validatePassword(password) {
   // input string
   // output error message or null
-  // if (!password) {
-  //   return 'Please enter a valid password.';
-  // }
-  // if (password.length > 100) {
-  //   return 'Password too long. Please shorten password and submit again.';
-  // }
-  // if (password.length < 8) {
-  //   return 'Password must contain at least 8 characters.';
-  // }
+  if (!password) {
+    return 'Please enter a valid password.';
+  }
+  if (password.length > 70) {
+    return 'Password too long. Please shorten password and submit again.';
+  }
+  if (password.length < 8) {
+    return 'Password must contain at least 8 characters.';
+  }
   return;
 }
