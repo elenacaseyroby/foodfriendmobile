@@ -1,6 +1,13 @@
 import asyncStorage from '../asyncStorage';
 
-//checkLoginSuccessful(loginResponse)
+export function checkLoginSuccessful(loginResponse) {
+  // input response
+  // output error message or undefined;
+  if (loginResponse.status >= 500) return 'Server error.';
+  if (loginResponse.status !== 200)
+    return 'The email and password you have entered are incorrect.';
+  return;
+}
 
 export async function storeAsyncLoginData(userId, accessToken) {
   // input user id and access token
