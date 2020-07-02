@@ -1,6 +1,6 @@
 import asyncStorage from '../asyncStorage';
 
-export function checkLoginSuccessful(loginResponse) {
+export function getLoginError(loginResponse) {
   // input response
   // output error message or undefined;
   if (loginResponse.status >= 500) return 'Server error.';

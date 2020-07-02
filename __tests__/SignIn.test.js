@@ -2,7 +2,7 @@ import 'react-native';
 // Note: test renderer must be required after react-native.
 // import renderer from 'react-test-renderer';
 import {validateEmail, validatePassword} from '../utils/formValidation';
-import {storeAsyncLoginData, checkLoginSuccessful} from '../utils/auth';
+import {storeAsyncLoginData, getLoginError} from '../utils/auth';
 import asyncStorage from '../asyncStorage';
 
 // Unit tests for login functionality:
@@ -61,13 +61,13 @@ test('Returns undefined when password passes validation', () => {
   expect(errorMessage).toBeUndefined();
 });
 
-// 3. test checkLoginSuccessful(loginResponse): check errors returned based on login status
+// 3. test getLoginError(loginResponse): check errors returned based on login status
 test('Returns error if login response is 500', async () => {
   const loginResponse = {
     status: 500,
     response: {},
   };
-  const errorMessage = checkLoginSuccessful(loginResponse);
+  const errorMessage = getLoginError(loginResponse);
   expect(errorMessage).toMatch('Server error.');
 });
 test('Returns error if login response is 400', async () => {
@@ -75,7 +75,7 @@ test('Returns error if login response is 400', async () => {
     status: 400,
     response: {},
   };
-  const errorMessage = checkLoginSuccessful(loginResponse);
+  const errorMessage = getLoginError(loginResponse);
   expect(errorMessage).toMatch(
     'The email and password you have entered are incorrect.',
   );
@@ -85,7 +85,7 @@ test('Returns undefined if login response is 200', async () => {
     status: 200,
     response: {},
   };
-  const errorMessage = checkLoginSuccessful(loginResponse);
+  const errorMessage = getLoginError(loginResponse);
   expect(errorMessage).toBeUndefined();
 });
 // 4. test storeAsyncLoginData
