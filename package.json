@@ -41,9 +41,17 @@
   },
   "jest": {
     "preset": "react-native",
+    "cacheDirectory": "./cache",
+    "coveragePathIgnorePatterns": [
+      "./app/utils/vendor"
+    ],
     "transformIgnorePatterns": [
       "node_modules/(?!(react-native|my-project|react-native-button)/)"
-    ]
+    ],
+    "moduleNameMapper": {
+      "\\.svg": "<rootDir>/__mocks__/svgMock.js",
+      "\\.png": "<rootDir>/__mocks__/pngMock.js"
+    }
   },
   "rnpm": {
     "assets": [
