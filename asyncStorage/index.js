@@ -2,7 +2,7 @@ import {AsyncStorage} from '@react-native-community/async-storage';
 
 export default {
   async _storeData(key, value) {
-    // output 'success' or null
+    // output 'success' or undefined
     try {
       await AsyncStorage.setItem(key, value);
       return 'success';
@@ -12,7 +12,7 @@ export default {
     }
   },
   async _retrieveData(key) {
-    // output 'success' or null
+    // output 'success' or undefined
     try {
       const value = await AsyncStorage.getItem(key);
       if (value !== null) {
@@ -24,7 +24,7 @@ export default {
     }
   },
   async _clearData() {
-    // output 'success' or null
+    // output 'success' or undefined
     try {
       const keys = await AsyncStorage.getAllKeys();
       await AsyncStorage.multiRemove(keys);
