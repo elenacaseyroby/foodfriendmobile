@@ -1,6 +1,3 @@
-// validateEmail(email)
-// validatePassowrd(password)
-
 export function validateEmail(email) {
   // input string
   // output error message or null
