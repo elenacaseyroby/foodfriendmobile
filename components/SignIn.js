@@ -101,6 +101,7 @@ class SignIn extends React.Component {
         <FFTextBox
           placeholder="Email Address"
           handleChange={this.handleEmail}
+          isLowercase={true}
         />
         <FFPasswordBox handleChange={this.handlePassword} />
         {this.renderError()}
@@ -126,6 +127,7 @@ class SignIn extends React.Component {
 
 const styles = StyleSheet.create({
   welcomeBackContainer: {
+    marginBottom: 10,
     marginTop: 45,
     marginLeft: 33,
     marginRight: 33,

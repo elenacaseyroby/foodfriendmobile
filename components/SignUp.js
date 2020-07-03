@@ -11,6 +11,8 @@ import {connect} from 'react-redux';
 import {fetchUser} from '../redux/actions/userActionCreator';
 import {setAuth} from '../redux/actions/authActionCreator';
 import BackArrow from '../assets/images/back-arrow.svg';
+import FFTextBox from './forms/FFTextBox';
+import FFPasswordBox from './forms/FFPasswordBox';
 import plantMascot from '../assets/images/plant-mascot-blue.png';
 import SignUpButton from './common/SignUpButton';
 import asyncStorage from '../asyncStorage';
@@ -104,36 +106,26 @@ class SignUp extends React.Component {
           onPress={() => this.props.navigation.pop()}>
           <BackArrow />
         </TouchableOpacity>
-        <View style={styles.welcomeBackContainer}>
-          <Text style={styles.welcomeText}>Start your journey</Text>
+        <View style={styles.signUpContainer}>
+          <Text style={styles.signUpText}>Start your journey</Text>
           <Image source={plantMascot} />
         </View>
-        <TextInput
-          style={styles.formText}
+        <FFTextBox
           placeholder="First Name"
-          onChangeText={this.handleFirstName}
+          handleChange={this.handleFirstName}
+          isLowercase={false}
         />
-        <View style={styles.formTextBox} />
-        <TextInput
-          style={styles.formText}
+        <FFTextBox
           placeholder="Last Name"
-          onChangeText={this.handleLastName}
+          handleChange={this.handleLastName}
+          isLowercase={false}
         />
-        <View style={styles.formTextBox} />
-        <TextInput
-          style={styles.formText}
-          placeholder="Email"
-          autoCapitalize="none"
-          onChangeText={this.handleEmail}
+        <FFTextBox
+          placeholder="Email Address"
+          handleChange={this.handleEmail}
+          isLowercase={true}
         />
-        <View style={styles.formTextBox} />
-        <TextInput
-          style={styles.formText}
-          secureTextEntry={true}
-          placeholder="Password (8+ characters)"
-          onChangeText={this.handlePassword}
-        />
-        <View style={styles.formPasswordBox} />
+        <FFPasswordBox handleChange={this.handlePassword} />
         {this.renderError()}
         <View style={styles.termsContainer}>
           <Text>By continuing, you agree to FoodFriend’s</Text>
@@ -160,7 +152,8 @@ const styles = StyleSheet.create({
     marginTop: 45,
     marginLeft: 33,
   },
-  welcomeBackContainer: {
+  signUpContainer: {
+    marginBottom: -15,
     marginTop: 10,
     marginLeft: 33,
     marginRight: 33,
@@ -169,7 +162,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  welcomeText: {
+  signUpText: {
     marginTop: 25,
     color: '#555555',
     width: 140,
@@ -197,7 +190,6 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   termsContainer: {
-    marginTop: 20,
     marginLeft: 33,
     marginRight: 33,
     marginBottom: 30,
@@ -221,6 +213,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   errorText: {
+    marginBottom: 15,
     marginTop: 10,
     marginLeft: 33,
     fontSize: 14,

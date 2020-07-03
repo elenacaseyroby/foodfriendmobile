@@ -6,6 +6,7 @@ class FFTextBox extends React.Component {
   static propTypes = {
     handleChange: propTypes.func.isRequired,
     placeholder: propTypes.string.isRequired,
+    isLowercase: propTypes.bool.isRequired,
   };
   render() {
     return (
@@ -13,7 +14,7 @@ class FFTextBox extends React.Component {
         <TextInput
           style={styles.formText}
           placeholder={this.props.placeholder}
-          autoCapitalize="none"
+          autoCapitalize={this.props.isLowercase ? 'none' : 'words'}
           onChangeText={this.props.handleChange}
         />
         <View style={styles.formBox} />
@@ -24,7 +25,7 @@ class FFTextBox extends React.Component {
 
 const styles = StyleSheet.create({
   formText: {
-    marginTop: 20,
+    marginTop: 15,
     marginBottom: 8,
     fontSize: 16,
     fontFamily: 'Cabin-Regular',
