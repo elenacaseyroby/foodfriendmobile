@@ -1,5 +1,7 @@
 import React from 'react';
 import {View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native';
+import {validateEmail} from '../utils/formValidation';
+import {getPasswordResetError} from '../utils/auth';
 import BackArrow from '../assets/images/back-arrow.svg';
 import plantMascot from '../assets/images/plant-mascot-blue.png';
 import Elipse from '../assets/images/bottom-elipse-blue.svg';
@@ -19,11 +21,14 @@ class PasswordReset extends React.Component {
   };
   handleSubmit = async () => {
     this.setState({renderForm: false});
+    let errorMessage = validateEmail(this.state.email);
+    if (errorMessage) {
+      return this.setState({errorMessage: errorMessage, renderForm: true});
+    }
     const response = await auth.requestPasswordResetEmail(this.state.email);
-    if (response.status !== 200) {
-      this.setState({errorMessage: response.response.message});
-      this.setState({renderForm: true});
-      return;
+    errorMessage = getPasswordResetError(response);
+    if (errorMessage) {
+      return this.setState({errorMessage: errorMessage, renderForm: true});
     }
     this.setState({submitted: true});
   };
