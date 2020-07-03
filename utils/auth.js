@@ -4,6 +4,10 @@ export function getLoginError(loginResponse) {
   // input response
   // output error message or undefined;
   if (loginResponse.status >= 500) return 'Server error.';
+  if (loginResponse.status === 401)
+    return 'Password is incorrect. Please try a different password.';
+  if (loginResponse.status === 400)
+    return 'No account associated with this email. Please check for typos an try again.';
   if (loginResponse.status !== 200)
     return 'The email and password you have entered are incorrect.';
   return;

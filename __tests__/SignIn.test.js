@@ -77,7 +77,17 @@ test('Returns error if login response is 400', async () => {
   };
   const errorMessage = getLoginError(loginResponse);
   expect(errorMessage).toMatch(
-    'The email and password you have entered are incorrect.',
+    'No account associated with this email. Please check for typos an try again.',
+  );
+});
+test('Returns error if login response is 401', async () => {
+  const loginResponse = {
+    status: 401,
+    response: {},
+  };
+  const errorMessage = getLoginError(loginResponse);
+  expect(errorMessage).toMatch(
+    'Password is incorrect. Please try a different password.',
   );
 });
 test('Returns undefined if login response is 200', async () => {
