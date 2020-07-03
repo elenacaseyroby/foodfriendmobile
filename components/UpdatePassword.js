@@ -95,6 +95,7 @@ const styles = StyleSheet.create({
   },
   errorText: {
     marginLeft: 33,
+    marginRight: 33,
     fontSize: 14,
     fontFamily: 'Cabin-Regular',
     color: '#ea1313',

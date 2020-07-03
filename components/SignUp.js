@@ -174,6 +174,7 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     marginTop: 10,
     marginLeft: 33,
+    marginRight: 33,
     fontSize: 14,
     fontFamily: 'Cabin-Regular',
     color: '#ea1313',
