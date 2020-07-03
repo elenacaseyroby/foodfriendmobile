@@ -65,6 +65,7 @@ class SignIn extends React.Component {
     }
     // Login.
     const login = await auth.login(this.state.email, this.state.password);
+    console.log(JSON.stringify(login));
     errorMessage = getLoginError(login);
     // If login fails: throw error.
     if (errorMessage) {

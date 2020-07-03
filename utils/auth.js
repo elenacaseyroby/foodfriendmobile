@@ -3,7 +3,8 @@ import asyncStorage from '../asyncStorage';
 export function getLoginError(loginResponse) {
   // input response
   // output error message or undefined;
-  if (loginResponse.status >= 500) return 'Server error.';
+  if (loginResponse.status >= 500)
+    return 'Server error. Please try again later.';
   if (loginResponse.status === 401)
     return 'Password is incorrect. Please try a different password.';
   if (loginResponse.status === 400)

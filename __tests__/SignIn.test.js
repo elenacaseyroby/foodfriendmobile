@@ -68,7 +68,7 @@ test('Returns error if login response is 500', async () => {
     response: {},
   };
   const errorMessage = getLoginError(loginResponse);
-  expect(errorMessage).toMatch('Server error.');
+  expect(errorMessage).toMatch('Server error. Please try again later.');
 });
 test('Returns error if login response is 400', async () => {
   const loginResponse = {
