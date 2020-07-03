@@ -1,15 +1,9 @@
 import React from 'react';
-import {
-  View,
-  TextInput,
-  Text,
-  Image,
-  StyleSheet,
-  TouchableOpacity,
-} from 'react-native';
+import {View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native';
 import BackArrow from '../assets/images/back-arrow.svg';
 import plantMascot from '../assets/images/plant-mascot-blue.png';
 import Elipse from '../assets/images/bottom-elipse-blue.svg';
+import FFTextBox from './forms/FFTextBox';
 import SubmitButton from './common/SubmitButton';
 import auth from '../services/auth';
 
@@ -41,12 +35,11 @@ class PasswordReset extends React.Component {
     if (!this.state.renderForm) return;
     return (
       <>
-        <TextInput
-          style={styles.formText}
+        <FFTextBox
           placeholder="Email Address"
-          onChangeText={this.handleEmail}
+          handleChange={this.handleEmail}
+          isLowercase={true}
         />
-        <View style={styles.formEmailBox} />
         {this.renderError()}
         <View style={styles.button}>
           <SubmitButton onClick={this.handleSubmit} />
@@ -102,20 +95,6 @@ const styles = StyleSheet.create({
     fontFamily: 'Cabin-SemiBold',
     fontSize: 30,
   },
-  formText: {
-    marginTop: 35,
-    marginBottom: 8,
-    fontSize: 16,
-    fontFamily: 'Cabin-Regular',
-    color: '#aaaaaa',
-    width: 310,
-    alignSelf: 'center',
-  },
-  formEmailBox: {
-    borderBottomWidth: 0.5,
-    width: 310,
-    alignSelf: 'center',
-  },
   successText: {
     marginTop: 35,
     marginLeft: 33,
@@ -125,14 +104,13 @@ const styles = StyleSheet.create({
     color: '#555555',
   },
   errorText: {
-    marginTop: 10,
     marginLeft: 33,
     fontSize: 14,
     fontFamily: 'Cabin-Regular',
     color: '#ea1313',
   },
   button: {
-    marginTop: 30,
+    marginTop: 15,
     alignSelf: 'center',
     marginBottom: 10,
   },
