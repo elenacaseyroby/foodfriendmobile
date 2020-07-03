@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   View,
-  TextInput,
   Text,
   Image,
   TouchableOpacity,
@@ -17,6 +16,8 @@ import {storeAsyncLoginData, getLoginError} from '../utils/auth';
 import {routeDeepLink} from '../utils/navigation';
 import plantMascot from '../assets/images/plant-mascot.png';
 import Elipse from '../assets/images/bottom-elipse-green.svg';
+import FFTextBox from './forms/FFTextBox';
+import FFPasswordBox from './forms/FFPasswordBox';
 import LoginButton from './common/LoginButton';
 import auth from '../services/auth';
 
@@ -97,20 +98,11 @@ class SignIn extends React.Component {
           <Text style={styles.welcomeText}>Welcome back!</Text>
           <Image source={plantMascot} />
         </View>
-        <TextInput
-          style={styles.formText}
+        <FFTextBox
           placeholder="Email Address"
-          autoCapitalize="none"
-          onChangeText={this.handleEmail}
+          handleChange={this.handleEmail}
         />
-        <View style={styles.formEmailBox} />
-        <TextInput
-          style={styles.formText}
-          secureTextEntry={true}
-          placeholder="Password (8+ characters)"
-          onChangeText={this.handlePassword}
-        />
-        <View style={styles.formPasswordBox} />
+        <FFPasswordBox handleChange={this.handlePassword} />
         {this.renderError()}
         <TouchableOpacity
           onPress={() => this.props.navigation.navigate('PasswordReset')}>
@@ -134,7 +126,6 @@ class SignIn extends React.Component {
 
 const styles = StyleSheet.create({
   welcomeBackContainer: {
-    marginBottom: 15,
     marginTop: 45,
     marginLeft: 33,
     marginRight: 33,
@@ -151,34 +142,15 @@ const styles = StyleSheet.create({
     fontFamily: 'Cabin-SemiBold',
     fontSize: 30,
   },
-  formText: {
-    marginBottom: 8,
-    fontSize: 16,
-    fontFamily: 'Cabin-Regular',
-    color: '#aaaaaa',
-    width: 310,
-    alignSelf: 'center',
-  },
-  formEmailBox: {
-    marginBottom: 35,
-    borderBottomWidth: 0.5,
-    width: 310,
-    alignSelf: 'center',
-  },
-  formPasswordBox: {
-    borderBottomWidth: 0.5,
-    width: 310,
-    alignSelf: 'center',
-  },
   errorText: {
-    marginTop: 10,
+    marginBottom: 10,
     marginLeft: 33,
+    marginRight: 33,
     fontSize: 14,
     fontFamily: 'Cabin-Regular',
     color: '#ea1313',
   },
   forgotPasswordText: {
-    marginTop: 15,
     marginLeft: 33,
     marginBottom: 25,
     fontSize: 14,
@@ -190,7 +162,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   signUpContainer: {
-    marginTop: 5,
+    marginTop: 10,
     flex: 1,
     flexDirection: 'row',
     flexWrap: 'wrap',
