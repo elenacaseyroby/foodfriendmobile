@@ -70,14 +70,14 @@ test('Returns error if login response is 500', async () => {
   const errorMessage = getLoginError(loginResponse);
   expect(errorMessage).toMatch('Server error. Please try again later.');
 });
-test('Returns error if login response is 400', async () => {
+test('Returns error if login response is 404', async () => {
   const loginResponse = {
-    status: 400,
+    status: 404,
     response: {},
   };
   const errorMessage = getLoginError(loginResponse);
   expect(errorMessage).toMatch(
-    'No account associated with this email. Please check for typos an try again.',
+    'Could not find account under this email. Please check for typos an try again.',
   );
 });
 test('Returns error if login response is 401', async () => {
