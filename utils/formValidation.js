@@ -19,7 +19,7 @@ export function validatePassword(password) {
   // input string
   // output error message or undefined
   if (!password || '') {
-    return 'Please enter a valid password.';
+    return 'Please enter a password.';
   }
   if (password.length > 70) {
     return 'Password too long. Please shorten password and submit again.';

@@ -40,7 +40,7 @@ test('Returns undefined when email passes validation', () => {
 test('Returns error when password field entry is null', () => {
   const password = null;
   const errorMessage = validatePassword(password);
-  expect(errorMessage).toMatch('Please enter a valid password.');
+  expect(errorMessage).toMatch('Please enter a password.');
 });
 test('Returns error when password field entry is over 70 characters in length', () => {
   const password =
