@@ -68,7 +68,7 @@ class SignIn extends React.Component {
     errorMessage = getLoginError(login);
     // If login fails: throw error.
     if (errorMessage) {
-      this.setState({errorMessage: errorMessage});
+      return this.setState({errorMessage: errorMessage});
     }
     // If login succeeds: store user_id and access_token in AsyncStorage
     // to persist user id and access token.
@@ -79,7 +79,7 @@ class SignIn extends React.Component {
       login.response.access_token,
     );
     if (result !== 'success') {
-      this.setState({errorMessage: result});
+      return this.setState({errorMessage: result});
     }
     // Update user state
     this.props.dispatch(fetchUser(login.response.id));
