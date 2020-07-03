@@ -1,31 +1,28 @@
 import React from 'react';
-import {
-  View,
-  TextInput,
-  Text,
-  Image,
-  TouchableOpacity,
-  StyleSheet,
-} from 'react-native';
+import {View, Text, Image, TouchableOpacity, StyleSheet} from 'react-native';
 import {connect} from 'react-redux';
 import {fetchUser} from '../redux/actions/userActionCreator';
 import {setAuth} from '../redux/actions/authActionCreator';
+import {
+  validateEmail,
+  validatePassword,
+  validateName,
+} from '../utils/formValidation';
+import {getPasswordUpdateError, storeAsyncLoginData} from '../utils/auth';
 import BackArrow from '../assets/images/back-arrow.svg';
 import FFTextBox from './forms/FFTextBox';
 import FFPasswordBox from './forms/FFPasswordBox';
 import plantMascot from '../assets/images/plant-mascot-blue.png';
 import SignUpButton from './common/SignUpButton';
-import asyncStorage from '../asyncStorage';
 import auth from '../services/auth';
 
 class SignUp extends React.Component {
   state = {
     email: null,
     password: null,
-    first_name: null,
-    last_name: null,
-    renderError: false,
-    errorMessage: '',
+    firstName: null,
+    lastName: null,
+    errorMessage: null,
   };
   handleEmail = (email) => {
     this.setState({email: email});
@@ -33,69 +30,49 @@ class SignUp extends React.Component {
   handlePassword = (password) => {
     this.setState({password: password});
   };
-  handleFirstName = (first_name) => {
-    this.setState({first_name: first_name});
+  handleFirstName = (firstName) => {
+    this.setState({firstName: firstName});
   };
-  handleLastName = (last_name) => {
-    this.setState({last_name: last_name});
+  handleLastName = (lastName) => {
+    this.setState({lastName: lastName});
   };
   handleSignUp = async () => {
-    if (
-      !this.state.email ||
-      !this.state.password ||
-      !this.state.first_name ||
-      !this.state.last_name
-    ) {
-      this.setState({
-        renderError: true,
-        errorMessage: 'Please provide a response to all of the above fields.',
-      });
-      return;
-    } else if (
-      !this.state.email.includes('@') ||
-      this.state.email.length > 100 ||
-      this.state.password.length < 8 ||
-      this.state.password.length > 100 ||
-      this.state.first_name.length > 100 ||
-      this.state.last_name.length > 100
-    ) {
-      this.setState({
-        renderError: true,
-        errorMessage:
-          'Please make sure you provide a valid email address and that your responses are not too long.',
-      });
-      return;
+    // Validate fields.
+    let errorMessage = validateEmail(this.state.email);
+    if (!errorMessage) {
+      errorMessage = validatePassword(this.state.password);
     }
-    const login = await auth.signUp(
+    if (!errorMessage) {
+      errorMessage = validateName(this.state.firstName);
+    }
+    if (!errorMessage) {
+      errorMessage = validateName(this.state.lastName);
+    }
+    if (errorMessage) {
+      return this.setState({errorMessage: errorMessage});
+    }
+    const signUp = await auth.signUp(
       this.state.email,
       this.state.password,
-      this.state.first_name,
-      this.state.last_name,
+      this.state.firstName,
+      this.state.lastName,
     );
-    if (login.status !== 200) {
-      this.setState({
-        renderError: true,
-        errorMessage: login.response.message,
-      });
-      return;
+    errorMessage = getPasswordUpdateError(signUp);
+    if (errorMessage) {
+      return this.setState({errorMessage: errorMessage});
     }
-    // If logs in successfully, store user_id and access_token in AsyncStorage.
-    const storedToken = await asyncStorage._storeData(
-      'ACCESS_TOKEN',
-      login.response.access_token,
+    const result = storeAsyncLoginData(
+      signUp.response.id,
+      signUp.response.access_token,
     );
-    const storedId = await asyncStorage._storeData(
-      'USER_ID',
-      JSON.stringify(login.response.id),
-    );
-    // Update user state
-    if (storedToken && storedId) {
-      this.props.dispatch(fetchUser(login.response.id));
-      this.props.dispatch(setAuth());
+    if (result !== 'success') {
+      return this.setState({errorMessage: result});
     }
+    this.props.dispatch(fetchUser(signUp.response.id));
+    this.props.dispatch(setAuth());
   };
   renderError = () => {
-    if (!this.state.renderError) return;
+    if (!this.state.errorMessage) return;
     return <Text style={styles.errorText}>{this.state.errorMessage}</Text>;
   };
   render() {

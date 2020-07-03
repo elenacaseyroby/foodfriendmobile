@@ -14,6 +14,18 @@ export function getLoginError(loginResponse) {
   return;
 }
 
+export function getSignUpError(signUpResponse) {
+  // input response
+  // output error message or undefined;
+  if (signUpResponse.status >= 500)
+    return 'Server error. Please try again later.';
+  if (signUpResponse.status === 401)
+    return 'There is already an account under this email.';
+  if (signUpResponse.status !== 200)
+    return 'Invalid form field(s).  Could not create account.';
+  return;
+}
+
 export function getPasswordResetError(resetResponse) {
   // input response
   // output error message or undefined;
