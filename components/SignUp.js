@@ -170,25 +170,6 @@ const styles = StyleSheet.create({
     fontFamily: 'Cabin-SemiBold',
     fontSize: 30,
   },
-  formText: {
-    marginBottom: 12,
-    fontSize: 16,
-    fontFamily: 'Cabin-Regular',
-    color: '#aaaaaa',
-    width: 310,
-    alignSelf: 'center',
-  },
-  formTextBox: {
-    marginBottom: 25,
-    borderBottomWidth: 0.5,
-    width: 310,
-    alignSelf: 'center',
-  },
-  formPasswordBox: {
-    borderBottomWidth: 0.5,
-    width: 310,
-    alignSelf: 'center',
-  },
   termsContainer: {
     marginLeft: 33,
     marginRight: 33,
