@@ -1,5 +1,8 @@
 import AsyncStorage from '@react-native-community/async-storage';
 
+// BE CAREFUL CHANGING THESE OUTPUTS.
+// IF YOU DO, THINGS WILL BREAK ALL OVER APP
+// BUT TESTS WILL STILL PASS.
 export default {
   async _storeData(key, value) {
     // output 'success' or undefined
