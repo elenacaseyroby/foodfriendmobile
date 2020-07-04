@@ -76,7 +76,7 @@ class SignIn extends React.Component {
     // to persist user id and access token.
     // user id and access token will be used to get permission to
     // access to user data from the api.
-    const result = storeAsyncLoginData(
+    const result = await storeAsyncLoginData(
       login.response.id,
       login.response.access_token,
     );
