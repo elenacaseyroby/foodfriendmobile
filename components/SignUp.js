@@ -61,7 +61,7 @@ class SignUp extends React.Component {
     if (errorMessage) {
       return this.setState({errorMessage: errorMessage});
     }
-    const result = storeAsyncLoginData(
+    const result = await storeAsyncLoginData(
       signUp.response.id,
       signUp.response.access_token,
     );

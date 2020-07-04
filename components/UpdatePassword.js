@@ -41,7 +41,7 @@ class UpdatePassword extends React.Component {
     // to persist login data.
     // access token and user id will be used to get permission to
     // access to user data from the api.
-    const result = storeAsyncLoginData(
+    const result = await storeAsyncLoginData(
       reset.response.id,
       reset.response.access_token,
     );
