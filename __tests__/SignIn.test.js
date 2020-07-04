@@ -61,7 +61,7 @@ test('Returns undefined when password passes validation', () => {
   expect(errorMessage).toBeUndefined();
 });
 
-// 3. test getLoginError(loginResponse): check errors returned based on login status
+// 3. check for login errors
 test('Returns error if login response is 500', async () => {
   const loginResponse = {
     status: 500,
@@ -98,7 +98,7 @@ test('Returns undefined if login response is 200', async () => {
   const errorMessage = getLoginError(loginResponse);
   expect(errorMessage).toBeUndefined();
 });
-// 4. test storeAsyncLoginData
+// 4. check for errors storing/persisting login data
 test('Returns error if USER_ID and ACCESS_TOKEN not set in async storage.', async () => {
   // mock _storeData function to output null as if USER_ID and ACCESS_TOKEN were not successfully stored.
   jest.spyOn(asyncStorage, '_storeData').mockImplementation(() => {
