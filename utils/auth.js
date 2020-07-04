@@ -4,7 +4,7 @@ export function getLoginError(loginResponse) {
   // input response
   // output error message or undefined;
   if (loginResponse.status >= 500)
-    return 'Server error. Please try again later.';
+    return 'Network error. Please try again later.';
   if (loginResponse.status === 401)
     return 'Password is incorrect. Please try a different password.';
   if (loginResponse.status === 404)
@@ -18,7 +18,7 @@ export function getSignUpError(signUpResponse) {
   // input response
   // output error message or undefined;
   if (signUpResponse.status >= 500)
-    return 'Server error. Please try again later.';
+    return 'Network error. Please try again later.';
   if (signUpResponse.status === 401)
     return 'There is already an account under this email.';
   if (signUpResponse.status !== 200)
@@ -30,7 +30,7 @@ export function getPasswordResetError(resetResponse) {
   // input response
   // output error message or undefined;
   if (resetResponse.status >= 500)
-    return 'Server error. Please try again later.';
+    return 'Network error. Please try again later.';
   if (resetResponse.status === 404)
     return 'Could not find account under this email. Please check for typos an try again.';
   if (resetResponse.status !== 200)
@@ -42,7 +42,7 @@ export function getPasswordUpdateError(resetResponse) {
   // input response
   // output error message or undefined;
   if (resetResponse.status >= 500)
-    return 'Server error. Please try again later.';
+    return 'Network error. Please try again later.';
   if (resetResponse.status === 401)
     return 'Password reset request expired.  Please submit a new password reset request and try again.';
   if (resetResponse.status !== 200)

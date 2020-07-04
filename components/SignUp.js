@@ -8,7 +8,7 @@ import {
   validatePassword,
   validateName,
 } from '../utils/formValidation';
-import {getPasswordUpdateError, storeAsyncLoginData} from '../utils/auth';
+import {getSignUpError, storeAsyncLoginData} from '../utils/auth';
 import BackArrow from '../assets/images/back-arrow.svg';
 import FFTextBox from './forms/FFTextBox';
 import FFPasswordBox from './forms/FFPasswordBox';
@@ -57,7 +57,7 @@ class SignUp extends React.Component {
       this.state.firstName,
       this.state.lastName,
     );
-    errorMessage = getPasswordUpdateError(signUp);
+    errorMessage = getSignUpError(signUp);
     if (errorMessage) {
       return this.setState({errorMessage: errorMessage});
     }
