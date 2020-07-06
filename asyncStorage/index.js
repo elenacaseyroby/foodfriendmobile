@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-community/async-storage';
 
-// BE CAREFUL CHANGING THESE OUTPUTS.
+// WARNING: DO NOT CHANGE THESE METHODS (ESPECIALLY THE OUTPUTS).
 // IF YOU DO, THINGS WILL BREAK ALL OVER APP
 // BUT TESTS WILL STILL PASS.
 export default {
