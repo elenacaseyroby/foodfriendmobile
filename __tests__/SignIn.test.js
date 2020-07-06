@@ -60,7 +60,6 @@ test('Returns undefined when password passes validation', () => {
   const errorMessage = validatePassword(password);
   expect(errorMessage).toBeUndefined();
 });
-
 // 3. check for login errors
 test('Returns error if login response is 500', async () => {
   const loginResponse = {
@@ -106,8 +105,8 @@ test('Returns error if USER_ID and ACCESS_TOKEN not set in async storage.', asyn
   });
   const userId = 1;
   const accessToken = 'lkasdflkj';
-  const errorMessage = await storeAsyncLoginData(userId, accessToken);
-  expect(errorMessage).toMatch(
+  const result = await storeAsyncLoginData(userId, accessToken);
+  expect(result).toMatch(
     'An error has occurred. Please try again. If issue persists reach out to customer support for further assistance.',
   );
 });
@@ -118,8 +117,8 @@ test('Returns "success" if USER_ID and ACCESS_TOKEN are set in async storage.', 
   });
   const userId = 1;
   const accessToken = 'lkasdflkj';
-  const errorMessage = await storeAsyncLoginData(userId, accessToken);
-  expect(errorMessage).toMatch('success');
+  const result = await storeAsyncLoginData(userId, accessToken);
+  expect(result).toMatch('success');
 });
 
 //storeAsyncLoginData(userId, accessToken)
