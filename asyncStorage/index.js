@@ -6,11 +6,14 @@ import AsyncStorage from '@react-native-community/async-storage';
 export default {
   async _storeData(key, value) {
     // output 'success' or undefined
+    let stringValue = value;
     try {
-      await AsyncStorage.setItem(key, JSON.stringify(value));
+      if (typeof stringValue !== 'string') {
+        stringValue = JSON.stringify(value);
+      }
+      await AsyncStorage.setItem(key, stringValue);
       return 'success';
     } catch (error) {
-      console.log(error);
       console.log('Failed to save the data to the storage');
       return;
     }
