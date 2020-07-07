@@ -14,6 +14,7 @@ export default {
       await AsyncStorage.setItem(key, stringValue);
       return 'success';
     } catch (error) {
+      console.log(error);
       console.log('Failed to save the data to the storage');
       return;
     }

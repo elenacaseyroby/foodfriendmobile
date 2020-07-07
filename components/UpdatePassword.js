@@ -43,7 +43,7 @@ class UpdatePassword extends React.Component {
     // access to user data from the api.
     const result = await storeAsyncLoginData(
       reset.response.id,
-      reset.response.access_token,
+      reset.response.accessToken,
     );
     if (result !== 'success') {
       return this.setState({errorMessage: result});
