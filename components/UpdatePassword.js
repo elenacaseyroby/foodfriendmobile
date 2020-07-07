@@ -42,14 +42,14 @@ class UpdatePassword extends React.Component {
     // access token and user id will be used to get permission to
     // access to user data from the api.
     const result = await storeAsyncLoginData(
-      reset.response.id,
+      reset.response.userId,
       reset.response.accessToken,
     );
     if (result !== 'success') {
       return this.setState({errorMessage: result});
     }
     // Update user state
-    this.props.dispatch(fetchUser(reset.response.id));
+    this.props.dispatch(fetchUser(reset.response.userId));
     this.props.dispatch(setAuth());
   };
   renderError = () => {

@@ -62,13 +62,13 @@ class SignUp extends React.Component {
       return this.setState({errorMessage: errorMessage});
     }
     const result = await storeAsyncLoginData(
-      signUp.response.id,
-      signUp.response.access_token,
+      signUp.response.userId,
+      signUp.response.accessToken,
     );
     if (result !== 'success') {
       return this.setState({errorMessage: result});
     }
-    this.props.dispatch(fetchUser(signUp.response.id));
+    this.props.dispatch(fetchUser(signUp.response.userId));
     this.props.dispatch(setAuth());
   };
   renderError = () => {

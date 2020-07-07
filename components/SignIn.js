@@ -66,7 +66,6 @@ class SignIn extends React.Component {
     }
     // Login.
     const login = await auth.login(this.state.email, this.state.password);
-    console.log(JSON.stringify(login));
     errorMessage = getLoginError(login);
     // If login fails: throw error.
     if (errorMessage) {
@@ -77,14 +76,14 @@ class SignIn extends React.Component {
     // user id and access token will be used to get permission to
     // access to user data from the api.
     const result = await storeAsyncLoginData(
-      login.response.id,
-      login.response.access_token,
+      login.response.userId,
+      login.response.accessToken,
     );
     if (result !== 'success') {
       return this.setState({errorMessage: result});
     }
     // Update user state
-    this.props.dispatch(fetchUser(login.response.id));
+    this.props.dispatch(fetchUser(login.response.userId));
     this.props.dispatch(setAuth());
   };
   renderError = () => {
