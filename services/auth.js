@@ -2,53 +2,74 @@ import {postRequest} from './apiUtils';
 
 export default {
   async login(email, password) {
+    const endpoint = '/login';
+    const body = {
+      email: email,
+      password: password,
+    };
+    // Set default error response:
+    const status = 500;
+    const response = {message: 'Network request failed'};
+    let loginResponse = {response: response, status: status};
     try {
-      const endpoint = '/login';
-      const body = {
-        email: email,
-        password: password,
-      };
-      return postRequest(endpoint, body);
+      loginResponse = await postRequest(endpoint, body);
     } catch (error) {
       console.log(error);
     }
+    console.log('about to return');
+    return loginResponse;
   },
-  async signUp(email, password, first_name, last_name) {
+  async signUp(email, password, firstName, lastName) {
+    const endpoint = '/signup';
+    const body = {
+      email: email,
+      password: password,
+      firstName: firstName,
+      lastName: lastName,
+    };
+    // Set default error response:
+    const status = 500;
+    const response = {message: 'Network request failed'};
+    let signUpResponse = {response: response, status: status};
     try {
-      const endpoint = '/signup';
-      const body = {
-        email: email,
-        password: password,
-        first_name: first_name,
-        last_name: last_name,
-      };
-      return postRequest(endpoint, body);
+      signUpResponse = await postRequest(endpoint, body);
     } catch (error) {
       console.log(error);
     }
+    return signUpResponse;
   },
   async requestPasswordResetEmail(email) {
+    const endpoint = '/sendPasswordResetEmail';
+    const body = {
+      email: email,
+    };
+    // Set default error response:
+    const status = 500;
+    const response = {message: 'Network request failed'};
+    let resetResponse = {response: response, status: status};
     try {
-      const endpoint = '/sendPasswordResetEmail';
-      const body = {
-        email: email,
-      };
-      return postRequest(endpoint, body);
+      resetResponse = await postRequest(endpoint, body);
     } catch (error) {
       console.log(error);
     }
+    return resetResponse;
   },
   async resetPassword(userId, newPassword, passwordResetToken) {
+    const endpoint = '/resetPassword';
+    const body = {
+      userId: userId,
+      newPassword: newPassword,
+      passwordResetToken: passwordResetToken,
+    };
+    // Set default error response:
+    const status = 500;
+    const response = {message: 'Network request failed'};
+    let resetResponse = {response: response, status: status};
     try {
-      const endpoint = '/resetPassword';
-      const body = {
-        userId: userId,
-        newPassword: newPassword,
-        passwordResetToken: passwordResetToken,
-      };
-      return postRequest(endpoint, body);
+      resetResponse = await postRequest(endpoint, body);
     } catch (error) {
       console.log(error);
     }
+    return resetResponse;
   },
 };

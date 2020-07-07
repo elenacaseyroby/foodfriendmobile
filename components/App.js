@@ -1,5 +1,4 @@
 import React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import SplashScreen from 'react-native-splash-screen';
 import {connect} from 'react-redux';
@@ -38,26 +37,24 @@ class App extends React.Component {
   }
   render() {
     return (
-      <NavigationContainer>
-        <Stack.Navigator
-          screenOptions={{
-            headerShown: false,
-          }}>
-          {this.props.auth.userId ? (
-            <>
-              <Stack.Screen name="Progress" component={Progress} />
-              <Stack.Screen name="Onboarding" component={Onboarding} />
-            </>
-          ) : (
-            <>
-              <Stack.Screen name="SignIn" component={SignIn} />
-              <Stack.Screen name="SignUp" component={SignUp} />
-              <Stack.Screen name="PasswordReset" component={PasswordReset} />
-              <Stack.Screen name="UpdatePassword" component={UpdatePassword} />
-            </>
-          )}
-        </Stack.Navigator>
-      </NavigationContainer>
+      <Stack.Navigator
+        screenOptions={{
+          headerShown: false,
+        }}>
+        {this.props.auth.userId ? (
+          <>
+            <Stack.Screen name="Progress" component={Progress} />
+            <Stack.Screen name="Onboarding" component={Onboarding} />
+          </>
+        ) : (
+          <>
+            <Stack.Screen name="SignIn" component={SignIn} />
+            <Stack.Screen name="SignUp" component={SignUp} />
+            <Stack.Screen name="PasswordReset" component={PasswordReset} />
+            <Stack.Screen name="UpdatePassword" component={UpdatePassword} />
+          </>
+        )}
+      </Stack.Navigator>
     );
   }
 }
