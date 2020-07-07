@@ -18,7 +18,7 @@ class Progress extends React.Component {
   render() {
     return (
       <View style={styles.rectangle}>
-        <Text>Welcome, {this.props.user.first_name}!</Text>
+        <Text>Welcome, {this.props.user.firstName}!</Text>
       </View>
     );
   }

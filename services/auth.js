@@ -19,13 +19,13 @@ export default {
     console.log('about to return');
     return loginResponse;
   },
-  async signUp(email, password, first_name, last_name) {
+  async signUp(email, password, firstName, lastName) {
     const endpoint = '/signup';
     const body = {
       email: email,
       password: password,
-      first_name: first_name,
-      last_name: last_name,
+      firstName: firstName,
+      lastName: lastName,
     };
     // Set default error response:
     const status = 500;
