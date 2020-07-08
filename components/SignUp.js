@@ -39,15 +39,9 @@ class SignUp extends React.Component {
   handleSignUp = async () => {
     // Validate fields.
     let errorMessage = validateName(this.state.firstName);
-    if (!errorMessage) {
-      errorMessage = validateName(this.state.lastName);
-    }
-    if (!errorMessage) {
-      errorMessage = validateEmail(this.state.email);
-    }
-    if (!errorMessage) {
-      errorMessage = validatePassword(this.state.password);
-    }
+    errorMessage = errorMessage || validateName(this.state.lastName);
+    errorMessage = errorMessage || validateEmail(this.state.email);
+    errorMessage = errorMessage || validatePassword(this.state.password);
     if (errorMessage) {
       return this.setState({errorMessage: errorMessage});
     }

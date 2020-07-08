@@ -58,9 +58,7 @@ class SignIn extends React.Component {
   handleLogin = async () => {
     // Validate fields.
     let errorMessage = validateEmail(this.state.email);
-    if (!errorMessage) {
-      errorMessage = validatePassword(this.state.password);
-    }
+    errorMessage = errorMessage || validatePassword(this.state.password);
     if (errorMessage) {
       return this.setState({errorMessage: errorMessage});
     }
