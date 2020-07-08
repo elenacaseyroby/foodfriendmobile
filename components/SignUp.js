@@ -99,7 +99,7 @@ class SignUp extends React.Component {
         <FFPasswordBox handleChange={this.handlePassword} />
         {this.renderError()}
         <View style={styles.termsContainer}>
-          <Text>By continuing, you agree to FoodFriend’s</Text>
+          <Text>By signing up, you agree to our</Text>
           <TouchableOpacity
             onPress={() => this.props.navigation.navigate('Home')}>
             <Text style={styles.termsTextOrange}>terms & conditions</Text>
