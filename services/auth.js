@@ -2,7 +2,7 @@ import {postRequest} from './apiUtils';
 
 export default {
   async login(email, password) {
-    const endpoint = '/login';
+    const endpoint = '/signin';
     const body = {
       email: email,
       password: password,
