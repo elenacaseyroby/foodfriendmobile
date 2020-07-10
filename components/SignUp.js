@@ -108,7 +108,7 @@ class SignUp extends React.Component {
           </TouchableOpacity>
           <Text>{` and `}</Text>
           <TouchableOpacity
-            onPress={() => this.props.navigation.navigate('Progress')}>
+            onPress={() => this.props.navigation.navigate('Privacy Policy')}>
             <Text style={styles.termsTextOrange}>privacy policy</Text>
           </TouchableOpacity>
         </View>

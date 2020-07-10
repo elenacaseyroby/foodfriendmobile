@@ -4,6 +4,7 @@ import SplashScreen from 'react-native-splash-screen';
 import {connect} from 'react-redux';
 import {fetchUser} from '../redux/actions/userActionCreator';
 import {fetchTermsAndConditions} from '../redux/actions/termsAndConditionsActionCreator';
+import {fetchPrivacyPolicy} from '../redux/actions/privacyPolicyActionCreator';
 import {setAuth} from '../redux/actions/authActionCreator';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
@@ -12,6 +13,7 @@ import UpdatePassword from './UpdatePassword';
 import Progress from './Progress';
 import Onboarding from './Onboarding';
 import TermsAndConditions from './TermsAndConditions';
+import PrivacyPolicy from './PrivacyPolicy';
 import asyncStorage from '../asyncStorage';
 
 const Stack = createStackNavigator();
@@ -30,6 +32,7 @@ class App extends React.Component {
       this.props.dispatch(fetchUser(this.props.auth.userId));
     }
     this.props.dispatch(fetchTermsAndConditions());
+    this.props.dispatch(fetchPrivacyPolicy());
   };
   componentWillUnmount() {
     // This is just necessary in the case that the screen is closed
@@ -59,6 +62,7 @@ class App extends React.Component {
               name="Terms And Conditions"
               component={TermsAndConditions}
             />
+            <Stack.Screen name="Privacy Policy" component={PrivacyPolicy} />
           </>
         )}
       </Stack.Navigator>
