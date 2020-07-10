@@ -101,12 +101,14 @@ class SignUp extends React.Component {
         <View style={styles.termsContainer}>
           <Text>By signing up, you agree to our</Text>
           <TouchableOpacity
-            onPress={() => this.props.navigation.navigate('Home')}>
+            onPress={() =>
+              this.props.navigation.navigate('Terms And Conditions')
+            }>
             <Text style={styles.termsTextOrange}>terms & conditions</Text>
           </TouchableOpacity>
           <Text>{` and `}</Text>
           <TouchableOpacity
-            onPress={() => this.props.navigation.navigate('Home')}>
+            onPress={() => this.props.navigation.navigate('Progress')}>
             <Text style={styles.termsTextOrange}>privacy policy</Text>
           </TouchableOpacity>
         </View>
