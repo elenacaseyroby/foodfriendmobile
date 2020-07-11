@@ -11,17 +11,17 @@ import SignUp from './SignUp';
 import PasswordReset from './PasswordReset';
 import UpdatePassword from './UpdatePassword';
 import Progress from './Progress';
-import Onboarding from './Onboarding';
+import OnboardingSlides from './OnboardingSlides';
 import TermsAndConditions from './TermsAndConditions';
 import PrivacyPolicy from './PrivacyPolicy';
-import asyncStorage from '../asyncStorage';
+// import asyncStorage from '../asyncStorage';
 
 const Stack = createStackNavigator();
 
 class App extends React.Component {
   componentDidMount = async () => {
     // log out to test:
-    await asyncStorage._clearData();
+    // await asyncStorage._clearData();
 
     this.timeoutHandle = setTimeout(() => {
       SplashScreen.hide();
@@ -41,6 +41,17 @@ class App extends React.Component {
     // the user experience.
     clearTimeout(this.timeoutHandle);
   }
+  renderOnboardingSlides = () => {
+    // If user is logged in and hasn't picked a path show them
+    // the onboarding slides.
+    console.log('RENDER SLIDES');
+    if (this.props.user && !this.props.user.activePathId) {
+      return (
+        <Stack.Screen name="Onboarding Slides" component={OnboardingSlides} />
+      );
+    }
+    return;
+  };
   render() {
     return (
       <Stack.Navigator
@@ -49,8 +60,8 @@ class App extends React.Component {
         }}>
         {this.props.auth.userId ? (
           <>
+            {this.renderOnboardingSlides()}
             <Stack.Screen name="Progress" component={Progress} />
-            <Stack.Screen name="Onboarding" component={Onboarding} />
           </>
         ) : (
           <>
@@ -72,6 +83,7 @@ class App extends React.Component {
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
+  user: state.user,
 });
 
 export default connect(mapStateToProps)(App);

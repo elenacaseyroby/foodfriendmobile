@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 
-class Onboarding extends React.Component {
+class OnboardingSlides extends React.Component {
   render() {
     return (
       <View style={styles.rectangle}>
@@ -22,4 +22,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Onboarding;
+export default OnboardingSlides;
