@@ -3,6 +3,8 @@ import {createStackNavigator} from '@react-navigation/stack';
 import SplashScreen from 'react-native-splash-screen';
 import {connect} from 'react-redux';
 import {fetchUser} from '../redux/actions/userActionCreator';
+import {fetchTermsAndConditions} from '../redux/actions/termsAndConditionsActionCreator';
+import {fetchPrivacyPolicy} from '../redux/actions/privacyPolicyActionCreator';
 import {setAuth} from '../redux/actions/authActionCreator';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
@@ -10,14 +12,16 @@ import PasswordReset from './PasswordReset';
 import UpdatePassword from './UpdatePassword';
 import Progress from './Progress';
 import Onboarding from './Onboarding';
-// import asyncStorage from '../asyncStorage';
+import TermsAndConditions from './TermsAndConditions';
+import PrivacyPolicy from './PrivacyPolicy';
+import asyncStorage from '../asyncStorage';
 
 const Stack = createStackNavigator();
 
 class App extends React.Component {
   componentDidMount = async () => {
     // log out to test:
-    // asyncStorage._clearData();
+    await asyncStorage._clearData();
 
     this.timeoutHandle = setTimeout(() => {
       SplashScreen.hide();
@@ -27,6 +31,8 @@ class App extends React.Component {
     if (authSet && this.props.auth.userId) {
       this.props.dispatch(fetchUser(this.props.auth.userId));
     }
+    this.props.dispatch(fetchTermsAndConditions());
+    this.props.dispatch(fetchPrivacyPolicy());
   };
   componentWillUnmount() {
     // This is just necessary in the case that the screen is closed
@@ -48,10 +54,15 @@ class App extends React.Component {
           </>
         ) : (
           <>
-            <Stack.Screen name="SignIn" component={SignIn} />
-            <Stack.Screen name="SignUp" component={SignUp} />
-            <Stack.Screen name="PasswordReset" component={PasswordReset} />
-            <Stack.Screen name="UpdatePassword" component={UpdatePassword} />
+            <Stack.Screen name="Sign In" component={SignIn} />
+            <Stack.Screen name="Sign Up" component={SignUp} />
+            <Stack.Screen name="Password Reset" component={PasswordReset} />
+            <Stack.Screen name="Update Password" component={UpdatePassword} />
+            <Stack.Screen
+              name="Terms And Conditions"
+              component={TermsAndConditions}
+            />
+            <Stack.Screen name="Privacy Policy" component={PrivacyPolicy} />
           </>
         )}
       </Stack.Navigator>

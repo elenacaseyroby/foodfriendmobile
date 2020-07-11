@@ -1,8 +1,6 @@
 import C from '../constants';
 import {getRequest} from '../../services/apiUtils';
 
-// ERROR: does not successfully retrieve & dispatch user OR error!!
-
 export function fetchUser(userId) {
   console.log('FETCH USER');
   fetchUserBegin();

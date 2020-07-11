@@ -103,7 +103,7 @@ class SignIn extends React.Component {
         <FFPasswordBox handleChange={this.handlePassword} />
         {this.renderError()}
         <TouchableOpacity
-          onPress={() => this.props.navigation.navigate('PasswordReset')}>
+          onPress={() => this.props.navigation.navigate('Password Reset')}>
           <Text style={styles.forgotPasswordText}>Forgot your password?</Text>
         </TouchableOpacity>
         <View style={styles.loginButton}>
@@ -112,7 +112,7 @@ class SignIn extends React.Component {
         <View style={styles.signUpContainer}>
           <Text>Don't have an account? </Text>
           <TouchableOpacity
-            onPress={() => this.props.navigation.navigate('SignUp')}>
+            onPress={() => this.props.navigation.navigate('Sign Up')}>
             <Text style={styles.signUpText}>Sign up here</Text>
           </TouchableOpacity>
         </View>

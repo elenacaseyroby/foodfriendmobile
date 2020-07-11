@@ -1,28 +1,28 @@
 import C from '../constants';
 
-// login inspired by: https://daveceddia.com/where-fetch-data-redux/
-
 const initialState = {
   error: null,
   loading: false,
   id: null,
+  date_published: null,
+  text: null,
 };
 
-export const userReducer = (prevState = initialState, action) => {
+export const privacyPolicyReducer = (prevState = initialState, action) => {
   // If action is matched, return a new state else return prevState.
-  if (action.type === C.FETCH_USER_BEGIN) {
+  if (action.type === C.FETCH_PP_BEGIN) {
     return {
       error: null,
       loading: true,
       ...prevState.data,
     };
-  } else if (action.type === C.FETCH_USER_SUCCESS) {
+  } else if (action.type === C.FETCH_PP_SUCCESS) {
     return {
       error: null,
       loading: false,
-      ...action.payload.user,
+      ...action.payload.privacyPolicy,
     };
-  } else if (action.type === C.FETCH_USER_FAILURE) {
+  } else if (action.type === C.FETCH_PP_FAILURE) {
     return {
       error: action.payload.error,
       loading: false,
