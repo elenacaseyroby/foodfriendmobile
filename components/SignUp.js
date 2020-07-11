@@ -104,7 +104,7 @@ class SignUp extends React.Component {
             onPress={() =>
               this.props.navigation.navigate('Terms And Conditions')
             }>
-            <Text style={styles.termsTextOrange}>terms & conditions</Text>
+            <Text style={styles.termsTextOrange}>{' terms & conditions'}</Text>
           </TouchableOpacity>
           <Text>{` and `}</Text>
           <TouchableOpacity
@@ -148,6 +148,7 @@ const styles = StyleSheet.create({
     marginRight: 33,
     marginBottom: 30,
     maxHeight: 20,
+    maxWidth: 315,
     flex: 1,
     flexDirection: 'row',
     flexWrap: 'wrap',
@@ -163,6 +164,7 @@ const styles = StyleSheet.create({
     color: '#ed762c',
   },
   loginButton: {
+    marginTop: 10,
     alignSelf: 'center',
     marginBottom: 10,
   },

@@ -57,16 +57,16 @@ class StaticTextScreen extends React.Component {
 const styles = StyleSheet.create({
   header: {
     flex: 1,
-    marginTop: 5,
-    paddingTop: 5,
+    marginTop: 40,
     flexDirection: 'row',
     justifyContent: 'flex-start',
     minHeight: 90,
     maxHeight: 90,
     borderBottomWidth: 0.5,
+    borderTopWidth: 0.5,
   },
   backArrow: {
-    marginTop: 37,
+    marginTop: 39,
     marginLeft: 33,
   },
   titleContainer: {

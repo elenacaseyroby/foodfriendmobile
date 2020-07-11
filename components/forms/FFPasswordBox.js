@@ -28,14 +28,14 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: 'Cabin-Regular',
     color: '#555555',
-    width: 310,
-    alignSelf: 'center',
+    marginLeft: 33,
+    marginRight: 33,
   },
   formBox: {
     marginBottom: 15,
     borderBottomWidth: 0.5,
-    width: 310,
-    alignSelf: 'center',
+    marginLeft: 33,
+    marginRight: 33,
     color: '#555555',
   },
 });

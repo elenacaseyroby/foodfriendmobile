@@ -125,7 +125,7 @@ class SignIn extends React.Component {
 const styles = StyleSheet.create({
   welcomeBackContainer: {
     marginBottom: 10,
-    marginTop: 45,
+    marginTop: 50,
     marginLeft: 33,
     marginRight: 33,
     flex: 1,
