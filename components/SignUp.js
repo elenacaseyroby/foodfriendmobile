@@ -9,11 +9,12 @@ import {
   validateName,
 } from '../utils/formValidation';
 import {getSignUpError, storeAsyncLoginData} from '../utils/auth';
-import BackArrow from '../assets/images/back-arrow.svg';
+import BackArrow from './common/BackArrow';
 import FFTextBox from './forms/FFTextBox';
 import FFPasswordBox from './forms/FFPasswordBox';
 import plantMascot from '../assets/images/plant-mascot-blue.png';
 import SignUpButton from './common/SignUpButton';
+import Elipse from './common/BlueBottomElipse';
 import auth from '../services/auth';
 
 class SignUp extends React.Component {
@@ -72,13 +73,13 @@ class SignUp extends React.Component {
   render() {
     return (
       <View style={styles.rectangle}>
-        <TouchableOpacity
-          style={styles.backArrow}
-          onPress={() => this.props.navigation.pop()}>
-          <BackArrow />
-        </TouchableOpacity>
         <View style={styles.signUpContainer}>
-          <Text style={styles.signUpText}>Start your journey</Text>
+          <View style={styles.arrowAndTextContainer}>
+            <View style={styles.backArrow}>
+              <BackArrow onPress={() => this.props.navigation.pop()} />
+            </View>
+            <Text style={styles.signUpText}>Start your journey</Text>
+          </View>
           <Image source={plantMascot} />
         </View>
         <FFTextBox
@@ -115,25 +116,25 @@ class SignUp extends React.Component {
         <View style={styles.loginButton}>
           <SignUpButton onClick={this.handleSignUp} />
         </View>
+        <Elipse />
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  backArrow: {
-    marginTop: 45,
-    marginLeft: 33,
-  },
   signUpContainer: {
-    marginBottom: -15,
-    marginTop: 10,
+    marginTop: 40,
     marginLeft: 33,
     marginRight: 33,
-    maxHeight: 150,
+    maxHeight: 135,
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
+  },
+  backArrow: {
+    marginTop: 10,
+    marginBottom: 20,
   },
   signUpText: {
     marginTop: 25,
