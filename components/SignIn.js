@@ -15,7 +15,7 @@ import {validateEmail, validatePassword} from '../utils/formValidation';
 import {storeAsyncLoginData, getLoginError} from '../utils/auth';
 import {routeDeepLink} from '../utils/navigation';
 import plantMascot from '../assets/images/plant-mascot.png';
-import Elipse from '../assets/images/bottom-elipse-green.svg';
+import FoodPlate from './common/FoodPlate';
 import FFTextBox from './forms/FFTextBox';
 import FFPasswordBox from './forms/FFPasswordBox';
 import LoginButton from './common/LoginButton';
@@ -116,7 +116,7 @@ class SignIn extends React.Component {
             <Text style={styles.signUpText}>Sign up here</Text>
           </TouchableOpacity>
         </View>
-        <Elipse style={styles.elipse} />
+        <FoodPlate />
       </View>
     );
   }
@@ -172,10 +172,6 @@ const styles = StyleSheet.create({
   },
   signUpText: {
     color: '#ed762c',
-  },
-  elipse: {
-    position: 'absolute',
-    bottom: 0,
   },
   rectangle: {
     backgroundColor: '#ffffff',

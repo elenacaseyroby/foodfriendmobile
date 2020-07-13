@@ -14,14 +14,14 @@ import Progress from './Progress';
 import OnboardingSlides from './OnboardingSlides';
 import TermsAndConditions from './TermsAndConditions';
 import PrivacyPolicy from './PrivacyPolicy';
-// import asyncStorage from '../asyncStorage';
+import asyncStorage from '../asyncStorage';
 
 const Stack = createStackNavigator();
 
 class App extends React.Component {
   componentDidMount = async () => {
     // log out to test:
-    // await asyncStorage._clearData();
+    await asyncStorage._clearData();
 
     this.timeoutHandle = setTimeout(() => {
       SplashScreen.hide();
