@@ -1,25 +1,17 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {StyleSheet} from 'react-native';
+import SlideOne from './SlideOne';
 
 class OnboardingSlides extends React.Component {
   render() {
     return (
-      <View style={styles.rectangle}>
-        <Text>Onboarding Page</Text>
-      </View>
+      <>
+        <SlideOne />
+      </>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  logo: {},
-  rectangle: {
-    backgroundColor: '#1f641e',
-    minHeight: '100%',
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
+const styles = StyleSheet.create({});
 
 export default OnboardingSlides;
