@@ -77,7 +77,7 @@ class UpdatePassword extends React.Component {
 const styles = StyleSheet.create({
   updatePasswordContainer: {
     marginBottom: 15,
-    marginTop: 40,
+    marginTop: 50,
     marginLeft: 33,
     marginRight: 33,
     flex: 1,
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
     color: '#ea1313',
   },
   button: {
-    marginTop: 15,
+    marginTop: 20,
     alignSelf: 'center',
     marginBottom: 10,
   },
