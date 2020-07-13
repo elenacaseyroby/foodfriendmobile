@@ -1,10 +1,10 @@
 import React from 'react';
-import {View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native';
+import {View, Text, Image, StyleSheet} from 'react-native';
 import {validateEmail} from '../utils/formValidation';
 import {getPasswordResetError} from '../utils/auth';
-import BackArrow from '../assets/images/back-arrow.svg';
+import BackArrow from '../components/common/BackArrow';
 import plantMascot from '../assets/images/plant-mascot-blue.png';
-import Elipse from '../assets/images/bottom-elipse-blue.svg';
+import Elipse from './common/BlueBottomElipse';
 import FFTextBox from './forms/FFTextBox';
 import SubmitButton from './common/SubmitButton';
 import auth from '../services/auth';
@@ -55,13 +55,13 @@ class PasswordReset extends React.Component {
   render() {
     return (
       <View style={styles.rectangle}>
-        <TouchableOpacity
-          style={styles.backArrow}
-          onPress={() => this.props.navigation.pop()}>
-          <BackArrow />
-        </TouchableOpacity>
         <View style={styles.ForgotPasswordContainer}>
-          <Text style={styles.forgotText}>Forgot Password?</Text>
+          <View style={styles.arrowAndTextContainer}>
+            <View style={styles.backArrow}>
+              <BackArrow onPress={() => this.props.navigation.pop()} />
+            </View>
+            <Text style={styles.forgotText}>Forgot Password?</Text>
+          </View>
           <Image source={plantMascot} />
         </View>
         {this.state.submitted ? (
@@ -71,26 +71,25 @@ class PasswordReset extends React.Component {
         ) : (
           this.renderForm()
         )}
-        <Elipse style={styles.elipse} />
+        <Elipse />
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  backArrow: {
-    marginTop: 45,
-    marginLeft: 33,
-  },
   ForgotPasswordContainer: {
-    marginBottom: 15,
-    marginTop: 20,
+    marginTop: 40,
     marginLeft: 33,
     marginRight: 33,
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    maxHeight: 120,
+    maxHeight: 135,
+  },
+  backArrow: {
+    marginTop: 10,
+    marginBottom: 20,
   },
   forgotText: {
     marginTop: 25,
@@ -119,10 +118,6 @@ const styles = StyleSheet.create({
     marginTop: 15,
     alignSelf: 'center',
     marginBottom: 10,
-  },
-  elipse: {
-    position: 'absolute',
-    bottom: 0,
   },
   rectangle: {
     backgroundColor: '#ffffff',

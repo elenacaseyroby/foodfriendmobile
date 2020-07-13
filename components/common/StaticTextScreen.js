@@ -1,13 +1,7 @@
 import React from 'react';
-import {
-  ScrollView,
-  TouchableOpacity,
-  View,
-  Text,
-  StyleSheet,
-} from 'react-native';
+import {ScrollView, View, Text, StyleSheet} from 'react-native';
 import propTypes from 'prop-types';
-import BackArrow from '../../assets/images/back-arrow.svg';
+import BackArrow from './BackArrow';
 
 class StaticTextScreen extends React.Component {
   static propTypes = {
@@ -35,11 +29,9 @@ class StaticTextScreen extends React.Component {
     return (
       <View style={styles.rectangle}>
         <View style={styles.header}>
-          <TouchableOpacity
-            style={styles.backArrow}
-            onPress={() => this.props.navigation.pop()}>
-            <BackArrow />
-          </TouchableOpacity>
+          <View style={styles.backArrow}>
+            <BackArrow onPress={() => this.props.navigation.pop()} />
+          </View>
           <View style={styles.titleContainer}>
             <Text style={styles.title}>{this.props.title}</Text>
           </View>
@@ -57,22 +49,22 @@ class StaticTextScreen extends React.Component {
 const styles = StyleSheet.create({
   header: {
     flex: 1,
-    marginTop: 40,
+    marginTop: 0,
     flexDirection: 'row',
-    justifyContent: 'flex-start',
+    justifyContent: 'space-evenly',
     minHeight: 90,
     maxHeight: 90,
     borderBottomWidth: 0.5,
-    borderTopWidth: 0.5,
+    alignItems: 'flex-end',
+    paddingBottom: 12,
   },
   backArrow: {
-    marginTop: 39,
-    marginLeft: 33,
+    maxHeight: 35,
+    maxWidth: 35,
   },
   titleContainer: {
-    marginLeft: 35,
-    width: 255,
-    justifyContent: 'center',
+    maxHeight: 40,
+    minWidth: 260,
   },
   title: {
     fontSize: 25,
