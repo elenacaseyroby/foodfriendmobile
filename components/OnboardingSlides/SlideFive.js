@@ -8,7 +8,7 @@ class SlideFive extends React.Component {
     return (
       <ImageBackground source={backgroundImage} style={styles.backgroundImage}>
         <View style={styles.progressBar}>
-          <ProgressBar activePageNumber={5} />
+          <ProgressBar activeCircleIndex={5} />
         </View>
       </ImageBackground>
     );

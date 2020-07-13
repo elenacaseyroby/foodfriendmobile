@@ -5,26 +5,27 @@ import propTypes from 'prop-types';
 class ProgressBar extends React.Component {
   static propTypes = {
     // Must be between 1 and 5
-    activePageNumber: propTypes.number.isRequired,
+    activeCircleIndex: propTypes.number.isRequired,
   };
   render() {
-    const pageNumbers = [...Array(5).keys()];
-
+    const circleIndices = Object.keys(fillColorByCircleIndex);
     return (
       <View style={styles.progressBar}>
-        {pageNumbers.map((number) => {
-          if (number === this.props.activePageNumber - 1) {
+        {circleIndices.map((circleIndexStr) => {
+          // eslint-disable-next-line radix
+          const circleIndex = parseInt(circleIndexStr);
+          if (circleIndex === this.props.activeCircleIndex) {
             return (
               <View
-                key={number}
+                key={circleIndex}
                 style={[
                   styles.filledCircle,
-                  fillColorByPageNumber[this.props.activePageNumber],
+                  fillColorByCircleIndex[this.props.activeCircleIndex],
                 ]}
               />
             );
           }
-          return <View key={number} style={styles.emptyCircle} />;
+          return <View key={circleIndex} style={styles.emptyCircle} />;
         })}
       </View>
     );
@@ -53,7 +54,8 @@ const styles = StyleSheet.create({
     maxHeight: 7,
   },
 });
-const fillColorByPageNumber = StyleSheet.create({
+// Define color of circle when active. Define by circle index.
+const fillColorByCircleIndex = StyleSheet.create({
   1: {
     backgroundColor: '#5d80c1',
   },

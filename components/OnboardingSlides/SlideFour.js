@@ -8,7 +8,7 @@ class SlideFour extends React.Component {
     return (
       <ImageBackground source={backgroundImage} style={styles.backgroundImage}>
         <View style={styles.progressBar}>
-          <ProgressBar activePageNumber={4} />
+          <ProgressBar activeCircleIndex={4} />
         </View>
       </ImageBackground>
     );

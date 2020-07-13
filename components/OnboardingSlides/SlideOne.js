@@ -8,7 +8,7 @@ class SlideOne extends React.Component {
     return (
       <ImageBackground source={backgroundImage} style={styles.backgroundImage}>
         <View style={styles.progressBar}>
-          <ProgressBar activePageNumber={1} />
+          <ProgressBar activeCircleIndex={1} />
         </View>
       </ImageBackground>
     );

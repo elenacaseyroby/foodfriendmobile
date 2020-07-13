@@ -8,7 +8,7 @@ class SlideTwo extends React.Component {
     return (
       <ImageBackground source={backgroundImage} style={styles.backgroundImage}>
         <View style={styles.progressBar}>
-          <ProgressBar activePageNumber={2} />
+          <ProgressBar activeCircleIndex={2} />
         </View>
       </ImageBackground>
     );

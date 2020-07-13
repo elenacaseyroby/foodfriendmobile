@@ -8,7 +8,7 @@ class SlideThree extends React.Component {
     return (
       <ImageBackground source={backgroundImage} style={styles.backgroundImage}>
         <View style={styles.progressBar}>
-          <ProgressBar activePageNumber={3} />
+          <ProgressBar activeCircleIndex={3} />
         </View>
       </ImageBackground>
     );
