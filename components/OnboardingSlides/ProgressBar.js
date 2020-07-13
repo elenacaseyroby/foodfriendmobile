@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     height: 6,
     width: 6,
     borderRadius: 100 / 2,
-    opacity: 0.5,
+    opacity: 0.25,
     backgroundColor: '#000000',
   },
   progressBar: {
@@ -64,7 +64,7 @@ const fillColorByPageNumber = StyleSheet.create({
     backgroundColor: '#513d51',
   },
   4: {
-    backgroundColor: '#ffa639',
+    backgroundColor: '#ffe3b3',
   },
   5: {
     backgroundColor: '#7c91cb',
