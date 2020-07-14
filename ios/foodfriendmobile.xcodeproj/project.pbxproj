@@ -22,6 +22,12 @@
 		2FA5EA21741E4A66B0C3D4BB /* Cabin-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9F87CD14F31B46268F81649E /* Cabin-Italic.ttf */; };
 		3A10E6CBC3D94551A6355CAB /* Cabin-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D6E473AEAC654E2D8251CFC5 /* Cabin-SemiBoldItalic.ttf */; };
 		74677B96FD9FD40B2C2481ED /* libPods-foodfriendmobile-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CB8BE04D8DF17388F73A8B2A /* libPods-foodfriendmobile-tvOSTests.a */; };
+		78898A2924BE30D000F86C75 /* Bellota-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 78898A2324BE30CF00F86C75 /* Bellota-Italic.ttf */; };
+		78898A2A24BE30D000F86C75 /* Bellota-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 78898A2424BE30D000F86C75 /* Bellota-Regular.ttf */; };
+		78898A2B24BE30D000F86C75 /* Bellota-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 78898A2524BE30D000F86C75 /* Bellota-BoldItalic.ttf */; };
+		78898A2C24BE30D000F86C75 /* Bellota-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 78898A2624BE30D000F86C75 /* Bellota-Bold.ttf */; };
+		78898A2D24BE30D000F86C75 /* Bellota-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 78898A2724BE30D000F86C75 /* Bellota-LightItalic.ttf */; };
+		78898A2E24BE30D000F86C75 /* Bellota-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 78898A2824BE30D000F86C75 /* Bellota-Light.ttf */; };
 		85A0AD24553B4EF3A32B28E7 /* Cabin-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B5824692D6284400919C9080 /* Cabin-Bold.ttf */; };
 		91927A117271C65E5B676F79 /* libPods-foodfriendmobile-foodfriendmobileTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 313F2B4B4F0EDC68C5A8C1EB /* libPods-foodfriendmobile-foodfriendmobileTests.a */; };
 		ABB57C14DA854156A3F7A8F0 /* Cabin-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 398AF8DB06BB4EDDB5F5231F /* Cabin-BoldItalic.ttf */; };
@@ -84,6 +90,12 @@
 		4156D768988B014BCB66804E /* libPods-foodfriendmobile.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-foodfriendmobile.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		57E50298F8D65C40703FC8F5 /* Pods-foodfriendmobile-foodfriendmobileTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-foodfriendmobile-foodfriendmobileTests.release.xcconfig"; path = "Target Support Files/Pods-foodfriendmobile-foodfriendmobileTests/Pods-foodfriendmobile-foodfriendmobileTests.release.xcconfig"; sourceTree = "<group>"; };
 		782BBC852491B63B002BA84E /* RNSVG.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNSVG.xcodeproj; path = "../node_modules/react-native-svg/ios/RNSVG.xcodeproj"; sourceTree = "<group>"; };
+		78898A2324BE30CF00F86C75 /* Bellota-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Bellota-Italic.ttf"; path = "../assets/fonts/Bellota/Bellota-Italic.ttf"; sourceTree = "<group>"; };
+		78898A2424BE30D000F86C75 /* Bellota-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Bellota-Regular.ttf"; path = "../assets/fonts/Bellota/Bellota-Regular.ttf"; sourceTree = "<group>"; };
+		78898A2524BE30D000F86C75 /* Bellota-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Bellota-BoldItalic.ttf"; path = "../assets/fonts/Bellota/Bellota-BoldItalic.ttf"; sourceTree = "<group>"; };
+		78898A2624BE30D000F86C75 /* Bellota-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Bellota-Bold.ttf"; path = "../assets/fonts/Bellota/Bellota-Bold.ttf"; sourceTree = "<group>"; };
+		78898A2724BE30D000F86C75 /* Bellota-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Bellota-LightItalic.ttf"; path = "../assets/fonts/Bellota/Bellota-LightItalic.ttf"; sourceTree = "<group>"; };
+		78898A2824BE30D000F86C75 /* Bellota-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Bellota-Light.ttf"; path = "../assets/fonts/Bellota/Bellota-Light.ttf"; sourceTree = "<group>"; };
 		9F87CD14F31B46268F81649E /* Cabin-Italic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Cabin-Italic.ttf"; path = "../assets/fonts/Cabin/Cabin-Italic.ttf"; sourceTree = "<group>"; };
 		AA8F507A2C714DDE8D6D5D73 /* Cabin-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Cabin-Regular.ttf"; path = "../assets/fonts/Cabin/Cabin-Regular.ttf"; sourceTree = "<group>"; };
 		B218A5FE69FE4A1FA71D6DA2 /* Cabin-MediumItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Cabin-MediumItalic.ttf"; path = "../assets/fonts/Cabin/Cabin-MediumItalic.ttf"; sourceTree = "<group>"; };
@@ -227,6 +239,12 @@
 		8C4ADCFBD5F14DCFB15D490E /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				78898A2624BE30D000F86C75 /* Bellota-Bold.ttf */,
+				78898A2524BE30D000F86C75 /* Bellota-BoldItalic.ttf */,
+				78898A2324BE30CF00F86C75 /* Bellota-Italic.ttf */,
+				78898A2824BE30D000F86C75 /* Bellota-Light.ttf */,
+				78898A2724BE30D000F86C75 /* Bellota-LightItalic.ttf */,
+				78898A2424BE30D000F86C75 /* Bellota-Regular.ttf */,
 				B5824692D6284400919C9080 /* Cabin-Bold.ttf */,
 				398AF8DB06BB4EDDB5F5231F /* Cabin-BoldItalic.ttf */,
 				9F87CD14F31B46268F81649E /* Cabin-Italic.ttf */,
@@ -419,13 +437,19 @@
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
+				78898A2D24BE30D000F86C75 /* Bellota-LightItalic.ttf in Resources */,
+				78898A2B24BE30D000F86C75 /* Bellota-BoldItalic.ttf in Resources */,
 				85A0AD24553B4EF3A32B28E7 /* Cabin-Bold.ttf in Resources */,
+				78898A2E24BE30D000F86C75 /* Bellota-Light.ttf in Resources */,
 				ABB57C14DA854156A3F7A8F0 /* Cabin-BoldItalic.ttf in Resources */,
 				2FA5EA21741E4A66B0C3D4BB /* Cabin-Italic.ttf in Resources */,
 				15FCD7035FFD4F9D886DAF51 /* Cabin-Medium.ttf in Resources */,
 				E3D39249FA6E4887A2C10918 /* Cabin-MediumItalic.ttf in Resources */,
 				B8F81A5B6361493CAD10B4FE /* Cabin-Regular.ttf in Resources */,
 				C4C7BC40039B4DED89788C09 /* Cabin-SemiBold.ttf in Resources */,
+				78898A2A24BE30D000F86C75 /* Bellota-Regular.ttf in Resources */,
+				78898A2C24BE30D000F86C75 /* Bellota-Bold.ttf in Resources */,
+				78898A2924BE30D000F86C75 /* Bellota-Italic.ttf in Resources */,
 				3A10E6CBC3D94551A6355CAB /* Cabin-SemiBoldItalic.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
