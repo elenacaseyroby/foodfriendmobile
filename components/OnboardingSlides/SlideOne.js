@@ -13,27 +13,38 @@ class SlideOne extends React.Component {
         <View style={styles.progressBar}>
           <ProgressBar activeCircleIndex={1} />
         </View>
-        <View style={styles.everyoneTextContainer}>
-          <Text style={styles.everyoneText}>Everyone</Text>
-          <Text style={styles.deservesText}>deserves to feel good</Text>
-        </View>
-        <Image source={mirror} />
-        <View style={styles.textAndCoinsContainer}>
-          <View style={styles.textContainer}>
-            <Text style={styles.butText}>but</Text>
-            <View style={styles.rowContainer}>
-              <Text style={styles.thiscanBeText}>this can be</Text>
-              <Text style={styles.difficultText}>difficult</Text>
+        <View style={styles.rectangle}>
+          <View style={styles.slideContent}>
+            <View style={styles.everyoneTextContainer}>
+              <Text style={styles.everyoneText}>everyone</Text>
+              <View style={styles.rowContainer}>
+                <Text style={styles.deservesText}>{'deserves to feel '}</Text>
+                <Text style={styles.goodText}>good</Text>
+              </View>
             </View>
-            <Text style={styles.whenText}>when relying on</Text>
-            <Text style={styles.expensiveText}>expensive, unregulated</Text>
-            <Text style={styles.supplementsText}>supplements.</Text>
+            <View style={styles.mirror}>
+              <Image source={mirror} />
+            </View>
+            <View style={styles.textAndCoinsContainer}>
+              <View style={styles.textContainer}>
+                <Text style={styles.butText}>but</Text>
+                <View style={styles.rowContainer}>
+                  <Text style={styles.thiscanBeText}>{'this can be '}</Text>
+                  <Text style={styles.difficultText}>difficult</Text>
+                </View>
+                <Text style={styles.whenText}>when relying on</Text>
+                <Text style={styles.expensiveText}>expensive, unregulated</Text>
+                <Text style={styles.supplementsText}>supplements.</Text>
+              </View>
+              <View style={styles.coins}>
+                <Image source={coins} />
+              </View>
+            </View>
+            <View style={styles.swipeContainer}>
+              <Text style={styles.swipeText}>Swipe to continue</Text>
+              <RightArrow style={styles.arrow} />
+            </View>
           </View>
-          <Image source={coins} />
-        </View>
-        <View style={styles.rowContainer}>
-          <Text style={styles.swipeText}>Swipe to continue</Text>
-          <RightArrow />
         </View>
       </ImageBackground>
     );
@@ -44,34 +55,116 @@ const styles = StyleSheet.create({
   progressBar: {
     marginTop: '12%',
     alignSelf: 'center',
-  },
-  backgroundImage: {
-    height: '100%',
-    flex: 1,
+    position: 'absolute',
   },
   everyoneTextContainer: {
     alignSelf: 'center',
     alignItems: 'center',
+    marginTop: '12%',
+    marginBottom: '5%',
+    // borderColor: '#ffffff',
+    // borderWidth: 0.5,
   },
   everyoneText: {
     fontFamily: 'Bellota-Regular',
+    color: '#ffa639',
+    fontSize: 70,
   },
-  deservesText: {},
+  deservesText: {
+    fontFamily: 'Bellota-Regular',
+    color: '#ffffff',
+    fontSize: 30,
+  },
+  goodText: {
+    fontFamily: 'Bellota-Regular',
+    color: '#ffa639',
+    fontSize: 30,
+  },
+  mirror: {
+    alignSelf: 'center',
+  },
   textAndCoinsContainer: {
+    marginTop: '8%',
     flexDirection: 'row',
   },
   textContainer: {
     width: '70%',
   },
-  butText: {},
-  thiscanBeText: {},
-  difficultText: {},
-  whenText: {},
-  expensiveText: {},
-  supplementsText: {},
-  swipeText: {},
+  butText: {
+    fontSize: 21,
+    alignSelf: 'flex-end',
+    marginRight: '35%',
+    fontFamily: 'Bellota-Regular',
+    color: '#ffffff',
+    lineHeight: 20,
+  },
+  thiscanBeText: {
+    fontSize: 20,
+    marginLeft: '4%',
+    fontFamily: 'Bellota-Regular',
+    color: '#ffffff',
+    lineHeight: 20,
+  },
+  difficultText: {
+    fontSize: 20,
+    marginRight: '5%',
+    fontFamily: 'Bellota-Bold',
+    color: '#ffa639',
+    lineHeight: 20,
+  },
+  whenText: {
+    alignSelf: 'flex-end',
+    marginRight: '25%',
+    fontSize: 20,
+    fontFamily: 'Bellota-Regular',
+    color: '#ffffff',
+    lineHeight: 20,
+  },
+  expensiveText: {
+    fontSize: 20,
+    fontFamily: 'Bellota-Regular',
+    color: '#ffffff',
+    lineHeight: 20,
+  },
+  supplementsText: {
+    fontSize: 30,
+    marginLeft: '18%',
+    fontFamily: 'Bellota-Bold',
+    color: '#ffa639',
+    lineHeight: 30,
+  },
+  coins: {},
+  swipeContainer: {
+    flexDirection: 'row',
+    alignSelf: 'flex-end',
+    width: 150,
+    marginTop: '6%',
+    marginRight: '27%',
+  },
+  swipeText: {
+    fontSize: 14,
+    fontFamily: 'Bellota-Regular',
+    color: '#ffffff',
+  },
+  arrow: {
+    marginTop: 4,
+    marginLeft: 4,
+  },
   rowContainer: {
     flexDirection: 'row',
+  },
+  backgroundImage: {
+    height: '100%',
+    flex: 1,
+  },
+  rectangle: {
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  slideContent: {
+    height: 650,
+    width: 375,
   },
 });
 
