@@ -12,16 +12,17 @@ import PasswordReset from './PasswordReset';
 import UpdatePassword from './UpdatePassword';
 import Progress from './Progress';
 import OnboardingSlides from './OnboardingSlides';
+import OnboardingSurvey from './OnboardingSurvey';
 import TermsAndConditions from './TermsAndConditions';
 import PrivacyPolicy from './PrivacyPolicy';
-import asyncStorage from '../asyncStorage';
+// import asyncStorage from '../asyncStorage';
 
 const Stack = createStackNavigator();
 
 class App extends React.Component {
   componentDidMount = async () => {
     // log out to test:
-    await asyncStorage._clearData();
+    // await asyncStorage._clearData();
 
     this.timeoutHandle = setTimeout(() => {
       SplashScreen.hide();
@@ -44,7 +45,6 @@ class App extends React.Component {
   renderOnboardingSlides = () => {
     // If user is logged in and hasn't picked a path show them
     // the onboarding slides.
-    console.log('RENDER SLIDES');
     if (this.props.user && !this.props.user.activePathId) {
       return (
         <Stack.Screen name="Onboarding Slides" component={OnboardingSlides} />
@@ -60,6 +60,10 @@ class App extends React.Component {
         }}>
         {this.props.auth.userId ? (
           <>
+            <Stack.Screen
+              name="Onboarding Survey"
+              component={OnboardingSurvey}
+            />
             {this.renderOnboardingSlides()}
             <Stack.Screen name="Progress" component={Progress} />
           </>
