@@ -55,22 +55,24 @@ class PasswordReset extends React.Component {
   render() {
     return (
       <View style={styles.rectangle}>
-        <View style={styles.ForgotPasswordContainer}>
-          <View style={styles.arrowAndTextContainer}>
-            <View style={styles.backArrow}>
-              <BackArrow onPress={() => this.props.navigation.pop()} />
+        <View style={styles.content}>
+          <View style={styles.ForgotPasswordContainer}>
+            <View style={styles.arrowAndTextContainer}>
+              <View style={styles.backArrow}>
+                <BackArrow onPress={() => this.props.navigation.pop()} />
+              </View>
+              <Text style={styles.forgotText}>Forgot Password?</Text>
             </View>
-            <Text style={styles.forgotText}>Forgot Password?</Text>
+            <Image source={plantMascot} />
           </View>
-          <Image source={plantMascot} />
+          {this.state.submitted ? (
+            <Text style={styles.successText}>
+              A password reset email has been sent to {this.state.email}.
+            </Text>
+          ) : (
+            this.renderForm()
+          )}
         </View>
-        {this.state.submitted ? (
-          <Text style={styles.successText}>
-            A password reset email has been sent to {this.state.email}.
-          </Text>
-        ) : (
-          this.renderForm()
-        )}
         <Elipse />
       </View>
     );
@@ -80,12 +82,15 @@ class PasswordReset extends React.Component {
 const styles = StyleSheet.create({
   ForgotPasswordContainer: {
     marginTop: 40,
-    marginLeft: 33,
-    marginRight: 33,
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
     maxHeight: 135,
+  },
+  content: {
+    width: 310,
+    height: 600,
+    alignSelf: 'center',
   },
   backArrow: {
     marginTop: 10,
@@ -101,15 +106,11 @@ const styles = StyleSheet.create({
   },
   successText: {
     marginTop: 35,
-    marginLeft: 33,
-    marginRight: 33,
     fontSize: 20,
     fontFamily: 'Cabin-Regular',
     color: '#555555',
   },
   errorText: {
-    marginLeft: 33,
-    marginRight: 33,
     fontSize: 14,
     fontFamily: 'Cabin-Regular',
     color: '#ea1313',

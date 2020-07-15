@@ -30,17 +30,14 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: 'Cabin-Regular',
     color: '#555555',
-    marginLeft: 33,
-    marginRight: 33,
-    // width: 310,
+    width: 305,
   },
   formBox: {
     marginBottom: 15,
     borderBottomWidth: 0.5,
     // width: 310,
     color: '#555555',
-    marginLeft: 33,
-    marginRight: 33,
+    width: 305,
   },
 });
 

@@ -59,14 +59,16 @@ class UpdatePassword extends React.Component {
   render() {
     return (
       <View style={styles.rectangle}>
-        <View style={styles.updatePasswordContainer}>
-          <Text style={styles.updateText}>Update Password</Text>
-          <Image source={plantMascot} />
-        </View>
-        <FFPasswordBox handleChange={this.handlePassword} />
-        {this.renderError()}
-        <View style={styles.button}>
-          <SubmitButton onClick={this.handleSubmit} />
+        <View style={styles.content}>
+          <View style={styles.updatePasswordContainer}>
+            <Text style={styles.updateText}>Update Password</Text>
+            <Image source={plantMascot} />
+          </View>
+          <FFPasswordBox handleChange={this.handlePassword} />
+          {this.renderError()}
+          <View style={styles.button}>
+            <SubmitButton onClick={this.handleSubmit} />
+          </View>
         </View>
         <Elipse style={styles.elipse} />
       </View>
@@ -78,12 +80,15 @@ const styles = StyleSheet.create({
   updatePasswordContainer: {
     marginBottom: 15,
     marginTop: 50,
-    marginLeft: 33,
-    marginRight: 33,
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
     maxHeight: 120,
+  },
+  content: {
+    width: 310,
+    height: 600,
+    alignSelf: 'center',
   },
   updateText: {
     marginTop: 25,
@@ -94,8 +99,6 @@ const styles = StyleSheet.create({
     fontSize: 30,
   },
   errorText: {
-    marginLeft: 33,
-    marginRight: 33,
     fontSize: 14,
     fontFamily: 'Cabin-Regular',
     color: '#ea1313',

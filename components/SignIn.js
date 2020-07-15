@@ -91,30 +91,36 @@ class SignIn extends React.Component {
   render() {
     return (
       <View style={styles.rectangle}>
-        <View style={styles.welcomeBackContainer}>
-          <Text style={styles.welcomeText}>Welcome back!</Text>
-          <Image source={plantMascot} />
-        </View>
-        <FFTextBox
-          placeholder="Email Address"
-          handleChange={this.handleEmail}
-          isLowercase={true}
-        />
-        <FFPasswordBox handleChange={this.handlePassword} />
-        {this.renderError()}
-        <TouchableOpacity
-          onPress={() => this.props.navigation.navigate('Password Reset')}>
-          <Text style={styles.forgotPasswordText}>Forgot your password?</Text>
-        </TouchableOpacity>
-        <View style={styles.loginButton}>
-          <LoginButton handleLogin={this.handleLogin} />
-        </View>
-        <View style={styles.signUpContainer}>
-          <Text>Don't have an account? </Text>
-          <TouchableOpacity
-            onPress={() => this.props.navigation.navigate('Sign Up')}>
-            <Text style={styles.signUpText}>Sign up here</Text>
-          </TouchableOpacity>
+        <View style={styles.content}>
+          <View style={styles.welcomeBackContainer}>
+            <Text style={styles.welcomeText}>Welcome back!</Text>
+            <Image source={plantMascot} />
+          </View>
+          <View style={styles.form}>
+            <FFTextBox
+              placeholder="Email Address"
+              handleChange={this.handleEmail}
+              isLowercase={true}
+            />
+            <FFPasswordBox handleChange={this.handlePassword} />
+            {this.renderError()}
+            <TouchableOpacity
+              onPress={() => this.props.navigation.navigate('Password Reset')}>
+              <Text style={styles.forgotPasswordText}>
+                Forgot your password?
+              </Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.loginButton}>
+            <LoginButton handleLogin={this.handleLogin} />
+          </View>
+          <View style={styles.signUpContainer}>
+            <Text>Don't have an account? </Text>
+            <TouchableOpacity
+              onPress={() => this.props.navigation.navigate('Sign Up')}>
+              <Text style={styles.signUpText}>Sign up here</Text>
+            </TouchableOpacity>
+          </View>
         </View>
         <FoodPlate />
       </View>
@@ -126,15 +132,18 @@ const styles = StyleSheet.create({
   welcomeBackContainer: {
     marginBottom: 10,
     marginTop: 50,
-    marginLeft: 33,
-    marginRight: 33,
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
     maxHeight: 120,
   },
+  content: {
+    width: 310,
+    height: 600,
+    alignSelf: 'center',
+  },
   welcomeText: {
-    marginTop: 25,
+    marginTop: 20,
     color: '#555555',
     width: 140,
     height: 75,
@@ -143,14 +152,11 @@ const styles = StyleSheet.create({
   },
   errorText: {
     marginBottom: 10,
-    marginLeft: 33,
-    marginRight: 33,
     fontSize: 14,
     fontFamily: 'Cabin-Regular',
     color: '#ea1313',
   },
   forgotPasswordText: {
-    marginLeft: 33,
     marginBottom: 25,
     fontSize: 14,
     fontFamily: 'Cabin-Regular',

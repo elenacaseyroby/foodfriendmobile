@@ -73,48 +73,52 @@ class SignUp extends React.Component {
   render() {
     return (
       <View style={styles.rectangle}>
-        <View style={styles.signUpContainer}>
-          <View style={styles.arrowAndTextContainer}>
-            <View style={styles.backArrow}>
-              <BackArrow onPress={() => this.props.navigation.pop()} />
+        <View style={styles.content}>
+          <View style={styles.signUpContainer}>
+            <View style={styles.arrowAndTextContainer}>
+              <View style={styles.backArrow}>
+                <BackArrow onPress={() => this.props.navigation.pop()} />
+              </View>
+              <Text style={styles.signUpText}>Start your journey</Text>
             </View>
-            <Text style={styles.signUpText}>Start your journey</Text>
+            <Image source={plantMascot} />
           </View>
-          <Image source={plantMascot} />
-        </View>
-        <FFTextBox
-          placeholder="First Name"
-          handleChange={this.handleFirstName}
-          isLowercase={false}
-        />
-        <FFTextBox
-          placeholder="Last Name"
-          handleChange={this.handleLastName}
-          isLowercase={false}
-        />
-        <FFTextBox
-          placeholder="Email Address"
-          handleChange={this.handleEmail}
-          isLowercase={true}
-        />
-        <FFPasswordBox handleChange={this.handlePassword} />
-        {this.renderError()}
-        <View style={styles.termsContainer}>
-          <Text>By signing up, you agree to our</Text>
-          <TouchableOpacity
-            onPress={() =>
-              this.props.navigation.navigate('Terms And Conditions')
-            }>
-            <Text style={styles.termsTextOrange}>{' terms & conditions'}</Text>
-          </TouchableOpacity>
-          <Text>{` and `}</Text>
-          <TouchableOpacity
-            onPress={() => this.props.navigation.navigate('Privacy Policy')}>
-            <Text style={styles.termsTextOrange}>privacy policy</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.loginButton}>
-          <SignUpButton onClick={this.handleSignUp} />
+
+          <FFTextBox
+            placeholder="First Name"
+            handleChange={this.handleFirstName}
+            isLowercase={false}
+          />
+          <FFTextBox
+            placeholder="Last Name"
+            handleChange={this.handleLastName}
+            isLowercase={false}
+          />
+          <FFTextBox
+            placeholder="Email Address"
+            handleChange={this.handleEmail}
+            isLowercase={true}
+          />
+          <FFPasswordBox handleChange={this.handlePassword} />
+          {this.renderError()}
+          <View style={styles.termsContainer}>
+            <Text>{'By signing up, you agree to our '}</Text>
+            <TouchableOpacity
+              onPress={() =>
+                this.props.navigation.navigate('Terms And Conditions')
+              }>
+              <Text style={styles.termsTextOrange}>{'terms & conditions'}</Text>
+            </TouchableOpacity>
+            <Text>{` and `}</Text>
+            <TouchableOpacity
+              onPress={() => this.props.navigation.navigate('Privacy Policy')}>
+              <Text style={styles.termsTextOrange}>privacy policy</Text>
+            </TouchableOpacity>
+          </View>
+
+          <View style={styles.loginButton}>
+            <SignUpButton onClick={this.handleSignUp} />
+          </View>
         </View>
         <Elipse />
       </View>
@@ -125,12 +129,16 @@ class SignUp extends React.Component {
 const styles = StyleSheet.create({
   signUpContainer: {
     marginTop: 40,
-    marginLeft: 33,
-    marginRight: 33,
     maxHeight: 135,
+    width: 310,
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
+  },
+  content: {
+    width: 310,
+    height: 600,
+    alignSelf: 'center',
   },
   backArrow: {
     marginTop: 10,
@@ -145,8 +153,6 @@ const styles = StyleSheet.create({
     fontSize: 30,
   },
   termsContainer: {
-    marginLeft: 33,
-    marginRight: 33,
     marginBottom: 30,
     maxHeight: 20,
     maxWidth: 315,
@@ -165,15 +171,13 @@ const styles = StyleSheet.create({
     color: '#ed762c',
   },
   loginButton: {
-    marginTop: 10,
+    marginTop: '7%',
     alignSelf: 'center',
     marginBottom: 10,
   },
   errorText: {
     marginBottom: 15,
     marginTop: 10,
-    marginLeft: 33,
-    marginRight: 33,
     fontSize: 14,
     fontFamily: 'Cabin-Regular',
     color: '#ea1313',
