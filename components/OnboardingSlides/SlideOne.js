@@ -27,24 +27,32 @@ class SlideOne extends React.Component {
             </View>
             <View style={styles.textAndCoinsContainer}>
               <View style={styles.textContainer}>
-                <Text style={styles.butText}>but</Text>
+                <Text style={styles.butText}>
+                  {'                        but'}
+                </Text>
                 <View style={styles.rowContainer}>
-                  <Text style={styles.thiscanBeText}>{'this can be '}</Text>
-                  <Text style={styles.difficultText}>difficult</Text>
+                  <Text style={styles.lightWhiteText}>{'  this can be '}</Text>
+                  <Text style={styles.difficultText}>{'difficult'}</Text>
                 </View>
-                <Text style={styles.whenText}>when relying on</Text>
-                <Text style={styles.expensiveText}>expensive, unregulated</Text>
-                <Text style={styles.supplementsText}>supplements.</Text>
+                <Text style={styles.lightWhiteText}>
+                  {'         when relying on'}
+                </Text>
+                <Text style={styles.lightWhiteText}>
+                  {'expensive, unregulated'}
+                </Text>
+                <Text style={styles.supplementsText}>
+                  {'     supplements.'}
+                </Text>
               </View>
               <View style={styles.coins}>
                 <Image source={coins} />
               </View>
             </View>
-            <View style={styles.swipeContainer}>
-              <Text style={styles.swipeText}>Swipe to continue</Text>
-              <RightArrow style={styles.arrow} />
-            </View>
           </View>
+        </View>
+        <View style={styles.swipeContainer}>
+          <Text style={styles.swipeText}>Swipe to continue</Text>
+          <RightArrow style={styles.arrow} />
         </View>
       </ImageBackground>
     );
@@ -62,7 +70,7 @@ const styles = StyleSheet.create({
   everyoneTextContainer: {
     alignSelf: 'center',
     alignItems: 'center',
-    marginTop: '12%',
+    marginTop: '2%',
     marginBottom: '5%',
     // To test:
     // borderColor: '#ffffff',
@@ -84,65 +92,53 @@ const styles = StyleSheet.create({
     fontSize: 30,
   },
   mirror: {
+    marginTop: '2%',
     alignSelf: 'center',
   },
   textAndCoinsContainer: {
-    marginTop: '8%',
+    marginTop: '10%',
     flexDirection: 'row',
+    alignSelf: 'center',
+    // Make this bigger to move text to left.
+    width: 330,
   },
   textContainer: {
-    width: '70%',
+    width: 260,
   },
   butText: {
     fontSize: 21,
-    alignSelf: 'flex-end',
-    marginRight: '35%',
     fontFamily: 'Bellota-Regular',
     color: '#ffffff',
     lineHeight: 20,
   },
-  thiscanBeText: {
+  lightWhiteText: {
     fontSize: 20,
-    marginLeft: '4%',
     fontFamily: 'Bellota-Regular',
     color: '#ffffff',
     lineHeight: 20,
   },
   difficultText: {
     fontSize: 20,
-    marginRight: '5%',
     fontFamily: 'Bellota-Bold',
     color: '#ffa639',
-    lineHeight: 20,
-  },
-  whenText: {
-    alignSelf: 'flex-end',
-    marginRight: '25%',
-    fontSize: 20,
-    fontFamily: 'Bellota-Regular',
-    color: '#ffffff',
-    lineHeight: 20,
-  },
-  expensiveText: {
-    fontSize: 20,
-    fontFamily: 'Bellota-Regular',
-    color: '#ffffff',
     lineHeight: 20,
   },
   supplementsText: {
     fontSize: 30,
-    marginLeft: '18%',
     fontFamily: 'Bellota-Bold',
     color: '#ffa639',
     lineHeight: 30,
   },
-  coins: {},
+  coins: {
+    marginTop: '-2%',
+  },
   swipeContainer: {
+    marginTop: 0,
+    position: 'absolute',
+    bottom: '2%',
     flexDirection: 'row',
     alignSelf: 'flex-end',
-    width: 150,
-    marginTop: '6%',
-    marginRight: '27%',
+    width: 140,
   },
   swipeText: {
     fontSize: 14,
@@ -169,10 +165,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   slideContent: {
-    height: 650,
+    height: 600,
     width: 375,
-    // borderColor: '#ffffff',
-    // borderWidth: 0.5,
   },
 });
 
