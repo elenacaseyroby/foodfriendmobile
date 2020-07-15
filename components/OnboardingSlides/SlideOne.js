@@ -52,6 +52,8 @@ class SlideOne extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  // Component styles from top of slide
+  // to bottom of slide.
   progressBar: {
     marginTop: '12%',
     alignSelf: 'center',
@@ -62,6 +64,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: '12%',
     marginBottom: '5%',
+    // To test:
     // borderColor: '#ffffff',
     // borderWidth: 0.5,
   },
@@ -150,6 +153,7 @@ const styles = StyleSheet.create({
     marginTop: 4,
     marginLeft: 4,
   },
+  // Resusable & component wide styles
   rowContainer: {
     flexDirection: 'row',
   },
@@ -157,6 +161,8 @@ const styles = StyleSheet.create({
     height: '100%',
     flex: 1,
   },
+  // Use this to fit slide on iPhone 8
+  // and center slide on iPhone 11
   rectangle: {
     height: '100%',
     justifyContent: 'center',
@@ -165,6 +171,8 @@ const styles = StyleSheet.create({
   slideContent: {
     height: 650,
     width: 375,
+    // borderColor: '#ffffff',
+    // borderWidth: 0.5,
   },
 });
 
