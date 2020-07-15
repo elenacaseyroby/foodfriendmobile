@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, StyleSheet, Image} from 'react-native';
-import foodPlate from '../../assets/images/food-plate.png';
+import foodPlate from '../../assets/images/half-food-plate.png';
 
 class BlueBottomElipse extends React.Component {
   render() {
