@@ -171,7 +171,6 @@ const styles = StyleSheet.create({
     color: '#ed762c',
   },
   loginButton: {
-    marginTop: '7%',
     alignSelf: 'center',
     marginBottom: 10,
   },
