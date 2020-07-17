@@ -1,7 +1,14 @@
 import React from 'react';
 import {ScrollView, Image, StyleSheet, View, Text} from 'react-native';
+import FFDateBox from './forms/FFDateBox';
 import elipse from '../assets/images/top-elipse-two-toned-orange.png';
 class OnboardingSurvey extends React.Component {
+  state = {
+    date: null,
+  };
+  handleDateChange = (date) => {
+    this.setState({date: date}); //... here
+  };
   render() {
     return (
       <ScrollView style={styles.rectangle}>
@@ -11,7 +18,13 @@ class OnboardingSurvey extends React.Component {
           </View>
           <Text style={styles.headerText}>Let's Learn about you</Text>
         </View>
-        <View style={styles.content}></View>
+        <View style={styles.content}>
+          <Text style={styles.instructionsText}>
+            The information you provide will help us match you to your nutrient
+            path.
+          </Text>
+          <FFDateBox label={'Your Birthday'} onChange={this.handleDateChange} />
+        </View>
       </ScrollView>
     );
   }
@@ -35,6 +48,12 @@ const styles = StyleSheet.create({
     width: 137,
     height: 81,
   },
+  instructionsText: {
+    fontFamily: 'Cabin-Regular',
+    fontSize: 16,
+    color: '#3d3d3d',
+  },
+  // Align page structure.
   content: {
     width: 340,
     marginLeft: '5%',
