@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
     marginLeft: '35%',
   },
   middleTextContainer: {
-    marginTop: '2%',
+    marginTop: '5%',
     alignSelf: 'center',
     width: 270,
     // borderColor: '#ffffff',
