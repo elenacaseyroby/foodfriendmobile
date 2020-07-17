@@ -45,14 +45,13 @@ const styles = StyleSheet.create({
     position: 'absolute',
   },
   topDesertIcon: {
-    // position: 'absolute',
+    position: 'absolute',
   },
   topTextContainer: {
+    paddingTop: '39%',
     width: 200,
-    marginTop: '5%',
+    height: '30%',
     marginLeft: '10%',
-    borderColor: '#ffffff',
-    borderWidth: 0.5,
   },
   lightWhiteText: {
     fontFamily: 'Bellota-Regular',
@@ -67,10 +66,8 @@ const styles = StyleSheet.create({
     lineHeight: 31,
   },
   textAndTargetContainer: {
-    borderColor: '#ffffff',
-    borderWidth: 0.5,
     position: 'absolute',
-    bottom: '10%',
+    bottom: '5%',
     right: '10%',
   },
   bottomTextContainer: {
@@ -97,11 +94,12 @@ const styles = StyleSheet.create({
   // Use this to fit slide on iPhone 8
   // and center slide on iPhone 11
   rectangle: {
-    height: '50%',
+    justifyContent: 'center',
+    height: '100%',
     width: '100%',
     marginTop: 0,
-    borderColor: '#ffffff',
-    borderWidth: 0.5,
+    // borderColor: '#ffffff',
+    // borderWidth: 0.5,
   },
 });
 
