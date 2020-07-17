@@ -9,8 +9,8 @@ class SlideThree extends React.Component {
   render() {
     return (
       <ImageBackground source={backgroundImage} style={styles.backgroundImage}>
-        <View style={styles.topDesertIcon}>
-          <Image source={topDesertIcon} resizeMode="contain" />
+        <View>
+          <Image style={styles.topDesertIcon} source={topDesertIcon} />
         </View>
         <View style={styles.progressBar}>
           <ProgressBar activeCircleIndex={3} />
@@ -45,7 +45,12 @@ const styles = StyleSheet.create({
     position: 'absolute',
   },
   topDesertIcon: {
+    width: '100%',
+    height: undefined,
+    // aspectRatio: width / height,
+    aspectRatio: 375 / 355,
     position: 'absolute',
+    resizeMode: 'cover',
   },
   topTextContainer: {
     paddingTop: '39%',
@@ -98,8 +103,6 @@ const styles = StyleSheet.create({
     height: '100%',
     width: '100%',
     marginTop: 0,
-    // borderColor: '#ffffff',
-    // borderWidth: 0.5,
   },
 });
 
