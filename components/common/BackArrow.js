@@ -1,7 +1,8 @@
 import React from 'react';
-import {TouchableOpacity, View, StyleSheet} from 'react-native';
-import WhiteBackArrowSVG from '../../assets/images/white-back-arrow.svg';
-import BlackBackArrowSVG from '../../assets/images/black-back-arrow.svg';
+import {TouchableOpacity, Image, View, StyleSheet} from 'react-native';
+import {normalize} from '../../utils/sizeScaling';
+import whiteBackArrow from '../../assets/images/white-back-arrow.png';
+import blackBackArrow from '../../assets/images/black-back-arrow.png';
 import propTypes from 'prop-types';
 
 class BackArrow extends React.Component {
@@ -26,9 +27,9 @@ class BackArrow extends React.Component {
       <TouchableOpacity style={styles.container} onPress={this.props.onPress}>
         <View style={[styles.circle, styles[`${backgroundColor}Background`]]}>
           {arrowColor === 'white' ? (
-            <WhiteBackArrowSVG style={styles.arrow} />
+            <Image source={whiteBackArrow} style={styles.arrow} />
           ) : (
-            <BlackBackArrowSVG style={styles.arrow} />
+            <Image source={blackBackArrow} style={styles.arrow} />
           )}
         </View>
       </TouchableOpacity>
@@ -39,10 +40,14 @@ class BackArrow extends React.Component {
 const styles = StyleSheet.create({
   arrow: {
     marginRight: '5%',
+    width: normalize(8),
+    height: undefined,
+    // aspectRatio: width / height,
+    aspectRatio: 8 / 13,
   },
   circle: {
-    width: 35,
-    height: 35,
+    width: normalize(35),
+    height: normalize(35),
     borderRadius: 100 / 2,
     alignItems: 'center',
     justifyContent: 'center',
@@ -57,7 +62,7 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   container: {
-    // Button Hovers:
+    // Button Hovers over other components:
     // marginLeft: 33,
     // marginTop: '10.5%',
     // position: 'absolute',
