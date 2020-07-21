@@ -136,12 +136,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  content: {
-    width: normalize(304),
-    height: normalize(400),
-    alignSelf: 'center',
-    paddingBottom: 0,
-  },
   welcomeText: {
     marginTop: '10%',
     color: '#555555',
@@ -188,6 +182,12 @@ const styles = StyleSheet.create({
     color: '#ed762c',
     fontFamily: 'Cabin-Regular',
     fontSize: normalize(14),
+  },
+  content: {
+    width: normalize(304),
+    height: normalize(400),
+    alignSelf: 'center',
+    paddingBottom: 0,
   },
   rectangle: {
     backgroundColor: '#ffffff',

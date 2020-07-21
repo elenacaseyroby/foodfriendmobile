@@ -119,12 +119,15 @@ const styles = StyleSheet.create({
   },
   content: {
     width: normalize(310),
-    // height: 600,
+    height: normalize(310),
     alignSelf: 'center',
+    // borderColor: '#aaaaaa',
+    // borderWidth: 0.5,
   },
   rectangle: {
     backgroundColor: '#ffffff',
-    minHeight: '100%',
+    position: 'relative',
+    minHeight: normalize(310),
     flex: 1,
   },
 });
