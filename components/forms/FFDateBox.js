@@ -1,5 +1,6 @@
 import React from 'react';
 import {TextInput, View, StyleSheet} from 'react-native';
+import {normalize} from '../../utils/sizeScaling';
 import propTypes from 'prop-types';
 
 class FFDateBox extends React.Component {
@@ -23,19 +24,19 @@ class FFDateBox extends React.Component {
 
 const styles = StyleSheet.create({
   formText: {
-    marginTop: 15,
-    marginBottom: 8,
-    fontSize: 16,
+    marginTop: normalize(15),
+    marginBottom: normalize(8),
+    fontSize: normalize(16),
     fontFamily: 'Cabin-Regular',
     color: '#555555',
-    width: 305,
+    width: normalize(305),
   },
   formBox: {
-    marginBottom: 15,
-    borderBottomWidth: 0.5,
+    marginBottom: normalize(15),
+    borderBottomWidth: normalize(0.5),
     // width: 310,
     color: '#555555',
-    width: 305,
+    width: normalize(305),
   },
 });
 
