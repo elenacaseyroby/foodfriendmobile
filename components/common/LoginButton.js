@@ -1,5 +1,6 @@
 import React from 'react';
 import {TouchableOpacity, Text, StyleSheet} from 'react-native';
+import {normalize} from '../../utils/sizeScaling';
 import propTypes from 'prop-types';
 
 class LoginButton extends React.Component {
@@ -18,24 +19,24 @@ class LoginButton extends React.Component {
 const styles = StyleSheet.create({
   text: {
     fontFamily: 'Cabin-Regular',
-    fontSize: 17,
+    fontSize: normalize(17),
     color: '#ffffff',
     textAlign: 'center',
   },
   button: {
-    width: 309,
-    height: 57,
-    paddingTop: 17,
-    borderRadius: 28.5,
+    width: normalize(309),
+    height: normalize(57),
+    borderRadius: normalize(28.5),
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
-      height: 1,
+      height: normalize(1),
     },
     backgroundColor: '#719e3d',
     shadowOpacity: 0.35,
     shadowRadius: 2.22,
     elevation: 3,
+    justifyContent: 'center',
   },
 });
 

@@ -13,6 +13,7 @@ import {fetchUser} from '../redux/actions/userActionCreator';
 import {setAuth} from '../redux/actions/authActionCreator';
 import {validateEmail, validatePassword} from '../utils/formValidation';
 import {storeAsyncLoginData, getLoginError} from '../utils/auth';
+import {normalize} from '../utils/sizeScaling';
 import {routeDeepLink} from '../utils/navigation';
 import plantMascot from '../assets/images/plant-mascot.png';
 import FoodPlate from './common/FoodPlate';
@@ -94,28 +95,28 @@ class SignIn extends React.Component {
         <View style={styles.content}>
           <View style={styles.welcomeBackContainer}>
             <Text style={styles.welcomeText}>Welcome back!</Text>
-            <Image source={plantMascot} />
+            <Image style={styles.plantMascot} source={plantMascot} />
           </View>
-          <View style={styles.form}>
-            <FFTextBox
-              placeholder="Email Address"
-              handleChange={this.handleEmail}
-              isLowercase={true}
-            />
-            <FFPasswordBox handleChange={this.handlePassword} />
-            {this.renderError()}
-            <TouchableOpacity
-              onPress={() => this.props.navigation.navigate('Password Reset')}>
-              <Text style={styles.forgotPasswordText}>
-                Forgot your password?
-              </Text>
-            </TouchableOpacity>
-          </View>
+
+          <FFTextBox
+            placeholder="Email Address"
+            handleChange={this.handleEmail}
+            isLowercase={true}
+          />
+          <FFPasswordBox handleChange={this.handlePassword} />
+          {this.renderError()}
+          <TouchableOpacity
+            onPress={() => this.props.navigation.navigate('Password Reset')}>
+            <Text style={styles.forgotPasswordText}>Forgot your password?</Text>
+          </TouchableOpacity>
+
           <View style={styles.loginButton}>
             <LoginButton handleLogin={this.handleLogin} />
           </View>
           <View style={styles.signUpContainer}>
-            <Text>Don't have an account? </Text>
+            <Text style={styles.dontHaveAccountText}>
+              {"Don't have an account? "}
+            </Text>
             <TouchableOpacity
               onPress={() => this.props.navigation.navigate('Sign Up')}>
               <Text style={styles.signUpText}>Sign up here</Text>
@@ -130,59 +131,69 @@ class SignIn extends React.Component {
 
 const styles = StyleSheet.create({
   welcomeBackContainer: {
-    marginBottom: 10,
-    marginTop: 50,
-    flex: 1,
+    marginBottom: '3%',
+    marginTop: normalize(40, 50),
     flexDirection: 'row',
     justifyContent: 'space-between',
-    maxHeight: 120,
   },
   content: {
-    width: 310,
-    height: 600,
+    width: normalize(304),
+    height: normalize(400),
     alignSelf: 'center',
+    paddingBottom: 0,
   },
   welcomeText: {
-    marginTop: 20,
+    marginTop: '10%',
     color: '#555555',
-    width: 140,
-    height: 75,
+    width: normalize(140),
     fontFamily: 'Cabin-SemiBold',
-    fontSize: 30,
+    fontSize: normalize(30),
+  },
+  plantMascot: {
+    width: normalize(118),
+    height: undefined,
+    // aspectRatio: width / height,
+    aspectRatio: 118 / 113,
   },
   errorText: {
-    marginBottom: 10,
-    fontSize: 14,
+    marginBottom: '3%',
+    fontSize: normalize(14),
     fontFamily: 'Cabin-Regular',
     color: '#ea1313',
   },
   forgotPasswordText: {
-    marginBottom: 25,
-    fontSize: 14,
+    marginBottom: '6%',
+    fontSize: normalize(14),
     fontFamily: 'Cabin-Regular',
     color: '#ed762c',
   },
   loginButton: {
     alignSelf: 'center',
-    marginBottom: 10,
+    marginBottom: '3%',
   },
   signUpContainer: {
-    marginTop: 10,
+    marginTop: '3%',
     flex: 1,
     flexDirection: 'row',
     flexWrap: 'wrap',
     alignSelf: 'center',
-    fontSize: 14,
+    fontSize: normalize(14),
+  },
+  dontHaveAccountText: {
     fontFamily: 'Cabin-Regular',
     color: '#555555',
+    fontSize: normalize(14),
   },
   signUpText: {
     color: '#ed762c',
+    fontFamily: 'Cabin-Regular',
+    fontSize: normalize(14),
   },
   rectangle: {
     backgroundColor: '#ffffff',
-    minHeight: '100%',
+    minHeight: normalize(610),
     flex: 1,
+    position: 'relative',
   },
 });
 

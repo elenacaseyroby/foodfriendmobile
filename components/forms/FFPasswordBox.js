@@ -1,5 +1,6 @@
 import React from 'react';
 import {TextInput, View, StyleSheet} from 'react-native';
+import {normalize} from '../../utils/sizeScaling';
 import propTypes from 'prop-types';
 
 class FFPasswordBox extends React.Component {
@@ -23,18 +24,18 @@ class FFPasswordBox extends React.Component {
 
 const styles = StyleSheet.create({
   formText: {
-    marginTop: 20,
-    marginBottom: 8,
-    fontSize: 16,
+    marginTop: '5%',
+    marginBottom: '3%',
+    fontSize: normalize(16),
     fontFamily: 'Cabin-Regular',
     color: '#555555',
-    width: 305,
+    width: normalize(305),
   },
   formBox: {
-    marginBottom: 15,
-    borderBottomWidth: 0.5,
+    marginBottom: '5%',
+    borderBottomWidth: normalize(0.5),
     color: '#555555',
-    width: 305,
+    width: normalize(305),
   },
 });
 
