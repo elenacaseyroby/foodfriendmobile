@@ -1,7 +1,7 @@
 import React from 'react';
-import {View, StyleSheet, Image} from 'react-native';
-import foodPlate from '../../assets/images/half-food-plate.png';
+import {StyleSheet, Image} from 'react-native';
 import {normalize} from '../../utils/sizeScaling';
+import foodPlate from '../../assets/images/half-food-plate.png';
 
 class BlueBottomElipse extends React.Component {
   render() {
