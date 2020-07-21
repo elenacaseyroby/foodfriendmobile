@@ -2,6 +2,7 @@ import React from 'react';
 import {View, Text, Image, StyleSheet} from 'react-native';
 import {validateEmail} from '../utils/formValidation';
 import {getPasswordResetError} from '../utils/auth';
+import {normalize} from '../utils/sizeScaling';
 import BackArrow from '../components/common/BackArrow';
 import plantMascot from '../assets/images/plant-mascot-blue.png';
 import Elipse from './common/BlueBottomElipse';
@@ -63,7 +64,7 @@ class PasswordReset extends React.Component {
               </View>
               <Text style={styles.forgotText}>Forgot Password?</Text>
             </View>
-            <Image source={plantMascot} />
+            <Image style={styles.plantMascot} source={plantMascot} />
           </View>
           {this.state.submitted ? (
             <Text style={styles.successText}>
@@ -80,45 +81,46 @@ class PasswordReset extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  backArrow: {
+    marginTop: normalize(10),
+  },
   ForgotPasswordContainer: {
-    marginTop: 40,
-    flex: 1,
+    marginTop: normalize(35, 50),
     flexDirection: 'row',
     justifyContent: 'space-between',
-    maxHeight: 135,
   },
-  content: {
-    width: 310,
-    height: 600,
-    alignSelf: 'center',
-  },
-  backArrow: {
-    marginTop: 10,
-    marginBottom: 20,
+  plantMascot: {
+    width: normalize(131),
+    height: undefined,
+    // aspectRatio: width / height,
+    aspectRatio: 1 / 1,
   },
   forgotText: {
-    marginTop: 25,
+    marginTop: '40%',
     color: '#555555',
-    width: 140,
-    height: 75,
+    width: normalize(140),
     fontFamily: 'Cabin-SemiBold',
-    fontSize: 30,
+    fontSize: normalize(30),
   },
   successText: {
-    marginTop: 35,
-    fontSize: 20,
+    marginTop: '30%',
+    fontSize: normalize(20),
     fontFamily: 'Cabin-Regular',
     color: '#555555',
   },
   errorText: {
-    fontSize: 14,
+    fontSize: normalize(14),
     fontFamily: 'Cabin-Regular',
     color: '#ea1313',
   },
   button: {
-    marginTop: 15,
+    marginTop: '5%',
     alignSelf: 'center',
-    marginBottom: 10,
+  },
+  content: {
+    width: normalize(310),
+    // height: 600,
+    alignSelf: 'center',
   },
   rectangle: {
     backgroundColor: '#ffffff',
