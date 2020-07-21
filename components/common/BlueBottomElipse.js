@@ -1,12 +1,13 @@
 import React from 'react';
-import {StyleSheet} from 'react-native';
-import Elipse from '../../assets/images/bottom-elipse-blue.svg';
+import {StyleSheet, Image} from 'react-native';
+import {normalize} from '../../utils/sizeScaling';
+import elipse from '../../assets/images/bottom-elipse-blue.png';
 
 class BlueBottomElipse extends React.Component {
   render() {
     return (
       <>
-        <Elipse style={styles.elipse} />
+        <Image source={elipse} style={styles.elipse} />
       </>
     );
   }
@@ -14,6 +15,11 @@ class BlueBottomElipse extends React.Component {
 
 const styles = StyleSheet.create({
   elipse: {
+    width: normalize(375),
+    height: undefined,
+    // aspectRatio: width / height,
+    aspectRatio: 375 / 80,
+    alignItems: 'center',
     position: 'absolute',
     bottom: 0,
   },
