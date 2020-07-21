@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
   header: {
     alignSelf: 'center',
     justifyContent: 'space-between',
-    marginTop: normalize(30, true),
+    marginTop: normalize(30),
     width: normalize(304),
     flexDirection: 'row',
   },
