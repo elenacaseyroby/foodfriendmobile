@@ -4,18 +4,23 @@ import {Dimensions} from 'react-native';
 // 1. can't use async functions in the stylesheet
 // 2. should use get('window') on every render in case phone is tilted
 // to side.
-export function normalize(value, basedOnHeight = false) {
+export function normalize(value, maxValue = null, basedOnHeight = false) {
   // input value based on iPhone 8.
   // output value to scale on current device.
   // normalizes based on width by default.
+  let multiplier;
   if (basedOnHeight) {
     const normalizedHeight = 667;
     const currentHeight = Dimensions.get('window').height;
-    const heightMultiplier = currentHeight / normalizedHeight;
-    return value * heightMultiplier;
+    multiplier = currentHeight / normalizedHeight;
+  } else {
+    const currentWidth = Dimensions.get('window').width;
+    const normalizedWidth = 375;
+    multiplier = currentWidth / normalizedWidth;
   }
-  const currentWidth = Dimensions.get('window').width;
-  const normalizedWidth = 375;
-  const widthMultiplier = currentWidth / normalizedWidth;
-  return value * widthMultiplier;
+  const normalizedValue = value * multiplier;
+  if (maxValue) {
+    if (normalizedValue > maxValue) return maxValue;
+  }
+  return normalizedValue;
 }
