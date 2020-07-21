@@ -7,6 +7,7 @@ import {Dimensions} from 'react-native';
 export function normalize(value, basedOnHeight = false) {
   // input value based on iPhone 8.
   // output value to scale on current device.
+  // normalizes based on width by default.
   if (basedOnHeight) {
     const normalizedHeight = 667;
     const currentHeight = Dimensions.get('window').height;
