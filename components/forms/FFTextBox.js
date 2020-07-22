@@ -36,7 +36,6 @@ const styles = StyleSheet.create({
   formBox: {
     marginBottom: '5%',
     borderBottomWidth: normalize(0.5),
-    // width: 310,
     color: '#555555',
     width: normalize(305),
   },
