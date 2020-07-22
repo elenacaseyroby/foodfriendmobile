@@ -175,7 +175,7 @@ const styles = StyleSheet.create({
   },
   dontHaveAccountText: {
     fontFamily: 'Cabin-Regular',
-    color: '#555555',
+    color: '#aaaaaa',
     fontSize: normalize(14),
   },
   signUpText: {
