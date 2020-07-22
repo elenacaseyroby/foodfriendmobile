@@ -138,7 +138,7 @@ class SignUp extends React.Component {
 
 const styles = StyleSheet.create({
   backArrow: {
-    marginTop: normalize(5),
+    marginTop: '5%',
     marginLeft: '3%',
   },
   signUpContainer: {
