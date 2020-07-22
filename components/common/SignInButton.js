@@ -3,7 +3,7 @@ import {TouchableOpacity, Text, StyleSheet} from 'react-native';
 import {normalize} from '../../utils/sizeScaling';
 import propTypes from 'prop-types';
 
-class LoginButton extends React.Component {
+class SignInButton extends React.Component {
   static propTypes = {
     handleLogin: propTypes.func.isRequired,
   };
@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   button: {
-    width: normalize(309),
+    width: normalize(304),
     height: normalize(57),
     borderRadius: normalize(28.5),
     shadowColor: '#000',
@@ -40,4 +40,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LoginButton;
+export default SignInButton;

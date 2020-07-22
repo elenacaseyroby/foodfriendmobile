@@ -19,7 +19,7 @@ import plantMascot from '../assets/images/plant-mascot.png';
 import FoodPlate from './common/FoodPlate';
 import FFTextBox from './forms/FFTextBox';
 import FFPasswordBox from './forms/FFPasswordBox';
-import LoginButton from './common/LoginButton';
+import SignInButton from './common/SignInButton';
 import auth from '../services/auth';
 
 class SignIn extends React.Component {
@@ -56,7 +56,7 @@ class SignIn extends React.Component {
   handlePassword = (password) => {
     this.setState({password: password});
   };
-  handleLogin = async () => {
+  handleSignIn = async () => {
     // Validate fields.
     let errorMessage = validateEmail(this.state.email);
     errorMessage = errorMessage || validatePassword(this.state.password);
@@ -110,8 +110,8 @@ class SignIn extends React.Component {
             <Text style={styles.forgotPasswordText}>Forgot your password?</Text>
           </TouchableOpacity>
 
-          <View style={styles.loginButton}>
-            <LoginButton handleLogin={this.handleLogin} />
+          <View style={styles.signInButton}>
+            <SignInButton handleLogin={this.handleSignIn} />
           </View>
           <View style={styles.signUpContainer}>
             <Text style={styles.dontHaveAccountText}>
@@ -161,7 +161,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Cabin-Regular',
     color: '#ed762c',
   },
-  loginButton: {
+  signInButton: {
     alignSelf: 'center',
     marginBottom: '3%',
   },
