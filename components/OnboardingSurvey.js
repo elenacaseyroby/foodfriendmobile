@@ -10,6 +10,7 @@ class OnboardingSurvey extends React.Component {
     date: null,
   };
   handleDateChange = (date) => {
+    console.log(date);
     this.setState({date: date}); //... here
   };
   render() {
