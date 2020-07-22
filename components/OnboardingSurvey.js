@@ -25,7 +25,10 @@ class OnboardingSurvey extends React.Component {
             The information you provide will help us match you to your nutrient
             path.
           </Text>
-          <FFDateBox label={'Your Birthday'} onChange={this.handleDateChange} />
+          <FFDateBox
+            label={'Your Birthday'}
+            onChangeText={this.handleDateChange}
+          />
         </View>
       </ScrollView>
     );
@@ -44,7 +47,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     justifyContent: 'space-between',
     marginTop: normalize(30),
-    width: normalize(304),
+    width: normalize(310),
     flexDirection: 'row',
   },
   headerText: {
@@ -57,6 +60,7 @@ const styles = StyleSheet.create({
     width: normalize(140),
   },
   plant: {
+    marginLeft: '3%',
     width: normalize(175),
     height: undefined,
     aspectRatio: 195 / 213,
@@ -66,7 +70,7 @@ const styles = StyleSheet.create({
   // Align page structure.
   form: {
     alignSelf: 'center',
-    width: normalize(304),
+    width: normalize(310),
     marginTop: '10%',
     minHeight: '100%',
   },

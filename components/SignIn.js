@@ -184,7 +184,7 @@ const styles = StyleSheet.create({
     fontSize: normalize(14),
   },
   content: {
-    width: normalize(304),
+    width: normalize(310),
     alignSelf: 'center',
     marginBottom: '5%',
     // borderColor: '#aaaaaa',

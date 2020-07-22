@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   headerContent: {
-    width: normalize(304),
+    width: normalize(310),
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
   },
   bodyContainer: {
     marginTop: '5%',
-    width: normalize(304),
+    width: normalize(310),
     alignSelf: 'center',
   },
   body: {

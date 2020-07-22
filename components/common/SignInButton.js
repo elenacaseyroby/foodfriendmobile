@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   button: {
-    width: normalize(304),
+    width: normalize(310),
     height: normalize(57),
     borderRadius: normalize(28.5),
     shadowColor: '#000',

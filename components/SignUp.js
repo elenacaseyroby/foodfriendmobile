@@ -186,7 +186,7 @@ const styles = StyleSheet.create({
     color: '#ea1313',
   },
   content: {
-    width: normalize(304),
+    width: normalize(310),
     height: normalize(540),
     alignSelf: 'center',
   },
