@@ -18,7 +18,8 @@ import {
 import {getSignUpError, storeAsyncLoginData} from '../utils/auth';
 import {normalize} from '../utils/sizeScaling';
 import BackArrow from './common/BackArrow';
-import FFTextBox from './forms/FFTextBox';
+import FFEmailTextBox from './forms/FFEmailTextBox';
+import FFNameTextBox from './forms/FFNameTextBox';
 import FFPasswordBox from './forms/FFPasswordBox';
 import plantMascot from '../assets/images/plant-mascot-blue.png';
 import SignUpButton from './common/SignUpButton';
@@ -92,21 +93,15 @@ class SignUp extends React.Component {
             <Image style={styles.plantMascot} source={plantMascot} />
           </View>
 
-          <FFTextBox
+          <FFNameTextBox
             placeholder="First Name"
             handleChange={this.handleFirstName}
-            isLowercase={false}
           />
-          <FFTextBox
+          <FFNameTextBox
             placeholder="Last Name"
             handleChange={this.handleLastName}
-            isLowercase={false}
           />
-          <FFTextBox
-            placeholder="Email Address"
-            handleChange={this.handleEmail}
-            isLowercase={true}
-          />
+          <FFEmailTextBox handleChange={this.handleEmail} />
           <FFPasswordBox handleChange={this.handlePassword} />
           {this.renderError()}
           <View style={styles.termsContainer}>

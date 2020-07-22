@@ -7,7 +7,11 @@ class FFTextBox extends React.Component {
   static propTypes = {
     handleChange: propTypes.func.isRequired,
     placeholder: propTypes.string.isRequired,
-    isLowercase: propTypes.bool.isRequired,
+    maxLength: propTypes.number.isRequired,
+    autoCapitalize: propTypes.string.isRequired,
+    autoCompleteType: propTypes.string,
+    textContentType: propTypes.string,
+    secureTextEntry: propTypes.bool,
   };
   render() {
     return (
@@ -15,8 +19,18 @@ class FFTextBox extends React.Component {
         <TextInput
           style={styles.formText}
           placeholder={this.props.placeholder}
-          autoCapitalize={this.props.isLowercase ? 'none' : 'words'}
+          autoCapitalize={this.props.autoCapitalize}
           onChangeText={this.props.handleChange}
+          maxLength={this.props.maxLength}
+          secureTextEntry={
+            this.props.secureTextEntry ? this.props.secureTextEntry : false
+          }
+          autoCompleteType={
+            this.props.autoCompleteType ? this.props.autoCompleteType : 'off'
+          }
+          textContentType={
+            this.props.textContentType ? this.props.textContentType : 'none'
+          }
         />
         <View style={styles.formBox} />
       </>

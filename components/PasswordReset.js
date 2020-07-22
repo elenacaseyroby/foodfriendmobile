@@ -6,7 +6,7 @@ import {normalize} from '../utils/sizeScaling';
 import BackArrow from '../components/common/BackArrow';
 import plantMascot from '../assets/images/plant-mascot-blue.png';
 import Elipse from './common/BlueBottomElipse';
-import FFTextBox from './forms/FFTextBox';
+import FFEmailTextBox from './forms/FFEmailTextBox';
 import SubmitButton from './common/SubmitButton';
 import auth from '../services/auth';
 
@@ -41,11 +41,7 @@ class PasswordReset extends React.Component {
     if (!this.state.renderForm) return;
     return (
       <>
-        <FFTextBox
-          placeholder="Email Address"
-          handleChange={this.handleEmail}
-          isLowercase={true}
-        />
+        <FFEmailTextBox handleChange={this.handleEmail} />
         {this.renderError()}
         <View style={styles.button}>
           <SubmitButton onClick={this.handleSubmit} />

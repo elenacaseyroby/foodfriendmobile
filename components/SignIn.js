@@ -17,7 +17,7 @@ import {normalize} from '../utils/sizeScaling';
 import {routeDeepLink} from '../utils/navigation';
 import plantMascot from '../assets/images/plant-mascot.png';
 import FoodPlate from './common/FoodPlate';
-import FFTextBox from './forms/FFTextBox';
+import FFEmailTextBox from './forms/FFEmailTextBox';
 import FFPasswordBox from './forms/FFPasswordBox';
 import SignInButton from './common/SignInButton';
 import auth from '../services/auth';
@@ -54,6 +54,7 @@ class SignIn extends React.Component {
     this.setState({email: email});
   };
   handlePassword = (password) => {
+    console.log(password);
     this.setState({password: password});
   };
   handleSignIn = async () => {
@@ -98,11 +99,7 @@ class SignIn extends React.Component {
             <Image style={styles.plantMascot} source={plantMascot} />
           </View>
 
-          <FFTextBox
-            placeholder="Email Address"
-            handleChange={this.handleEmail}
-            isLowercase={true}
-          />
+          <FFEmailTextBox handleChange={this.handleEmail} />
           <FFPasswordBox handleChange={this.handlePassword} />
           {this.renderError()}
           <TouchableOpacity

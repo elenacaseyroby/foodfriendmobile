@@ -2,7 +2,7 @@ import React from 'react';
 import FFTextBox from './FFTextBox';
 import propTypes from 'prop-types';
 
-class FFPasswordBox extends React.Component {
+class FFEmailTextBox extends React.Component {
   static propTypes = {
     handleChange: propTypes.func.isRequired,
   };
@@ -11,16 +11,15 @@ class FFPasswordBox extends React.Component {
       <>
         <FFTextBox
           handleChange={this.props.handleChange}
-          placeholder="Password (8+ characters)"
-          maxLength={40}
+          placeholder="Email"
+          maxLength={50}
           autoCapitalize="none"
-          secureTextEntry={true}
-          autoCompleteType="password"
-          textContentType="password"
+          autoCompleteType="email"
+          textContentType="username"
         />
       </>
     );
   }
 }
 
-export default FFPasswordBox;
+export default FFEmailTextBox;
