@@ -1,5 +1,12 @@
 import React from 'react';
-import {View, Text, Image, TouchableOpacity, StyleSheet} from 'react-native';
+import {
+  ScrollView,
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  StyleSheet,
+} from 'react-native';
 import {connect} from 'react-redux';
 import {fetchUser} from '../redux/actions/userActionCreator';
 import {setAuth} from '../redux/actions/authActionCreator';
@@ -9,6 +16,7 @@ import {
   validateName,
 } from '../utils/formValidation';
 import {getSignUpError, storeAsyncLoginData} from '../utils/auth';
+import {normalize} from '../utils/sizeScaling';
 import BackArrow from './common/BackArrow';
 import FFTextBox from './forms/FFTextBox';
 import FFPasswordBox from './forms/FFPasswordBox';
@@ -73,7 +81,7 @@ class SignUp extends React.Component {
   render() {
     return (
       <View style={styles.rectangle}>
-        <View style={styles.content}>
+        <ScrollView style={styles.content}>
           <View style={styles.signUpContainer}>
             <View style={styles.arrowAndTextContainer}>
               <View style={styles.backArrow}>
@@ -81,7 +89,7 @@ class SignUp extends React.Component {
               </View>
               <Text style={styles.signUpText}>Start your journey</Text>
             </View>
-            <Image source={plantMascot} />
+            <Image style={styles.plantMascot} source={plantMascot} />
           </View>
 
           <FFTextBox
@@ -102,24 +110,26 @@ class SignUp extends React.Component {
           <FFPasswordBox handleChange={this.handlePassword} />
           {this.renderError()}
           <View style={styles.termsContainer}>
-            <Text>{'By signing up, you agree to our '}</Text>
+            <Text style={styles.termsTextGray}>
+              {'By signing up, you agree to our '}
+            </Text>
             <TouchableOpacity
               onPress={() =>
                 this.props.navigation.navigate('Terms And Conditions')
               }>
               <Text style={styles.termsTextOrange}>{'terms & conditions'}</Text>
             </TouchableOpacity>
-            <Text>{` and `}</Text>
+            <Text style={styles.termsTextGray}>{` and `}</Text>
             <TouchableOpacity
               onPress={() => this.props.navigation.navigate('Privacy Policy')}>
               <Text style={styles.termsTextOrange}>privacy policy</Text>
             </TouchableOpacity>
           </View>
 
-          <View style={styles.loginButton}>
+          <View style={styles.signUpButton}>
             <SignUpButton onClick={this.handleSignUp} />
           </View>
-        </View>
+        </ScrollView>
         <Elipse />
       </View>
     );
@@ -127,64 +137,64 @@ class SignUp extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  backArrow: {
+    marginTop: normalize(5),
+    marginLeft: '3%',
+  },
   signUpContainer: {
-    marginTop: 40,
-    maxHeight: 135,
-    width: 310,
-    flex: 1,
+    marginBottom: '3%',
+    marginTop: normalize(40, 50),
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  content: {
-    width: 310,
-    height: 600,
-    alignSelf: 'center',
-  },
-  backArrow: {
-    marginTop: 10,
-    marginBottom: 20,
-  },
   signUpText: {
-    marginTop: 25,
+    marginTop: '5%',
     color: '#555555',
-    width: 140,
-    height: 75,
+    width: normalize(140),
     fontFamily: 'Cabin-SemiBold',
-    fontSize: 30,
+    fontSize: normalize(30, 60),
+  },
+  plantMascot: {
+    width: normalize(131, 300),
+    height: undefined,
+    // aspectRatio: width / height,
+    aspectRatio: 1 / 1,
   },
   termsContainer: {
-    marginBottom: 30,
-    maxHeight: 20,
-    maxWidth: 315,
-    flex: 1,
     flexDirection: 'row',
     flexWrap: 'wrap',
+    marginBottom: '6%',
   },
-  termsText: {
-    fontSize: 14,
+  termsTextGray: {
+    fontSize: normalize(14),
     fontFamily: 'Cabin-Regular',
     color: '#aaaaaa',
   },
   termsTextOrange: {
-    fontSize: 14,
+    fontSize: normalize(14),
     fontFamily: 'Cabin-Regular',
     color: '#ed762c',
   },
-  loginButton: {
+  signUpButton: {
     alignSelf: 'center',
-    marginBottom: 10,
+    marginBottom: '3%',
   },
   errorText: {
-    marginBottom: 15,
-    marginTop: 10,
-    fontSize: 14,
+    marginBottom: '3%',
+    fontSize: normalize(14),
     fontFamily: 'Cabin-Regular',
     color: '#ea1313',
   },
+  content: {
+    width: normalize(304),
+    height: normalize(540),
+    alignSelf: 'center',
+  },
   rectangle: {
     backgroundColor: '#ffffff',
-    minHeight: '100%',
+    minHeight: normalize(610),
     flex: 1,
+    position: 'relative',
   },
 });
 
