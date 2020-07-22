@@ -1,5 +1,6 @@
 import React from 'react';
 import {ScrollView, View, Text, StyleSheet} from 'react-native';
+import {normalize} from '../../utils/sizeScaling';
 import propTypes from 'prop-types';
 import BackArrow from './BackArrow';
 
@@ -29,14 +30,12 @@ class StaticTextScreen extends React.Component {
     return (
       <View style={styles.rectangle}>
         <View style={styles.header}>
-          <View style={styles.backArrow}>
+          <View style={styles.headerContent}>
             <BackArrow onPress={() => this.props.navigation.pop()} />
-          </View>
-          <View style={styles.titleContainer}>
             <Text style={styles.title}>{this.props.title}</Text>
           </View>
         </View>
-        <ScrollView>
+        <ScrollView style={styles.bodyContainer}>
           {this.renderError()}
           {this.renderLoading()}
           {this.renderText()}
@@ -48,34 +47,33 @@ class StaticTextScreen extends React.Component {
 
 const styles = StyleSheet.create({
   header: {
-    flex: 1,
-    marginTop: 0,
+    marginTop: normalize(20, 20),
+    height: normalize(70),
+    borderBottomWidth: normalize(0.5),
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  headerContent: {
+    width: normalize(304),
     flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    minHeight: 90,
-    maxHeight: 90,
-    borderBottomWidth: 0.5,
-    alignItems: 'flex-end',
-    paddingBottom: 12,
-  },
-  backArrow: {
-    maxHeight: 35,
-    maxWidth: 35,
-  },
-  titleContainer: {
-    maxHeight: 40,
-    minWidth: 260,
+    justifyContent: 'space-between',
   },
   title: {
-    fontSize: 25,
+    width: normalize(250),
+    fontSize: normalize(25),
     color: '#555555',
     fontFamily: 'Cabin-SemiBold',
+    alignSelf: 'flex-start',
+    // borderColor: '#aaaaaa',
+    // borderWidth: 0.5,
+  },
+  bodyContainer: {
+    marginTop: '5%',
+    width: normalize(304),
+    alignSelf: 'center',
   },
   body: {
-    marginTop: 40,
-    marginRight: 33,
-    marginLeft: 33,
-    fontSize: 16,
+    fontSize: normalize(16),
     fontFamily: 'Cabin-Regular',
     color: '#555555',
   },
