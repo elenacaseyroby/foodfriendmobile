@@ -46,7 +46,7 @@ export function getPasswordUpdateError(resetResponse) {
   if (resetResponse.status === 401)
     return 'Password reset request expired.  Please submit a new password reset request and try again.';
   if (resetResponse.status !== 200)
-    return 'Password reset failed.  Please submit a new request and try again.';
+    return 'Password reset failed.  Please submit a new password reset request and try again.';
   return;
 }
 
