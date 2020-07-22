@@ -4,7 +4,7 @@ import ProgressBar from './ProgressBar';
 import backgroundImage from './assets/backgroundImage1.png';
 import mirror from './assets/mirror-illustration.png';
 import coins from './assets/money-icon.png';
-import RightArrow from './assets/swipe-right-arrow.svg';
+// import RightArrow from './assets/swipe-right-arrow.svg';
 
 class SlideOne extends React.Component {
   render() {
@@ -52,7 +52,7 @@ class SlideOne extends React.Component {
         </View>
         <View style={styles.swipeContainer}>
           <Text style={styles.swipeText}>Swipe to continue</Text>
-          <RightArrow style={styles.arrow} />
+          {/* <RightArrow style={styles.arrow} /> */}
         </View>
       </ImageBackground>
     );
@@ -145,10 +145,10 @@ const styles = StyleSheet.create({
     fontFamily: 'Bellota-Regular',
     color: '#ffffff',
   },
-  arrow: {
-    marginTop: 4,
-    marginLeft: 4,
-  },
+  // arrow: {
+  //   marginTop: 4,
+  //   marginLeft: 4,
+  // },
   // Resusable & component wide styles
   rowContainer: {
     flexDirection: 'row',
