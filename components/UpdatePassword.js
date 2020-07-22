@@ -60,8 +60,6 @@ class UpdatePassword extends React.Component {
     this.props.dispatch(setAuth());
   };
   renderError = () => {
-    console.log('ERROR!');
-    console.log(this.state.errorMessage);
     if (!this.state.errorMessage) return;
     return <Text style={styles.errorText}>{this.state.errorMessage}</Text>;
   };
