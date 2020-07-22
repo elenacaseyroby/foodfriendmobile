@@ -82,7 +82,7 @@ class PasswordReset extends React.Component {
 
 const styles = StyleSheet.create({
   backArrow: {
-    marginTop: normalize(10),
+    marginTop: normalize(5),
   },
   ForgotPasswordContainer: {
     marginTop: normalize(35, 50),
