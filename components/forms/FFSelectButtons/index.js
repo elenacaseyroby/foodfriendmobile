@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, StyleSheet} from 'react-native';
+import {Text, View, StyleSheet} from 'react-native';
 import {normalize} from '../../../utils/sizeScaling';
 import FFSelectButton from './FFSelectButton';
 import propTypes from 'prop-types';
@@ -38,7 +38,7 @@ class FFSelect extends React.Component {
   };
   render() {
     return (
-      <>
+      <View style={styles.selectComponent}>
         <Text style={styles.label}>{this.props.label}</Text>
         <Text style={styles.instructionalText}>
           {this.props.instructionalText}
@@ -55,22 +55,27 @@ class FFSelect extends React.Component {
             />
           );
         })}
-      </>
+      </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
   label: {
-    marginTop: '5%',
     fontSize: normalize(21),
     fontFamily: 'Cabin-SemiBold',
     color: '#555555',
+    marginBottom: '3%',
   },
   instructionalText: {
     fontFamily: 'Cabin-Regular',
     fontSize: normalize(16),
     color: '#aaaaaa',
+    marginBottom: '5%',
+  },
+  selectComponent: {
+    marginBottom: '5%',
+    marginTop: '5%',
   },
 });
 
