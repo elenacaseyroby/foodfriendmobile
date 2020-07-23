@@ -30,6 +30,7 @@ class FFDateBox extends React.Component {
   render() {
     return (
       <>
+        <Text style={styles.label}>{this.props.label}</Text>
         <View style={styles.dateInputContainer}>
           <TextInput
             style={styles.formText}
@@ -62,17 +63,23 @@ const styles = StyleSheet.create({
   dateInputContainer: {
     flexDirection: 'row',
   },
+  label: {
+    marginTop: '5%',
+    fontSize: normalize(21),
+    fontFamily: 'Cabin-SemiBold',
+    color: '#555555',
+  },
   formText: {
-    marginTop: normalize(15),
+    marginTop: '5%',
     marginBottom: normalize(8),
     fontSize: normalize(16),
     fontFamily: 'Cabin-Regular',
-    color: '#555555',
+    color: '#aaaaaa',
   },
   formBox: {
-    marginBottom: normalize(15),
+    marginBottom: '5%',
     borderBottomWidth: normalize(0.5),
-    color: '#555555',
+    color: '#aaaaaa',
     width: normalize(310),
   },
 });
