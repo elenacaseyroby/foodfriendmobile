@@ -2,18 +2,32 @@ import React from 'react';
 import {ScrollView, Image, StyleSheet, View, Text} from 'react-native';
 import {normalize} from '../utils/sizeScaling';
 import FFDateBox from './forms/FFDateBox';
+import FFSelectButtons from './forms/FFSelectButtons';
 import elipse from '../assets/images/top-elipse-two-toned-orange.png';
 import plant from '../assets/images/monstera.png';
 
 class OnboardingSurvey extends React.Component {
   state = {
-    date: null,
+    birthday: null,
+    diets: [],
   };
+  onComponentDidMount() {}
   handleDateChange = (date) => {
     console.log(date);
-    this.setState({date: date}); //... here
+    this.setState({birthday: date}); //... here
+  };
+  handleDiets = (selectedDiets) => {
+    console.log(`selected diets: ${selectedDiets}`);
+    this.setState({diets: selectedDiets});
   };
   render() {
+    const items = [
+      {id: 'vegetarian', value: 'Vegetarian'},
+      {id: 'vegan', value: 'Vegan'},
+      {id: 'pescatarian', value: 'Pescatarian'},
+      {id: 'gluten-free', value: 'Gluten-free'},
+      {id: 'dairy-free', value: 'Dairy-free'},
+    ];
     return (
       <ScrollView style={styles.rectangle}>
         <Image style={styles.elipse} source={elipse} />
@@ -29,6 +43,12 @@ class OnboardingSurvey extends React.Component {
           <FFDateBox
             label={'Your Birthday'}
             onChangeText={this.handleDateChange}
+          />
+          <FFSelectButtons
+            label="Dietery restrictions"
+            instructionalText="Please select all that apply"
+            onChange={this.handleDiets}
+            items={items}
           />
         </View>
       </ScrollView>
@@ -84,6 +104,7 @@ const styles = StyleSheet.create({
   rectangle: {
     width: '100%',
     height: 1500,
+    backgroundColor: '#ffffff',
     flex: 1,
   },
 });

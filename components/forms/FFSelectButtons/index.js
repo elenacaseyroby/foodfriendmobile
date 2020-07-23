@@ -1,6 +1,6 @@
 import React from 'react';
 import {Text, StyleSheet} from 'react-native';
-import {normalize} from '../../utils/sizeScaling';
+import {normalize} from '../../../utils/sizeScaling';
 import FFSelectButton from './FFSelectButton';
 import propTypes from 'prop-types';
 
@@ -11,28 +11,30 @@ class FFSelect extends React.Component {
   static propTypes = {
     label: propTypes.string.isRequired,
     instructionalText: propTypes.string.isRequired,
-    onChange: propTypes.string.isRequired,
+    onChange: propTypes.func.isRequired,
+    // items: an array of objects each with
+    // id and label properties.
     items: propTypes.array.isRequired,
   };
   state = {
     selectedItems: [],
   };
-  onSelect = (key) => {
-    let selectedItems = [];
-    if (this.state.selectedItems.contains(key)) {
-      this.state.selectedItems.map((itemKey) => {
-        if (itemKey !== key) {
-          selectedItems.push(key);
+  handleOnChange = () => {
+    this.props.onChange(this.state.selectedItems);
+  };
+  onSelect = (id) => {
+    let newSelectedItems = [];
+    if (this.state.selectedItems.includes(id)) {
+      this.state.selectedItems.map((itemId) => {
+        if (itemId !== id) {
+          newSelectedItems.push(itemId);
         }
       });
     } else {
-      selectedItems = this.state.selectedItems;
-      selectedItems = selectedItems.push(key);
+      newSelectedItems = this.state.selectedItems;
+      newSelectedItems.push(id);
     }
-    this.setState(
-      {selectedItems: selectedItems},
-      this.props.onChange(this.state.selectedItems),
-    );
+    this.setState({selectedItems: newSelectedItems}, this.handleOnChange);
   };
   render() {
     return (
@@ -42,13 +44,14 @@ class FFSelect extends React.Component {
           {this.props.instructionalText}
         </Text>
         {/* see if this renders the buttons */}
-        {this.props.items.forEach((item) => {
+        {this.props.items.map((item) => {
           return (
             <FFSelectButton
-              onSelect={this.onSelect}
-              key={item.key}
+              label={item.value}
+              key={item.id}
+              id={item.id}
               selected={false}
-              label={item.label}
+              onSelect={this.onSelect}
             />
           );
         })}
