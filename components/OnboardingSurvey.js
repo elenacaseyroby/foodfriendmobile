@@ -44,11 +44,12 @@ class OnboardingSurvey extends React.Component {
             label={'Your Birthday'}
             onChangeText={this.handleDateChange}
           />
+
           <FFSelectButtons
             label="Dietery restrictions"
-            instructionalText="Please select all that apply"
-            onChange={this.handleDiets}
+            instructions="Please select all that apply"
             items={items}
+            onChange={this.handleDiets}
           />
         </View>
       </ScrollView>

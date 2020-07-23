@@ -4,24 +4,19 @@ import {normalize} from '../../../utils/sizeScaling';
 import propTypes from 'prop-types';
 
 class FFSelectItem extends React.Component {
-  // style active v not active
   static propTypes = {
     label: propTypes.string.isRequired,
     id: propTypes.string.isRequired,
     selected: propTypes.bool.isRequired,
     onSelect: propTypes.func.isRequired,
   };
-  state = {
-    selected: this.props.selected,
-  };
   onClick = () => {
     this.props.onSelect(this.props.id);
-    this.setState({selected: !this.state.selected});
   };
   render() {
     let buttonStyles = [styles.button];
     let labelStyles = [styles.label];
-    if (this.state.selected) {
+    if (this.props.selected) {
       buttonStyles.push(styles.selectedButton);
       labelStyles.push(styles.selectedLabel);
     } else {

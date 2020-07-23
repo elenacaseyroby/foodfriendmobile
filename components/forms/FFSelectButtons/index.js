@@ -5,16 +5,14 @@ import FFSelectButton from './FFSelectButton';
 import propTypes from 'prop-types';
 
 class FFSelect extends React.Component {
-  // figure out how to deal with selecting multiple, up to 3, or 1
-  // could maybe have possibleSelectionsCount
-  // and requiredSelectionsCount
   static propTypes = {
-    label: propTypes.string.isRequired,
-    instructionalText: propTypes.string.isRequired,
     onChange: propTypes.func.isRequired,
+    label: propTypes.string.isRequired,
+    instructions: propTypes.string.isRequired,
     // items: an array of objects each with
     // id and label properties.
     items: propTypes.array.isRequired,
+    selectionCount: propTypes.number,
   };
   state = {
     selectedItems: [],
@@ -23,34 +21,44 @@ class FFSelect extends React.Component {
     this.props.onChange(this.state.selectedItems);
   };
   onSelect = (id) => {
-    let newSelectedItems = [];
+    let selectedItems = [];
     if (this.state.selectedItems.includes(id)) {
+      // if already selected, remove from selected items array.
       this.state.selectedItems.map((itemId) => {
         if (itemId !== id) {
-          newSelectedItems.push(itemId);
+          selectedItems.push(itemId);
         }
       });
+    } else if (
+      this.props.selectionCount &&
+      this.props.selectionCount <= this.state.selectedItems.length
+    ) {
+      // if max number of selections made, do nothing
+      console.log('AT CAPACITY');
+      selectedItems = this.state.selectedItems;
     } else {
-      newSelectedItems = this.state.selectedItems;
-      newSelectedItems.push(id);
+      console.log(this.props.selectionCount);
+      console.log(this.state.selectedItems.length);
+      // add to selected items array.
+      selectedItems = this.state.selectedItems;
+      selectedItems.push(id);
     }
-    this.setState({selectedItems: newSelectedItems}, this.handleOnChange);
+    this.setState({selectedItems: selectedItems}, this.handleOnChange);
   };
   render() {
     return (
       <View style={styles.selectComponent}>
         <Text style={styles.label}>{this.props.label}</Text>
-        <Text style={styles.instructionalText}>
-          {this.props.instructionalText}
-        </Text>
-        {/* see if this renders the buttons */}
+        <Text style={styles.instructions}>{this.props.instructions}</Text>
         {this.props.items.map((item) => {
           return (
             <FFSelectButton
               label={item.value}
               key={item.id}
               id={item.id}
-              selected={false}
+              selected={
+                this.state.selectedItems.includes(item.id) ? true : false
+              }
               onSelect={this.onSelect}
             />
           );
@@ -67,7 +75,7 @@ const styles = StyleSheet.create({
     color: '#555555',
     marginBottom: '3%',
   },
-  instructionalText: {
+  instructions: {
     fontFamily: 'Cabin-Regular',
     fontSize: normalize(16),
     color: '#aaaaaa',
