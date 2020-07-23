@@ -71,7 +71,7 @@ class UpdatePassword extends React.Component {
             <Text style={styles.updateText}>Update Password</Text>
             <Image style={styles.plantMascot} source={plantMascot} />
           </View>
-          <FFPasswordBox handleChange={this.handlePassword} />
+          <FFPasswordBox onChangeText={this.handlePassword} />
           {this.renderError()}
           <View style={styles.button}>
             <SubmitButton onClick={this.handleSubmit} />

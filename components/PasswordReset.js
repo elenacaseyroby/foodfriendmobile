@@ -41,7 +41,7 @@ class PasswordReset extends React.Component {
     if (!this.state.renderForm) return;
     return (
       <>
-        <FFEmailTextBox handleChange={this.handleEmail} />
+        <FFEmailTextBox onChangeText={this.handleEmail} />
         {this.renderError()}
         <View style={styles.button}>
           <SubmitButton onClick={this.handleSubmit} />

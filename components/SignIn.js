@@ -99,8 +99,8 @@ class SignIn extends React.Component {
             <Image style={styles.plantMascot} source={plantMascot} />
           </View>
 
-          <FFEmailTextBox handleChange={this.handleEmail} />
-          <FFPasswordBox handleChange={this.handlePassword} />
+          <FFEmailTextBox onChangeText={this.handleEmail} />
+          <FFPasswordBox onChangeText={this.handlePassword} />
           {this.renderError()}
           <TouchableOpacity
             onPress={() => this.props.navigation.navigate('Password Reset')}>

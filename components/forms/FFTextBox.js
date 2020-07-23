@@ -5,7 +5,7 @@ import propTypes from 'prop-types';
 
 class FFTextBox extends React.Component {
   static propTypes = {
-    handleChange: propTypes.func.isRequired,
+    onChangeText: propTypes.func.isRequired,
     placeholder: propTypes.string.isRequired,
     maxLength: propTypes.number.isRequired,
     autoCapitalize: propTypes.string.isRequired,
@@ -20,7 +20,7 @@ class FFTextBox extends React.Component {
           style={styles.formText}
           placeholder={this.props.placeholder}
           autoCapitalize={this.props.autoCapitalize}
-          onChangeText={this.props.handleChange}
+          onChangeText={this.props.onChangeText}
           maxLength={this.props.maxLength}
           secureTextEntry={
             this.props.secureTextEntry ? this.props.secureTextEntry : false

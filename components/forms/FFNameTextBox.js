@@ -4,14 +4,14 @@ import propTypes from 'prop-types';
 
 class FFEmailTextBox extends React.Component {
   static propTypes = {
-    handleChange: propTypes.func.isRequired,
+    onChangeText: propTypes.func.isRequired,
     placeholder: propTypes.string.isRequired,
   };
   render() {
     return (
       <>
         <FFTextBox
-          handleChange={this.props.handleChange}
+          onChangeText={this.props.onChangeText}
           placeholder={this.props.placeholder}
           maxLength={30}
           autoCapitalize="words"

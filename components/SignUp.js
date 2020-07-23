@@ -95,14 +95,14 @@ class SignUp extends React.Component {
 
           <FFNameTextBox
             placeholder="First Name"
-            handleChange={this.handleFirstName}
+            onChangeText={this.handleFirstName}
           />
           <FFNameTextBox
             placeholder="Last Name"
-            handleChange={this.handleLastName}
+            onChangeText={this.handleLastName}
           />
-          <FFEmailTextBox handleChange={this.handleEmail} />
-          <FFPasswordBox handleChange={this.handlePassword} />
+          <FFEmailTextBox onChangeText={this.handleEmail} />
+          <FFPasswordBox onChangeText={this.handlePassword} />
           {this.renderError()}
           <View style={styles.termsContainer}>
             <Text style={styles.termsTextGray}>

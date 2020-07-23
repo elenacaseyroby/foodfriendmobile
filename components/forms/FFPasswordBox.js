@@ -4,13 +4,13 @@ import propTypes from 'prop-types';
 
 class FFPasswordBox extends React.Component {
   static propTypes = {
-    handleChange: propTypes.func.isRequired,
+    onChangeText: propTypes.func.isRequired,
   };
   render() {
     return (
       <>
         <FFTextBox
-          handleChange={this.props.handleChange}
+          onChangeText={this.props.onChangeText}
           placeholder="Password (8+ characters)"
           maxLength={40}
           autoCapitalize="none"
