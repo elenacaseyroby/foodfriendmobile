@@ -76,6 +76,7 @@ const styles = StyleSheet.create({
     minHeight: '100%',
   },
   instructionsText: {
+    marginBottom: '5%',
     fontFamily: 'Cabin-Regular',
     fontSize: normalize(16),
     color: '#3d3d3d',

@@ -44,13 +44,13 @@ const styles = StyleSheet.create({
     marginBottom: '3%',
     fontSize: normalize(16),
     fontFamily: 'Cabin-Regular',
-    color: '#555555',
+    color: '#aaaaaa',
     width: normalize(310),
   },
   formBox: {
     marginBottom: '5%',
     borderBottomWidth: normalize(0.5),
-    color: '#555555',
+    color: '#aaaaaa',
     width: normalize(310),
   },
 });
