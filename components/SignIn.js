@@ -19,6 +19,7 @@ import plantMascot from '../assets/images/plant-mascot.png';
 import FoodPlate from './common/FoodPlate';
 import FFEmailTextBox from './forms/FFEmailTextBox';
 import FFPasswordBox from './forms/FFPasswordBox';
+import FFErrorMessage from './forms/FFErrorMessage';
 import SignInButton from './common/SignInButton';
 import auth from '../services/auth';
 
@@ -86,10 +87,6 @@ class SignIn extends React.Component {
     this.props.dispatch(fetchUser(login.response.userId));
     this.props.dispatch(setAuth());
   };
-  renderError = () => {
-    if (!this.state.errorMessage) return;
-    return <Text style={styles.errorText}>{this.state.errorMessage}</Text>;
-  };
   render() {
     return (
       <View style={styles.rectangle}>
@@ -101,7 +98,7 @@ class SignIn extends React.Component {
 
           <FFEmailTextBox onChangeText={this.handleEmail} />
           <FFPasswordBox onChangeText={this.handlePassword} />
-          {this.renderError()}
+          <FFErrorMessage errorMessage={this.state.errorMessage} />
           <TouchableOpacity
             onPress={() => this.props.navigation.navigate('Password Reset')}>
             <Text style={styles.forgotPasswordText}>Forgot your password?</Text>
@@ -145,12 +142,6 @@ const styles = StyleSheet.create({
     height: undefined,
     // aspectRatio: width / height,
     aspectRatio: 118 / 113,
-  },
-  errorText: {
-    marginBottom: '3%',
-    fontSize: normalize(14),
-    fontFamily: 'Cabin-Regular',
-    color: '#ea1313',
   },
   forgotPasswordText: {
     marginBottom: '6%',
