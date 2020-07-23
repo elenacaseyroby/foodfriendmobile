@@ -9,6 +9,7 @@ import {normalize} from '../utils/sizeScaling';
 import plantMascot from '../assets/images/plant-mascot-blue.png';
 import Elipse from './common/BlueBottomElipse';
 import FFPasswordBox from './forms/FFPasswordBox';
+import FFErrorMessage from './forms/FFErrorMessage';
 import SubmitButton from './common/SubmitButton';
 import auth from '../services/auth';
 
@@ -59,10 +60,6 @@ class UpdatePassword extends React.Component {
     this.props.dispatch(fetchUser(reset.response.userId));
     this.props.dispatch(setAuth());
   };
-  renderError = () => {
-    if (!this.state.errorMessage) return;
-    return <Text style={styles.errorText}>{this.state.errorMessage}</Text>;
-  };
   render() {
     return (
       <View style={styles.rectangle}>
@@ -72,7 +69,7 @@ class UpdatePassword extends React.Component {
             <Image style={styles.plantMascot} source={plantMascot} />
           </View>
           <FFPasswordBox onChangeText={this.handlePassword} />
-          {this.renderError()}
+          <FFErrorMessage errorMessage={this.state.errorMessage} />
           <View style={styles.button}>
             <SubmitButton onClick={this.handleSubmit} />
           </View>
@@ -107,11 +104,6 @@ const styles = StyleSheet.create({
     height: undefined,
     // aspectRatio: width / height,
     aspectRatio: 1 / 1,
-  },
-  errorText: {
-    fontSize: normalize(14),
-    fontFamily: 'Cabin-Regular',
-    color: '#ea1313',
   },
   button: {
     marginTop: '5%',

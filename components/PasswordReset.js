@@ -7,6 +7,7 @@ import BackArrow from '../components/common/BackArrow';
 import plantMascot from '../assets/images/plant-mascot-blue.png';
 import Elipse from './common/BlueBottomElipse';
 import FFEmailTextBox from './forms/FFEmailTextBox';
+import FFErrorMessage from './forms/FFErrorMessage';
 import SubmitButton from './common/SubmitButton';
 import auth from '../services/auth';
 
@@ -33,16 +34,12 @@ class PasswordReset extends React.Component {
     }
     this.setState({submitted: true});
   };
-  renderError = () => {
-    if (!this.state.errorMessage) return;
-    return <Text style={styles.errorText}>{this.state.errorMessage}</Text>;
-  };
   renderForm = () => {
     if (!this.state.renderForm) return;
     return (
       <>
         <FFEmailTextBox onChangeText={this.handleEmail} />
-        {this.renderError()}
+        <FFErrorMessage errorMessage={this.state.errorMessage} />
         <View style={styles.button}>
           <SubmitButton onClick={this.handleSubmit} />
         </View>
@@ -103,11 +100,6 @@ const styles = StyleSheet.create({
     fontSize: normalize(20),
     fontFamily: 'Cabin-Regular',
     color: '#555555',
-  },
-  errorText: {
-    fontSize: normalize(14),
-    fontFamily: 'Cabin-Regular',
-    color: '#ea1313',
   },
   button: {
     marginTop: '5%',

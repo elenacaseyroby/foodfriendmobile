@@ -22,6 +22,7 @@ import FFEmailTextBox from './forms/FFEmailTextBox';
 import FFNameTextBox from './forms/FFNameTextBox';
 import FFPasswordBox from './forms/FFPasswordBox';
 import plantMascot from '../assets/images/plant-mascot-blue.png';
+import FFErrorMessage from './forms/FFErrorMessage';
 import SignUpButton from './common/SignUpButton';
 import Elipse from './common/BlueBottomElipse';
 import auth from '../services/auth';
@@ -75,10 +76,6 @@ class SignUp extends React.Component {
     this.props.dispatch(fetchUser(signUp.response.userId));
     this.props.dispatch(setAuth());
   };
-  renderError = () => {
-    if (!this.state.errorMessage) return;
-    return <Text style={styles.errorText}>{this.state.errorMessage}</Text>;
-  };
   render() {
     return (
       <View style={styles.rectangle}>
@@ -103,7 +100,7 @@ class SignUp extends React.Component {
           />
           <FFEmailTextBox onChangeText={this.handleEmail} />
           <FFPasswordBox onChangeText={this.handlePassword} />
-          {this.renderError()}
+          <FFErrorMessage errorMessage={this.state.errorMessage} />
           <View style={styles.termsContainer}>
             <Text style={styles.termsTextGray}>
               {'By signing up, you agree to our '}
@@ -120,7 +117,6 @@ class SignUp extends React.Component {
               <Text style={styles.termsTextOrange}>privacy policy</Text>
             </TouchableOpacity>
           </View>
-
           <View style={styles.signUpButton}>
             <SignUpButton onClick={this.handleSignUp} />
           </View>
@@ -173,12 +169,6 @@ const styles = StyleSheet.create({
   signUpButton: {
     alignSelf: 'center',
     marginBottom: '3%',
-  },
-  errorText: {
-    marginBottom: '3%',
-    fontSize: normalize(14),
-    fontFamily: 'Cabin-Regular',
-    color: '#ea1313',
   },
   content: {
     width: normalize(310),
