@@ -10,6 +10,7 @@ class OnboardingSurvey extends React.Component {
   state = {
     birthday: null,
     diets: [],
+    path: null,
   };
   onComponentDidMount() {}
   handleDateChange = (date) => {
@@ -20,13 +21,24 @@ class OnboardingSurvey extends React.Component {
     console.log(`selected diets: ${selectedDiets}`);
     this.setState({diets: selectedDiets});
   };
+  handlePath = (selectedPaths) => {
+    console.log(`selected path: ${selectedPaths}`);
+    this.setState({path: selectedPaths.length > 0 ? selectedPaths[0] : null});
+  };
   render() {
-    const items = [
+    const diets = [
       {id: 'vegetarian', value: 'Vegetarian'},
       {id: 'vegan', value: 'Vegan'},
       {id: 'pescatarian', value: 'Pescatarian'},
       {id: 'gluten-free', value: 'Gluten-free'},
       {id: 'dairy-free', value: 'Dairy-free'},
+    ];
+    const benefits = [
+      {id: 'mood', value: 'Emotional Well-being'},
+      {id: 'cognition', value: 'Brain Health'},
+      {id: 'beauty', value: 'Skin & Hair'},
+      {id: 'energy', value: 'Energy & Vitality'},
+      {id: 'immunity', value: 'Physical Health & Wellness'},
     ];
     return (
       <ScrollView style={styles.rectangle}>
@@ -46,10 +58,17 @@ class OnboardingSurvey extends React.Component {
           />
 
           <FFSelectButtons
-            label="Dietery restrictions"
+            label="Do you have any dietary restrictions?"
             instructions="Please select all that apply"
-            items={items}
+            items={diets}
             onChange={this.handleDiets}
+          />
+          <FFSelectButtons
+            label="What are you most interested in improving?"
+            instructions="Please select one"
+            items={benefits}
+            onChange={this.handlePath}
+            selectionCount={1}
           />
         </View>
       </ScrollView>
