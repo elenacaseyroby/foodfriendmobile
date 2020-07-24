@@ -4,12 +4,15 @@ import {normalize} from '../utils/sizeScaling';
 import FFDateBox from './forms/FFDateBox';
 import FFSelectButtons from './forms/FFSelectButtons';
 import FFRadioButtons from './forms/FFRadioButtons';
+import FFSubmitButton from './forms/FFSubmitButton';
+import FFErrorMessage from './forms/FFErrorMessage';
 import orangeElipse from '../assets/images/top-elipse-two-toned-orange.png';
 import plant from '../assets/images/monstera.png';
 import blueElipse from '../assets/images/bottom-elipse-blue-2.png';
 
 class OnboardingSurvey extends React.Component {
   state = {
+    errorMessage: null,
     birthday: null,
     diets: [],
     path: null,
@@ -31,6 +34,9 @@ class OnboardingSurvey extends React.Component {
   handleMenstruates = (menstruates) => {
     console.log(`menstruates: ${menstruates}`);
     this.setState({menstruates: menstruates});
+  };
+  handleSubmit = () => {
+    return;
   };
   render() {
     const diets = [
@@ -63,7 +69,6 @@ class OnboardingSurvey extends React.Component {
             label={'Your Birthday'}
             onChangeText={this.handleDateChange}
           />
-
           <FFSelectButtons
             label="Do you have any dietary restrictions?"
             instructions="Please select all that apply"
@@ -82,8 +87,12 @@ class OnboardingSurvey extends React.Component {
             onChange={this.handlePath}
             selectionCount={1}
           />
+          <FFErrorMessage errorMessage={this.state.errorMessage} />
         </View>
         <Image style={styles.blueElipse} source={blueElipse} />
+        <View style={styles.submitButton}>
+          <FFSubmitButton onSubmit={this.handleSubmit} />
+        </View>
       </ScrollView>
     );
   }
@@ -133,6 +142,11 @@ const styles = StyleSheet.create({
     fontSize: normalize(16),
     color: '#3d3d3d',
   },
+  submitButton: {
+    position: 'absolute',
+    alignSelf: 'center',
+    bottom: normalize(60),
+  },
   blueElipse: {
     marginTop: '10%',
     width: '100%',
@@ -141,6 +155,7 @@ const styles = StyleSheet.create({
     aspectRatio: 1110 / 270,
   },
   rectangle: {
+    position: 'relative',
     width: '100%',
     backgroundColor: '#ffffff',
     flex: 1,
