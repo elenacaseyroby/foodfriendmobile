@@ -20,19 +20,15 @@ class OnboardingSurvey extends React.Component {
   };
   onComponentDidMount() {}
   handleDateChange = (date) => {
-    console.log(date);
-    this.setState({birthday: date}); //... here
+    this.setState({birthday: date});
   };
   handleDiets = (selectedDiets) => {
-    console.log(`selected diets: ${selectedDiets}`);
     this.setState({diets: selectedDiets});
   };
   handlePath = (selectedPaths) => {
-    console.log(`selected path: ${selectedPaths}`);
     this.setState({path: selectedPaths.length > 0 ? selectedPaths[0] : null});
   };
   handleMenstruates = (menstruates) => {
-    console.log(`menstruates: ${menstruates}`);
     this.setState({menstruates: menstruates});
   };
   handleSubmit = () => {
