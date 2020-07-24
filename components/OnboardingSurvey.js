@@ -1,11 +1,19 @@
 import React from 'react';
-import {ScrollView, Image, StyleSheet, View, Text} from 'react-native';
+import {
+  StatusBar,
+  ScrollView,
+  Image,
+  StyleSheet,
+  View,
+  Text,
+} from 'react-native';
 import {normalize} from '../utils/sizeScaling';
 import FFDateBox from './forms/FFDateBox';
 import FFSelectButtons from './forms/FFSelectButtons';
 import FFRadioButtons from './forms/FFRadioButtons';
 import FFSubmitButton from './forms/FFSubmitButton';
 import FFErrorMessage from './forms/FFErrorMessage';
+import FFStatusBar from './common/FFStatusBar';
 import orangeElipse from '../assets/images/top-elipse-two-toned-orange.png';
 import plant from '../assets/images/monstera.png';
 import blueElipse from '../assets/images/bottom-elipse-blue-2.png';
@@ -50,46 +58,52 @@ class OnboardingSurvey extends React.Component {
       {id: 'immunity', value: 'Physical Health & Wellness'},
     ];
     return (
-      <ScrollView style={styles.rectangle}>
-        <Image style={styles.orangeElipse} source={orangeElipse} />
-        <View style={styles.header}>
-          <Text style={styles.headerText}>Let's Learn about you</Text>
-          <Image style={styles.plant} source={plant} />
-        </View>
-        <View style={styles.form}>
-          <Text style={styles.instructionsText}>
-            The information you provide will help us match you to your nutrient
-            path.
-          </Text>
-          <FFDateBox
-            label={'Your Birthday'}
-            onChangeText={this.handleDateChange}
-          />
-          <FFSelectButtons
-            label="Do you have any dietary restrictions?"
-            instructions="Please select all that apply"
-            items={diets}
-            onChange={this.handleDiets}
-          />
-          <FFRadioButtons
-            label="Do you menstruate?"
-            onChange={this.handleMenstruates}
-            allowOptOut={true}
-          />
-          <FFSelectButtons
-            label="What are you most interested in improving?"
-            instructions="Please select one"
-            items={benefits}
-            onChange={this.handlePath}
-            selectionCount={1}
-          />
-          <FFErrorMessage errorMessage={this.state.errorMessage} />
-        </View>
-        <Image style={styles.blueElipse} source={blueElipse} />
-        <View style={styles.submitButton}>
-          <FFSubmitButton onSubmit={this.handleSubmit} />
-        </View>
-      </ScrollView>
+      <>
+        <FFStatusBar
+          barStyle={'dark-content'}
+          backgroundColorStyle={styles.statusBarBackgroundColor}
+        />
+        <ScrollView style={styles.rectangle}>
+          <Image style={styles.orangeElipse} source={orangeElipse} />
+          <View style={styles.header}>
+            <Text style={styles.headerText}>Let's Learn about you</Text>
+            <Image style={styles.plant} source={plant} />
+          </View>
+          <View style={styles.form}>
+            <Text style={styles.instructionsText}>
+              The information you provide will help us match you to your
+              nutrient path.
+            </Text>
+            <FFDateBox
+              label={'Your Birthday'}
+              onChangeText={this.handleDateChange}
+            />
+            <FFSelectButtons
+              label="Do you have any dietary restrictions?"
+              instructions="Please select all that apply"
+              items={diets}
+              onChange={this.handleDiets}
+            />
+            <FFRadioButtons
+              label="Do you menstruate?"
+              onChange={this.handleMenstruates}
+              allowOptOut={true}
+            />
+            <FFSelectButtons
+              label="What are you most interested in improving?"
+              instructions="Please select one"
+              items={benefits}
+              onChange={this.handlePath}
+              selectionCount={1}
+            />
+            <FFErrorMessage errorMessage={this.state.errorMessage} />
+          </View>
+          <Image style={styles.blueElipse} source={blueElipse} />
+          <View style={styles.submitButton}>
+            <FFSubmitButton onSubmit={this.handleSubmit} />
+          </View>
+        </ScrollView>
+      </>
     );
   }
 }
@@ -155,6 +169,9 @@ const styles = StyleSheet.create({
     width: '100%',
     backgroundColor: '#ffffff',
     flex: 1,
+  },
+  statusBarBackgroundColor: {
+    backgroundColor: '#ffffff',
   },
 });
 
