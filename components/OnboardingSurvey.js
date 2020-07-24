@@ -119,12 +119,12 @@ const styles = StyleSheet.create({
   header: {
     alignSelf: 'center',
     justifyContent: 'space-between',
-    marginTop: normalize(30),
+    marginTop: normalize(20),
     width: normalize(310),
     flexDirection: 'row',
   },
   headerText: {
-    marginTop: '20%',
+    marginTop: '19%',
     position: 'relative',
     fontFamily: 'Cabin-SemiBold',
     color: '#ffffff',
@@ -133,8 +133,8 @@ const styles = StyleSheet.create({
     width: normalize(140),
   },
   plant: {
-    marginLeft: '3%',
-    width: normalize(175),
+    marginLeft: '1%',
+    width: normalize(190),
     height: undefined,
     aspectRatio: 195 / 213,
     // borderColor: '#aaaaaa',
