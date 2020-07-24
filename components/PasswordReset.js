@@ -2,7 +2,7 @@ import React from 'react';
 import {View, Text, Image, StyleSheet} from 'react-native';
 import {validateEmail} from '../utils/formValidation';
 import {getPasswordResetError} from '../utils/auth';
-import {normalize} from '../utils/sizeScaling';
+import {normalize} from '../utils/deviceScaling';
 import BackArrow from '../components/common/BackArrow';
 import plantMascot from '../assets/images/plant-mascot-blue.png';
 import Elipse from './common/BlueBottomElipse';

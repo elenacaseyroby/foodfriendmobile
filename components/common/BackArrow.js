@@ -1,6 +1,6 @@
 import React from 'react';
 import {TouchableOpacity, Image, View, StyleSheet} from 'react-native';
-import {normalize} from '../../utils/sizeScaling';
+import {normalize} from '../../utils/deviceScaling';
 import whiteBackArrow from '../../assets/images/white-back-arrow.png';
 import blackBackArrow from '../../assets/images/black-back-arrow.png';
 import propTypes from 'prop-types';

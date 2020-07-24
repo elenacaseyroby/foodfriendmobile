@@ -5,7 +5,7 @@ import {fetchUser} from '../redux/actions/userActionCreator';
 import {setAuth} from '../redux/actions/authActionCreator';
 import {storeAsyncLoginData, getPasswordUpdateError} from '../utils/auth';
 import {validatePassword} from '../utils/formValidation';
-import {normalize} from '../utils/sizeScaling';
+import {normalize} from '../utils/deviceScaling';
 import plantMascot from '../assets/images/plant-mascot-blue.png';
 import Elipse from './common/BlueBottomElipse';
 import FFPasswordBox from './forms/FFPasswordBox';

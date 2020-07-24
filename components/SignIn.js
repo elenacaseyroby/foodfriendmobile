@@ -13,7 +13,7 @@ import {fetchUser} from '../redux/actions/userActionCreator';
 import {setAuth} from '../redux/actions/authActionCreator';
 import {validateEmail, validatePassword} from '../utils/formValidation';
 import {storeAsyncLoginData, getLoginError} from '../utils/auth';
-import {normalize} from '../utils/sizeScaling';
+import {normalize} from '../utils/deviceScaling';
 import {routeDeepLink} from '../utils/navigation';
 import plantMascot from '../assets/images/plant-mascot.png';
 import FoodPlate from './common/FoodPlate';

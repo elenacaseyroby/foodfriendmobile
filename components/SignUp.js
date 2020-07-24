@@ -16,7 +16,7 @@ import {
   validateName,
 } from '../utils/formValidation';
 import {getSignUpError, storeAsyncLoginData} from '../utils/auth';
-import {normalize} from '../utils/sizeScaling';
+import {normalize} from '../utils/deviceScaling';
 import BackArrow from './common/BackArrow';
 import FFEmailTextBox from './forms/FFEmailTextBox';
 import FFNameTextBox from './forms/FFNameTextBox';

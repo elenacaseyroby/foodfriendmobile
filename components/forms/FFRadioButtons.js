@@ -1,6 +1,6 @@
 import React from 'react';
 import {Text, View, TouchableOpacity, StyleSheet} from 'react-native';
-import {normalize} from '../../utils/sizeScaling';
+import {normalize} from '../../utils/deviceScaling';
 import propTypes from 'prop-types';
 
 class FFRadioButton extends React.Component {

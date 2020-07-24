@@ -1,6 +1,6 @@
 import React from 'react';
 import {ScrollView, View, Text, StyleSheet} from 'react-native';
-import {normalize} from '../../utils/sizeScaling';
+import {normalize} from '../../utils/deviceScaling';
 import propTypes from 'prop-types';
 import BackArrow from './BackArrow';
 

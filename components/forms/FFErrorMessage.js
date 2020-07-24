@@ -1,7 +1,7 @@
 import React from 'react';
 import {Text, StyleSheet} from 'react-native';
 import propTypes from 'prop-types';
-import {normalize} from '../../utils/sizeScaling';
+import {normalize} from '../../utils/deviceScaling';
 
 class FFErrorMessage extends React.Component {
   static propTypes = {

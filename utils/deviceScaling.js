@@ -39,6 +39,7 @@ export const getIosStatusBarHeight = () => {
   if (isIPhoneX()) return 44;
   return 20;
 };
+
 export const statusBarHeight = Platform.select({
   ios: getIosStatusBarHeight(),
   android: StatusBar.currentHeight,

@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, Image} from 'react-native';
-import {normalize} from '../../utils/sizeScaling';
+import {normalize} from '../../utils/deviceScaling';
 import elipse from '../../assets/images/bottom-elipse-blue.png';
 
 class BlueBottomElipse extends React.Component {

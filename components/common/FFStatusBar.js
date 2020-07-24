@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
-import {normalize, statusBarHeight} from '../../utils/sizeScaling';
+import {normalize, statusBarHeight} from '../../utils/deviceScaling';
 import propTypes from 'prop-types';
 
 class FFStatusBar extends React.Component {

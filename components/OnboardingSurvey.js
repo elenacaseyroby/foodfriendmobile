@@ -7,7 +7,7 @@ import {
   View,
   Text,
 } from 'react-native';
-import {normalize} from '../utils/sizeScaling';
+import {normalize} from '../utils/deviceScaling';
 import FFDateBox from './forms/FFDateBox';
 import FFSelectButtons from './forms/FFSelectButtons';
 import FFRadioButtons from './forms/FFRadioButtons';

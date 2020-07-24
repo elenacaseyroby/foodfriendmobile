@@ -1,6 +1,6 @@
 import React from 'react';
 import {Text, TouchableOpacity, StyleSheet} from 'react-native';
-import {normalize} from '../../../utils/sizeScaling';
+import {normalize} from '../../../utils/deviceScaling';
 import propTypes from 'prop-types';
 
 class FFSelectButton extends React.Component {
