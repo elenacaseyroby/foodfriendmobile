@@ -3,6 +3,7 @@ import {ScrollView, Image, StyleSheet, View, Text} from 'react-native';
 import {normalize} from '../utils/sizeScaling';
 import FFDateBox from './forms/FFDateBox';
 import FFSelectButtons from './forms/FFSelectButtons';
+import FFRadioButtons from './forms/FFRadioButtons';
 import elipse from '../assets/images/top-elipse-two-toned-orange.png';
 import plant from '../assets/images/monstera.png';
 
@@ -11,6 +12,7 @@ class OnboardingSurvey extends React.Component {
     birthday: null,
     diets: [],
     path: null,
+    menstruates: null,
   };
   onComponentDidMount() {}
   handleDateChange = (date) => {
@@ -24,6 +26,10 @@ class OnboardingSurvey extends React.Component {
   handlePath = (selectedPaths) => {
     console.log(`selected path: ${selectedPaths}`);
     this.setState({path: selectedPaths.length > 0 ? selectedPaths[0] : null});
+  };
+  handleMenstruates = (menstruates) => {
+    console.log(`menstruates: ${menstruates}`);
+    this.setState({menstruates: menstruates});
   };
   render() {
     const diets = [
@@ -62,6 +68,11 @@ class OnboardingSurvey extends React.Component {
             instructions="Please select all that apply"
             items={diets}
             onChange={this.handleDiets}
+          />
+          <FFRadioButtons
+            label="Do you menstruate?"
+            onChange={this.handleMenstruates}
+            allowOptOut={true}
           />
           <FFSelectButtons
             label="What are you most interested in improving?"

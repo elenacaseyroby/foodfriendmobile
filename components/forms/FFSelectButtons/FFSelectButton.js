@@ -3,7 +3,7 @@ import {Text, TouchableOpacity, StyleSheet} from 'react-native';
 import {normalize} from '../../../utils/sizeScaling';
 import propTypes from 'prop-types';
 
-class FFSelectItem extends React.Component {
+class FFSelectButton extends React.Component {
   static propTypes = {
     label: propTypes.string.isRequired,
     id: propTypes.string.isRequired,
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   button: {
-    width: normalize(304),
+    width: normalize(310),
     height: normalize(57),
     justifyContent: 'center',
     borderRadius: normalize(28.5),
@@ -60,4 +60,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default FFSelectItem;
+export default FFSelectButton;
