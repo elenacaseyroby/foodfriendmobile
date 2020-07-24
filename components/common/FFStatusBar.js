@@ -19,6 +19,7 @@ class FFStatusBar extends React.Component {
 const styles = StyleSheet.create({
   statusBar: {
     height: statusBarHeight,
+    opacity: 0.8,
   },
 });
 
