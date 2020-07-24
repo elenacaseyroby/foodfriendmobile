@@ -4,8 +4,9 @@ import {normalize} from '../utils/sizeScaling';
 import FFDateBox from './forms/FFDateBox';
 import FFSelectButtons from './forms/FFSelectButtons';
 import FFRadioButtons from './forms/FFRadioButtons';
-import elipse from '../assets/images/top-elipse-two-toned-orange.png';
+import orangeElipse from '../assets/images/top-elipse-two-toned-orange.png';
 import plant from '../assets/images/monstera.png';
+import blueElipse from '../assets/images/bottom-elipse-blue-2.png';
 
 class OnboardingSurvey extends React.Component {
   state = {
@@ -48,7 +49,7 @@ class OnboardingSurvey extends React.Component {
     ];
     return (
       <ScrollView style={styles.rectangle}>
-        <Image style={styles.elipse} source={elipse} />
+        <Image style={styles.orangeElipse} source={orangeElipse} />
         <View style={styles.header}>
           <Text style={styles.headerText}>Let's Learn about you</Text>
           <Image style={styles.plant} source={plant} />
@@ -82,13 +83,14 @@ class OnboardingSurvey extends React.Component {
             selectionCount={1}
           />
         </View>
+        <Image style={styles.blueElipse} source={blueElipse} />
       </ScrollView>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  elipse: {
+  orangeElipse: {
     position: 'absolute',
     width: '100%',
     height: undefined,
@@ -124,7 +126,6 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     width: normalize(310),
     marginTop: '10%',
-    minHeight: '100%',
   },
   instructionsText: {
     marginBottom: '5%',
@@ -132,9 +133,15 @@ const styles = StyleSheet.create({
     fontSize: normalize(16),
     color: '#3d3d3d',
   },
+  blueElipse: {
+    marginTop: '10%',
+    width: '100%',
+    height: undefined,
+    // aspectRatio: width / height,
+    aspectRatio: 1110 / 270,
+  },
   rectangle: {
     width: '100%',
-    height: 1500,
     backgroundColor: '#ffffff',
     flex: 1,
   },
