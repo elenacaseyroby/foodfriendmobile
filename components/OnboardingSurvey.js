@@ -42,6 +42,32 @@ class OnboardingSurvey extends React.Component {
   handleSubmit = () => {
     return;
   };
+  getPath = () => {
+    // beauty is same for everyone
+    if (this.state.path === 'beauty') return 'Beauty';
+    // energy for vegans works for menstruating vegans too
+    if (this.state.path === 'energy' && this.state.diets.includes('vegan')) {
+      return 'Energy For Vegans';
+    }
+    if (this.state.path === 'mood' && this.state.diets.includes('vegan')) {
+      return 'Mood For Vegans';
+    }
+    if (this.state.path === 'cognition' && this.state.diets.includes('vegan')) {
+      return 'Cognition For Vegans';
+    }
+    if (this.state.path === 'immunity' && this.state.diets.includes('vegan')) {
+      return 'Immunity For Vegans';
+    }
+    // Energy for menstruation is energy for menstruating non-vegans
+    if (this.state.path === 'energy' && this.state.menstruates) {
+      return 'Energy For Menstruation';
+    }
+    // Without those issues, all paths are the same:
+    if (this.state.path === 'energy') return 'Energy';
+    if (this.state.path === 'cognition') return 'Cognition';
+    if (this.state.path === 'immunity') return 'Immunity';
+    if (this.state.path === 'mood') return 'Mood';
+  };
   render() {
     const diets = [
       {id: 'vegetarian', value: 'Vegetarian'},
