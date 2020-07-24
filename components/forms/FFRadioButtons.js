@@ -51,7 +51,7 @@ class FFRadioButton extends React.Component {
   }
   render() {
     return (
-      <>
+      <View style={styles.radioButtonComponent}>
         <Text style={styles.label}>{this.props.label}</Text>
         <View style={styles.rowContainer}>
           <TouchableOpacity
@@ -94,7 +94,7 @@ class FFRadioButton extends React.Component {
           </TouchableOpacity>
         </View>
         {this.renderOptOut()}
-      </>
+      </View>
     );
   }
 }
@@ -140,6 +140,10 @@ const styles = StyleSheet.create({
   },
   rowContainer: {
     flexDirection: 'row',
+  },
+  radioButtonComponent: {
+    marginBottom: '5%',
+    marginTop: '5%',
   },
 });
 
