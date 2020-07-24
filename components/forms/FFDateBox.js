@@ -18,10 +18,13 @@ class FFDateBox extends React.Component {
     this.props.onChangeText(date);
   };
   handleChangeMonth = (MM) => {
-    console.log('change month');
+    // Go to next box on maxLength:
+    if (MM.length === 2) this.refs['DD'].focus();
     this.setState({MM: MM}, this.handleOnChange);
   };
   handleChangeDay = (DD) => {
+    // Go to next box on maxLength:
+    if (DD.length === 2) this.refs['YYYY'].focus();
     this.setState({DD: DD}, this.handleOnChange);
   };
   handleChangeYear = (YYYY) => {
@@ -33,20 +36,31 @@ class FFDateBox extends React.Component {
         <Text style={styles.label}>{this.props.label}</Text>
         <View style={styles.dateInputContainer}>
           <TextInput
+            ref="MM"
             style={styles.formText}
             placeholder="MM"
             onChangeText={this.handleChangeMonth}
             maxLength={2}
+            // Go to next box on enter:
+            onSubmitEditing={() => {
+              this.refs['DD'].focus();
+            }}
           />
           <Text style={styles.formText}>/</Text>
           <TextInput
+            ref="DD"
             style={styles.formText}
             placeholder="DD"
             onChangeText={this.handleChangeDay}
             maxLength={2}
+            // Go to next box on enter:
+            onSubmitEditing={() => {
+              this.refs['YYYY'].focus();
+            }}
           />
           <Text style={styles.formText}>/</Text>
           <TextInput
+            ref="YYYY"
             style={styles.formText}
             placeholder="YYYY"
             onChangeText={this.handleChangeYear}
