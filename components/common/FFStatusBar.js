@@ -7,7 +7,7 @@ class FFStatusBar extends React.Component {
   static propTypes = {
     // https://reactnative.dev/docs/statusbar#barstyle
     barStyle: propTypes.string,
-    backgroundColorStyle: propTypes.string,
+    backgroundColorStyle: propTypes.object,
   };
   render() {
     return (
