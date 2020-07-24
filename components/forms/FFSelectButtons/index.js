@@ -22,7 +22,10 @@ class FFSelect extends React.Component {
   };
   onSelect = (id) => {
     let selectedItems = [];
-    if (this.state.selectedItems.includes(id)) {
+    // if selecting 1 item, change selected item with every click.
+    if (this.props.selectionCount && this.props.selectionCount === 1) {
+      selectedItems = [id];
+    } else if (this.state.selectedItems.includes(id)) {
       // if already selected, remove from selected items array.
       this.state.selectedItems.map((itemId) => {
         if (itemId !== id) {
