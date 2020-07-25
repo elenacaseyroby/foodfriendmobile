@@ -2,6 +2,7 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import SplashScreen from 'react-native-splash-screen';
 import {connect} from 'react-redux';
+import {fetchDiets} from '../redux/actions/dietsActionCreator';
 import {fetchUser} from '../redux/actions/userActionCreator';
 import {fetchTermsAndConditions} from '../redux/actions/termsAndConditionsActionCreator';
 import {fetchPrivacyPolicy} from '../redux/actions/privacyPolicyActionCreator';
@@ -34,6 +35,7 @@ class App extends React.Component {
     }
     this.props.dispatch(fetchTermsAndConditions());
     this.props.dispatch(fetchPrivacyPolicy());
+    this.props.dispatch(fetchDiets());
   };
   componentWillUnmount() {
     // This is just necessary in the case that the screen is closed

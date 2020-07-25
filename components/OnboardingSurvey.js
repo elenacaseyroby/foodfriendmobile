@@ -1,13 +1,8 @@
 import React from 'react';
-import {
-  StatusBar,
-  ScrollView,
-  Image,
-  StyleSheet,
-  View,
-  Text,
-} from 'react-native';
+import {ScrollView, Image, StyleSheet, View, Text} from 'react-native';
 import {normalize} from '../utils/deviceScaling';
+import {connect} from 'react-redux';
+import {fetchDiets} from '../redux/actions/dietsActionCreator';
 import FFDateBox from './forms/FFDateBox';
 import FFSelectButtons from './forms/FFSelectButtons';
 import FFRadioButtons from './forms/FFRadioButtons';
@@ -26,7 +21,17 @@ class OnboardingSurvey extends React.Component {
     path: null,
     menstruates: null,
   };
-  onComponentDidMount() {}
+  onComponentDidMount() {
+    // Fetch data if not yet in state.
+    if (
+      this.props.diets &&
+      !this.props.diets.list &&
+      !this.props.diets.loading &&
+      !this.props.diets.error
+    ) {
+      this.props.dispatch(fetchDiets());
+    }
+  }
   handleDateChange = (date) => {
     this.setState({birthday: date});
   };
@@ -69,13 +74,12 @@ class OnboardingSurvey extends React.Component {
     if (this.state.path === 'mood') return 'Mood';
   };
   render() {
-    const diets = [
-      {id: 'vegetarian', value: 'Vegetarian'},
-      {id: 'vegan', value: 'Vegan'},
-      {id: 'pescatarian', value: 'Pescatarian'},
-      {id: 'gluten-free', value: 'Gluten-free'},
-      {id: 'dairy-free', value: 'Dairy-free'},
-    ];
+    let diets = [];
+    if (this.props.diets.list) {
+      this.props.diets.list.map((diet) => {
+        diets.push({id: JSON.stringify(diet.id), value: diet.name});
+      });
+    }
     const benefits = [
       {id: 'mood', value: 'Emotional Well-being'},
       {id: 'cognition', value: 'Brain Health'},
@@ -201,4 +205,8 @@ const styles = StyleSheet.create({
   },
 });
 
-export default OnboardingSurvey;
+const mapStateToProps = (state) => ({
+  diets: state.diets,
+});
+
+export default connect(mapStateToProps)(OnboardingSurvey);
