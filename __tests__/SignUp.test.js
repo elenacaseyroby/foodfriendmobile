@@ -11,11 +11,6 @@ test('Returns error when name field entry is null', () => {
   const errorMessage = validateName(name);
   expect(errorMessage).toMatch('Please provide a name.');
 });
-test('Returns error when name field entry is over 29 characters in length.', () => {
-  const name = 'jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj';
-  const errorMessage = validateName(name);
-  expect(errorMessage).toMatch('Name must be under 30 characters.');
-});
 test('Returns undefined when name field entry is under 30 characters.', () => {
   const name = 'jjjjjjjjjjjjjjjjjjjjjjjjjjjjjj';
   const errorMessage = validateName(name);
