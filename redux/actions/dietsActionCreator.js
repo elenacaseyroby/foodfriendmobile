@@ -8,7 +8,6 @@ export function fetchDiets() {
     const endpoint = '/diets';
     try {
       const diets = await getRequest(endpoint);
-      console.log(`diets request: ${diets}`);
       if (diets.status !== 200) {
         const error = diets.response.message
           ? diets.response.message
