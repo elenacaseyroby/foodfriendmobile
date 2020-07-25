@@ -1,8 +1,10 @@
 import React from 'react';
 import {ScrollView, Image, StyleSheet, View, Text} from 'react-native';
 import {normalize} from '../utils/deviceScaling';
+import {validateDate} from '../utils/formValidation';
 import {connect} from 'react-redux';
 import {fetchDiets} from '../redux/actions/dietsActionCreator';
+import {fetchPaths} from '../redux/actions/pathsActionCreator';
 import FFDateBox from './forms/FFDateBox';
 import FFSelectButtons from './forms/FFSelectButtons';
 import FFRadioButtons from './forms/FFRadioButtons';
@@ -16,9 +18,9 @@ import blueElipse from '../assets/images/bottom-elipse-blue-2.png';
 class OnboardingSurvey extends React.Component {
   state = {
     errorMessage: null,
-    birthday: null,
+    birthday: 'MM/DD/YYYY',
     diets: [],
-    path: null,
+    pathName: null,
     menstruates: null,
   };
   onComponentDidMount() {
@@ -31,6 +33,14 @@ class OnboardingSurvey extends React.Component {
     ) {
       this.props.dispatch(fetchDiets());
     }
+    if (
+      this.props.paths &&
+      !this.props.paths.list &&
+      !this.props.paths.loading &&
+      !this.props.paths.error
+    ) {
+      this.props.dispatch(fetchPaths());
+    }
   }
   handleDateChange = (date) => {
     this.setState({birthday: date});
@@ -38,40 +48,60 @@ class OnboardingSurvey extends React.Component {
   handleDiets = (selectedDiets) => {
     this.setState({diets: selectedDiets});
   };
-  handlePath = (selectedPaths) => {
-    this.setState({path: selectedPaths.length > 0 ? selectedPaths[0] : null});
+  handlePath = (selectedPath) => {
+    this.setState({pathName: selectedPath});
   };
   handleMenstruates = (menstruates) => {
     this.setState({menstruates: menstruates});
   };
-  handleSubmit = () => {
-    return;
-  };
   getPath = () => {
+    const vegan = this.props.diets.list.map((diet) => {
+      if (diet.name.toLowerCase() === 'vegan') return diet;
+    });
+    const userIsVegan = this.state.diets.includes(vegan.id) ? true : false;
+
     // beauty is same for everyone
-    if (this.state.path === 'beauty') return 'Beauty';
+    if (this.state.path === 'beauty') return 'beauty';
     // energy for vegans works for menstruating vegans too
-    if (this.state.path === 'energy' && this.state.diets.includes('vegan')) {
-      return 'Energy For Vegans';
+    if (this.state.path === 'energy' && userIsVegan) {
+      return 'energy for vegans';
     }
-    if (this.state.path === 'mood' && this.state.diets.includes('vegan')) {
-      return 'Mood For Vegans';
+    if (this.state.path === 'mood' && userIsVegan) {
+      return 'mood for vegans';
     }
-    if (this.state.path === 'cognition' && this.state.diets.includes('vegan')) {
-      return 'Cognition For Vegans';
+    if (this.state.path === 'cognition' && userIsVegan) {
+      return 'cognition for vegans';
     }
-    if (this.state.path === 'immunity' && this.state.diets.includes('vegan')) {
-      return 'Immunity For Vegans';
+    if (this.state.path === 'immunity' && userIsVegan) {
+      return 'immunity for vegans';
     }
     // Energy for menstruation is energy for menstruating non-vegans
     if (this.state.path === 'energy' && this.state.menstruates) {
-      return 'Energy For Menstruation';
+      return 'energy for menstruation';
     }
     // Without those issues, all paths are the same:
-    if (this.state.path === 'energy') return 'Energy';
-    if (this.state.path === 'cognition') return 'Cognition';
-    if (this.state.path === 'immunity') return 'Immunity';
-    if (this.state.path === 'mood') return 'Mood';
+    if (this.state.path === 'energy') return 'energy';
+    if (this.state.path === 'cognition') return 'cognition';
+    if (this.state.path === 'immunity') return 'immunity';
+    if (this.state.path === 'mood') return 'mood';
+  };
+  handleSubmit = () => {
+    // Validate fields
+    let errorMessage;
+    errorMessage = validateDate(this.state.birthday);
+    errorMessage =
+      errorMessage ||
+      (!this.state.pathName
+        ? 'Please select an area you are most interested in improving.'
+        : null);
+    if (errorMessage) {
+      return this.setState({errorMessage: errorMessage});
+    }
+    // post user diets
+    // get date in solid format
+    // post user birthday & menstruates
+    // get Path
+    // redirect to PathLanging component
   };
   render() {
     let diets = [];
@@ -207,6 +237,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => ({
   diets: state.diets,
+  paths: state.paths,
 });
 
 export default connect(mapStateToProps)(OnboardingSurvey);
