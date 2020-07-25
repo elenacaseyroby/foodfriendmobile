@@ -18,7 +18,16 @@ class FFSelect extends React.Component {
     selectedItems: [],
   };
   handleOnChange = () => {
-    this.props.onChange(this.state.selectedItems);
+    if (this.props.selectionCount && this.props.selectionCount === 1) {
+      // if only returning one selection, don't return array
+      const item =
+        this.state.selectedItems.length > 0
+          ? this.state.selectedItems[0]
+          : null;
+      this.props.onChange(item);
+    } else {
+      this.props.onChange(this.state.selectedItems);
+    }
   };
   onSelect = (id) => {
     let selectedItems = [];
