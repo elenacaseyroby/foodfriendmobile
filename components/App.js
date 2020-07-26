@@ -15,6 +15,7 @@ import UpdatePassword from './UpdatePassword';
 import Progress from './Progress';
 import OnboardingSlides from './OnboardingSlides';
 import OnboardingSurvey from './OnboardingSurvey';
+import SurveyLanding from './SurveyLanding';
 import TermsAndConditions from './TermsAndConditions';
 import PrivacyPolicy from './PrivacyPolicy';
 //import asyncStorage from '../asyncStorage';
@@ -70,6 +71,7 @@ class App extends React.Component {
             />
             {this.renderOnboardingSlides()}
             <Stack.Screen name="Progress" component={Progress} />
+            <Stack.Screen name="Survey Landing" component={SurveyLanding} />
           </>
         ) : (
           <>

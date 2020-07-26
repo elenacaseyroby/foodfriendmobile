@@ -134,9 +134,16 @@ class OnboardingSurvey extends React.Component {
         selectedPath = path;
       }
     });
-    console.log(
-      `you have been matched with the following path: ${selectedPath.name}`,
-    );
+    console.log(JSON.stringify(selectedPath));
+    if (selectedPath) {
+      this.props.navigation.navigate('Survey Landing', {
+        path: selectedPath,
+      });
+    } else {
+      this.setState({
+        errorMessage: 'Submit failed, please try again.',
+      });
+    }
   };
   render() {
     let diets = [];
