@@ -2,6 +2,7 @@ import React from 'react';
 import {ScrollView, Image, StyleSheet, View, Text} from 'react-native';
 import {normalize} from '../utils/deviceScaling';
 import {validateDate} from '../utils/formValidation';
+import api from '../services/api';
 import {connect} from 'react-redux';
 import {fetchDiets} from '../redux/actions/dietsActionCreator';
 import {fetchPaths} from '../redux/actions/pathsActionCreator';
@@ -54,38 +55,42 @@ class OnboardingSurvey extends React.Component {
   handleMenstruates = (menstruates) => {
     this.setState({menstruates: menstruates});
   };
-  getPath = () => {
-    const vegan = this.props.diets.list.map((diet) => {
-      if (diet.name.toLowerCase() === 'vegan') return diet;
+  getPathName = () => {
+    let vegan;
+    this.props.diets.list.map((diet) => {
+      if (diet.name.toLowerCase().trim() === 'vegan') {
+        vegan = diet;
+      }
     });
-    const userIsVegan = this.state.diets.includes(vegan.id) ? true : false;
-
+    const userIsVegan = this.state.diets.includes(JSON.stringify(vegan.id))
+      ? true
+      : false;
     // beauty is same for everyone
-    if (this.state.path === 'beauty') return 'beauty';
+    if (this.state.pathName === 'beauty') return 'beauty';
     // energy for vegans works for menstruating vegans too
-    if (this.state.path === 'energy' && userIsVegan) {
+    if (this.state.pathName === 'energy' && userIsVegan) {
       return 'energy for vegans';
     }
-    if (this.state.path === 'mood' && userIsVegan) {
+    if (this.state.pathName === 'mood' && userIsVegan) {
       return 'mood for vegans';
     }
-    if (this.state.path === 'cognition' && userIsVegan) {
+    if (this.state.pathName === 'cognition' && userIsVegan) {
       return 'cognition for vegans';
     }
-    if (this.state.path === 'immunity' && userIsVegan) {
+    if (this.state.pathName === 'immunity' && userIsVegan) {
       return 'immunity for vegans';
     }
     // Energy for menstruation is energy for menstruating non-vegans
-    if (this.state.path === 'energy' && this.state.menstruates) {
+    if (this.state.pathName === 'energy' && this.state.menstruates) {
       return 'energy for menstruation';
     }
     // Without those issues, all paths are the same:
-    if (this.state.path === 'energy') return 'energy';
-    if (this.state.path === 'cognition') return 'cognition';
-    if (this.state.path === 'immunity') return 'immunity';
-    if (this.state.path === 'mood') return 'mood';
+    if (this.state.pathName === 'energy') return 'energy';
+    if (this.state.pathName === 'cognition') return 'cognition';
+    if (this.state.pathName === 'immunity') return 'immunity';
+    if (this.state.pathName === 'mood') return 'mood';
   };
-  handleSubmit = () => {
+  handleSubmit = async () => {
     // Validate fields
     let errorMessage;
     errorMessage = validateDate(this.state.birthday);
@@ -98,10 +103,40 @@ class OnboardingSurvey extends React.Component {
       return this.setState({errorMessage: errorMessage});
     }
     // post user diets
-    // get date in solid format
+    if (this.state.diets.length > 0) {
+      const dietsRequest = await api.putUserDiets(
+        this.props.auth.userId,
+        this.state.diets,
+      );
+      if (dietsRequest.status !== 200) {
+        return this.setState({
+          errorMessage: 'Form submit has failed, please try again.',
+        });
+      }
+    }
     // post user birthday & menstruates
-    // get Path
-    // redirect to PathLanging component
+    const body = {
+      birthday: this.state.birthday,
+      menstruates: this.state.menstruates,
+    };
+    const userRequest = await api.putUser(this.props.auth.userId, body);
+    if (userRequest.status !== 200) {
+      return this.setState({
+        errorMessage: 'Form submit failed, please try again.',
+      });
+    }
+    const selectedPathName = this.getPathName();
+    let selectedPath;
+    this.props.paths.list.map((path) => {
+      if (
+        path.name.toLowerCase().trim() === selectedPathName.toLowerCase().trim()
+      ) {
+        selectedPath = path;
+      }
+    });
+    console.log(
+      `you have been matched with the following path: ${selectedPath.name}`,
+    );
   };
   render() {
     let diets = [];
@@ -236,6 +271,7 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => ({
+  auth: state.auth,
   diets: state.diets,
   paths: state.paths,
 });
