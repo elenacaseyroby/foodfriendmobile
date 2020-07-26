@@ -2,6 +2,7 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import SplashScreen from 'react-native-splash-screen';
 import {connect} from 'react-redux';
+import {fetchPaths} from '../redux/actions/pathsActionCreator';
 import {fetchDiets} from '../redux/actions/dietsActionCreator';
 import {fetchUser} from '../redux/actions/userActionCreator';
 import {fetchTermsAndConditions} from '../redux/actions/termsAndConditionsActionCreator';
@@ -16,14 +17,14 @@ import OnboardingSlides from './OnboardingSlides';
 import OnboardingSurvey from './OnboardingSurvey';
 import TermsAndConditions from './TermsAndConditions';
 import PrivacyPolicy from './PrivacyPolicy';
-// import asyncStorage from '../asyncStorage';
+//import asyncStorage from '../asyncStorage';
 
 const Stack = createStackNavigator();
 
 class App extends React.Component {
   componentDidMount = async () => {
     // log out to test:
-    // await asyncStorage._clearData();
+    //await asyncStorage._clearData();
 
     this.timeoutHandle = setTimeout(() => {
       SplashScreen.hide();
@@ -36,6 +37,7 @@ class App extends React.Component {
     this.props.dispatch(fetchTermsAndConditions());
     this.props.dispatch(fetchPrivacyPolicy());
     this.props.dispatch(fetchDiets());
+    this.props.dispatch(fetchPaths());
   };
   componentWillUnmount() {
     // This is just necessary in the case that the screen is closed
