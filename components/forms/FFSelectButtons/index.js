@@ -46,11 +46,8 @@ class FFSelect extends React.Component {
       this.props.selectionCount <= this.state.selectedItems.length
     ) {
       // if max number of selections made, do nothing
-      console.log('AT CAPACITY');
       selectedItems = this.state.selectedItems;
     } else {
-      console.log(this.props.selectionCount);
-      console.log(this.state.selectedItems.length);
       // add to selected items array.
       selectedItems = this.state.selectedItems;
       selectedItems.push(id);
