@@ -21,6 +21,14 @@ export async function getRequest(endpoint) {
 }
 
 export async function postRequest(endpoint, body = {}) {
+  return request('POST', endpoint, body);
+}
+
+export async function putRequest(endpoint, body = {}) {
+  return request('PUT', endpoint, body);
+}
+
+export async function request(method, endpoint, body = {}) {
   let headers = {
     Accept: 'application/json',
     'Content-Type': 'application/json',
@@ -28,10 +36,11 @@ export async function postRequest(endpoint, body = {}) {
   // accessToken granted on login. need accessToken to get any user data.
   const accessToken = await asyncStorage._retrieveData('ACCESS_TOKEN');
   if (accessToken) {
+    console.log(accessToken);
     headers.authorization = accessToken;
   }
   const response = await fetch(`${API_HOST}${endpoint}`, {
-    method: 'POST',
+    method: method,
     headers: headers,
     body: JSON.stringify(body),
   });
