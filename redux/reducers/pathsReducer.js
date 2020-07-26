@@ -3,7 +3,7 @@ import C from '../constants';
 const initialState = {
   error: null,
   loading: false,
-  list: null,
+  list: [],
 };
 
 export const pathsReducer = (prevState = initialState, action) => {
@@ -18,7 +18,7 @@ export const pathsReducer = (prevState = initialState, action) => {
     return {
       error: null,
       loading: false,
-      list: action.payload.diets,
+      list: action.payload.paths,
     };
   } else if (action.type === C.FETCH_PATHS_FAILURE) {
     return {
