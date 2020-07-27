@@ -5,7 +5,7 @@ import propTypes from 'prop-types';
 
 class SurveyLanding extends React.Component {
   static propTypes = {
-    path: propTypes.obj,
+    path: propTypes.object,
   };
   componentDidMount() {}
   render() {
