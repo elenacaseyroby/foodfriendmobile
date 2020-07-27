@@ -1,10 +1,9 @@
 import React from 'react';
 import {View, Text, Image, StyleSheet, ImageBackground} from 'react-native';
+import {normalize, statusBarHeight} from '../../utils/deviceScaling';
 import ProgressBar from './ProgressBar';
 import backgroundImage from './assets/backgroundImage1.png';
-import mirror from './assets/mirror-illustration.png';
-import coins from './assets/money-icon.png';
-// import RightArrow from './assets/swipe-right-arrow.svg';
+import rightArrow from './assets/right-arrow.png';
 
 class SlideOne extends React.Component {
   render() {
@@ -14,45 +13,50 @@ class SlideOne extends React.Component {
           <ProgressBar activeCircleIndex={1} />
         </View>
         <View style={styles.rectangle}>
-          <View style={styles.slideContent}>
-            <View style={styles.everyoneTextContainer}>
-              <Text style={styles.everyoneText}>everyone</Text>
-              <View style={styles.rowContainer}>
-                <Text style={styles.deservesText}>{'deserves to feel '}</Text>
-                <Text style={styles.goodText}>good</Text>
-              </View>
+          <View style={styles.topTextContainer}>
+            <Text style={[styles.blueText, styles.boldText, styles.h1]}>
+              everyone
+            </Text>
+            <Text style={[styles.whiteText, styles.regularText, styles.h1]}>
+              {'deserves to'}
+            </Text>
+            <View style={styles.rowContainer}>
+              <Text style={[styles.whiteText, styles.regularText, styles.h1]}>
+                {' feel '}
+              </Text>
+              <Text
+                style={[styles.whiteText, styles.italicizedText, styles.h1]}>
+                good
+              </Text>
             </View>
-            <View style={styles.mirror}>
-              <Image source={mirror} />
+          </View>
+          <View style={styles.bottomTextContainer}>
+            <View style={styles.rowContainer}>
+              <Text style={[styles.blueText, styles.regularText, styles.h2]}>
+                {'but this can be '}
+              </Text>
+              <Text
+                style={[styles.whiteText, styles.italicizedText, styles.h2]}>
+                {'difficult'}
+              </Text>
             </View>
-            <View style={styles.textAndCoinsContainer}>
-              <View style={styles.textContainer}>
-                <Text style={styles.butText}>
-                  {'                        but'}
-                </Text>
-                <View style={styles.rowContainer}>
-                  <Text style={styles.lightWhiteText}>{'  this can be '}</Text>
-                  <Text style={styles.difficultText}>{'difficult'}</Text>
-                </View>
-                <Text style={styles.lightWhiteText}>
-                  {'         when relying on'}
-                </Text>
-                <Text style={styles.lightWhiteText}>
-                  {'expensive, unregulated'}
-                </Text>
-                <Text style={styles.supplementsText}>
-                  {'     supplements.'}
-                </Text>
-              </View>
-              <View style={styles.coins}>
-                <Image source={coins} />
-              </View>
+            <Text style={[styles.blueText, styles.regularText, styles.h2]}>
+              {'when relying on expensive, '}
+            </Text>
+            <View style={styles.rowContainer}>
+              <Text style={[styles.blueText, styles.regularText, styles.h2]}>
+                {'unregulated '}
+              </Text>
+              <Text style={[styles.whiteText, styles.boldText, styles.h2]}>
+                {'supplements'}
+              </Text>
             </View>
           </View>
         </View>
+
         <View style={styles.swipeContainer}>
           <Text style={styles.swipeText}>Swipe to continue</Text>
-          {/* <RightArrow style={styles.arrow} /> */}
+          <Image style={styles.arrow} source={rightArrow} />
         </View>
       </ImageBackground>
     );
@@ -63,93 +67,74 @@ const styles = StyleSheet.create({
   // Component styles from top of slide
   // to bottom of slide.
   progressBar: {
-    marginTop: '12%',
+    marginTop: statusBarHeight + 5,
     alignSelf: 'center',
     position: 'absolute',
   },
-  everyoneTextContainer: {
+  topTextContainer: {
     alignSelf: 'center',
     alignItems: 'center',
-    marginTop: '2%',
-    marginBottom: '5%',
+    marginTop: statusBarHeight + normalize(30),
+    width: normalize(221),
     // To test:
     // borderColor: '#ffffff',
     // borderWidth: 0.5,
   },
-  everyoneText: {
-    fontFamily: 'Bellota-Regular',
-    color: '#ffa639',
-    fontSize: 70,
-  },
-  deservesText: {
-    fontFamily: 'Bellota-Regular',
-    color: '#ffffff',
-    fontSize: 30,
-  },
-  goodText: {
-    fontFamily: 'Bellota-Regular',
-    color: '#ffa639',
-    fontSize: 30,
-  },
-  mirror: {
-    marginTop: '2%',
+  bottomTextContainer: {
+    width: normalize(295),
     alignSelf: 'center',
-  },
-  textAndCoinsContainer: {
-    marginTop: '10%',
-    flexDirection: 'row',
-    alignSelf: 'center',
-    // Make this bigger to move text to left.
-    width: 330,
-  },
-  textContainer: {
-    width: 260,
-  },
-  butText: {
-    fontSize: 21,
-    fontFamily: 'Bellota-Regular',
-    color: '#ffffff',
-    lineHeight: 20,
-  },
-  lightWhiteText: {
-    fontSize: 20,
-    fontFamily: 'Bellota-Regular',
-    color: '#ffffff',
-    lineHeight: 20,
-  },
-  difficultText: {
-    fontSize: 20,
-    fontFamily: 'Bellota-Bold',
-    color: '#ffa639',
-    lineHeight: 20,
-  },
-  supplementsText: {
-    fontSize: 30,
-    fontFamily: 'Bellota-Bold',
-    color: '#ffa639',
-    lineHeight: 30,
-  },
-  coins: {
-    marginTop: '-2%',
+    alignItems: 'center',
+    position: 'absolute',
+    bottom: '12%',
   },
   swipeContainer: {
-    marginTop: 0,
     position: 'absolute',
-    bottom: '2%',
+    bottom: '3%',
+    marginRight: '3%',
     flexDirection: 'row',
     alignSelf: 'flex-end',
-    width: 140,
+    width: normalize(105),
+    // borderColor: '#ffffff',
+    // borderWidth: 0.5,
   },
   swipeText: {
-    fontSize: 14,
+    fontSize: normalize(12),
     fontFamily: 'Bellota-Regular',
+    color: '#917245',
+  },
+  arrow: {
+    width: normalize(6),
+    height: undefined,
+    // aspectRatio: width / height,
+    aspectRatio: 18 / 33,
+    marginLeft: '1%',
+    marginTop: '1.9%',
+  },
+  blueText: {
+    color: '#5d80c1',
+  },
+  whiteText: {
     color: '#ffffff',
   },
-  // arrow: {
-  //   marginTop: 4,
-  //   marginLeft: 4,
-  // },
-  // Resusable & component wide styles
+  boldText: {
+    fontFamily: 'Bellota-Bold',
+  },
+  italicizedText: {
+    fontFamily: 'Bellota-BoldItalic',
+  },
+  regularText: {
+    fontFamily: 'Bellota-Regular',
+  },
+  h1: {
+    fontSize: normalize(48, 80),
+    letterSpacing: -3.4,
+    lineHeight: normalize(49, 80),
+  },
+  h2: {
+    fontSize: normalize(30, 60),
+    letterSpacing: -2.82,
+    lineHeight: normalize(37, 60),
+  },
   rowContainer: {
     flexDirection: 'row',
   },
@@ -161,12 +146,7 @@ const styles = StyleSheet.create({
   // and center slide on iPhone 11
   rectangle: {
     height: '100%',
-    justifyContent: 'center',
     alignItems: 'center',
-  },
-  slideContent: {
-    height: 600,
-    width: 375,
   },
 });
 

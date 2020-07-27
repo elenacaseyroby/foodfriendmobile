@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
 import propTypes from 'prop-types';
+import {normalize} from '../../utils/deviceScaling';
 
 class ProgressBar extends React.Component {
   static propTypes = {
@@ -34,14 +35,14 @@ class ProgressBar extends React.Component {
 
 const styles = StyleSheet.create({
   filledCircle: {
-    height: 6,
-    width: 6,
+    height: normalize(6),
+    width: normalize(6),
     borderRadius: 100 / 2,
     backgroundColor: '#6e9d4c',
   },
   emptyCircle: {
-    height: 6,
-    width: 6,
+    height: normalize(6),
+    width: normalize(6),
     borderRadius: 100 / 2,
     opacity: 0.25,
     backgroundColor: '#000000',
@@ -50,7 +51,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    width: 71,
+    width: normalize(71),
     maxHeight: 7,
   },
 });
