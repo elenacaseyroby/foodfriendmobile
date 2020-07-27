@@ -55,7 +55,6 @@ class SignIn extends React.Component {
     this.setState({email: email});
   };
   handlePassword = (password) => {
-    console.log(password);
     this.setState({password: password});
   };
   handleSignIn = async () => {
