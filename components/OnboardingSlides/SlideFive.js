@@ -1,9 +1,12 @@
 import React from 'react';
-import {View, StyleSheet, ImageBackground} from 'react-native';
+import {View, StyleSheet, ImageBackground, Text} from 'react-native';
+import {normalize, statusBarHeight} from '../../utils/deviceScaling';
 import ProgressBar from './ProgressBar';
+import StartButton from './StartButton';
 import backgroundImage from './assets/backgroundImage5.png';
 
 class SlideFive extends React.Component {
+  handleStart = () => {};
   render() {
     return (
       <ImageBackground source={backgroundImage} style={styles.backgroundImage}>
@@ -11,7 +14,11 @@ class SlideFive extends React.Component {
           <ProgressBar activeCircleIndex={5} />
         </View>
         <View style={styles.rectangle}>
-          <View style={styles.slideContent}></View>
+          <View style={styles.textContainer}>
+            <Text style={styles.text}>let's begin your</Text>
+            <Text style={[styles.text, styles.italicizedText]}>journey!</Text>
+          </View>
+          <StartButton style={styles.startButton} onClick={this.handleStart} />
         </View>
       </ImageBackground>
     );
@@ -22,30 +29,41 @@ const styles = StyleSheet.create({
   // Component styles from top of slide
   // to bottom of slide.
   progressBar: {
-    marginTop: '12%',
+    marginTop: statusBarHeight + 5,
     alignSelf: 'center',
     position: 'absolute',
   },
-  // Resusable & component wide styles
-  rowContainer: {
-    flexDirection: 'row',
+  textContainer: {
+    marginTop: statusBarHeight + normalize(70),
+    alignSelf: 'center',
+    alignItems: 'center',
+    // marginTop: statusBarHeight + normalize(30),
+    width: normalize(195),
+    // To test:
+    // borderColor: '#ffffff',
+    // borderWidth: 0.5,
+  },
+  italicizedText: {
+    fontFamily: 'Bellota-BoldItalic',
+  },
+  text: {
+    fontSize: normalize(28, 50),
+    letterSpacing: -1.74,
+    lineHeight: normalize(28, 50),
+    color: '#ffffff',
+    fontFamily: 'Bellota-Regular',
+  },
+  startButton: {
+    position: 'absolute',
+    bottom: '7%',
   },
   backgroundImage: {
     height: '100%',
     flex: 1,
   },
-  // Use this to fit slide on iPhone 8
-  // and center slide on iPhone 11
   rectangle: {
     height: '100%',
-    justifyContent: 'center',
     alignItems: 'center',
-  },
-  slideContent: {
-    height: 650,
-    width: 375,
-    borderColor: '#ffffff',
-    borderWidth: 0.5,
   },
 });
 
