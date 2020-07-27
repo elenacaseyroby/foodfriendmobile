@@ -1,8 +1,16 @@
 import React from 'react';
-import {View, Image, Text, StyleSheet, ImageBackground} from 'react-native';
+import {
+  View,
+  Image,
+  Text,
+  StyleSheet,
+  ImageBackground,
+  Dimensions,
+} from 'react-native';
+import {normalize, statusBarHeight} from '../../utils/deviceScaling';
 import ProgressBar from './ProgressBar';
 import backgroundImage from './assets/backgroundImage2.png';
-import plate from '../../assets/images/full-food-plate.png';
+// import plate from '../../assets/images/full-food-plate.png'
 
 class SlideTwo extends React.Component {
   render() {
@@ -12,37 +20,54 @@ class SlideTwo extends React.Component {
           <ProgressBar activeCircleIndex={2} />
         </View>
         <View style={styles.rectangle}>
-          <View style={styles.slideContent}>
-            <View style={styles.topTextContainer}>
-              <Text style={styles.lightWhiteText}>{"That's why"}</Text>
-              <Text style={styles.lightWhiteText}>{'  we designed'}</Text>
-              <View style={styles.rowContainer}>
-                <Text style={styles.lightWhiteText}>{'    an '}</Text>
-                <Text style={styles.boldGreenText}>easy way</Text>
-              </View>
-            </View>
-            <View style={styles.plate}>
-              <Image source={plate} />
-            </View>
-            <View style={styles.middleTextContainer}>
-              <View style={styles.rowContainer}>
-                <Text style={styles.lightGreenText}>{'to get the '}</Text>
-                <Text style={styles.boldWhiteText}>nutrients</Text>
-              </View>
-              <Text style={styles.lightGreenText}>
-                {'                you need'}
+          <View style={styles.topTextContainer}>
+            <Text style={[styles.whiteText, styles.regularText, styles.h1]}>
+              {"That's why"}
+            </Text>
+            <Text style={[styles.whiteText, styles.regularText, styles.h1]}>
+              {"we've designed"}
+            </Text>
+            <View style={styles.rowContainer}>
+              <Text style={[styles.whiteText, styles.regularText, styles.h1]}>
+                {'an '}
               </Text>
-            </View>
-            <View style={styles.bottomTextContainer}>
-              <View style={styles.rowContainer}>
-                <Text style={styles.lightWhiteText}>{'from the '}</Text>
-                <Text style={styles.boldGreenText}>food</Text>
-              </View>
-              <Text style={styles.lightWhiteText}>
-                {'              you eat!'}
+              <Text
+                style={[styles.orangeText, styles.italicizedText, styles.h1]}>
+                {'easy way'}
               </Text>
             </View>
           </View>
+          {/* <View style={styles.plateAndTextContainer} />
+          <View style={styles.plate}>
+            <Image source={plate} />
+          </View> */}
+          <View style={styles.bottomTextContainer}>
+            <View style={styles.rowContainer}>
+              <Text style={[styles.whiteText, styles.regularText, styles.h3]}>
+                {'to get the '}
+              </Text>
+              <Text
+                style={[styles.orangeText, styles.italicizedText, styles.h3]}>
+                {'nutrients '}
+              </Text>
+              <Text style={[styles.whiteText, styles.regularText, styles.h3]}>
+                {'you need'}
+              </Text>
+            </View>
+            <View style={styles.rowContainer}>
+              <Text style={[styles.whiteText, styles.regularText, styles.h2]}>
+                {'from the '}
+              </Text>
+              <Text
+                style={[styles.orangeText, styles.italicizedText, styles.h2]}>
+                {'food '}
+              </Text>
+              <Text style={[styles.whiteText, styles.regularText, styles.h2]}>
+                {'you eat!'}
+              </Text>
+            </View>
+          </View>
+          {/* </View> */}
         </View>
       </ImageBackground>
     );
@@ -53,60 +78,66 @@ const styles = StyleSheet.create({
   // Component styles from top of slide
   // to bottom of slide.
   progressBar: {
-    marginTop: '12%',
+    marginTop: statusBarHeight + 5,
     alignSelf: 'center',
     position: 'absolute',
   },
   topTextContainer: {
-    marginTop: '17%',
-    marginLeft: '10%',
-    width: 210,
-    // borderColor: '#ffffff',
-    // borderWidth: 0.5,
-  },
-  lightWhiteText: {
-    fontFamily: 'Bellota-Regular',
-    color: '#ffffff',
-    fontSize: 30,
-    lineHeight: 31,
-  },
-  boldGreenText: {
-    fontFamily: 'Bellota-Bold',
-    color: '#c0dd78',
-    fontSize: 30,
-    lineHeight: 31,
-  },
-  plate: {
-    marginTop: '2%',
-    marginLeft: '35%',
-  },
-  middleTextContainer: {
-    marginTop: '5%',
     alignSelf: 'center',
-    width: 270,
+    alignItems: 'center',
+    marginTop: statusBarHeight + normalize(50, 90),
+    width: normalize(221),
+    // To test:
     // borderColor: '#ffffff',
     // borderWidth: 0.5,
   },
-  lightGreenText: {
-    fontFamily: 'Bellota-Regular',
-    color: '#004700',
-    fontSize: 30,
-    lineHeight: 31,
-  },
-  boldWhiteText: {
-    fontFamily: 'Bellota-Bold',
-    color: '#ffffff',
-    fontSize: 30,
-    lineHeight: 31,
-  },
+  // plate: {
+  //   marginBottom: '10%',
+  //   width: normalize(w, mw),
+  //   height: undefined,
+  //   // aspectRatio: width / height,
+  //   aspectRatio: w / h,
+  // },
+  // plateAndBottomTextContainer: {
+  //   alignSelf: 'center',
+  //   alignItems: 'center',
+  //   position: 'absolute',
+  //   bottom: '12%',
+  // },
   bottomTextContainer: {
-    marginTop: '17%',
-    width: 230,
+    width: normalize(299),
     alignSelf: 'center',
-    // borderColor: '#ffffff',
-    // borderWidth: 0.5,
+    alignItems: 'center',
+    position: 'absolute',
+    bottom: '12%',
   },
-  // Resusable & component wide styles
+  orangeText: {
+    color: '#ffb021',
+  },
+  whiteText: {
+    color: '#ffffff',
+  },
+  italicizedText: {
+    fontFamily: 'Bellota-BoldItalic',
+  },
+  regularText: {
+    fontFamily: 'Bellota-Regular',
+  },
+  h1: {
+    fontSize: normalize(31, 60),
+    letterSpacing: -0.54,
+    lineHeight: normalize(33, 60),
+  },
+  h2: {
+    fontSize: normalize(30, 80),
+    letterSpacing: -0.54,
+    lineHeight: normalize(33, 80),
+  },
+  h3: {
+    fontSize: normalize(26, 40),
+    letterSpacing: -1.28,
+    lineHeight: normalize(26, 40),
+  },
   rowContainer: {
     flexDirection: 'row',
   },
@@ -118,12 +149,7 @@ const styles = StyleSheet.create({
   // and center slide on iPhone 11
   rectangle: {
     height: '100%',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  slideContent: {
-    height: 650,
-    width: 375,
+    position: 'relative',
   },
 });
 
