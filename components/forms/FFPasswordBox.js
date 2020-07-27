@@ -1,43 +1,26 @@
 import React from 'react';
-import {TextInput, View, StyleSheet} from 'react-native';
+import FFTextBox from './FFTextBox';
 import propTypes from 'prop-types';
 
 class FFPasswordBox extends React.Component {
   static propTypes = {
-    handleChange: propTypes.func.isRequired,
+    onChangeText: propTypes.func.isRequired,
   };
   render() {
     return (
       <>
-        <TextInput
-          style={styles.formText}
-          secureTextEntry={true}
+        <FFTextBox
+          onChangeText={this.props.onChangeText}
           placeholder="Password (8+ characters)"
-          onChangeText={this.props.handleChange}
+          maxLength={40}
+          autoCapitalize="none"
+          secureTextEntry={true}
+          autoCompleteType="password"
+          textContentType="password"
         />
-        <View style={styles.formBox} />
       </>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  formText: {
-    marginTop: 20,
-    marginBottom: 8,
-    fontSize: 16,
-    fontFamily: 'Cabin-Regular',
-    color: '#555555',
-    marginLeft: 33,
-    marginRight: 33,
-  },
-  formBox: {
-    marginBottom: 15,
-    borderBottomWidth: 0.5,
-    marginLeft: 33,
-    marginRight: 33,
-    color: '#555555',
-  },
-});
 
 export default FFPasswordBox;

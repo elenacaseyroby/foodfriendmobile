@@ -5,9 +5,11 @@ import {fetchUser} from '../redux/actions/userActionCreator';
 import {setAuth} from '../redux/actions/authActionCreator';
 import {storeAsyncLoginData, getPasswordUpdateError} from '../utils/auth';
 import {validatePassword} from '../utils/formValidation';
+import {normalize} from '../utils/deviceScaling';
 import plantMascot from '../assets/images/plant-mascot-blue.png';
-import Elipse from '../assets/images/bottom-elipse-blue.svg';
+import Elipse from './common/BlueBottomElipse';
 import FFPasswordBox from './forms/FFPasswordBox';
+import FFErrorMessage from './forms/FFErrorMessage';
 import SubmitButton from './common/SubmitButton';
 import auth from '../services/auth';
 
@@ -20,12 +22,18 @@ class UpdatePassword extends React.Component {
     this.setState({password: password});
   };
   handleSubmit = async () => {
-    const {userId, passwordResetToken} = this.props.route.params;
     const {password} = this.state;
     let errorMessage = validatePassword(password);
     if (errorMessage) {
       return this.setState({errorMessage: errorMessage});
     }
+    if (!this.props.route.params) {
+      return this.setState({
+        errorMessage:
+          'Password reset attempt failed.  Please click on the link in your password reset email and try again.',
+      });
+    }
+    const {userId, passwordResetToken} = this.props.route.params;
     const reset = await auth.resetPassword(
       userId,
       password,
@@ -52,23 +60,21 @@ class UpdatePassword extends React.Component {
     this.props.dispatch(fetchUser(reset.response.userId));
     this.props.dispatch(setAuth());
   };
-  renderError = () => {
-    if (!this.state.errorMessage) return;
-    return <Text style={styles.errorText}>{this.state.errorMessage}</Text>;
-  };
   render() {
     return (
       <View style={styles.rectangle}>
-        <View style={styles.updatePasswordContainer}>
-          <Text style={styles.updateText}>Update Password</Text>
-          <Image source={plantMascot} />
+        <View style={styles.content}>
+          <View style={styles.updatePasswordContainer}>
+            <Text style={styles.updateText}>Update Password</Text>
+            <Image style={styles.plantMascot} source={plantMascot} />
+          </View>
+          <FFPasswordBox onChangeText={this.handlePassword} />
+          <FFErrorMessage errorMessage={this.state.errorMessage} />
+          <View style={styles.button}>
+            <SubmitButton onClick={this.handleSubmit} />
+          </View>
         </View>
-        <FFPasswordBox handleChange={this.handlePassword} />
-        {this.renderError()}
-        <View style={styles.button}>
-          <SubmitButton onClick={this.handleSubmit} />
-        </View>
-        <Elipse style={styles.elipse} />
+        <Elipse />
       </View>
     );
   }
@@ -76,38 +82,39 @@ class UpdatePassword extends React.Component {
 
 const styles = StyleSheet.create({
   updatePasswordContainer: {
-    marginBottom: 15,
-    marginTop: 50,
-    marginLeft: 33,
-    marginRight: 33,
-    flex: 1,
+    marginTop: normalize(40, 60),
     flexDirection: 'row',
     justifyContent: 'space-between',
-    maxHeight: 120,
   },
   updateText: {
-    marginTop: 25,
+    marginTop: '3%',
     color: '#555555',
-    width: 140,
-    height: 75,
+    width: normalize(140),
     fontFamily: 'Cabin-SemiBold',
-    fontSize: 30,
+    fontSize: normalize(30),
+    // marginTop: 25,
+    // color: '#555555',
+    // width: 140,
+    // height: 75,
+    // fontFamily: 'Cabin-SemiBold',
+    // fontSize: 30,
   },
-  errorText: {
-    marginLeft: 33,
-    marginRight: 33,
-    fontSize: 14,
-    fontFamily: 'Cabin-Regular',
-    color: '#ea1313',
+  plantMascot: {
+    width: normalize(131),
+    height: undefined,
+    // aspectRatio: width / height,
+    aspectRatio: 1 / 1,
   },
   button: {
-    marginTop: 20,
+    marginTop: '5%',
     alignSelf: 'center',
-    marginBottom: 10,
   },
-  elipse: {
-    position: 'absolute',
-    bottom: 0,
+  content: {
+    width: normalize(310),
+    height: normalize(310),
+    alignSelf: 'center',
+    // borderColor: '#aaaaaa',
+    // borderWidth: 0.5,
   },
   rectangle: {
     backgroundColor: '#ffffff',

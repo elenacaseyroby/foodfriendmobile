@@ -1,5 +1,6 @@
 import React from 'react';
 import {TouchableOpacity, Text, StyleSheet} from 'react-native';
+import {normalize} from '../../utils/deviceScaling';
 import propTypes from 'prop-types';
 
 class SubmitButton extends React.Component {
@@ -18,15 +19,15 @@ class SubmitButton extends React.Component {
 const styles = StyleSheet.create({
   text: {
     fontFamily: 'Cabin-Regular',
-    fontSize: 17,
+    fontSize: normalize(17),
     color: '#ffffff',
     textAlign: 'center',
   },
   button: {
-    width: 309,
-    height: 57,
-    paddingTop: 17,
-    borderRadius: 28.5,
+    width: normalize(310),
+    height: normalize(57),
+    justifyContent: 'center',
+    borderRadius: normalize(28.5),
     shadowColor: '#000',
     shadowOffset: {
       width: 0,

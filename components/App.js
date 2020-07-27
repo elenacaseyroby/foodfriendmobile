@@ -2,6 +2,8 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import SplashScreen from 'react-native-splash-screen';
 import {connect} from 'react-redux';
+import {fetchPaths} from '../redux/actions/pathsActionCreator';
+import {fetchDiets} from '../redux/actions/dietsActionCreator';
 import {fetchUser} from '../redux/actions/userActionCreator';
 import {fetchTermsAndConditions} from '../redux/actions/termsAndConditionsActionCreator';
 import {fetchPrivacyPolicy} from '../redux/actions/privacyPolicyActionCreator';
@@ -12,16 +14,18 @@ import PasswordReset from './PasswordReset';
 import UpdatePassword from './UpdatePassword';
 import Progress from './Progress';
 import OnboardingSlides from './OnboardingSlides';
+import OnboardingSurvey from './OnboardingSurvey';
+import SurveyLanding from './SurveyLanding';
 import TermsAndConditions from './TermsAndConditions';
 import PrivacyPolicy from './PrivacyPolicy';
-// import asyncStorage from '../asyncStorage';
+//import asyncStorage from '../asyncStorage';
 
 const Stack = createStackNavigator();
 
 class App extends React.Component {
   componentDidMount = async () => {
     // log out to test:
-    // await asyncStorage._clearData();
+    //await asyncStorage._clearData();
 
     this.timeoutHandle = setTimeout(() => {
       SplashScreen.hide();
@@ -33,6 +37,8 @@ class App extends React.Component {
     }
     this.props.dispatch(fetchTermsAndConditions());
     this.props.dispatch(fetchPrivacyPolicy());
+    this.props.dispatch(fetchDiets());
+    this.props.dispatch(fetchPaths());
   };
   componentWillUnmount() {
     // This is just necessary in the case that the screen is closed
@@ -44,7 +50,6 @@ class App extends React.Component {
   renderOnboardingSlides = () => {
     // If user is logged in and hasn't picked a path show them
     // the onboarding slides.
-    console.log('RENDER SLIDES');
     if (this.props.user && !this.props.user.activePathId) {
       return (
         <Stack.Screen name="Onboarding Slides" component={OnboardingSlides} />
@@ -60,8 +65,13 @@ class App extends React.Component {
         }}>
         {this.props.auth.userId ? (
           <>
+            <Stack.Screen
+              name="Onboarding Survey"
+              component={OnboardingSurvey}
+            />
             {this.renderOnboardingSlides()}
             <Stack.Screen name="Progress" component={Progress} />
+            <Stack.Screen name="Survey Landing" component={SurveyLanding} />
           </>
         ) : (
           <>

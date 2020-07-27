@@ -1,14 +1,27 @@
-import {getRequest} from './apiUtils';
+import {putRequest} from './apiUtils';
 
 export default {
-  async getUser(userId) {
+  async putUser(userId, body) {
     try {
       const endpoint = `/users/${userId}`;
-      const response = await getRequest(endpoint);
-      const responseJson = await response.json();
-      return {response: responseJson, status: response.status};
+      const res = await putRequest(endpoint, body);
+      return {response: JSON.stringify(res.response), status: res.status};
     } catch (error) {
       console.log(error);
+      return {response: 'failed to update user', status: 500};
+    }
+  },
+  async putUserDiets(userId, dietIds) {
+    const body = {
+      dietIds: dietIds,
+    };
+    try {
+      const endpoint = `/users/${userId}/diets`;
+      const res = await putRequest(endpoint, body);
+      return {response: JSON.stringify(res.response), status: res.status};
+    } catch (error) {
+      console.log(error);
+      return {response: 'failed to update user diets', status: 500};
     }
   },
 };

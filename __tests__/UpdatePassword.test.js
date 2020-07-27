@@ -29,7 +29,7 @@ test('Returns error if /resetpassword request response is 400', () => {
   };
   const errorMessage = getPasswordUpdateError(signUpResponse);
   expect(errorMessage).toMatch(
-    'Password reset failed.  Please submit a new request and try again.',
+    'Password reset failed.  Please submit a new password reset request and try again.',
   );
 });
 test('Returns undefined if /resetpassword request response is 200', () => {

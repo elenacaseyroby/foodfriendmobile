@@ -2,10 +2,12 @@ import React from 'react';
 import {View, Text, Image, StyleSheet} from 'react-native';
 import {validateEmail} from '../utils/formValidation';
 import {getPasswordResetError} from '../utils/auth';
+import {normalize} from '../utils/deviceScaling';
 import BackArrow from '../components/common/BackArrow';
 import plantMascot from '../assets/images/plant-mascot-blue.png';
 import Elipse from './common/BlueBottomElipse';
-import FFTextBox from './forms/FFTextBox';
+import FFEmailTextBox from './forms/FFEmailTextBox';
+import FFErrorMessage from './forms/FFErrorMessage';
 import SubmitButton from './common/SubmitButton';
 import auth from '../services/auth';
 
@@ -32,20 +34,12 @@ class PasswordReset extends React.Component {
     }
     this.setState({submitted: true});
   };
-  renderError = () => {
-    if (!this.state.errorMessage) return;
-    return <Text style={styles.errorText}>{this.state.errorMessage}</Text>;
-  };
   renderForm = () => {
     if (!this.state.renderForm) return;
     return (
       <>
-        <FFTextBox
-          placeholder="Email Address"
-          handleChange={this.handleEmail}
-          isLowercase={true}
-        />
-        {this.renderError()}
+        <FFEmailTextBox onChangeText={this.handleEmail} />
+        <FFErrorMessage errorMessage={this.state.errorMessage} />
         <View style={styles.button}>
           <SubmitButton onClick={this.handleSubmit} />
         </View>
@@ -55,22 +49,24 @@ class PasswordReset extends React.Component {
   render() {
     return (
       <View style={styles.rectangle}>
-        <View style={styles.ForgotPasswordContainer}>
-          <View style={styles.arrowAndTextContainer}>
-            <View style={styles.backArrow}>
-              <BackArrow onPress={() => this.props.navigation.pop()} />
+        <View style={styles.content}>
+          <View style={styles.ForgotPasswordContainer}>
+            <View style={styles.arrowAndTextContainer}>
+              <View style={styles.backArrow}>
+                <BackArrow onPress={() => this.props.navigation.pop()} />
+              </View>
+              <Text style={styles.forgotText}>Forgot Password?</Text>
             </View>
-            <Text style={styles.forgotText}>Forgot Password?</Text>
+            <Image style={styles.plantMascot} source={plantMascot} />
           </View>
-          <Image source={plantMascot} />
+          {this.state.submitted ? (
+            <Text style={styles.successText}>
+              A password reset email has been sent to {this.state.email}.
+            </Text>
+          ) : (
+            this.renderForm()
+          )}
         </View>
-        {this.state.submitted ? (
-          <Text style={styles.successText}>
-            A password reset email has been sent to {this.state.email}.
-          </Text>
-        ) : (
-          this.renderForm()
-        )}
         <Elipse />
       </View>
     );
@@ -78,50 +74,48 @@ class PasswordReset extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  backArrow: {
+    marginTop: '5%',
+  },
   ForgotPasswordContainer: {
-    marginTop: 40,
-    marginLeft: 33,
-    marginRight: 33,
-    flex: 1,
+    marginTop: normalize(35, 50),
     flexDirection: 'row',
     justifyContent: 'space-between',
-    maxHeight: 135,
   },
-  backArrow: {
-    marginTop: 10,
-    marginBottom: 20,
+  plantMascot: {
+    width: normalize(131),
+    height: undefined,
+    // aspectRatio: width / height,
+    aspectRatio: 1 / 1,
   },
   forgotText: {
-    marginTop: 25,
+    marginTop: '40%',
     color: '#555555',
-    width: 140,
-    height: 75,
+    width: normalize(140),
     fontFamily: 'Cabin-SemiBold',
-    fontSize: 30,
+    fontSize: normalize(30),
   },
   successText: {
-    marginTop: 35,
-    marginLeft: 33,
-    marginRight: 33,
-    fontSize: 20,
+    marginTop: '30%',
+    fontSize: normalize(20),
     fontFamily: 'Cabin-Regular',
     color: '#555555',
   },
-  errorText: {
-    marginLeft: 33,
-    marginRight: 33,
-    fontSize: 14,
-    fontFamily: 'Cabin-Regular',
-    color: '#ea1313',
-  },
   button: {
-    marginTop: 15,
+    marginTop: '5%',
     alignSelf: 'center',
-    marginBottom: 10,
+  },
+  content: {
+    width: normalize(310),
+    height: normalize(310),
+    alignSelf: 'center',
+    // borderColor: '#aaaaaa',
+    // borderWidth: 0.5,
   },
   rectangle: {
     backgroundColor: '#ffffff',
-    minHeight: '100%',
+    position: 'relative',
+    minHeight: normalize(310),
     flex: 1,
   },
 });

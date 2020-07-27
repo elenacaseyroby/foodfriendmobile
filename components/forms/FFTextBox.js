@@ -1,12 +1,17 @@
 import React from 'react';
 import {TextInput, View, StyleSheet} from 'react-native';
+import {normalize} from '../../utils/deviceScaling';
 import propTypes from 'prop-types';
 
 class FFTextBox extends React.Component {
   static propTypes = {
-    handleChange: propTypes.func.isRequired,
+    onChangeText: propTypes.func.isRequired,
     placeholder: propTypes.string.isRequired,
-    isLowercase: propTypes.bool.isRequired,
+    maxLength: propTypes.number.isRequired,
+    autoCapitalize: propTypes.string.isRequired,
+    autoCompleteType: propTypes.string,
+    textContentType: propTypes.string,
+    secureTextEntry: propTypes.bool,
   };
   render() {
     return (
@@ -14,8 +19,18 @@ class FFTextBox extends React.Component {
         <TextInput
           style={styles.formText}
           placeholder={this.props.placeholder}
-          autoCapitalize={this.props.isLowercase ? 'none' : 'words'}
-          onChangeText={this.props.handleChange}
+          autoCapitalize={this.props.autoCapitalize}
+          onChangeText={this.props.onChangeText}
+          maxLength={this.props.maxLength}
+          secureTextEntry={
+            this.props.secureTextEntry ? this.props.secureTextEntry : false
+          }
+          autoCompleteType={
+            this.props.autoCompleteType ? this.props.autoCompleteType : 'off'
+          }
+          textContentType={
+            this.props.textContentType ? this.props.textContentType : 'none'
+          }
         />
         <View style={styles.formBox} />
       </>
@@ -25,22 +40,18 @@ class FFTextBox extends React.Component {
 
 const styles = StyleSheet.create({
   formText: {
-    marginTop: 15,
-    marginBottom: 8,
-    fontSize: 16,
+    marginTop: '5%',
+    marginBottom: '3%',
+    fontSize: normalize(16),
     fontFamily: 'Cabin-Regular',
-    color: '#555555',
-    marginLeft: 33,
-    marginRight: 33,
-    // width: 310,
+    color: '#aaaaaa',
+    width: normalize(310),
   },
   formBox: {
-    marginBottom: 15,
-    borderBottomWidth: 0.5,
-    // width: 310,
-    color: '#555555',
-    marginLeft: 33,
-    marginRight: 33,
+    marginBottom: '5%',
+    borderBottomWidth: normalize(0.5),
+    color: '#aaaaaa',
+    width: normalize(310),
   },
 });
 
