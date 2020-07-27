@@ -8,7 +8,7 @@ import propTypes from 'prop-types';
 
 class SlideFive extends React.Component {
   static propTypes = {
-    navigation: propTypes.func.isRequired,
+    navigate: propTypes.func.isRequired,
   };
   handleStart = () => {
     this.props.navigate('Onboarding Survey');

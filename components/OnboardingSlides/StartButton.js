@@ -6,7 +6,7 @@ import propTypes from 'prop-types';
 class StartButton extends React.Component {
   static propTypes = {
     onClick: propTypes.func.isRequired,
-    style: propTypes.obj,
+    style: propTypes.object,
   };
   render() {
     console.log('normal');
@@ -23,9 +23,11 @@ class StartButton extends React.Component {
 
 const styles = StyleSheet.create({
   text: {
-    fontSize: normalize(28, 50),
+    marginTop: normalize(4),
+    marginRight: normalize(2),
+    fontSize: normalize(25, 40),
     letterSpacing: -1.74,
-    lineHeight: normalize(28, 50),
+    lineHeight: normalize(25, 40),
     color: '#ffffff',
     fontFamily: 'Bellota-Regular',
     textAlign: 'center',

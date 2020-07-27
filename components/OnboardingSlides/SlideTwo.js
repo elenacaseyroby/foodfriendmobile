@@ -10,7 +10,7 @@ import {
 import {normalize, statusBarHeight} from '../../utils/deviceScaling';
 import ProgressBar from './ProgressBar';
 import backgroundImage from './assets/backgroundImage2.png';
-// import plate from '../../assets/images/full-food-plate.png'
+import plate from '../../assets/images/full-food-plate.png';
 
 class SlideTwo extends React.Component {
   render() {
@@ -37,37 +37,35 @@ class SlideTwo extends React.Component {
               </Text>
             </View>
           </View>
-          {/* <View style={styles.plateAndTextContainer} />
-          <View style={styles.plate}>
-            <Image source={plate} />
-          </View> */}
-          <View style={styles.bottomTextContainer}>
-            <View style={styles.rowContainer}>
-              <Text style={[styles.whiteText, styles.regularText, styles.h3]}>
-                {'to get the '}
-              </Text>
-              <Text
-                style={[styles.orangeText, styles.italicizedText, styles.h3]}>
-                {'nutrients '}
-              </Text>
-              <Text style={[styles.whiteText, styles.regularText, styles.h3]}>
-                {'you need'}
-              </Text>
-            </View>
-            <View style={styles.rowContainer}>
-              <Text style={[styles.whiteText, styles.regularText, styles.h2]}>
-                {'from the '}
-              </Text>
-              <Text
-                style={[styles.orangeText, styles.italicizedText, styles.h2]}>
-                {'food '}
-              </Text>
-              <Text style={[styles.whiteText, styles.regularText, styles.h2]}>
-                {'you eat!'}
-              </Text>
+          <View style={styles.plateAndTextContainer}>
+            <Image style={styles.plate} source={plate} />
+            <View style={styles.bottomTextContainer}>
+              <View style={styles.rowContainer}>
+                <Text style={[styles.whiteText, styles.regularText, styles.h3]}>
+                  {'to get the '}
+                </Text>
+                <Text
+                  style={[styles.orangeText, styles.italicizedText, styles.h3]}>
+                  {'nutrients '}
+                </Text>
+                <Text style={[styles.whiteText, styles.regularText, styles.h3]}>
+                  {'you need'}
+                </Text>
+              </View>
+              <View style={styles.rowContainer}>
+                <Text style={[styles.whiteText, styles.regularText, styles.h2]}>
+                  {'from the '}
+                </Text>
+                <Text
+                  style={[styles.orangeText, styles.italicizedText, styles.h2]}>
+                  {'food '}
+                </Text>
+                <Text style={[styles.whiteText, styles.regularText, styles.h2]}>
+                  {'you eat!'}
+                </Text>
+              </View>
             </View>
           </View>
-          {/* </View> */}
         </View>
       </ImageBackground>
     );
@@ -91,25 +89,22 @@ const styles = StyleSheet.create({
     // borderColor: '#ffffff',
     // borderWidth: 0.5,
   },
-  // plate: {
-  //   marginBottom: '10%',
-  //   width: normalize(w, mw),
-  //   height: undefined,
-  //   // aspectRatio: width / height,
-  //   aspectRatio: w / h,
-  // },
-  // plateAndBottomTextContainer: {
-  //   alignSelf: 'center',
-  //   alignItems: 'center',
-  //   position: 'absolute',
-  //   bottom: '12%',
-  // },
-  bottomTextContainer: {
-    width: normalize(299),
+  plate: {
+    marginBottom: '10%',
+    width: normalize(196, 400),
+    height: undefined,
+    // aspectRatio: width / height,
+    aspectRatio: 196 / 195,
+  },
+  plateAndTextContainer: {
     alignSelf: 'center',
     alignItems: 'center',
     position: 'absolute',
     bottom: '12%',
+  },
+  bottomTextContainer: {
+    width: normalize(299),
+    alignItems: 'center',
   },
   orangeText: {
     color: '#ffb021',
@@ -129,14 +124,14 @@ const styles = StyleSheet.create({
     lineHeight: normalize(33, 60),
   },
   h2: {
-    fontSize: normalize(30, 80),
+    fontSize: normalize(30, 55),
     letterSpacing: -0.54,
-    lineHeight: normalize(33, 80),
+    lineHeight: normalize(33, 55),
   },
   h3: {
-    fontSize: normalize(26, 40),
+    fontSize: normalize(26, 50),
     letterSpacing: -1.28,
-    lineHeight: normalize(26, 40),
+    lineHeight: normalize(26, 50),
   },
   rowContainer: {
     flexDirection: 'row',

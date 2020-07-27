@@ -93,9 +93,9 @@ const styles = StyleSheet.create({
     fontFamily: 'Bellota-Regular',
   },
   textSize: {
-    fontSize: normalize(32, 80),
+    fontSize: normalize(32, 70),
     letterSpacing: -1.84,
-    lineHeight: normalize(35, 80),
+    lineHeight: normalize(35, 70),
   },
   rowContainer: {
     flexDirection: 'row',
