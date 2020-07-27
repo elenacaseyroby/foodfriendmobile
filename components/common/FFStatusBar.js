@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, StatusBar} from 'react-native';
 import {statusBarHeight} from '../../utils/deviceScaling';
 import propTypes from 'prop-types';
 
@@ -11,7 +11,10 @@ class FFStatusBar extends React.Component {
   };
   render() {
     return (
-      <View style={[styles.statusBar, this.props.backgroundColorStyle]}></View>
+      <>
+        <View style={[styles.statusBar, this.props.backgroundColorStyle]} />
+        <StatusBar barStyle={this.props.barStyle} />
+      </>
     );
   }
 }
