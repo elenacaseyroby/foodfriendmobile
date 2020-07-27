@@ -97,29 +97,6 @@ const styles = StyleSheet.create({
     letterSpacing: -1.84,
     lineHeight: normalize(35, 80),
   },
-  lightWhiteText: {
-    fontFamily: 'Bellota-Regular',
-    color: '#ffffff',
-    fontSize: 30,
-    lineHeight: 31,
-  },
-  boldPeachText: {
-    fontFamily: 'Bellota-Bold',
-    color: '#dd886d',
-    fontSize: 30,
-    lineHeight: 31,
-  },
-
-  boldPurpleText: {
-    fontFamily: 'Bellota-Bold',
-    color: '#513c51',
-    fontSize: 30,
-    lineHeight: 31,
-  },
-  target: {
-    alignSelf: 'flex-end',
-  },
-  // Resusable & component wide styles
   rowContainer: {
     flexDirection: 'row',
   },
@@ -127,8 +104,6 @@ const styles = StyleSheet.create({
     height: '100%',
     flex: 1,
   },
-  // Use this to fit slide on iPhone 8
-  // and center slide on iPhone 11
   rectangle: {
     alignItems: 'center',
     height: '100%',

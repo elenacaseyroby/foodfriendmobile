@@ -142,8 +142,6 @@ const styles = StyleSheet.create({
     height: '100%',
     flex: 1,
   },
-  // Use this to fit slide on iPhone 8
-  // and center slide on iPhone 11
   rectangle: {
     height: '100%',
     alignItems: 'center',
