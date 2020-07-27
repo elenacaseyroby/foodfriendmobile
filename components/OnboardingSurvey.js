@@ -10,7 +10,7 @@ import {fetchUser} from '../redux/actions/userActionCreator';
 import FFDateBox from './forms/FFDateBox';
 import FFSelectButtons from './forms/FFSelectButtons';
 import FFRadioButtons from './forms/FFRadioButtons';
-import FFSubmitButton from './forms/FFSubmitButton';
+import FFNarrowButton from './common/FFNarrowButton';
 import FFErrorMessage from './forms/FFErrorMessage';
 import FFStatusBar from './common/FFStatusBar';
 import orangeElipse from '../assets/images/top-elipse-two-toned-orange.png';
@@ -205,7 +205,7 @@ class OnboardingSurvey extends React.Component {
           </View>
           <Image style={styles.blueElipse} source={blueElipse} />
           <View style={styles.submitButton}>
-            <FFSubmitButton onSubmit={this.handleSubmit} />
+            <FFNarrowButton label={'Submit'} onClick={this.handleSubmit} />
           </View>
         </ScrollView>
       </>
