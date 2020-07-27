@@ -6,6 +6,7 @@ import api from '../services/api';
 import {connect} from 'react-redux';
 import {fetchDiets} from '../redux/actions/dietsActionCreator';
 import {fetchPaths} from '../redux/actions/pathsActionCreator';
+import {fetchUser} from '../redux/actions/userActionCreator';
 import FFDateBox from './forms/FFDateBox';
 import FFSelectButtons from './forms/FFSelectButtons';
 import FFRadioButtons from './forms/FFRadioButtons';
@@ -125,6 +126,8 @@ class OnboardingSurvey extends React.Component {
         errorMessage: 'Form submit failed, please try again.',
       });
     }
+    // get fresh user data since it's been updated:
+    this.props.dispatch(fetchUser());
     const selectedPathName = this.getPathName();
     let selectedPath;
     this.props.paths.list.map((path) => {
