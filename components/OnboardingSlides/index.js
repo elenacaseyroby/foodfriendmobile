@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text} from 'react-native';
+import {StyleSheet, Text, StatusBar} from 'react-native';
 import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
 import SlideOne from './SlideOne';
 import SlideTwo from './SlideTwo';
@@ -36,13 +36,16 @@ class OnboardingSlides extends React.Component {
       directionalOffsetThreshold: 80,
     };
     return (
-      <GestureRecognizer
-        onSwipeLeft={(state) => this.onSwipeLeft(state)}
-        onSwipeRight={(state) => this.onSwipeRight(state)}
-        config={config}
-        style={styles.rectangle}>
-        {this.renderActiveSlide()}
-      </GestureRecognizer>
+      <>
+        <StatusBar hidden={true} />
+        <GestureRecognizer
+          onSwipeLeft={(state) => this.onSwipeLeft(state)}
+          onSwipeRight={(state) => this.onSwipeRight(state)}
+          config={config}
+          style={styles.rectangle}>
+          {this.renderActiveSlide()}
+        </GestureRecognizer>
+      </>
     );
   }
 }
