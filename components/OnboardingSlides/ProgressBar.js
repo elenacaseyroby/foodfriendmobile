@@ -64,7 +64,7 @@ const fillColorByCircleIndex = StyleSheet.create({
     backgroundColor: '#6e9d4c',
   },
   3: {
-    backgroundColor: '#513d51',
+    backgroundColor: '#ffe3b3',
   },
   4: {
     backgroundColor: '#ffe3b3',

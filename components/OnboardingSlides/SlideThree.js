@@ -1,34 +1,56 @@
 import React from 'react';
-import {View, Text, Image, StyleSheet, ImageBackground} from 'react-native';
+import {View, Text, StyleSheet, ImageBackground} from 'react-native';
+import {normalize, statusBarHeight} from '../../utils/deviceScaling';
 import ProgressBar from './ProgressBar';
 import backgroundImage from './assets/backgroundImage3.png';
-import topDesertIcon from './assets/desert-red-icon.png';
-import target from './assets/target-icon.png';
 
 class SlideThree extends React.Component {
   render() {
     return (
       <ImageBackground source={backgroundImage} style={styles.backgroundImage}>
-        <View>
-          <Image style={styles.topDesertIcon} source={topDesertIcon} />
-        </View>
         <View style={styles.progressBar}>
           <ProgressBar activeCircleIndex={3} />
         </View>
         <View style={styles.rectangle}>
           <View style={styles.topTextContainer}>
-            <Text style={styles.lightWhiteText}>Just choose a</Text>
+            <Text
+              style={[styles.whiteText, styles.regularText, styles.textSize]}>
+              Just choose a
+            </Text>
             <View style={styles.rowContainer}>
-              <Text style={styles.lightWhiteText}>{'nutrient '}</Text>
-              <Text style={styles.boldPeachText}>path</Text>
+              <Text
+                style={[styles.whiteText, styles.regularText, styles.textSize]}>
+                {'nutrient '}
+              </Text>
+              <Text
+                style={[
+                  styles.brownText,
+                  styles.italicizedText,
+                  styles.textSize,
+                ]}>
+                path
+              </Text>
             </View>
           </View>
-          <View style={styles.textAndTargetContainer}>
-            <View style={styles.bottomTextContainer}>
-              <Text style={styles.lightWhiteText}>aligned with your</Text>
-              <Text style={styles.boldPurpleText}>health goals</Text>
+          <View style={styles.bottomTextContainer}>
+            <Text
+              style={[styles.whiteText, styles.regularText, styles.textSize]}>
+              aligned with your
+            </Text>
+            <View style={styles.rowContainer}>
+              <Text
+                style={[styles.whiteText, styles.regularText, styles.textSize]}>
+                {'health '}
+              </Text>
+              <Text
+                style={[
+                  styles.orangeText,
+                  styles.italicizedText,
+                  styles.textSize,
+                ]}>
+                goals
+              </Text>
             </View>
-            <Image style={styles.target} source={target} />
           </View>
         </View>
       </ImageBackground>
@@ -40,23 +62,40 @@ const styles = StyleSheet.create({
   // Component styles from top of slide
   // to bottom of slide.
   progressBar: {
-    marginTop: '12%',
+    marginTop: statusBarHeight + 5,
     alignSelf: 'center',
     position: 'absolute',
   },
-  topDesertIcon: {
-    width: '100%',
-    height: undefined,
-    // aspectRatio: width / height,
-    aspectRatio: 375 / 355,
-    position: 'absolute',
-    resizeMode: 'cover',
-  },
   topTextContainer: {
-    paddingTop: '39%',
-    width: 200,
-    height: '30%',
-    marginLeft: '10%',
+    marginTop: statusBarHeight > 30 ? normalize(170) : normalize(120, 150),
+    alignItems: 'center',
+    width: normalize(202),
+  },
+  bottomTextContainer: {
+    width: normalize(227),
+    alignItems: 'center',
+    position: 'absolute',
+    bottom: '15%',
+  },
+  whiteText: {
+    color: '#ffffff',
+  },
+  brownText: {
+    color: '#9f301b',
+  },
+  orangeText: {
+    color: '#ff8031',
+  },
+  italicizedText: {
+    fontFamily: 'Bellota-BoldItalic',
+  },
+  regularText: {
+    fontFamily: 'Bellota-Regular',
+  },
+  textSize: {
+    fontSize: normalize(32, 80),
+    letterSpacing: -1.84,
+    lineHeight: normalize(35, 80),
   },
   lightWhiteText: {
     fontFamily: 'Bellota-Regular',
@@ -70,15 +109,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
     lineHeight: 31,
   },
-  textAndTargetContainer: {
-    position: 'absolute',
-    bottom: '5%',
-    right: '10%',
-  },
-  bottomTextContainer: {
-    alignItems: 'flex-end',
-    width: 250,
-  },
+
   boldPurpleText: {
     fontFamily: 'Bellota-Bold',
     color: '#513c51',
@@ -99,7 +130,7 @@ const styles = StyleSheet.create({
   // Use this to fit slide on iPhone 8
   // and center slide on iPhone 11
   rectangle: {
-    justifyContent: 'center',
+    alignItems: 'center',
     height: '100%',
     width: '100%',
     marginTop: 0,
