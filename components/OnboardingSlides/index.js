@@ -26,7 +26,8 @@ class OnboardingSlides extends React.Component {
     if (this.state.activeSlideNumber === 2) return <SlideTwo />;
     if (this.state.activeSlideNumber === 3) return <SlideThree />;
     if (this.state.activeSlideNumber === 4) return <SlideFour />;
-    if (this.state.activeSlideNumber === 5) return <SlideFive />;
+    if (this.state.activeSlideNumber === 5)
+      return <SlideFive navigate={this.props.navigation.navigate} />;
   };
 
   render() {

@@ -4,9 +4,15 @@ import {normalize, statusBarHeight} from '../../utils/deviceScaling';
 import ProgressBar from './ProgressBar';
 import StartButton from './StartButton';
 import backgroundImage from './assets/backgroundImage5.png';
+import propTypes from 'prop-types';
 
 class SlideFive extends React.Component {
-  handleStart = () => {};
+  static propTypes = {
+    navigation: propTypes.func.isRequired,
+  };
+  handleStart = () => {
+    this.props.navigate('Onboarding Survey');
+  };
   render() {
     return (
       <ImageBackground source={backgroundImage} style={styles.backgroundImage}>
