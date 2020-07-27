@@ -1,5 +1,6 @@
 import React from 'react';
-import {View, StyleSheet, ImageBackground} from 'react-native';
+import {View, StyleSheet, ImageBackground, Text} from 'react-native';
+import {normalize, statusBarHeight} from '../../utils/deviceScaling';
 import ProgressBar from './ProgressBar';
 import backgroundImage from './assets/backgroundImage4.png';
 
@@ -11,7 +12,15 @@ class SlideFour extends React.Component {
           <ProgressBar activeCircleIndex={4} />
         </View>
         <View style={styles.rectangle}>
-          <View style={styles.slideContent}></View>
+          <View style={styles.topTextContainer}>
+            <Text style={styles.text}>
+              Then, use our list of nutrient-rich foods
+            </Text>
+          </View>
+          <View style={styles.bottomTextContainer}>
+            <Text style={styles.text}>To help you</Text>
+            <Text style={styles.text}>reach your goals</Text>
+          </View>
         </View>
       </ImageBackground>
     );
@@ -22,30 +31,43 @@ const styles = StyleSheet.create({
   // Component styles from top of slide
   // to bottom of slide.
   progressBar: {
-    marginTop: '12%',
+    marginTop: statusBarHeight + 5,
     alignSelf: 'center',
     position: 'absolute',
   },
-  // Resusable & component wide styles
-  rowContainer: {
-    flexDirection: 'row',
+  topTextContainer: {
+    marginTop: statusBarHeight + normalize(70),
+    marginLeft: '10%',
+    alignSelf: 'flex-start',
+    alignItems: 'flex-start',
+    // marginTop: statusBarHeight + normalize(30),
+    width: normalize(195),
+    // To test:
+    // borderColor: '#ffffff',
+    // borderWidth: 0.5,
+  },
+  bottomTextContainer: {
+    marginLeft: '10%',
+    width: normalize(210),
+    alignSelf: 'flex-start',
+    alignItems: 'flex-start',
+    position: 'absolute',
+    bottom: '15%',
+  },
+  text: {
+    fontSize: normalize(28, 50),
+    letterSpacing: -1.74,
+    lineHeight: normalize(28, 50),
+    color: '#ffffff',
+    fontFamily: 'Bellota-Bold',
   },
   backgroundImage: {
     height: '100%',
     flex: 1,
   },
-  // Use this to fit slide on iPhone 8
-  // and center slide on iPhone 11
   rectangle: {
     height: '100%',
-    justifyContent: 'center',
     alignItems: 'center',
-  },
-  slideContent: {
-    height: 650,
-    width: 375,
-    borderColor: '#ffffff',
-    borderWidth: 0.5,
   },
 });
 
