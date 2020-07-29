@@ -3,7 +3,7 @@ import {View, Text, StyleSheet} from 'react-native';
 import {connect} from 'react-redux';
 import propTypes from 'prop-types';
 
-class SurveyLanding extends React.Component {
+class Path extends React.Component {
   static propTypes = {
     path: propTypes.object,
   };
@@ -33,4 +33,4 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps)(SurveyLanding);
+export default connect(mapStateToProps)(Path);

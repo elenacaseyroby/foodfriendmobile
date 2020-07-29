@@ -15,7 +15,7 @@ import UpdatePassword from './UpdatePassword';
 import Progress from './Progress';
 import OnboardingSlides from './OnboardingSlides';
 import OnboardingSurvey from './OnboardingSurvey';
-import SurveyLanding from './SurveyLanding';
+import Path from './Path';
 import TermsAndConditions from './TermsAndConditions';
 import PrivacyPolicy from './PrivacyPolicy';
 //import asyncStorage from '../asyncStorage';
@@ -65,13 +65,13 @@ class App extends React.Component {
         }}>
         {this.props.auth.userId ? (
           <>
+            {this.renderOnboardingSlides()}
             <Stack.Screen
               name="Onboarding Survey"
               component={OnboardingSurvey}
             />
-            {this.renderOnboardingSlides()}
             <Stack.Screen name="Progress" component={Progress} />
-            <Stack.Screen name="Survey Landing" component={SurveyLanding} />
+            <Stack.Screen name="Path" component={Path} />
           </>
         ) : (
           <>

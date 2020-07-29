@@ -139,7 +139,7 @@ class OnboardingSurvey extends React.Component {
     });
     console.log(JSON.stringify(selectedPath));
     if (selectedPath) {
-      this.props.navigation.navigate('Survey Landing', {
+      this.props.navigation.navigate('Path', {
         path: selectedPath,
       });
     } else {
