@@ -36,7 +36,6 @@ export async function request(method, endpoint, body = {}) {
   // accessToken granted on login. need accessToken to get any user data.
   const accessToken = await asyncStorage._retrieveData('ACCESS_TOKEN');
   if (accessToken) {
-    console.log(accessToken);
     headers.authorization = accessToken;
   }
   const response = await fetch(`${API_HOST}${endpoint}`, {
