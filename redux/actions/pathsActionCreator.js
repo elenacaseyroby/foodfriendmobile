@@ -8,7 +8,6 @@ export function fetchPaths() {
     const endpoint = '/paths';
     try {
       const paths = await getRequest(endpoint);
-      console.log(JSON.stringify(paths.response));
       if (paths.status !== 200) {
         const error = paths.response.message
           ? paths.response.message
