@@ -52,7 +52,11 @@ class Path extends React.Component {
           />
           <Text style={styles.title}>{path.name}</Text>
           <View style={styles.line} />
-          <Text style={styles.description}>{path.description}</Text>
+          {displayDescription ? (
+            <Text style={styles.description}>{path.description}</Text>
+          ) : (
+            <></>
+          )}
           <View style={styles.nutrientsContainer}></View>
         </ScrollView>
       </>
