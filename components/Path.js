@@ -1,7 +1,9 @@
 import React from 'react';
 import {ScrollView, View, Text, Image, StyleSheet} from 'react-native';
 import FFStatusBar from './common/FFStatusBar';
+import NutrientButton from './NutrientButton';
 import {connect} from 'react-redux';
+import {fetchNutrients} from '../redux/actions/nutrientsActionCreator';
 import {normalize} from '../utils/deviceScaling';
 import propTypes from 'prop-types';
 
@@ -9,7 +11,33 @@ class Path extends React.Component {
   static propTypes = {
     selectedPath: propTypes.object,
   };
-  componentDidMount() {}
+  componentDidMount() {
+    // Fetch data if not yet in state.
+    if (
+      this.props.nutrients &&
+      !this.props.nutrients.list &&
+      !this.props.nutrients.loading &&
+      !this.props.nutrients.error
+    ) {
+      this.props.dispatch(fetchNutrients());
+    }
+  }
+  getNutrients = (nutrientsWithIds) => {
+    const allNutrients = this.props.nutrients.list;
+    if (!allNutrients) return [];
+    if (allNutrients.length < 1) return [];
+    const nutrientIds = [];
+    nutrientsWithIds.map((nutrient) => {
+      nutrientIds.push(nutrient.id);
+    });
+    const nutrientsWithAllProperties = [];
+    allNutrients.map((nutrient) => {
+      if (nutrientIds.includes(nutrient.id)) {
+        nutrientsWithAllProperties.push(nutrient);
+      }
+    });
+    return nutrientsWithAllProperties;
+  };
   render() {
     // const {selectedPath} = this.props.route.params;
     // const path = selectedPath || this.props.path;
@@ -35,8 +63,10 @@ class Path extends React.Component {
         button_img_path:
           'https://foodfriendapp.s3.us-east-2.amazonaws.com/paths/buttonImgPath/beach.png',
       },
+      nutrients: [{id: 4}, {id: 5}, {id: 13}],
     };
-    console.log(path.theme.header_img_path);
+    const nutrients = this.getNutrients(path.nutrients);
+    console.log(nutrients);
     return (
       <>
         <FFStatusBar
@@ -57,7 +87,11 @@ class Path extends React.Component {
           ) : (
             <></>
           )}
-          <View style={styles.nutrientsContainer}></View>
+          <View style={styles.nutrientsContainer}>
+            {nutrients.map((nutrient) => {
+              return <NutrientButton key={nutrient.id} nutrient={nutrient} />;
+            })}
+          </View>
         </ScrollView>
       </>
     );
@@ -109,7 +143,7 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => ({
-  auth: state.auth,
+  nutrients: state.nutrients,
 });
 
 export default connect(mapStateToProps)(Path);

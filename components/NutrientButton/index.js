@@ -1,0 +1,126 @@
+import React from 'react';
+import {View, Image, Text, StyleSheet} from 'react-native';
+import {normalize} from '../../utils/deviceScaling';
+import propTypes from 'prop-types';
+import theme1 from './assets/bar-theme1.png';
+import theme2 from './assets/bar-theme2.png';
+import theme3 from './assets/bar-theme3.png';
+import theme4 from './assets/bar-theme4.png';
+import theme5 from './assets/bar-theme5.png';
+
+const barThemes = {
+  1: theme1,
+  2: theme2,
+  3: theme3,
+  4: theme4,
+  5: theme5,
+};
+
+class NutrientButton extends React.Component {
+  static propTypes = {
+    nutrient: propTypes.object,
+  };
+  render() {
+    const {nutrient} = this.props;
+    const barTheme = barThemes[nutrient.themeId];
+    console.log(JSON.stringify(nutrient.benefits));
+    let benefitsText = '';
+    let counter = 1;
+    const firstFewBenefits = nutrient.benefits.slice(0, 8);
+    firstFewBenefits.map((benefit) => {
+      benefitsText = benefitsText + benefit.name.toLowerCase();
+      if (counter !== firstFewBenefits.length) {
+        benefitsText = benefitsText + ', ';
+      }
+      if (counter === firstFewBenefits.length) {
+        benefitsText = benefitsText + '...';
+      }
+      counter++;
+    });
+    return (
+      <View style={styles.buttonContainer}>
+        <View style={styles.buttonContentContainer}>
+          <View style={styles.buttonHeaderContainer}>
+            <View style={styles.barAndTextContainer}>
+              <Image style={styles.buttonBar} source={barTheme} />
+              <Text style={styles.buttonHeaderText}>{nutrient.name}</Text>
+            </View>
+            <View style={styles.benefitsTextContainer}>
+              <Text style={styles.benefitsLabel}>
+                Benefits the following...
+              </Text>
+              <Text style={styles.benefitsText}>{benefitsText}</Text>
+            </View>
+          </View>
+        </View>
+        <Image
+          style={styles.icon}
+          source={{
+            uri: nutrient.iconPath,
+          }}
+        />
+      </View>
+    );
+  }
+}
+
+const styles = StyleSheet.create({
+  buttonContainer: {
+    alignSelf: 'flex-end',
+    justifyContent: 'center',
+    width: normalize(360),
+    height: normalize(130),
+  },
+  buttonContentContainer: {
+    alignSelf: 'flex-end',
+    height: normalize(110),
+    width: normalize(303),
+    backgroundColor: '#ffffff',
+  },
+  barAndTextContainer: {
+    justifyContent: 'center',
+    width: normalize(315),
+    height: normalize(45),
+  },
+  buttonHeaderText: {
+    alignSelf: 'flex-end',
+    width: normalize(170),
+    fontFamily: 'Cabin-Regular',
+    fontSize: normalize(18),
+    color: '#ffffff',
+  },
+  buttonBar: {
+    marginTop: 0,
+    alignSelf: 'flex-end',
+    position: 'absolute',
+    height: normalize(45, 100),
+    width: undefined,
+    // aspectRatio: width / height,
+    aspectRatio: 315 / 47,
+  },
+  benefitsTextContainer: {
+    marginTop: '2%',
+    alignSelf: 'flex-end',
+    width: normalize(230),
+    height: normalize(65),
+  },
+  benefitsLabel: {
+    color: '#555555',
+    fontFamily: 'Cabin-Bold',
+    fontSize: normalize(12),
+  },
+  benefitsText: {
+    color: '#555555',
+    fontFamily: 'Cabin-Regular',
+    fontSize: normalize(12),
+  },
+  icon: {
+    position: 'absolute',
+    width: normalize(127, 250),
+    height: undefined,
+    // aspectRatio: width / height,
+    aspectRatio: 1 / 1,
+  },
+});
+
+export default NutrientButton;

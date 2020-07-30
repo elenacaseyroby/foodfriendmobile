@@ -2,6 +2,7 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import SplashScreen from 'react-native-splash-screen';
 import {connect} from 'react-redux';
+import {fetchNutrients} from '../redux/actions/nutrientsActionCreator';
 import {fetchPaths} from '../redux/actions/pathsActionCreator';
 import {fetchDiets} from '../redux/actions/dietsActionCreator';
 import {fetchUser} from '../redux/actions/userActionCreator';
@@ -39,6 +40,7 @@ class App extends React.Component {
     this.props.dispatch(fetchPrivacyPolicy());
     this.props.dispatch(fetchDiets());
     this.props.dispatch(fetchPaths());
+    this.props.dispatch(fetchNutrients());
   };
   componentWillUnmount() {
     // This is just necessary in the case that the screen is closed
@@ -65,13 +67,14 @@ class App extends React.Component {
         }}>
         {this.props.auth.userId ? (
           <>
+            <Stack.Screen name="Path" component={Path} />
             {this.renderOnboardingSlides()}
             <Stack.Screen
               name="Onboarding Survey"
               component={OnboardingSurvey}
             />
             <Stack.Screen name="Progress" component={Progress} />
-            <Stack.Screen name="Path" component={Path} />
+            {/* <Stack.Screen name="Path" component={Path} /> */}
           </>
         ) : (
           <>
