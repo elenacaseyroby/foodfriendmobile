@@ -2,6 +2,8 @@ import React from 'react';
 import {View, Image, Text, StyleSheet} from 'react-native';
 import {normalize} from '../../utils/deviceScaling';
 import propTypes from 'prop-types';
+import ArrowButton from './ArrowButton';
+import AddButton from './AddButton';
 import theme1 from './assets/bar-theme1.png';
 import theme2 from './assets/bar-theme2.png';
 import theme3 from './assets/bar-theme3.png';
@@ -9,17 +11,33 @@ import theme4 from './assets/bar-theme4.png';
 import theme5 from './assets/bar-theme5.png';
 
 const barThemes = {
-  1: theme1,
-  2: theme2,
-  3: theme3,
-  4: theme4,
-  5: theme5,
+  1: theme1, // blue
+  2: theme2, // green
+  3: theme3, // orange
+  4: theme4, // yellow
+  5: theme5, // red
 };
 
 class NutrientButton extends React.Component {
   static propTypes = {
+    style: propTypes.object,
     nutrient: propTypes.object,
+    displayAddNutrientButton: propTypes.bool,
+    onAddNutrientClick: propTypes.func,
   };
+  renderAddNutrientButton(nutrient) {
+    if (!this.props.displayAddNutrientButton) return;
+    return (
+      <View style={styles.addButtonContainer}>
+        <AddButton
+          style={styles.addButton}
+          onPress={() => {
+            this.props.onAddNutrientClick(nutrient.id);
+          }}
+        />
+      </View>
+    );
+  }
   render() {
     const {nutrient} = this.props;
     const barTheme = barThemes[nutrient.themeId];
@@ -38,7 +56,7 @@ class NutrientButton extends React.Component {
       counter++;
     });
     return (
-      <View style={styles.buttonContainer}>
+      <View style={[styles.buttonContainer, this.props.style]}>
         <View style={styles.buttonContentContainer}>
           <View style={styles.buttonHeaderContainer}>
             <View style={styles.barAndTextContainer}>
@@ -53,12 +71,19 @@ class NutrientButton extends React.Component {
             </View>
           </View>
         </View>
+        <ArrowButton
+          style={styles.arrowButton}
+          onPress={() => {
+            /*nav to nutrient page and pass nutrient in*/
+          }}
+        />
         <Image
           style={styles.icon}
           source={{
             uri: nutrient.iconPath,
           }}
         />
+        {this.renderAddNutrientButton(nutrient)}
       </View>
     );
   }
@@ -72,6 +97,7 @@ const styles = StyleSheet.create({
     height: normalize(130),
   },
   buttonContentContainer: {
+    position: 'absolute',
     alignSelf: 'flex-end',
     height: normalize(110),
     width: normalize(303),
@@ -93,7 +119,7 @@ const styles = StyleSheet.create({
     marginTop: 0,
     alignSelf: 'flex-end',
     position: 'absolute',
-    height: normalize(45, 100),
+    height: normalize(45),
     width: undefined,
     // aspectRatio: width / height,
     aspectRatio: 315 / 47,
@@ -114,9 +140,21 @@ const styles = StyleSheet.create({
     fontFamily: 'Cabin-Regular',
     fontSize: normalize(12),
   },
+  arrowButton: {
+    position: 'absolute',
+    alignSelf: 'flex-end',
+    bottom: 0,
+    marginRight: '1.5%',
+  },
+  addButtonContainer: {
+    height: '100%',
+  },
+  addButton: {
+    top: '1%',
+  },
   icon: {
     position: 'absolute',
-    width: normalize(127, 250),
+    width: normalize(127),
     height: undefined,
     // aspectRatio: width / height,
     aspectRatio: 1 / 1,
