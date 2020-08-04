@@ -41,7 +41,6 @@ class NutrientButton extends React.Component {
   render() {
     const {nutrient} = this.props;
     const barTheme = barThemes[nutrient.themeId];
-    console.log(JSON.stringify(nutrient.benefits));
     let benefitsText = '';
     let counter = 1;
     const firstFewBenefits = nutrient.benefits.slice(0, 8);
