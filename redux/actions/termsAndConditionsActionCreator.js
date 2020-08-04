@@ -2,7 +2,7 @@ import C from '../constants';
 import {getRequest} from '../../services/apiUtils';
 
 export function fetchTermsAndConditions() {
-  console.log('FETCH PRIVACY POLICY');
+  console.log('FETCH TERMS');
   fetchTermsBegin();
   return async function (dispatch) {
     const endpoint = '/termsandconditions';
