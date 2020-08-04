@@ -12,11 +12,13 @@ export function fetchPaths() {
         const error = paths.response.message
           ? paths.response.message
           : JSON.stringify(paths.response);
+        console.log(`failed to retrieve paths: ${error}`);
         return dispatch(fetchPathsFailure(error));
       }
       console.log(`paths: ${JSON.stringify(paths.response)}`);
       return dispatch(fetchPathsSuccess(paths.response));
     } catch (error) {
+      console.log(`failed to retrieve paths: ${error}`);
       return dispatch(fetchPathsFailure(error));
     }
   };

@@ -12,10 +12,12 @@ export function fetchUser(userId) {
         const error = res.response.contains('message')
           ? res.response.message
           : JSON.stringify(res.response);
+        console.log(`failed to retrieve user: ${error}`);
         return dispatch(fetchUserFailure(error));
       }
       return dispatch(fetchUserSuccess(res.response));
     } catch (error) {
+      console.log(`failed to retrieve user: ${error}`);
       return dispatch(fetchUserFailure(error));
     }
   };

@@ -12,10 +12,12 @@ export function fetchNutrients() {
         const error = nutrients.response.message
           ? nutrients.response.message
           : JSON.stringify(nutrients.response);
+        console.log(`failed to retrieve nutrients: ${error}`);
         return dispatch(fetchNutrientsFailure(error));
       }
       return dispatch(fetchNutrientsSuccess(nutrients.response));
     } catch (error) {
+      console.log(`failed to retrieve nutrients: ${error}`);
       return dispatch(fetchNutrientsFailure(error));
     }
   };
