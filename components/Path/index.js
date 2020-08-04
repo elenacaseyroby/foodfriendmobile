@@ -51,6 +51,7 @@ class Path extends React.Component {
         </View>
         <View style={styles.bottomTextContainer}>
           <Image style={styles.bottomFlag} source={bottomFlag} />
+          <Text style={styles.notesText}>{path.notes}.</Text>
         </View>
       </View>
     );
@@ -66,7 +67,8 @@ class Path extends React.Component {
       name: 'Energy For Menstruation',
       description:
         'This path is designed for those looking to add a natural energy boost to their daily routine. By tracking active nutrients like Vitamin B12, Vitamin D, and Magnesium, this path will help you to stay energized!',
-      notes: '',
+      notes:
+        'We reccommend trying to spend 10-30 minutes in the sun daily to get your recommended daily value of Vitamin D. The time needed for proper absorption varies by season, geolocation and skin complexion. We reccommend kjhlaks lkjfs ksf lkjlkafsjd kjasl kajsflkj lkajflkjad kljafdlkjlkadsf lkajsdflkjlks.',
       notesSources: '',
       createdAt: '2020-06-09T22:23:26.000Z',
       updatedAt: '2020-06-09T22:23:26.000Z',
@@ -173,43 +175,49 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   notesContainer: {
-    position: 'relative',
     width: '100%',
-    height: normalize(210),
+    height: normalize(250),
     backgroundColor: '#36549a',
   },
   topTextContainer: {
-    width: normalize(280),
-    borderColor: '#ffffff',
-    borderWidth: 0.5,
+    justifyContent: 'center',
   },
   topFlag: {
-    position: 'absolute',
-    width: normalize(280),
+    marginTop: normalize(15),
+    width: normalize(347),
     height: undefined,
     // aspectRatio: width / height,
-    aspectRatio: 280 / 80,
+    aspectRatio: 347 / 91,
+  },
+  notesLabel: {
+    paddingTop: normalize(20),
+    marginLeft: '6%',
+    position: 'absolute',
+    fontFamily: 'Cabin-Bold',
+    fontSize: normalize(16),
+    color: '#ffffff',
   },
   bottomTextContainer: {
+    marginTop: normalize(10),
+    justifyContent: 'center',
     alignSelf: 'flex-end',
     width: normalize(345),
-    borderColor: '#ffffff',
-    borderWidth: 0.5,
   },
   bottomFlag: {
-    position: 'absolute',
     width: normalize(345),
     height: undefined,
     // aspectRatio: width / height,
-    aspectRatio: 345 / 80,
+    aspectRatio: 345 / 100,
   },
-  notesLabel: {},
   notesText: {
-    width: normalize(340),
-    alignSelf: 'center',
-    fontFamily: 'Cabin-Regular',
-    fontSize: normalize(16),
-    color: '#555555',
+    textAlign: 'right',
+    width: normalize(290),
+    paddingRight: '5%',
+    alignSelf: 'flex-end',
+    position: 'absolute',
+    fontFamily: 'Cabin-Bold',
+    fontSize: normalize(12),
+    color: '#ffffff',
   },
   rectangle: {
     backgroundColor: '#FFFFFF',
