@@ -127,7 +127,7 @@ class OnboardingSurvey extends React.Component {
       });
     }
     // get fresh user data since it's been updated:
-    this.props.dispatch(fetchUser());
+    this.props.dispatch(fetchUser(this.props.auth.userId));
     const selectedPathName = this.getPathName();
     let selectedPath;
     this.props.paths.list.map((path) => {
@@ -137,7 +137,6 @@ class OnboardingSurvey extends React.Component {
         selectedPath = path;
       }
     });
-    console.log(JSON.stringify(selectedPath));
     if (selectedPath) {
       this.props.navigation.navigate('Path', {
         selectedPath: selectedPath,
@@ -166,6 +165,7 @@ class OnboardingSurvey extends React.Component {
       <>
         <FFStatusBar
           barStyle={'dark-content'}
+          hidden={false}
           backgroundColorStyle={styles.statusBarBackgroundColor}
         />
         <ScrollView style={styles.rectangle}>
