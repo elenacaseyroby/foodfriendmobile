@@ -11,16 +11,23 @@ import FFStatusBar from '../common/FFStatusBar';
 import NutrientButton from '../NutrientButton';
 import {connect} from 'react-redux';
 import {fetchNutrients} from '../../redux/actions/nutrientsActionCreator';
+import {fetchPaths} from '../../redux/actions/pathsActionCreator';
+import {fetchUser} from '../../redux/actions/userActionCreator';
+import api from '../../services/api';
 import {normalize} from '../../utils/deviceScaling';
 import topFlag from './assets/top-flag.png';
 import bottomFlag from './assets/bottom-flag.png';
 import blueElipse from '../../assets/images/bottom-elipse-blue-2.png';
 import FFWideButton from '../common/FFWideButton';
+import FFErrorMessage from '../forms/FFErrorMessage';
 import propTypes from 'prop-types';
 
 class Path extends React.Component {
   static propTypes = {
     selectedPath: propTypes.object,
+  };
+  state = {
+    errorMessage: null,
   };
   componentDidMount() {
     // Fetch data if not yet in state.
@@ -32,7 +39,38 @@ class Path extends React.Component {
     ) {
       this.props.dispatch(fetchNutrients());
     }
+    if (
+      this.props.paths &&
+      !this.props.paths.list &&
+      !this.props.paths.loading &&
+      !this.props.paths.error
+    ) {
+      this.props.dispatch(fetchPaths());
+    }
+    if (
+      this.props.user &&
+      !this.props.user &&
+      !this.props.user.loading &&
+      !this.props.user.error
+    ) {
+      this.props.dispatch(fetchUser(this.props.auth.userId));
+    }
   }
+  componentDidUpdate = (prevProps, prevState) => {
+    console.log('component did update');
+    this.render();
+  };
+  getUserPath = () => {
+    if (!this.props.paths.list) return;
+    const activePathId = this.props.user.activePathId;
+    let userPath = null;
+    this.props.paths.list.map((path) => {
+      if (activePathId === path.id) {
+        userPath = path;
+      }
+      return path;
+    });
+  };
   getNutrients = (nutrientsWithIds) => {
     const allNutrients = this.props.nutrients.list;
     if (!allNutrients) return [];
@@ -48,6 +86,21 @@ class Path extends React.Component {
       }
     });
     return nutrientsWithAllProperties;
+  };
+  handleSelectPath = async (path) => {
+    const body = {
+      activePathId: path.id,
+    };
+    const userRequest = await api.putUser(this.props.auth.userId, body);
+    if (userRequest.status !== 200) {
+      return this.setState({
+        errorMessage:
+          "Oops! Something's gone wrong. Please try selecting your path again.",
+      });
+    }
+    this.props.dispatch(fetchUser(this.props.auth.userId));
+    //navigate to path page
+    this.props.navigation.navigate('Path');
   };
   renderNote(path) {
     if (!path.notes) return;
@@ -65,39 +118,52 @@ class Path extends React.Component {
       </View>
     );
   }
+  renderErrorMessage() {
+    if (!this.state.errorMessage) return;
+    return (
+      <View style={styles.errorMessage}>
+        <FFErrorMessage errorMessage={this.state.errorMessage} />
+      </View>
+    );
+  }
   render() {
-    // const {selectedPath} = this.props.route.params;
-    // const path = selectedPath || this.props.path;
-    // const displayDescription = selectedPath ? true : false;
-    // test
-    const displayDescription = true;
-    const path = {
-      id: 3,
-      name: 'Energy For Menstruation',
-      description:
-        'This path is designed for those looking to add a natural energy boost to their daily routine. By tracking active nutrients like Vitamin B12, Vitamin D, and Magnesium, this path will help you to stay energized!',
-      notes:
-        'We recommend trying to spend 10-30 minutes in the sun daily to get your recommended daily value of Vitamin D. The time needed for proper absorption varies by season, geolocation and skin complexion. We reccommend kjhlaks lkjfs ksf lkjlkafsjd kjasl kajsflkj lkajflkjad kljafdlkjlkadsf lkajsdflkjlks.',
-      notesSources: '',
-      createdAt: '2020-06-09T22:23:26.000Z',
-      updatedAt: '2020-06-09T22:23:26.000Z',
-      ownerId: 1,
-      themeId: 5,
-      theme: {
-        id: 5,
-        name: 'city',
-        header_img_path:
-          'https://foodfriendapp.s3.us-east-2.amazonaws.com/paths/headerImgPath/city.png',
-        footer_img_path:
-          'https://foodfriendapp.s3.us-east-2.amazonaws.com/paths/footerImgPath/city.png',
-        button_img_path:
-          'https://foodfriendapp.s3.us-east-2.amazonaws.com/paths/buttonImgPath/city.png',
-      },
-      nutrients: [{id: 3}, {id: 12}, {id: 13}],
-    };
+    console.log('RENDER');
+    // test data
+    // const isSelectPathScreen = true;
+    // const path = {
+    //   id: 3,
+    //   name: 'Energy For Menstruation',
+    //   description:
+    //     'This path is designed for those looking to add a natural energy boost to their daily routine. By tracking active nutrients like Vitamin B12, Vitamin D, and Magnesium, this path will help you to stay energized!',
+    //   notes:
+    //     'We recommend trying to spend 10-30 minutes in the sun daily to get your recommended daily value of Vitamin D. The time needed for proper absorption varies by season, geolocation and skin complexion. We reccommend kjhlaks lkjfs ksf lkjlkafsjd kjasl kajsflkj lkajflkjad kljafdlkjlkadsf lkajsdflkjlks.',
+    //   notesSources: '',
+    //   createdAt: '2020-06-09T22:23:26.000Z',
+    //   updatedAt: '2020-06-09T22:23:26.000Z',
+    //   ownerId: 1,
+    //   themeId: 5,
+    //   theme: {
+    //     id: 5,
+    //     name: 'city',
+    //     header_img_path:
+    //       'https://foodfriendapp.s3.us-east-2.amazonaws.com/paths/headerImgPath/city.png',
+    //     footer_img_path:
+    //       'https://foodfriendapp.s3.us-east-2.amazonaws.com/paths/footerImgPath/city.png',
+    //     button_img_path:
+    //       'https://foodfriendapp.s3.us-east-2.amazonaws.com/paths/buttonImgPath/city.png',
+    //   },
+    //   nutrients: [{id: 3}, {id: 12}, {id: 13}],
+    // };
+    let path;
+    let isSelectPathScreen = false;
+    try {
+      path = this.props.route.params.selectedPath;
+      isSelectPathScreen = true;
+    } catch (error) {
+      path = this.getUserPath();
+    }
     const displayName = path.name.split(' ')[0];
     const nutrients = this.getNutrients(path.nutrients);
-    console.log(nutrients);
 
     return (
       <>
@@ -114,7 +180,7 @@ class Path extends React.Component {
           />
           <Text style={styles.title}>{displayName}</Text>
           <View style={styles.line} />
-          {displayDescription ? (
+          {isSelectPathScreen ? (
             <Text style={styles.description}>{path.description}</Text>
           ) : (
             <></>
@@ -138,13 +204,19 @@ class Path extends React.Component {
               uri: path.theme.footer_img_path,
             }}
           />
-          <View style={styles.submitButton}>
-            <FFWideButton
-              label={'Choose This Path'}
-              textStyle={styles.submitButtonText}
-              onClick={() => {}}
-            />
-          </View>
+          {this.renderErrorMessage()}
+          {isSelectPathScreen ? (
+            <View style={styles.submitButton}>
+              <FFWideButton
+                label={'Choose This Path'}
+                textStyle={styles.submitButtonText}
+                onClick={() => this.handleSelectPath(path)}
+              />
+            </View>
+          ) : (
+            <></>
+          )}
+
           <View style={styles.selectDifferentPathContainer}>
             <Text style={styles.grayText}>
               Looking for something different?
@@ -152,14 +224,14 @@ class Path extends React.Component {
             <View style={styles.rowContainer}>
               <TouchableOpacity
                 onPress={() => {
-                  /*this.props.navigation.navigate('Select Path')*/ return;
+                  this.props.navigation.navigate('Select Path');
                 }}>
                 <Text style={styles.orangeText}>select a different path</Text>
               </TouchableOpacity>
               <Text style={styles.grayText}>{' or '}</Text>
               <TouchableOpacity
                 onPress={() => {
-                  /*this.props.navigation.navigate('Customize Path')*/ return;
+                  this.props.navigation.navigate('Customize Path');
                 }}>
                 <Text style={styles.orangeText}>create a custom path</Text>
               </TouchableOpacity>
@@ -182,7 +254,8 @@ const styles = StyleSheet.create({
     aspectRatio: 375 / 188,
   },
   title: {
-    marginTop: '2%',
+    marginTop: '1%',
+    marginBottom: '1%',
     width: normalize(340),
     alignSelf: 'center',
     fontFamily: 'Bellota-Regular',
@@ -201,7 +274,8 @@ const styles = StyleSheet.create({
   nutrientsContainer: {
     justifyContent: 'center',
     width: '100%',
-    height: normalize(457),
+    paddingTop: '10%',
+    paddingBottom: '10%',
     backgroundColor: '#36549a',
   },
   nutrientButton: {
@@ -274,6 +348,10 @@ const styles = StyleSheet.create({
     // aspectRatio: width / height,
     aspectRatio: 375 / 279,
   },
+  errorMessage: {
+    marginTop: '7%',
+    alignItems: 'center',
+  },
   submitButton: {
     marginTop: '5%',
     alignItems: 'center',
@@ -317,6 +395,9 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => ({
+  auth: state.auth,
+  user: state.user,
+  paths: state.paths,
   nutrients: state.nutrients,
 });
 
