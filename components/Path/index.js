@@ -1,5 +1,12 @@
 import React from 'react';
-import {ScrollView, View, Text, Image, StyleSheet} from 'react-native';
+import {
+  ScrollView,
+  TouchableOpacity,
+  View,
+  Text,
+  Image,
+  StyleSheet,
+} from 'react-native';
 import FFStatusBar from '../common/FFStatusBar';
 import NutrientButton from '../NutrientButton';
 import {connect} from 'react-redux';
@@ -7,6 +14,8 @@ import {fetchNutrients} from '../../redux/actions/nutrientsActionCreator';
 import {normalize} from '../../utils/deviceScaling';
 import topFlag from './assets/top-flag.png';
 import bottomFlag from './assets/bottom-flag.png';
+import blueElipse from '../../assets/images/bottom-elipse-blue-2.png';
+import FFWideButton from '../common/FFWideButton';
 import propTypes from 'prop-types';
 
 class Path extends React.Component {
@@ -44,7 +53,6 @@ class Path extends React.Component {
     if (!path.notes) return;
     return (
       <View style={styles.notesContainer}>
-        <View style={styles.blueLine} />
         <View style={styles.topTextContainer}>
           <Image style={styles.topFlag} source={topFlag} />
           <Text style={styles.notesLabel}>Some notes about this path...</Text>
@@ -53,6 +61,7 @@ class Path extends React.Component {
           <Image style={styles.bottomFlag} source={bottomFlag} />
           <Text style={styles.notesText}>{path.notes}.</Text>
         </View>
+        <View style={styles.blueLine} />
       </View>
     );
   }
@@ -68,7 +77,7 @@ class Path extends React.Component {
       description:
         'This path is designed for those looking to add a natural energy boost to their daily routine. By tracking active nutrients like Vitamin B12, Vitamin D, and Magnesium, this path will help you to stay energized!',
       notes:
-        'We reccommend trying to spend 10-30 minutes in the sun daily to get your recommended daily value of Vitamin D. The time needed for proper absorption varies by season, geolocation and skin complexion. We reccommend kjhlaks lkjfs ksf lkjlkafsjd kjasl kajsflkj lkajflkjad kljafdlkjlkadsf lkajsdflkjlks.',
+        'We recommend trying to spend 10-30 minutes in the sun daily to get your recommended daily value of Vitamin D. The time needed for proper absorption varies by season, geolocation and skin complexion. We reccommend kjhlaks lkjfs ksf lkjlkafsjd kjasl kajsflkj lkajflkjad kljafdlkjlkadsf lkajsdflkjlks.',
       notesSources: '',
       createdAt: '2020-06-09T22:23:26.000Z',
       updatedAt: '2020-06-09T22:23:26.000Z',
@@ -79,6 +88,8 @@ class Path extends React.Component {
         name: 'city',
         header_img_path:
           'https://foodfriendapp.s3.us-east-2.amazonaws.com/paths/headerImgPath/city.png',
+        footer_img_path:
+          'https://foodfriendapp.s3.us-east-2.amazonaws.com/paths/footerImgPath/city.png',
         button_img_path:
           'https://foodfriendapp.s3.us-east-2.amazonaws.com/paths/buttonImgPath/city.png',
       },
@@ -118,8 +129,44 @@ class Path extends React.Component {
                 />
               );
             })}
+            <View style={styles.blueLine} />
           </View>
           {this.renderNote(path)}
+          <Image
+            style={styles.footerImg}
+            source={{
+              uri: path.theme.footer_img_path,
+            }}
+          />
+          <View style={styles.submitButton}>
+            <FFWideButton
+              label={'Choose This Path'}
+              textStyle={styles.submitButtonText}
+              onClick={() => {}}
+            />
+          </View>
+          <View style={styles.selectDifferentPathContainer}>
+            <Text style={styles.grayText}>
+              Looking for something different?
+            </Text>
+            <View style={styles.rowContainer}>
+              <TouchableOpacity
+                onPress={() => {
+                  /*this.props.navigation.navigate('Select Path')*/ return;
+                }}>
+                <Text style={styles.orangeText}>select a different path</Text>
+              </TouchableOpacity>
+              <Text style={styles.grayText}>{' or '}</Text>
+              <TouchableOpacity
+                onPress={() => {
+                  /*this.props.navigation.navigate('Customize Path')*/ return;
+                }}>
+                <Text style={styles.orangeText}>create a custom path</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+
+          <Image style={styles.blueElipse} source={blueElipse} />
         </ScrollView>
       </>
     );
@@ -169,7 +216,8 @@ const styles = StyleSheet.create({
     opacity: 0.25,
   },
   blueLine: {
-    marginTop: '1%',
+    position: 'absolute',
+    bottom: 0,
     borderBottomWidth: normalize(1),
     color: '#1a2955',
     width: '100%',
@@ -218,6 +266,48 @@ const styles = StyleSheet.create({
     fontFamily: 'Cabin-Bold',
     fontSize: normalize(12),
     color: '#ffffff',
+  },
+  footerImg: {
+    alignSelf: 'center',
+    width: '102%',
+    height: undefined,
+    // aspectRatio: width / height,
+    aspectRatio: 375 / 279,
+  },
+  submitButton: {
+    marginTop: '5%',
+    alignItems: 'center',
+  },
+  submitButtonText: {
+    fontFamily: 'Bellota-Bold',
+    fontSize: normalize(29),
+    color: '#ffffff',
+  },
+  selectDifferentPathContainer: {
+    marginTop: '2%',
+    alignItems: 'center',
+    // borderColor: '#aaaaaa',
+    // borderWidth: 0.5,
+  },
+  grayText: {
+    fontSize: normalize(16),
+    fontFamily: 'Cabin-Regular',
+    color: '#b7b7b7',
+  },
+  orangeText: {
+    fontSize: normalize(16),
+    fontFamily: 'Cabin-Regular',
+    color: '#ed762c',
+  },
+  blueElipse: {
+    marginTop: '5%',
+    width: '100%',
+    height: undefined,
+    // aspectRatio: width / height,
+    aspectRatio: 375 / 90,
+  },
+  rowContainer: {
+    flexDirection: 'row',
   },
   rectangle: {
     backgroundColor: '#FFFFFF',

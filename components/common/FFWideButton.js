@@ -12,6 +12,7 @@ class FFWideButton extends React.Component {
     style: propTypes.object,
   };
   render() {
+    console.log(this.props.textStyle);
     return (
       <TouchableOpacity
         onPress={this.props.onClick}
@@ -20,10 +21,14 @@ class FFWideButton extends React.Component {
           this.props.backgroundColorStyle
             ? this.props.backgroundColorStyle
             : styles.defaultBackgroundColor,
-          this.props.textStyle ? this.props.textStyle : styles.defaultText,
-          this.props.style,
         ]}>
-        <Text style={styles.text}>{this.props.label}</Text>
+        <Text
+          style={[
+            styles.text,
+            this.props.textStyle ? this.props.textStyle : styles.defaultText,
+          ]}>
+          {this.props.label}
+        </Text>
       </TouchableOpacity>
     );
   }
@@ -33,9 +38,9 @@ const styles = StyleSheet.create({
   defaultText: {
     fontFamily: 'Cabin-Regular',
     color: '#ffffff',
+    fontSize: normalize(17),
   },
   text: {
-    fontSize: normalize(17),
     textAlign: 'center',
   },
   button: {
