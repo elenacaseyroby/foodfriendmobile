@@ -12,7 +12,6 @@ class FFWideButton extends React.Component {
     style: propTypes.object,
   };
   render() {
-    console.log(this.props.textStyle);
     return (
       <TouchableOpacity
         onPress={this.props.onClick}
