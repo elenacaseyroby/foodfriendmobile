@@ -29,7 +29,7 @@ class OnboardingSurvey extends React.Component {
     // Fetch data if not yet in state.
     if (
       this.props.diets &&
-      !this.props.diets.list &&
+      this.props.diets.list < 1 &&
       !this.props.diets.loading &&
       !this.props.diets.error
     ) {
@@ -37,7 +37,7 @@ class OnboardingSurvey extends React.Component {
     }
     if (
       this.props.paths &&
-      !this.props.paths.list &&
+      this.props.paths.list < 1 &&
       !this.props.paths.loading &&
       !this.props.paths.error
     ) {

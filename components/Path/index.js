@@ -56,10 +56,9 @@ class Path extends React.Component {
       this.props.dispatch(fetchUser(this.props.auth.userId));
     }
   }
-  componentDidUpdate = (prevProps, prevState) => {
-    console.log('component did update');
-    this.render();
-  };
+  // componentDidUpdate = (prevProps, prevState) => {
+  //   this.render();
+  // };
   getUserPath = () => {
     if (!this.props.paths.list) return;
     const activePathId = this.props.user.activePathId;
@@ -127,7 +126,6 @@ class Path extends React.Component {
     );
   }
   render() {
-    console.log('RENDER');
     // test data
     // const isSelectPathScreen = true;
     // const path = {
@@ -164,7 +162,6 @@ class Path extends React.Component {
     }
     const displayName = path.name.split(' ')[0];
     const nutrients = this.getNutrients(path.nutrients);
-
     return (
       <>
         <FFStatusBar
