@@ -4,8 +4,6 @@ import {normalize} from '../utils/deviceScaling';
 import {validateDate} from '../utils/formValidation';
 import api from '../services/api';
 import {connect} from 'react-redux';
-import {fetchDiets} from '../redux/actions/dietsActionCreator';
-import {fetchPaths} from '../redux/actions/pathsActionCreator';
 import {fetchUser} from '../redux/actions/userActionCreator';
 import FFDateBox from './forms/FFDateBox';
 import FFSelectButtons from './forms/FFSelectButtons';
@@ -25,25 +23,6 @@ class OnboardingSurvey extends React.Component {
     pathName: null,
     menstruates: null,
   };
-  onComponentDidMount() {
-    // Fetch data if not yet in state.
-    if (
-      this.props.diets &&
-      this.props.diets.list < 1 &&
-      !this.props.diets.loading &&
-      !this.props.diets.error
-    ) {
-      this.props.dispatch(fetchDiets());
-    }
-    if (
-      this.props.paths &&
-      this.props.paths.list < 1 &&
-      !this.props.paths.loading &&
-      !this.props.paths.error
-    ) {
-      this.props.dispatch(fetchPaths());
-    }
-  }
   handleDateChange = (date) => {
     this.setState({birthday: date});
   };
@@ -138,7 +117,7 @@ class OnboardingSurvey extends React.Component {
       }
     });
     if (selectedPath) {
-      this.props.navigation.navigate('Path', {
+      this.props.navigation.navigate('Select Path', {
         selectedPath: selectedPath,
       });
     } else {

@@ -43,7 +43,7 @@ class NutrientButton extends React.Component {
     const barTheme = barThemes[nutrient.themeId];
     let benefitsText = '';
     let counter = 1;
-    const firstFewBenefits = nutrient.benefits.slice(0, 8);
+    const firstFewBenefits = nutrient.benefits.slice(0, 6);
     firstFewBenefits.map((benefit) => {
       benefitsText = benefitsText + benefit.name.toLowerCase();
       if (counter !== firstFewBenefits.length) {

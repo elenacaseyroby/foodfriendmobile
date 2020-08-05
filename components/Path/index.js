@@ -24,7 +24,9 @@ import propTypes from 'prop-types';
 
 class Path extends React.Component {
   static propTypes = {
-    selectedPath: propTypes.object,
+    path: propTypes.object,
+    selectingPath: propTypes.bool,
+    navigation: propTypes.object,
   };
   state = {
     errorMessage: null,
@@ -59,17 +61,6 @@ class Path extends React.Component {
   // componentDidUpdate = (prevProps, prevState) => {
   //   this.render();
   // };
-  getUserPath = () => {
-    if (!this.props.paths.list) return;
-    const activePathId = this.props.user.activePathId;
-    let userPath = null;
-    this.props.paths.list.map((path) => {
-      if (activePathId === path.id) {
-        userPath = path;
-      }
-      return path;
-    });
-  };
   getNutrients = (nutrientsWithIds) => {
     const allNutrients = this.props.nutrients.list;
     if (!allNutrients) return [];
@@ -97,14 +88,18 @@ class Path extends React.Component {
           "Oops! Something's gone wrong. Please try selecting your path again.",
       });
     }
+    // Update user state after updating activePathId.
     this.props.dispatch(fetchUser(this.props.auth.userId));
+    console.log('paths');
+    console.log(JSON.stringify(this.props.paths.list));
     //navigate to path page
-    this.props.navigation.navigate('Path');
+    this.props.navigation.navigate('My Path');
   };
   renderNote(path) {
     if (!path.notes) return;
     return (
       <View style={styles.notesContainer}>
+        <View style={styles.topBlueLine} />
         <View style={styles.topTextContainer}>
           <Image style={styles.topFlag} source={topFlag} />
           <Text style={styles.notesLabel}>Some notes about this path...</Text>
@@ -113,7 +108,7 @@ class Path extends React.Component {
           <Image style={styles.bottomFlag} source={bottomFlag} />
           <Text style={styles.notesText}>{path.notes}.</Text>
         </View>
-        <View style={styles.blueLine} />
+        <View style={styles.bottomBlueLine} />
       </View>
     );
   }
@@ -126,40 +121,8 @@ class Path extends React.Component {
     );
   }
   render() {
-    // test data
-    // const isSelectPathScreen = true;
-    // const path = {
-    //   id: 3,
-    //   name: 'Energy For Menstruation',
-    //   description:
-    //     'This path is designed for those looking to add a natural energy boost to their daily routine. By tracking active nutrients like Vitamin B12, Vitamin D, and Magnesium, this path will help you to stay energized!',
-    //   notes:
-    //     'We recommend trying to spend 10-30 minutes in the sun daily to get your recommended daily value of Vitamin D. The time needed for proper absorption varies by season, geolocation and skin complexion. We reccommend kjhlaks lkjfs ksf lkjlkafsjd kjasl kajsflkj lkajflkjad kljafdlkjlkadsf lkajsdflkjlks.',
-    //   notesSources: '',
-    //   createdAt: '2020-06-09T22:23:26.000Z',
-    //   updatedAt: '2020-06-09T22:23:26.000Z',
-    //   ownerId: 1,
-    //   themeId: 5,
-    //   theme: {
-    //     id: 5,
-    //     name: 'city',
-    //     header_img_path:
-    //       'https://foodfriendapp.s3.us-east-2.amazonaws.com/paths/headerImgPath/city.png',
-    //     footer_img_path:
-    //       'https://foodfriendapp.s3.us-east-2.amazonaws.com/paths/footerImgPath/city.png',
-    //     button_img_path:
-    //       'https://foodfriendapp.s3.us-east-2.amazonaws.com/paths/buttonImgPath/city.png',
-    //   },
-    //   nutrients: [{id: 3}, {id: 12}, {id: 13}],
-    // };
-    let path;
-    let isSelectPathScreen = false;
-    try {
-      path = this.props.route.params.selectedPath;
-      isSelectPathScreen = true;
-    } catch (error) {
-      path = this.getUserPath();
-    }
+    const {path} = this.props;
+    const selectingPath = this.props.selectingPath;
     const displayName = path.name.split(' ')[0];
     const nutrients = this.getNutrients(path.nutrients);
     return (
@@ -168,7 +131,8 @@ class Path extends React.Component {
           barStyle={'dark-content'}
           backgroundColorStyle={styles.statusBarBackgroundColor}
         />
-        <ScrollView style={styles.rectangle}>
+        {/*scrollIndicatorInsets setting prevents bug: https://github.com/facebook/react-native/issues/26610*/}
+        <ScrollView style={styles.rectangle} scrollIndicatorInsets={{right: 1}}>
           <Image
             style={styles.headerImg}
             source={{
@@ -177,7 +141,7 @@ class Path extends React.Component {
           />
           <Text style={styles.title}>{displayName}</Text>
           <View style={styles.line} />
-          {isSelectPathScreen ? (
+          {selectingPath ? (
             <Text style={styles.description}>{path.description}</Text>
           ) : (
             <></>
@@ -192,7 +156,6 @@ class Path extends React.Component {
                 />
               );
             })}
-            <View style={styles.blueLine} />
           </View>
           {this.renderNote(path)}
           <Image
@@ -202,10 +165,10 @@ class Path extends React.Component {
             }}
           />
           {this.renderErrorMessage()}
-          {isSelectPathScreen ? (
+          {selectingPath ? (
             <View style={styles.submitButton}>
               <FFWideButton
-                label={'Choose This Path'}
+                label={'Choose this Path'}
                 textStyle={styles.submitButtonText}
                 onClick={() => this.handleSelectPath(path)}
               />
@@ -286,10 +249,17 @@ const styles = StyleSheet.create({
     width: '100%',
     opacity: 0.25,
   },
-  blueLine: {
+  topBlueLine: {
     position: 'absolute',
     bottom: 0,
-    borderBottomWidth: normalize(1),
+    borderBottomWidth: 1,
+    color: '#1a2955',
+    width: '100%',
+  },
+  bottomBlueLine: {
+    position: 'absolute',
+    top: 0,
+    borderBottomWidth: 1,
     color: '#1a2955',
     width: '100%',
   },

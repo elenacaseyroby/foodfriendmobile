@@ -16,7 +16,8 @@ import UpdatePassword from './UpdatePassword';
 import Progress from './Progress';
 import OnboardingSlides from './OnboardingSlides';
 import OnboardingSurvey from './OnboardingSurvey';
-import Path from './Path';
+import MyPath from './MyPath';
+import SelectPath from './SelectPath';
 import TermsAndConditions from './TermsAndConditions';
 import PrivacyPolicy from './PrivacyPolicy';
 //import asyncStorage from '../asyncStorage';
@@ -34,13 +35,14 @@ class App extends React.Component {
     // start loading data while splash screen is shown:
     const authSet = await this.props.dispatch(setAuth());
     if (authSet && this.props.auth.userId) {
+      // if user is already logged in, fetch user-specific data
       this.props.dispatch(fetchUser(this.props.auth.userId));
+      this.props.dispatch(fetchPaths());
+      this.props.dispatch(fetchNutrients());
     }
     this.props.dispatch(fetchTermsAndConditions());
     this.props.dispatch(fetchPrivacyPolicy());
     this.props.dispatch(fetchDiets());
-    this.props.dispatch(fetchPaths());
-    this.props.dispatch(fetchNutrients());
   };
   componentWillUnmount() {
     // This is just necessary in the case that the screen is closed
@@ -49,12 +51,23 @@ class App extends React.Component {
     // the user experience.
     clearTimeout(this.timeoutHandle);
   }
-  renderOnboardingSlides = () => {
+  componentDidUpdate = (prevProps, prevState) => {
+    if (prevProps.auth.userId !== this.props.auth.userId) {
+      // if user logs in, fetch all user specific data.
+      this.props.dispatch(fetchUser(this.props.auth.userId));
+      this.props.dispatch(fetchPaths());
+      this.props.dispatch(fetchNutrients());
+    }
+  };
+  renderOnboarding = () => {
     // If user is logged in and hasn't picked a path show them
     // the onboarding slides.
     if (this.props.user && !this.props.user.activePathId) {
       return (
-        <Stack.Screen name="Onboarding Slides" component={OnboardingSlides} />
+        <>
+          <Stack.Screen name="Onboarding Slides" component={OnboardingSlides} />
+          <Stack.Screen name="Onboarding Survey" component={OnboardingSurvey} />
+        </>
       );
     }
     return;
@@ -67,14 +80,10 @@ class App extends React.Component {
         }}>
         {this.props.auth.userId ? (
           <>
-            <Stack.Screen name="Path" component={Path} />
-            {this.renderOnboardingSlides()}
-            <Stack.Screen
-              name="Onboarding Survey"
-              component={OnboardingSurvey}
-            />
+            {this.renderOnboarding()}
+            <Stack.Screen name="My Path" component={MyPath} />
             <Stack.Screen name="Progress" component={Progress} />
-            {/* <Stack.Screen name="Path" component={Path} /> */}
+            <Stack.Screen name="Select Path" component={SelectPath} />
           </>
         ) : (
           <>
