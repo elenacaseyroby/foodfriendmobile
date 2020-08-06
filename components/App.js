@@ -35,14 +35,15 @@ class App extends React.Component {
     // start loading data while splash screen is shown:
     const authSet = await this.props.dispatch(setAuth());
     if (authSet && this.props.auth.userId) {
-      // if user is already logged in, fetch user-specific data
+      // if user is already logged in, fetch logged in data
       this.props.dispatch(fetchUser(this.props.auth.userId));
       this.props.dispatch(fetchPaths());
       this.props.dispatch(fetchNutrients());
+      this.props.dispatch(fetchDiets());
     }
+    // fetch non logged in data
     this.props.dispatch(fetchTermsAndConditions());
     this.props.dispatch(fetchPrivacyPolicy());
-    this.props.dispatch(fetchDiets());
   };
   componentWillUnmount() {
     // This is just necessary in the case that the screen is closed
@@ -52,11 +53,12 @@ class App extends React.Component {
     clearTimeout(this.timeoutHandle);
   }
   componentDidUpdate = (prevProps, prevState) => {
+    // if user logs in, fetch all logged in data.
     if (prevProps.auth.userId !== this.props.auth.userId) {
-      // if user logs in, fetch all user specific data.
       this.props.dispatch(fetchUser(this.props.auth.userId));
       this.props.dispatch(fetchPaths());
       this.props.dispatch(fetchNutrients());
+      this.props.dispatch(fetchDiets());
     }
   };
   renderOnboarding = () => {
