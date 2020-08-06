@@ -17,6 +17,7 @@ class MyPath extends React.Component {
   render() {
     const path = this.getUserPath();
     if (!path) {
+      // path loading page
       return <></>;
     }
     return <Path path={path} selectingPath={false} />;
