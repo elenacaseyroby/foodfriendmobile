@@ -1,6 +1,8 @@
 import React from 'react';
 import Path from './Path';
 import {connect} from 'react-redux';
+import LoadingScreen from './LoadingScreen';
+import NoConnectionScreen from './NoConnectionScreen';
 
 class MyPath extends React.Component {
   getUserPath = () => {
@@ -16,9 +18,11 @@ class MyPath extends React.Component {
   };
   render() {
     const path = this.getUserPath();
-    if (!path) {
-      // path loading page
-      return <></>;
+    const noConnection = false;
+    if (noConnection) {
+      return <NoConnectionScreen />;
+    } else if (!path) {
+      return <LoadingScreen />;
     }
     return <Path path={path} selectingPath={false} />;
   }
