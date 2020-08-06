@@ -89,8 +89,12 @@ class OnboardingSurvey extends React.Component {
         this.state.diets,
       );
       if (dietsRequest.status !== 200) {
+        const errorMessage =
+          userRequest.status === 500
+            ? 'Network error. Please make sure you are connected to the internet.'
+            : 'Form submit has failed, please try again.';
         return this.setState({
-          errorMessage: 'Form submit has failed, please try again.',
+          errorMessage: errorMessage,
         });
       }
     }
@@ -101,8 +105,12 @@ class OnboardingSurvey extends React.Component {
     };
     const userRequest = await api.putUser(this.props.auth.userId, body);
     if (userRequest.status !== 200) {
+      const errorMessage =
+        userRequest.status === 500
+          ? 'Network error. Please make sure you are connected to the internet.'
+          : 'Form submit failed, please try again.';
       return this.setState({
-        errorMessage: 'Form submit failed, please try again.',
+        errorMessage: errorMessage,
       });
     }
     // get fresh user data since it's been updated:
@@ -162,12 +170,16 @@ class OnboardingSurvey extends React.Component {
               label={'Your Birthday'}
               onChangeText={this.handleDateChange}
             />
-            <FFSelectButtons
-              label="Do you have any dietary restrictions?"
-              instructions="Please select all that apply"
-              items={diets}
-              onChange={this.handleDiets}
-            />
+            {diets.length > 0 ? (
+              <FFSelectButtons
+                label="Do you have any dietary restrictions?"
+                instructions="Please select all that apply"
+                items={diets}
+                onChange={this.handleDiets}
+              />
+            ) : (
+              <></>
+            )}
             <FFRadioButtons
               label="Do you menstruate?"
               onChange={this.handleMenstruates}
