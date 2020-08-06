@@ -23,8 +23,6 @@ export async function routeDeepLink(url, {navigate}) {
     if (routeName === 'updatepassword') {
       const userId = route.split('/')[1];
       const passwordResetToken = route.split('/')[2];
-      console.log(userId);
-      console.log(passwordResetToken);
       navigate('Update Password', {
         userId: userId,
         passwordResetToken: passwordResetToken,

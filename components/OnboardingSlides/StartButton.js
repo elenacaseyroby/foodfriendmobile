@@ -9,8 +9,6 @@ class StartButton extends React.Component {
     style: propTypes.object,
   };
   render() {
-    console.log('normal');
-    console.log(normalize(100 / 2));
     return (
       <TouchableOpacity
         onPress={this.props.onClick}

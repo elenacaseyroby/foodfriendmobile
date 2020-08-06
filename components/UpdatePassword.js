@@ -56,8 +56,9 @@ class UpdatePassword extends React.Component {
     if (result !== 'success') {
       return this.setState({errorMessage: result});
     }
-    // Update user state
+    // Update user state.
     this.props.dispatch(fetchUser(reset.response.userId));
+    // Sign in user.
     this.props.dispatch(setAuth());
   };
   render() {

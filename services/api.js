@@ -8,7 +8,7 @@ export default {
       return {response: JSON.stringify(res.response), status: res.status};
     } catch (error) {
       console.log(error);
-      return {response: 'failed to update user', status: 500};
+      return {response: error, status: 500};
     }
   },
   async putUserDiets(userId, dietIds) {
@@ -21,7 +21,7 @@ export default {
       return {response: JSON.stringify(res.response), status: res.status};
     } catch (error) {
       console.log(error);
-      return {response: 'failed to update user diets', status: 500};
+      return {response: error, status: 500};
     }
   },
 };

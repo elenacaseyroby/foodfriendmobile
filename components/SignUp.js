@@ -8,7 +8,6 @@ import {
   StyleSheet,
 } from 'react-native';
 import {connect} from 'react-redux';
-import {fetchUser} from '../redux/actions/userActionCreator';
 import {setAuth} from '../redux/actions/authActionCreator';
 import {
   validateEmail,
@@ -73,7 +72,7 @@ class SignUp extends React.Component {
     if (result !== 'success') {
       return this.setState({errorMessage: result});
     }
-    this.props.dispatch(fetchUser(signUp.response.userId));
+    // sign in user
     this.props.dispatch(setAuth());
   };
   render() {

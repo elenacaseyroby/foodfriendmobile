@@ -16,7 +16,6 @@ export default {
     } catch (error) {
       console.log(error);
     }
-    console.log('about to return');
     return loginResponse;
   },
   async signUp(email, password, firstName, lastName) {

@@ -4,13 +4,11 @@ import {normalize} from '../utils/deviceScaling';
 import {validateDate} from '../utils/formValidation';
 import api from '../services/api';
 import {connect} from 'react-redux';
-import {fetchDiets} from '../redux/actions/dietsActionCreator';
-import {fetchPaths} from '../redux/actions/pathsActionCreator';
 import {fetchUser} from '../redux/actions/userActionCreator';
 import FFDateBox from './forms/FFDateBox';
 import FFSelectButtons from './forms/FFSelectButtons';
 import FFRadioButtons from './forms/FFRadioButtons';
-import FFSubmitButton from './forms/FFSubmitButton';
+import FFNarrowButton from './common/FFNarrowButton';
 import FFErrorMessage from './forms/FFErrorMessage';
 import FFStatusBar from './common/FFStatusBar';
 import orangeElipse from '../assets/images/top-elipse-two-toned-orange.png';
@@ -25,25 +23,6 @@ class OnboardingSurvey extends React.Component {
     pathName: null,
     menstruates: null,
   };
-  onComponentDidMount() {
-    // Fetch data if not yet in state.
-    if (
-      this.props.diets &&
-      !this.props.diets.list &&
-      !this.props.diets.loading &&
-      !this.props.diets.error
-    ) {
-      this.props.dispatch(fetchDiets());
-    }
-    if (
-      this.props.paths &&
-      !this.props.paths.list &&
-      !this.props.paths.loading &&
-      !this.props.paths.error
-    ) {
-      this.props.dispatch(fetchPaths());
-    }
-  }
   handleDateChange = (date) => {
     this.setState({birthday: date});
   };
@@ -110,8 +89,12 @@ class OnboardingSurvey extends React.Component {
         this.state.diets,
       );
       if (dietsRequest.status !== 200) {
+        const errorMessage =
+          userRequest.status === 500
+            ? 'Network error. Please make sure you are connected to the internet.'
+            : 'Form submit has failed, please try again.';
         return this.setState({
-          errorMessage: 'Form submit has failed, please try again.',
+          errorMessage: errorMessage,
         });
       }
     }
@@ -122,12 +105,16 @@ class OnboardingSurvey extends React.Component {
     };
     const userRequest = await api.putUser(this.props.auth.userId, body);
     if (userRequest.status !== 200) {
+      const errorMessage =
+        userRequest.status === 500
+          ? 'Network error. Please make sure you are connected to the internet.'
+          : 'Form submit failed, please try again.';
       return this.setState({
-        errorMessage: 'Form submit failed, please try again.',
+        errorMessage: errorMessage,
       });
     }
     // get fresh user data since it's been updated:
-    this.props.dispatch(fetchUser());
+    this.props.dispatch(fetchUser(this.props.auth.userId));
     const selectedPathName = this.getPathName();
     let selectedPath;
     this.props.paths.list.map((path) => {
@@ -137,9 +124,8 @@ class OnboardingSurvey extends React.Component {
         selectedPath = path;
       }
     });
-    console.log(JSON.stringify(selectedPath));
     if (selectedPath) {
-      this.props.navigation.navigate('Survey Landing', {
+      this.props.navigation.navigate('Path Details', {
         path: selectedPath,
       });
     } else {
@@ -166,6 +152,7 @@ class OnboardingSurvey extends React.Component {
       <>
         <FFStatusBar
           barStyle={'dark-content'}
+          hidden={false}
           backgroundColorStyle={styles.statusBarBackgroundColor}
         />
         <ScrollView style={styles.rectangle}>
@@ -183,12 +170,16 @@ class OnboardingSurvey extends React.Component {
               label={'Your Birthday'}
               onChangeText={this.handleDateChange}
             />
-            <FFSelectButtons
-              label="Do you have any dietary restrictions?"
-              instructions="Please select all that apply"
-              items={diets}
-              onChange={this.handleDiets}
-            />
+            {diets.length > 0 ? (
+              <FFSelectButtons
+                label="Do you have any dietary restrictions?"
+                instructions="Please select all that apply"
+                items={diets}
+                onChange={this.handleDiets}
+              />
+            ) : (
+              <></>
+            )}
             <FFRadioButtons
               label="Do you menstruate?"
               onChange={this.handleMenstruates}
@@ -205,7 +196,7 @@ class OnboardingSurvey extends React.Component {
           </View>
           <Image style={styles.blueElipse} source={blueElipse} />
           <View style={styles.submitButton}>
-            <FFSubmitButton onSubmit={this.handleSubmit} />
+            <FFNarrowButton label={'Submit'} onClick={this.handleSubmit} />
           </View>
         </ScrollView>
       </>

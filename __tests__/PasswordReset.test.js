@@ -10,7 +10,9 @@ test('Returns error if /sendpasswordresetemail request response is 500', () => {
     response: {},
   };
   const errorMessage = getPasswordResetError(signUpResponse);
-  expect(errorMessage).toMatch('Network error. Please try again later.');
+  expect(errorMessage).toMatch(
+    'Network error. Please make sure you are connected to the internet.',
+  );
 });
 test('Returns error if /sendpasswordresetemail request response is 404', () => {
   const signUpResponse = {

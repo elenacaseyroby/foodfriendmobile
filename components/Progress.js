@@ -1,20 +1,8 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {connect} from 'react-redux';
-import {fetchUser} from '../redux/actions/userActionCreator';
 
 class Progress extends React.Component {
-  componentDidMount() {
-    // Fetch user data if not yet in state.
-    if (
-      this.props.user &&
-      !this.props.user.id &&
-      !this.props.user.loading &&
-      !this.props.user.error
-    ) {
-      this.props.dispatch(fetchUser(this.props.auth.userId));
-    }
-  }
   render() {
     return (
       <View style={styles.rectangle}>

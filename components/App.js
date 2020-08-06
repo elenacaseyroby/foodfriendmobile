@@ -2,6 +2,7 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import SplashScreen from 'react-native-splash-screen';
 import {connect} from 'react-redux';
+import {fetchNutrients} from '../redux/actions/nutrientsActionCreator';
 import {fetchPaths} from '../redux/actions/pathsActionCreator';
 import {fetchDiets} from '../redux/actions/dietsActionCreator';
 import {fetchUser} from '../redux/actions/userActionCreator';
@@ -15,7 +16,8 @@ import UpdatePassword from './UpdatePassword';
 import Progress from './Progress';
 import OnboardingSlides from './OnboardingSlides';
 import OnboardingSurvey from './OnboardingSurvey';
-import SurveyLanding from './SurveyLanding';
+import MyPath from './MyPath';
+import PathDetails from './PathDetails';
 import TermsAndConditions from './TermsAndConditions';
 import PrivacyPolicy from './PrivacyPolicy';
 //import asyncStorage from '../asyncStorage';
@@ -33,12 +35,15 @@ class App extends React.Component {
     // start loading data while splash screen is shown:
     const authSet = await this.props.dispatch(setAuth());
     if (authSet && this.props.auth.userId) {
+      // if user is already logged in, fetch logged in data
       this.props.dispatch(fetchUser(this.props.auth.userId));
+      this.props.dispatch(fetchPaths());
+      this.props.dispatch(fetchNutrients());
+      this.props.dispatch(fetchDiets());
     }
+    // fetch non logged in data
     this.props.dispatch(fetchTermsAndConditions());
     this.props.dispatch(fetchPrivacyPolicy());
-    this.props.dispatch(fetchDiets());
-    this.props.dispatch(fetchPaths());
   };
   componentWillUnmount() {
     // This is just necessary in the case that the screen is closed
@@ -47,12 +52,24 @@ class App extends React.Component {
     // the user experience.
     clearTimeout(this.timeoutHandle);
   }
-  renderOnboardingSlides = () => {
+  componentDidUpdate = (prevProps, prevState) => {
+    // if user logs in, fetch all logged in data.
+    if (prevProps.auth.userId !== this.props.auth.userId) {
+      this.props.dispatch(fetchUser(this.props.auth.userId));
+      this.props.dispatch(fetchPaths());
+      this.props.dispatch(fetchNutrients());
+      this.props.dispatch(fetchDiets());
+    }
+  };
+  renderOnboarding = () => {
     // If user is logged in and hasn't picked a path show them
     // the onboarding slides.
     if (this.props.user && !this.props.user.activePathId) {
       return (
-        <Stack.Screen name="Onboarding Slides" component={OnboardingSlides} />
+        <>
+          <Stack.Screen name="Onboarding Slides" component={OnboardingSlides} />
+          <Stack.Screen name="Onboarding Survey" component={OnboardingSurvey} />
+        </>
       );
     }
     return;
@@ -65,13 +82,10 @@ class App extends React.Component {
         }}>
         {this.props.auth.userId ? (
           <>
-            <Stack.Screen
-              name="Onboarding Survey"
-              component={OnboardingSurvey}
-            />
-            {this.renderOnboardingSlides()}
+            {this.renderOnboarding()}
+            <Stack.Screen name="My Path" component={MyPath} />
             <Stack.Screen name="Progress" component={Progress} />
-            <Stack.Screen name="Survey Landing" component={SurveyLanding} />
+            <Stack.Screen name="Path Details" component={PathDetails} />
           </>
         ) : (
           <>

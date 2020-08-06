@@ -3,14 +3,15 @@ import {TouchableOpacity, Text, StyleSheet} from 'react-native';
 import {normalize} from '../../utils/deviceScaling';
 import propTypes from 'prop-types';
 
-class FFSubmitButton extends React.Component {
+class FFNarrowButton extends React.Component {
   static propTypes = {
-    onSubmit: propTypes.func.isRequired,
+    onClick: propTypes.func.isRequired,
+    label: propTypes.string.isRequired,
   };
   render() {
     return (
-      <TouchableOpacity onPress={this.props.onSubmit} style={styles.button}>
-        <Text style={styles.text}>Submit</Text>
+      <TouchableOpacity onPress={this.props.onClick} style={styles.button}>
+        <Text style={styles.text}>{this.props.label}</Text>
       </TouchableOpacity>
     );
   }
@@ -40,4 +41,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default FFSubmitButton;
+export default FFNarrowButton;

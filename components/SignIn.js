@@ -9,7 +9,6 @@ import {
   Linking,
 } from 'react-native';
 import {connect} from 'react-redux';
-import {fetchUser} from '../redux/actions/userActionCreator';
 import {setAuth} from '../redux/actions/authActionCreator';
 import {validateEmail, validatePassword} from '../utils/formValidation';
 import {storeAsyncLoginData, getLoginError} from '../utils/auth';
@@ -82,8 +81,7 @@ class SignIn extends React.Component {
     if (result !== 'success') {
       return this.setState({errorMessage: result});
     }
-    // Update user state
-    this.props.dispatch(fetchUser(login.response.userId));
+    // sign in user.
     this.props.dispatch(setAuth());
   };
   render() {
