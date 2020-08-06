@@ -59,7 +59,7 @@ class Path extends React.Component {
     // Update user state after updating activePathId.
     this.props.dispatch(fetchUser(this.props.auth.userId));
     //navigate to path page
-    this.props.navigation.navigate('My Path');
+    this.props.navigation.navigate('Dashboard');
   };
   renderNote(path) {
     if (!path.notes) return;
@@ -72,7 +72,7 @@ class Path extends React.Component {
         </View>
         <View style={styles.bottomTextContainer}>
           <Image style={styles.bottomFlag} source={bottomFlag} />
-          <Text style={styles.notesText}>{path.notes}.</Text>
+          <Text style={styles.notesText}>{path.notes}</Text>
         </View>
         <View style={styles.bottomBlueLine} />
       </View>
