@@ -51,7 +51,9 @@ test('Returns error if login response is 500', async () => {
     response: {},
   };
   const errorMessage = getLoginError(loginResponse);
-  expect(errorMessage).toMatch('Network error. Please try again later.');
+  expect(errorMessage).toMatch(
+    'Network error. Please make sure you are connected to the internet.',
+  );
 });
 test('Returns error if login response is 404', async () => {
   const loginResponse = {
