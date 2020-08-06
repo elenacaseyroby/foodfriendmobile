@@ -15,7 +15,6 @@ export function fetchPaths() {
         console.log(`failed to retrieve paths: ${error}`);
         return dispatch(fetchPathsFailure(error));
       }
-      console.log(`paths: ${JSON.stringify(paths.response)}`);
       return dispatch(fetchPathsSuccess(paths.response));
     } catch (error) {
       console.log(`failed to retrieve paths: ${error}`);
