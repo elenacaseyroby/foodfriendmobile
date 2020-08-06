@@ -9,8 +9,6 @@ import {
 } from 'react-native';
 import {connect} from 'react-redux';
 import {fetchUser} from '../redux/actions/userActionCreator';
-import {fetchPaths} from '../redux/actions/pathsActionCreator';
-import {fetchNutrients} from '../redux/actions/nutrientsActionCreator';
 import {setAuth} from '../redux/actions/authActionCreator';
 import {
   validateEmail,
@@ -77,8 +75,7 @@ class SignUp extends React.Component {
     }
     // fetch user specific data.
     this.props.dispatch(fetchUser(signUp.response.userId));
-    this.props.dispatch(fetchPaths());
-    this.props.dispatch(fetchNutrients());
+    // sign in user
     this.props.dispatch(setAuth());
   };
   render() {

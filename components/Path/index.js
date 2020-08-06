@@ -10,8 +10,6 @@ import {
 import FFStatusBar from '../common/FFStatusBar';
 import NutrientButton from '../NutrientButton';
 import {connect} from 'react-redux';
-import {fetchNutrients} from '../../redux/actions/nutrientsActionCreator';
-import {fetchPaths} from '../../redux/actions/pathsActionCreator';
 import {fetchUser} from '../../redux/actions/userActionCreator';
 import api from '../../services/api';
 import {normalize} from '../../utils/deviceScaling';
@@ -31,36 +29,6 @@ class Path extends React.Component {
   state = {
     errorMessage: null,
   };
-  componentDidMount() {
-    // Fetch data if not yet in state.
-    if (
-      this.props.nutrients &&
-      !this.props.nutrients.list &&
-      !this.props.nutrients.loading &&
-      !this.props.nutrients.error
-    ) {
-      this.props.dispatch(fetchNutrients());
-    }
-    if (
-      this.props.paths &&
-      !this.props.paths.list &&
-      !this.props.paths.loading &&
-      !this.props.paths.error
-    ) {
-      this.props.dispatch(fetchPaths());
-    }
-    if (
-      this.props.user &&
-      !this.props.user &&
-      !this.props.user.loading &&
-      !this.props.user.error
-    ) {
-      this.props.dispatch(fetchUser(this.props.auth.userId));
-    }
-  }
-  // componentDidUpdate = (prevProps, prevState) => {
-  //   this.render();
-  // };
   getNutrients = (nutrientsWithIds) => {
     const allNutrients = this.props.nutrients.list;
     if (!allNutrients) return [];
@@ -90,8 +58,6 @@ class Path extends React.Component {
     }
     // Update user state after updating activePathId.
     this.props.dispatch(fetchUser(this.props.auth.userId));
-    console.log('paths');
-    console.log(JSON.stringify(this.props.paths.list));
     //navigate to path page
     this.props.navigation.navigate('My Path');
   };
@@ -265,7 +231,7 @@ const styles = StyleSheet.create({
   },
   notesContainer: {
     width: '100%',
-    height: normalize(250),
+    height: normalize(243),
     backgroundColor: '#36549a',
   },
   topTextContainer: {
