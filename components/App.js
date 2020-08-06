@@ -17,7 +17,7 @@ import Progress from './Progress';
 import OnboardingSlides from './OnboardingSlides';
 import OnboardingSurvey from './OnboardingSurvey';
 import MyPath from './MyPath';
-import SelectPath from './SelectPath';
+import PathDetails from './PathDetails';
 import TermsAndConditions from './TermsAndConditions';
 import PrivacyPolicy from './PrivacyPolicy';
 //import asyncStorage from '../asyncStorage';
@@ -85,7 +85,7 @@ class App extends React.Component {
             {this.renderOnboarding()}
             <Stack.Screen name="My Path" component={MyPath} />
             <Stack.Screen name="Progress" component={Progress} />
-            <Stack.Screen name="Select Path" component={SelectPath} />
+            <Stack.Screen name="Path Details" component={PathDetails} />
           </>
         ) : (
           <>

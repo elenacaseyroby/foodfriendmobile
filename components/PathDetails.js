@@ -3,12 +3,12 @@ import Path from './Path';
 import {connect} from 'react-redux';
 import propTypes from 'prop-types';
 
-class SelectPath extends React.Component {
+class PathDetails extends React.Component {
   static propTypes = {
-    selectedPath: propTypes.object,
+    path: propTypes.object,
   };
   render() {
-    const path = this.props.route.params.selectedPath;
+    const path = this.props.route.params.path;
     return (
       <Path
         path={path}
@@ -24,4 +24,4 @@ const mapStateToProps = (state) => ({
   paths: state.paths,
 });
 
-export default connect(mapStateToProps)(SelectPath);
+export default connect(mapStateToProps)(PathDetails);

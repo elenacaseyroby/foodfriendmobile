@@ -125,8 +125,8 @@ class OnboardingSurvey extends React.Component {
       }
     });
     if (selectedPath) {
-      this.props.navigation.navigate('Select Path', {
-        selectedPath: selectedPath,
+      this.props.navigation.navigate('Path Details', {
+        path: selectedPath,
       });
     } else {
       this.setState({
