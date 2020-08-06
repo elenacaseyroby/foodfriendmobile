@@ -2,7 +2,7 @@ import React from 'react';
 import Path from './Path';
 import {connect} from 'react-redux';
 import LoadingScreen from './LoadingScreen';
-import NoConnectionScreen from './NoConnectionScreen';
+import OfflineNoticeScreen from './OfflineNoticeScreen';
 
 class MyPath extends React.Component {
   getUserPath = () => {
@@ -20,7 +20,7 @@ class MyPath extends React.Component {
     const path = this.getUserPath();
     const noConnection = false;
     if (noConnection) {
-      return <NoConnectionScreen />;
+      return <OfflineNoticeScreen />;
     } else if (!path) {
       return <LoadingScreen />;
     }
