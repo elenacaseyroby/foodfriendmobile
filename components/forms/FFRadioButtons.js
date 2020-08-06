@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
     fontSize: normalize(21),
     fontFamily: 'Cabin-SemiBold',
     color: '#555555',
-    marginBottom: '3%',
+    marginBottom: '5%',
   },
   selectedTextColor: {
     color: '#ffffff',
