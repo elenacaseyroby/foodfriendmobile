@@ -11,6 +11,7 @@ import FFRadioButtons from './forms/FFRadioButtons';
 import FFNarrowButton from './common/FFNarrowButton';
 import FFErrorMessage from './forms/FFErrorMessage';
 import FFStatusBar from './common/FFStatusBar';
+import OfflineNotificationBanner from './common/OfflineNoticeBanner';
 import orangeElipse from '../assets/images/top-elipse-two-toned-orange.png';
 import plant from '../assets/images/monstera.png';
 import blueElipse from '../assets/images/bottom-elipse-blue-2.png';
@@ -150,11 +151,7 @@ class OnboardingSurvey extends React.Component {
     ];
     return (
       <>
-        <FFStatusBar
-          barStyle={'dark-content'}
-          hidden={false}
-          backgroundColorStyle={styles.statusBarBackgroundColor}
-        />
+        <FFStatusBar />
         <ScrollView style={styles.rectangle}>
           <Image style={styles.orangeElipse} source={orangeElipse} />
           <View style={styles.header}>
@@ -199,6 +196,7 @@ class OnboardingSurvey extends React.Component {
             <FFNarrowButton label={'Submit'} onClick={this.handleSubmit} />
           </View>
         </ScrollView>
+        <OfflineNotificationBanner />
       </>
     );
   }
@@ -265,9 +263,6 @@ const styles = StyleSheet.create({
     width: '100%',
     backgroundColor: '#ffffff',
     flex: 1,
-  },
-  statusBarBackgroundColor: {
-    backgroundColor: '#ffffff',
   },
 });
 
