@@ -6,7 +6,7 @@ import OfflineNotificationBanner from './common/OfflineNoticeBanner';
 
 class Dashboard extends React.Component {
   state = {
-    activeScreen: 'progress',
+    activeScreen: 'path',
   };
   renderActiveScreen = () => {
     if (this.state.activeScreen === 'progress') return <Progress />;
