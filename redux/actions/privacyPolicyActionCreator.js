@@ -1,38 +1,31 @@
 import C from '../constants';
-import {getRequest} from '../../services/apiUtils';
+import {buildOrRetrievePrivacyPolicyCache} from '../../asyncStorage/cache';
 
 export function fetchPrivacyPolicy() {
   console.log('FETCH PRIVACY POLICY');
-  fetchPPBegin();
+  fetchPrivacyPolicyBegin();
   return async function (dispatch) {
-    const endpoint = '/privacypolicy';
-    try {
-      const privacyPolicy = await getRequest(endpoint);
-      if (privacyPolicy.status !== 200) {
-        const error = privacyPolicy.response.message
-          ? privacyPolicy.response.message
-          : JSON.stringify(privacyPolicy.response);
-        return dispatch(fetchPPFailure(error));
-      }
-      return dispatch(fetchPPSuccess(privacyPolicy.response));
-    } catch (error) {
-      return dispatch(fetchPPFailure(error));
+    const privacyPolicy = await buildOrRetrievePrivacyPolicyCache();
+    if (!privacyPolicy) {
+      const error = 'Could not fetch privacy policy from db or cache.';
+      return dispatch(fetchPrivacyPolicyFailure(error));
     }
+    return dispatch(fetchPrivacyPolicySuccess(privacyPolicy));
   };
 }
 
-export const fetchPPBegin = () => ({
+export const fetchPrivacyPolicyBegin = () => ({
   type: C.FETCH_PP_BEGIN,
 });
 
-export const fetchPPSuccess = (privacyPolicy) => ({
+export const fetchPrivacyPolicySuccess = (privacyPolicy) => ({
   type: C.FETCH_PP_SUCCESS,
   payload: {
     privacyPolicy: privacyPolicy,
   },
 });
 
-export const fetchPPFailure = (error) => ({
+export const fetchPrivacyPolicyFailure = (error) => ({
   type: C.FETCH_PP_FAILURE,
   payload: {
     error: error,

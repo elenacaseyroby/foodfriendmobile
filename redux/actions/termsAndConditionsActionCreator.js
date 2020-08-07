@@ -1,23 +1,16 @@
 import C from '../constants';
-import {getRequest} from '../../services/apiUtils';
+import {buildOrRetrieveTermsCache} from '../../asyncStorage/cache';
 
 export function fetchTermsAndConditions() {
   console.log('FETCH TERMS');
   fetchTermsBegin();
   return async function (dispatch) {
-    const endpoint = '/termsandconditions';
-    try {
-      const termsAndConditions = await getRequest(endpoint);
-      if (termsAndConditions.status !== 200) {
-        const error = termsAndConditions.response.message
-          ? termsAndConditions.response.message
-          : JSON.stringify(termsAndConditions.response);
-        return dispatch(fetchTermsFailure(error));
-      }
-      return dispatch(fetchTermsSuccess(termsAndConditions.response));
-    } catch (error) {
+    const terms = await buildOrRetrieveTermsCache();
+    if (!terms) {
+      const error = 'Could not fetch terms and conditions from db or cache.';
       return dispatch(fetchTermsFailure(error));
     }
+    return dispatch(fetchTermsSuccess(terms));
   };
 }
 

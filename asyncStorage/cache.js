@@ -2,54 +2,58 @@ import asyncStorage from './index';
 import {getRequest} from '../services/apiUtils';
 
 export async function buildOrRetrieveDietsCache() {
-  let diets;
-  try {
-    const endpoint = '/diets';
-    const res = await getRequest(endpoint);
-    if (res.status === 200) {
-      //if succeeds, get diets from db and update cache.
-      console.log('get diets from db');
-      asyncStorage._storeData('DIETS', JSON.stringify(res.response));
-      diets = res.response;
-    }
-  } catch (error) {}
-  // if fails, get diets from cache.
-  if (!diets) {
-    console.log('get diets from cache');
-    const dietsStr = await asyncStorage._retrieveData('DIETS');
-    diets = JSON.parse(dietsStr);
-    console.log(JSON.stringify(diets));
-  }
-  // return diets or undefined.
+  const endpoint = '/diets';
+  const diets = await buildOrRetrieveCache(endpoint, 'DIETS');
   return diets;
 }
 
-export async function buildOrRetrieveNutrientCache() {}
+export async function buildOrRetrieveNutrientsCache() {
+  const endpoint = '/nutrients';
+  const nutrients = await buildOrRetrieveCache(endpoint, 'NUTRIENTS');
+  return nutrients;
+}
 
-export async function buildOrRetrievePathCache() {}
+export async function buildOrRetrievePathsCache() {
+  const endpoint = '/paths';
+  const paths = await buildOrRetrieveCache(endpoint, 'PATHS');
+  return paths;
+}
 
-export async function buildOrRetrievePrivacyPolicyCache() {}
+export async function buildOrRetrievePrivacyPolicyCache() {
+  const endpoint = '/privacypolicy';
+  const privacyPolicy = await buildOrRetrieveCache(endpoint, 'PRIVACY_POLICY');
+  return privacyPolicy;
+}
 
-export async function buildOrRetrieveTermsCache() {}
+export async function buildOrRetrieveTermsCache() {
+  const endpoint = '/termsandconditions';
+  const terms = await buildOrRetrieveCache(endpoint, 'TERMS_AND_CONDITIONS');
+  return terms;
+}
 
 export async function buildOrRetrieveUserCache(userId) {
-  let user;
+  const endpoint = `/users/${userId}`;
+  const user = await buildOrRetrieveCache(endpoint, 'USER');
+  return user;
+}
+
+async function buildOrRetrieveCache(endpoint, KEY) {
+  let cachedObject;
   try {
-    const endpoint = `/users/${userId}`;
     const res = await getRequest(endpoint);
     if (res.status === 200) {
-      //if succeeds, get user from db and update cache.
-      console.log('get user from db');
-      asyncStorage._storeData('USER', JSON.stringify(res.response));
-      user = res.response;
+      //if succeeds, get object(s) from db and update cache.
+      console.log(`get ${KEY} from db`);
+      asyncStorage._storeData(KEY, JSON.stringify(res.response));
+      cachedObject = res.response;
     }
   } catch (error) {}
-  // if fails, get user from cache.
-  if (!user) {
-    console.log('get user from cache');
-    const userStr = await asyncStorage._retrieveData('USER');
-    user = JSON.parse(userStr);
+  // if fails, get object(s) from cache.
+  if (!cachedObject) {
+    console.log(`get ${KEY} from cache`);
+    const cachedObjectStr = await asyncStorage._retrieveData(KEY);
+    cachedObject = JSON.parse(cachedObjectStr);
   }
-  // return user or undefined.
-  return user;
+  // return object(s) or undefined.
+  return cachedObject;
 }
