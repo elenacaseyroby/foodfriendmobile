@@ -1,8 +1,11 @@
 import React from 'react';
 import {Text} from 'react-native';
-// import {useNetInfo} from '@react-native-community/netinfo';
+import {isNetworkAvailable} from '../utils/deviceStatus';
 
 class LoadingScreen extends React.Component {
+  state = {
+    isConnected: true,
+  };
   renderOfflineScreen() {
     return (
       <Text>No internet connection detected. Please check your settings.</Text>
@@ -11,9 +14,16 @@ class LoadingScreen extends React.Component {
   renderLoadingScreen() {
     return <Text>Loading...</Text>;
   }
+  getConnection = async () => {
+    const isConnected = await isNetworkAvailable();
+    if (isConnected !== this.state.isConnected) {
+      this.setState({isConnected: isConnected});
+    }
+  };
   render() {
-    // const netInfo = useNetInfo();
-    // if (netInfo.isInternetReachable()) return this.renderLoadingScreen();
+    this.getConnection();
+    console.log(this.state.isConnected);
+    if (this.state.isConnected) return this.renderLoadingScreen();
     return this.renderOfflineScreen();
   }
 }
