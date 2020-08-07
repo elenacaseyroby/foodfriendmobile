@@ -1,13 +1,35 @@
 import asyncStorage from './index';
+import {getRequest} from '../services/apiUtils';
 
-export function buildOrRetrieveNutrientCache() {}
+export async function buildOrRetrieveNutrientCache() {}
 
-export function buildOrRetrieveUserCache() {}
+export async function buildOrRetrieveUserCache(userId) {
+  let user;
+  try {
+    const endpoint = `/users/${userId}`;
+    const res = await getRequest(endpoint);
+    if (res.status === 200) {
+      //if succeeds, get user from db and update cache.
+      console.log('get user from db');
+      asyncStorage._storeData('USER', JSON.stringify(res.response));
+      user = res.response;
+    }
+  } catch (error) {}
+  // if fails, get user from cache.
+  if (!user) {
+    console.log('get user from cache');
+    const userStr = await asyncStorage._retrieveData('USER');
+    user = JSON.parse(userStr);
+    console.log(JSON.stringify(user));
+  }
+  // return user or undefined.
+  return user;
+}
 
-export function buildOrRetrievePathCache() {}
+export async function buildOrRetrievePathCache() {}
 
-export function buildOrRetrieveDietCache() {}
+export async function buildOrRetrieveDietCache() {}
 
-export function buildOrRetrieveTermsCache() {}
+export async function buildOrRetrieveTermsCache() {}
 
-export function buildOrRetrievePrivacyPolicyCache() {}
+export async function buildOrRetrievePrivacyPolicyCache() {}
