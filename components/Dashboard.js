@@ -3,7 +3,6 @@ import {StyleSheet, View, Text} from 'react-native';
 import Progress from './Progress';
 import MyPath from './MyPath';
 import OfflineNotificationBanner from './common/OfflineNoticeBanner';
-import FFStatusBar from './common/FFStatusBar';
 
 class Dashboard extends React.Component {
   state = {
@@ -20,7 +19,6 @@ class Dashboard extends React.Component {
   render() {
     return (
       <View style={styles.rectangle}>
-        <FFStatusBar />
         {this.renderActiveScreen()}
         <OfflineNotificationBanner />
         {/*add NavBar-- pass through activeScreen prop */}
