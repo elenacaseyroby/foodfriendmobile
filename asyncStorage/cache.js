@@ -1,7 +1,15 @@
 import asyncStorage from './index';
 import {getRequest} from '../services/apiUtils';
 
+export async function buildOrRetrieveDietCache() {}
+
 export async function buildOrRetrieveNutrientCache() {}
+
+export async function buildOrRetrievePathCache() {}
+
+export async function buildOrRetrievePrivacyPolicyCache() {}
+
+export async function buildOrRetrieveTermsCache() {}
 
 export async function buildOrRetrieveUserCache(userId) {
   let user;
@@ -25,11 +33,3 @@ export async function buildOrRetrieveUserCache(userId) {
   // return user or undefined.
   return user;
 }
-
-export async function buildOrRetrievePathCache() {}
-
-export async function buildOrRetrieveDietCache() {}
-
-export async function buildOrRetrieveTermsCache() {}
-
-export async function buildOrRetrievePrivacyPolicyCache() {}
