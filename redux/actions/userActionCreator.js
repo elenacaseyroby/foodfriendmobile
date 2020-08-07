@@ -1,25 +1,16 @@
 import C from '../constants';
-import {getRequest} from '../../services/apiUtils';
+import {buildOrRetrieveUserCache} from '../../asyncStorage/cache';
 
 export function fetchUser(userId) {
   console.log('FETCH USER');
   fetchUserBegin();
   return async function (dispatch) {
-    const endpoint = `/users/${userId}`;
-    try {
-      const res = await getRequest(endpoint);
-      if (res.status !== 200) {
-        const error = res.response.contains('message')
-          ? res.response.message
-          : JSON.stringify(res.response);
-        console.log(`failed to retrieve user: ${error}`);
-        return dispatch(fetchUserFailure(error));
-      }
-      return dispatch(fetchUserSuccess(res.response));
-    } catch (error) {
-      console.log(`failed to retrieve user: ${error}`);
+    const user = await buildOrRetrieveUserCache(userId);
+    if (!user) {
+      const error = 'Could not fetch user from db or cache.';
       return dispatch(fetchUserFailure(error));
     }
+    return dispatch(fetchUserSuccess(user));
   };
 }
 

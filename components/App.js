@@ -16,6 +16,7 @@ import UpdatePassword from './UpdatePassword';
 import Progress from './Progress';
 import OnboardingSlides from './OnboardingSlides';
 import OnboardingSurvey from './OnboardingSurvey';
+import Dashboard from './Dashboard';
 import MyPath from './MyPath';
 import PathDetails from './PathDetails';
 import TermsAndConditions from './TermsAndConditions';
@@ -83,12 +84,15 @@ class App extends React.Component {
         {this.props.auth.userId ? (
           <>
             {this.renderOnboarding()}
+            {/*signed in landing page: */}
+            <Stack.Screen name="Dashboard" component={Dashboard} />
+            <Stack.Screen name="Path Details" component={PathDetails} />
             <Stack.Screen name="My Path" component={MyPath} />
             <Stack.Screen name="Progress" component={Progress} />
-            <Stack.Screen name="Path Details" component={PathDetails} />
           </>
         ) : (
           <>
+            {/*signed out landing page: */}
             <Stack.Screen name="Sign In" component={SignIn} />
             <Stack.Screen name="Sign Up" component={SignUp} />
             <Stack.Screen name="Password Reset" component={PasswordReset} />

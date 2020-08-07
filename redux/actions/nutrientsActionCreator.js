@@ -1,25 +1,16 @@
 import C from '../constants';
-import {getRequest} from '../../services/apiUtils';
+import {buildOrRetrieveNutrientsCache} from '../../asyncStorage/cache';
 
 export function fetchNutrients() {
   console.log('FETCH NUTRIENTS');
   fetchNutrientsBegin();
   return async function (dispatch) {
-    const endpoint = '/nutrients';
-    try {
-      const nutrients = await getRequest(endpoint);
-      if (nutrients.status !== 200) {
-        const error = nutrients.response.message
-          ? nutrients.response.message
-          : JSON.stringify(nutrients.response);
-        console.log(`failed to retrieve nutrients: ${error}`);
-        return dispatch(fetchNutrientsFailure(error));
-      }
-      return dispatch(fetchNutrientsSuccess(nutrients.response));
-    } catch (error) {
-      console.log(`failed to retrieve nutrients: ${error}`);
+    const nutrients = await buildOrRetrieveNutrientsCache();
+    if (!nutrients) {
+      const error = 'Could not fetch nutrients from db or cache.';
       return dispatch(fetchNutrientsFailure(error));
     }
+    return dispatch(fetchNutrientsSuccess(nutrients));
   };
 }
 

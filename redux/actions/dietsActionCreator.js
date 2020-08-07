@@ -1,23 +1,16 @@
 import C from '../constants';
-import {getRequest} from '../../services/apiUtils';
+import {buildOrRetrieveDietsCache} from '../../asyncStorage/cache';
 
 export function fetchDiets() {
   console.log('FETCH DIETS');
   fetchDietsBegin();
   return async function (dispatch) {
-    const endpoint = '/diets';
-    try {
-      const diets = await getRequest(endpoint);
-      if (diets.status !== 200) {
-        const error = diets.response.message
-          ? diets.response.message
-          : JSON.stringify(diets.response);
-        return dispatch(fetchDietsFailure(error));
-      }
-      return dispatch(fetchDietsSuccess(diets.response));
-    } catch (error) {
+    const diets = await buildOrRetrieveDietsCache();
+    if (!diets) {
+      const error = 'Could not fetch diets from db or cache.';
       return dispatch(fetchDietsFailure(error));
     }
+    return dispatch(fetchDietsSuccess(diets));
   };
 }
 

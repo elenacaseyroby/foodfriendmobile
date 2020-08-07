@@ -1,25 +1,16 @@
 import C from '../constants';
-import {getRequest} from '../../services/apiUtils';
+import {buildOrRetrievePathsCache} from '../../asyncStorage/cache';
 
 export function fetchPaths() {
   console.log('FETCH PATHS');
   fetchPathsBegin();
   return async function (dispatch) {
-    const endpoint = '/paths';
-    try {
-      const paths = await getRequest(endpoint);
-      if (paths.status !== 200) {
-        const error = paths.response.message
-          ? paths.response.message
-          : JSON.stringify(paths.response);
-        console.log(`failed to retrieve paths: ${error}`);
-        return dispatch(fetchPathsFailure(error));
-      }
-      return dispatch(fetchPathsSuccess(paths.response));
-    } catch (error) {
-      console.log(`failed to retrieve paths: ${error}`);
+    const paths = await buildOrRetrievePathsCache();
+    if (!paths) {
+      const error = 'Could not fetch paths from db or cache.';
       return dispatch(fetchPathsFailure(error));
     }
+    return dispatch(fetchPathsSuccess(paths));
   };
 }
 

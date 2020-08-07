@@ -11,10 +11,15 @@ class FFStatusBar extends React.Component {
     hidden: propTypes.bool,
   };
   render() {
+    const backgroundColor =
+      this.props.backgroundColorStyle || styles.defaultBackgroundColor;
     return (
       <>
-        <View style={[styles.statusBar, this.props.backgroundColorStyle]} />
-        <StatusBar barStyle={this.props.barStyle} hidden={this.props.hidden} />
+        <View style={[styles.statusBar, backgroundColor]} />
+        <StatusBar
+          barStyle={this.props.barStyle || 'dark-content'}
+          hidden={this.props.hidden || false}
+        />
       </>
     );
   }
@@ -24,6 +29,9 @@ const styles = StyleSheet.create({
   statusBar: {
     height: statusBarHeight,
     opacity: 0.8,
+  },
+  defaultBackgroundColor: {
+    backgroundColor: '#ffffff',
   },
 });
 
