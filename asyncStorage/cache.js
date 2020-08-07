@@ -1,7 +1,28 @@
 import asyncStorage from './index';
 import {getRequest} from '../services/apiUtils';
 
-export async function buildOrRetrieveDietCache() {}
+export async function buildOrRetrieveDietsCache() {
+  let diets;
+  try {
+    const endpoint = '/diets';
+    const res = await getRequest(endpoint);
+    if (res.status === 200) {
+      //if succeeds, get diets from db and update cache.
+      console.log('get diets from db');
+      asyncStorage._storeData('DIETS', JSON.stringify(res.response));
+      diets = res.response;
+    }
+  } catch (error) {}
+  // if fails, get diets from cache.
+  if (!diets) {
+    console.log('get diets from cache');
+    const dietsStr = await asyncStorage._retrieveData('DIETS');
+    diets = JSON.parse(dietsStr);
+    console.log(JSON.stringify(diets));
+  }
+  // return diets or undefined.
+  return diets;
+}
 
 export async function buildOrRetrieveNutrientCache() {}
 
@@ -28,7 +49,6 @@ export async function buildOrRetrieveUserCache(userId) {
     console.log('get user from cache');
     const userStr = await asyncStorage._retrieveData('USER');
     user = JSON.parse(userStr);
-    console.log(JSON.stringify(user));
   }
   // return user or undefined.
   return user;
