@@ -6,13 +6,15 @@ import OfflineNotificationBanner from './common/OfflineNoticeBanner';
 
 class Dashboard extends React.Component {
   state = {
-    activeScreen: 'progress',
+    activeScreen: 'path',
   };
   renderActiveScreen = () => {
-    if (this.state.activeScreen === 'progress') return <Progress />;
+    if (this.state.activeScreen === 'progress')
+      return <Progress navigation={this.props.navigation} />;
     if (this.state.activeScreen === 'food')
       return <Text>Food and Recipes</Text>;
-    if (this.state.activeScreen === 'path') return <MyPath />;
+    if (this.state.activeScreen === 'path')
+      return <MyPath navigation={this.props.navigation} />;
     if (this.state.activeScreen === 'journal') return <Text>Add Food</Text>;
     if (this.state.activeScreen === 'account') return <Text>Account</Text>;
   };

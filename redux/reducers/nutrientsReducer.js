@@ -12,7 +12,7 @@ export const nutrientsReducer = (prevState = initialState, action) => {
     return {
       error: null,
       loading: true,
-      list: prevState.data,
+      list: prevState.list,
     };
   } else if (action.type === C.FETCH_NUTRIENTS_SUCCESS) {
     return {
@@ -24,7 +24,7 @@ export const nutrientsReducer = (prevState = initialState, action) => {
     return {
       error: action.payload.error,
       loading: false,
-      list: prevState.data,
+      list: prevState.list,
     };
   } else {
     return prevState;

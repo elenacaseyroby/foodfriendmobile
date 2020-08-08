@@ -14,7 +14,9 @@ export const termsAndConditionsReducer = (prevState = initialState, action) => {
     return {
       error: null,
       loading: true,
-      ...prevState.data,
+      id: prevState.id,
+      date_published: prevState.date_published,
+      text: prevState.text,
     };
   } else if (action.type === C.FETCH_TERMS_SUCCESS) {
     return {
@@ -26,7 +28,9 @@ export const termsAndConditionsReducer = (prevState = initialState, action) => {
     return {
       error: action.payload.error,
       loading: false,
-      ...prevState.data,
+      id: prevState.id,
+      date_published: prevState.date_published,
+      text: prevState.text,
     };
   } else {
     return prevState;

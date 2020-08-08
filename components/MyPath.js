@@ -20,7 +20,13 @@ class MyPath extends React.Component {
     if (!path) {
       return <LoadingScreen />;
     }
-    return <Path path={path} selectingPath={false} />;
+    return (
+      <Path
+        path={path}
+        selectingPath={false}
+        navigation={this.props.navigation}
+      />
+    );
   }
 }
 

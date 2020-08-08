@@ -11,11 +11,10 @@ const initialState = {
 export const userReducer = (prevState = initialState, action) => {
   // If action is matched, return a new state else return prevState.
   if (action.type === C.FETCH_USER_BEGIN) {
-    return {
-      error: null,
-      loading: true,
-      ...prevState.data,
-    };
+    let newState = prevState;
+    newState.error = null;
+    newState.loading = true;
+    return newState;
   } else if (action.type === C.FETCH_USER_SUCCESS) {
     return {
       error: null,
@@ -23,11 +22,10 @@ export const userReducer = (prevState = initialState, action) => {
       ...action.payload.user,
     };
   } else if (action.type === C.FETCH_USER_FAILURE) {
-    return {
-      error: action.payload.error,
-      loading: false,
-      ...prevState.data,
-    };
+    let newState = prevState;
+    newState.error = action.payload.error;
+    newState.loading = false;
+    return newState;
   } else {
     return prevState;
   }

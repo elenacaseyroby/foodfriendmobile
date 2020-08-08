@@ -119,6 +119,7 @@ class Path extends React.Component {
                   key={nutrient.id}
                   nutrient={nutrient}
                   style={styles.nutrientButton}
+                  navigation={this.props.navigation}
                 />
               );
             })}

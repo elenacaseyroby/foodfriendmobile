@@ -3,12 +3,13 @@ import Path from './Path';
 import {connect} from 'react-redux';
 import propTypes from 'prop-types';
 
-class PathDetails extends React.Component {
+class PathDetail extends React.Component {
   static propTypes = {
     path: propTypes.object,
   };
   render() {
     const path = this.props.route.params.path;
+    console.log(`hey: ${this.props.navigation}`);
     return (
       <Path
         path={path}
@@ -24,4 +25,4 @@ const mapStateToProps = (state) => ({
   paths: state.paths,
 });
 
-export default connect(mapStateToProps)(PathDetails);
+export default connect(mapStateToProps)(PathDetail);
