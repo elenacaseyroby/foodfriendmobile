@@ -4,18 +4,38 @@ import {normalize} from '../../utils/deviceScaling';
 import propTypes from 'prop-types';
 import ArrowButton from './ArrowButton';
 import AddButton from './AddButton';
-import theme1 from './assets/bar-theme1.png';
-import theme2 from './assets/bar-theme2.png';
-import theme3 from './assets/bar-theme3.png';
-import theme4 from './assets/bar-theme4.png';
-import theme5 from './assets/bar-theme5.png';
+import blueBar from './assets/blue-bar.png';
+import blueIcon from './assets/blue-icon.png';
+import greenBar from './assets/green-bar.png';
+import greenIcon from './assets/green-icon.png';
+import orangeBar from './assets/orange-bar.png';
+import orangeIcon from './assets/orange-icon.png';
+import yellowBar from './assets/yellow-bar.png';
+import yellowIcon from './assets/yellow-icon.png';
+import redBar from './assets/red-bar.png';
+import redIcon from './assets/red-icon.png';
 
-const barThemes = {
-  1: theme1, // blue
-  2: theme2, // green
-  3: theme3, // orange
-  4: theme4, // yellow
-  5: theme5, // red
+const themes = {
+  1: {
+    bar: blueBar,
+    icon: blueIcon,
+  },
+  2: {
+    bar: greenBar,
+    icon: greenIcon,
+  },
+  3: {
+    bar: orangeBar,
+    icon: orangeIcon,
+  },
+  4: {
+    bar: yellowBar,
+    icon: yellowIcon,
+  },
+  5: {
+    bar: redBar,
+    icon: redIcon,
+  },
 };
 
 class NutrientButton extends React.Component {
@@ -41,7 +61,7 @@ class NutrientButton extends React.Component {
   }
   render() {
     const {nutrient} = this.props;
-    const barTheme = barThemes[nutrient.themeId];
+    const theme = themes[nutrient.themeId];
     let benefitsText = '';
     let counter = 1;
     const firstFewBenefits = nutrient.benefits.slice(0, 6);
@@ -60,7 +80,7 @@ class NutrientButton extends React.Component {
         <View style={styles.buttonContentContainer}>
           <View style={styles.buttonHeaderContainer}>
             <View style={styles.barAndTextContainer}>
-              <Image style={styles.buttonBar} source={barTheme} />
+              <Image style={styles.buttonBar} source={theme.bar} />
               <Text style={styles.buttonHeaderText}>{nutrient.name}</Text>
             </View>
             <View style={styles.benefitsTextContainer}>
@@ -79,6 +99,7 @@ class NutrientButton extends React.Component {
             });
           }}
         />
+        // if
         <Image
           style={styles.icon}
           source={{
