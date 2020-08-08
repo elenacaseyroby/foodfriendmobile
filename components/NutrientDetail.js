@@ -2,11 +2,10 @@ import React from 'react';
 import {ScrollView, Image, Text, View, StyleSheet} from 'react-native';
 import FFStatusBar from './common/FFStatusBar';
 import OfflineNoticeBanner from './common/OfflineNoticeBanner';
-// import topElipse from '../assets/images/';
+import BlueTopElipse from './common/BlueTopElipse';
 import BlueBottomElipse from './common/BlueBottomElipse';
 import {normalize} from '../utils/deviceScaling';
 import BackArrow from './common/BackArrow';
-import topElipse from '../assets/images/top-elipse-two-toned-orange.png';
 import plantMascot from '../assets/images/plant-mascot-blue.png';
 import propTypes from 'prop-types';
 
@@ -56,7 +55,7 @@ class NutrientDetail extends React.Component {
         <FFStatusBar />
         <OfflineNoticeBanner />
         <ScrollView style={styles.rectangle}>
-          <Image style={styles.topElipse} source={topElipse} />
+          <BlueTopElipse />
           <Image
             style={styles.icon}
             source={{
@@ -80,7 +79,7 @@ class NutrientDetail extends React.Component {
           </View>
           <Text style={styles.description}>{nutrient.sourceNote}</Text>
           <Text style={styles.disclaimer}>
-            Please note, Food Friend does not represent expert advice and should
+            Please note, FoodFriend does not represent expert advice and should
             never be used as a substitute for direct medical advice. If you are
             experiencing a health issue, we ask that you reach out to a
             healthcare professional. Additionally, we encourage you to explore
@@ -103,12 +102,6 @@ class NutrientDetail extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  topElipse: {
-    width: '100%',
-    height: undefined,
-    // aspectRatio: width / height,
-    aspectRatio: 375 / 127,
-  },
   icon: {
     marginTop: normalize(20),
     alignSelf: 'center',
