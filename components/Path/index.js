@@ -8,7 +8,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import FFStatusBar from '../common/FFStatusBar';
-import NutrientButton from '../NutrientButton';
+import NutrientButton from '../common/NutrientButton';
 import {connect} from 'react-redux';
 import {fetchUser} from '../../redux/actions/userActionCreator';
 import api from '../../services/api';
@@ -148,7 +148,9 @@ class Path extends React.Component {
             <View style={styles.rowContainer}>
               <TouchableOpacity
                 onPress={() => {
-                  this.props.navigation.navigate('Select Path');
+                  this.props.navigation.navigate('Select Path', {
+                    navigation: this.props.navigation,
+                  });
                 }}>
                 <Text style={styles.orangeText}>select a different path</Text>
               </TouchableOpacity>
