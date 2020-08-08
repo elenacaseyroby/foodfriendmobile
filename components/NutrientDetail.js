@@ -35,6 +35,9 @@ class NutrientDetail extends React.Component {
           <Text style={styles.title}>{nutrient.name}</Text>
           <View style={styles.line} />
           <Text style={styles.description}>{nutrient.description}</Text>
+          <View style={[styles.banner, styles.blueBackground]}>
+            <Text style={styles.bannerText}>Health Benefits</Text>
+          </View>
           <View style={styles.arrowContainer}>
             <BackArrow
               style={styles.backArrow}
@@ -91,11 +94,32 @@ const styles = StyleSheet.create({
   description: {
     marginTop: '4%',
     marginBottom: '4%',
-    width: normalize(325),
+    width: normalize(340),
     alignSelf: 'center',
     fontFamily: 'Cabin-Regular',
     fontSize: normalize(14),
     color: '#555555',
+  },
+  blueBackground: {
+    backgroundColor: '#36549a',
+  },
+  greenBackground: {
+    backgroundColor: '#36549a',
+  },
+  redBackground: {
+    backgroundColor: '#36549a',
+  },
+  banner: {
+    width: '100%',
+    height: normalize(40),
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  bannerText: {
+    color: '#ffffff',
+    fontFamily: 'Cabin-Regular',
+    fontSize: normalize(16),
+    width: normalize(340),
   },
   rectangle: {
     backgroundColor: '#FFFFFF',
