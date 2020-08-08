@@ -17,8 +17,9 @@ import Progress from './Progress';
 import OnboardingSlides from './OnboardingSlides';
 import OnboardingSurvey from './OnboardingSurvey';
 import Dashboard from './Dashboard';
+import NutrientDetail from './NutrientDetail';
 import MyPath from './MyPath';
-import PathDetails from './PathDetails';
+import PathDetail from './PathDetail';
 import TermsAndConditions from './TermsAndConditions';
 import PrivacyPolicy from './PrivacyPolicy';
 //import asyncStorage from '../asyncStorage';
@@ -86,9 +87,10 @@ class App extends React.Component {
             {this.renderOnboarding()}
             {/*signed in landing page: */}
             <Stack.Screen name="Dashboard" component={Dashboard} />
-            <Stack.Screen name="Path Details" component={PathDetails} />
+            <Stack.Screen name="Path Detail" component={PathDetail} />
             <Stack.Screen name="My Path" component={MyPath} />
             <Stack.Screen name="Progress" component={Progress} />
+            <Stack.Screen name="Nutrient Detail" component={NutrientDetail} />
           </>
         ) : (
           <>

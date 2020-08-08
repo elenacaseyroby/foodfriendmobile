@@ -24,6 +24,7 @@ class NutrientButton extends React.Component {
     nutrient: propTypes.object,
     displayAddNutrientButton: propTypes.bool,
     onAddNutrientClick: propTypes.func,
+    navigation: propTypes.object,
   };
   renderAddNutrientButton(nutrient) {
     if (!this.props.displayAddNutrientButton) return;
@@ -73,7 +74,9 @@ class NutrientButton extends React.Component {
         <ArrowButton
           style={styles.arrowButton}
           onPress={() => {
-            /*nav to nutrient page and pass nutrient in*/
+            this.props.navigation.navigate('Nutrient Detail', {
+              nutrient: nutrient,
+            });
           }}
         />
         <Image

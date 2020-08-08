@@ -10,6 +10,7 @@ class BackArrow extends React.Component {
     onPress: propTypes.func.isRequired,
     // takes : 'blue', 'green', 'white'
     backgroundColor: propTypes.string,
+    style: propTypes.object,
   };
   render() {
     const possibleColors = ['blue', 'white', 'green'];
@@ -24,7 +25,9 @@ class BackArrow extends React.Component {
     // otherwise arrow is white.
     const arrowColor = backgroundColor === 'white' ? 'black' : 'white';
     return (
-      <TouchableOpacity style={styles.container} onPress={this.props.onPress}>
+      <TouchableOpacity
+        style={[styles.container, this.props.style]}
+        onPress={this.props.onPress}>
         <View style={[styles.circle, styles[`${backgroundColor}Background`]]}>
           {arrowColor === 'white' ? (
             <Image source={whiteBackArrow} style={styles.arrow} />
