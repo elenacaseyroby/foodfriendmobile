@@ -13,6 +13,18 @@ class NutrientDetail extends React.Component {
   static propTypes = {
     nutrient: propTypes.object,
   };
+  renderNutrientWarning(nutrient) {
+    console.log(JSON.stringify(nutrient));
+    if (!nutrient.warnings) return;
+    return (
+      <>
+        <View style={[styles.banner, styles.redBackground]}>
+          <Text style={styles.bannerText}>Warning</Text>
+        </View>
+        <Text style={styles.description}>{nutrient.warnings}</Text>
+      </>
+    );
+  }
   render() {
     let nutrient;
     try {
@@ -20,6 +32,24 @@ class NutrientDetail extends React.Component {
     } catch (error) {
       nutrient = this.props.nutrient;
     }
+    let benefitsText = 'Good for: ';
+    let counter = 1;
+    nutrient.benefits.map((benefit) => {
+      benefitsText = benefitsText + benefit.name;
+      if (counter !== nutrient.benefits.length) {
+        benefitsText = benefitsText + ', ';
+      }
+      counter++;
+    });
+    let foodsText = '';
+    counter = 1;
+    nutrient.foods.map((food) => {
+      foodsText = foodsText + food.name;
+      if (counter !== nutrient.foods.length) {
+        foodsText = foodsText + '\n';
+      }
+      counter++;
+    });
     return (
       <>
         <FFStatusBar />
@@ -38,6 +68,16 @@ class NutrientDetail extends React.Component {
           <View style={[styles.banner, styles.blueBackground]}>
             <Text style={styles.bannerText}>Health Benefits</Text>
           </View>
+          <Text style={styles.description}>{benefitsText}</Text>
+          <View style={[styles.banner, styles.greenBackground]}>
+            <Text style={styles.bannerText}>Foods</Text>
+          </View>
+          <Text style={styles.description}>{foodsText}</Text>
+          {this.renderNutrientWarning(nutrient)}
+          <View style={[styles.banner, styles.blueBackground]}>
+            <Text style={styles.bannerText}>Sources</Text>
+          </View>
+          <Text style={styles.description}>{nutrient.sourceNote}</Text>
           <View style={styles.arrowContainer}>
             <BackArrow
               style={styles.backArrow}
@@ -104,10 +144,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#36549a',
   },
   greenBackground: {
-    backgroundColor: '#36549a',
+    backgroundColor: '#266407',
   },
   redBackground: {
-    backgroundColor: '#36549a',
+    backgroundColor: '#9f301b',
   },
   banner: {
     width: '100%',
