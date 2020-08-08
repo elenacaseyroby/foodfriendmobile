@@ -1,7 +1,7 @@
 import React from 'react';
 import {TouchableOpacity, Image, View, StyleSheet} from 'react-native';
-import {normalize} from '../../utils/deviceScaling';
-import arrow from '../../assets/images/black-forward-arrow.png';
+import {normalize} from '../../../utils/deviceScaling';
+import arrow from '../../../assets/images/black-forward-arrow.png';
 import propTypes from 'prop-types';
 
 class ArrowButton extends React.Component {

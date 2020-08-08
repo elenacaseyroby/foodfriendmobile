@@ -1,8 +1,8 @@
 import React from 'react';
 import {TouchableOpacity, Image, View, StyleSheet} from 'react-native';
-import {normalize} from '../../utils/deviceScaling';
-import plus from '../../assets/images/black-add-icon.png';
-import check from '../../assets/images/green-checkmark.png';
+import {normalize} from '../../../utils/deviceScaling';
+import plus from '../../../assets/images/black-add-icon.png';
+import check from '../../../assets/images/green-checkmark.png';
 import propTypes from 'prop-types';
 
 class AddButton extends React.Component {

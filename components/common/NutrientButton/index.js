@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Image, Text, StyleSheet} from 'react-native';
-import {normalize} from '../../utils/deviceScaling';
+import {normalize} from '../../../utils/deviceScaling';
 import propTypes from 'prop-types';
 import ArrowButton from './ArrowButton';
 import AddButton from './AddButton';
@@ -45,6 +45,7 @@ class NutrientButton extends React.Component {
     displayAddNutrientButton: propTypes.bool,
     onAddNutrientClick: propTypes.func,
     navigation: propTypes.object,
+    offline: propTypes.bool,
   };
   renderAddNutrientButton(nutrient) {
     if (!this.props.displayAddNutrientButton) return;
@@ -99,13 +100,16 @@ class NutrientButton extends React.Component {
             });
           }}
         />
-        // if
-        <Image
-          style={styles.icon}
-          source={{
-            uri: nutrient.iconPath,
-          }}
-        />
+        {this.props.offline ? (
+          <Image style={styles.icon} source={theme.icon} />
+        ) : (
+          <Image
+            style={styles.icon}
+            source={{
+              uri: nutrient.iconPath,
+            }}
+          />
+        )}
         {this.renderAddNutrientButton(nutrient)}
       </View>
     );
