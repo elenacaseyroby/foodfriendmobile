@@ -93,10 +93,7 @@ class Path extends React.Component {
     const nutrients = this.getNutrients(path.nutrients);
     return (
       <>
-        <FFStatusBar
-          barStyle={'dark-content'}
-          backgroundColorStyle={styles.statusBarBackgroundColor}
-        />
+        <FFStatusBar />
         {/*scrollIndicatorInsets setting prevents bug: https://github.com/facebook/react-native/issues/26610*/}
         <ScrollView style={styles.rectangle} scrollIndicatorInsets={{right: 1}}>
           <Image
