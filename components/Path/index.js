@@ -13,11 +13,14 @@ import {connect} from 'react-redux';
 import {fetchUser} from '../../redux/actions/userActionCreator';
 import api from '../../services/api';
 import {normalize} from '../../utils/deviceScaling';
+import {isNetworkAvailable} from '../../utils/deviceStatus';
 import topFlag from './assets/top-flag.png';
 import bottomFlag from './assets/bottom-flag.png';
 import blueElipse from '../../assets/images/bottom-elipse-blue-2.png';
 import FFWideButton from '../common/FFWideButton';
 import FFErrorMessage from '../forms/FFErrorMessage';
+import PathHeader from '../common/PathHeader';
+import PathFooter from '../common/PathFooter';
 import propTypes from 'prop-types';
 
 class Path extends React.Component {
@@ -28,6 +31,7 @@ class Path extends React.Component {
   };
   state = {
     errorMessage: null,
+    isConnected: true,
   };
   getNutrients = (nutrientsWithIds) => {
     const allNutrients = this.props.nutrients.list;
@@ -78,6 +82,12 @@ class Path extends React.Component {
       </View>
     );
   }
+  getConnection = async () => {
+    const isConnected = await isNetworkAvailable();
+    if (isConnected !== this.state.isConnected) {
+      this.setState({isConnected: isConnected});
+    }
+  };
   renderErrorMessage() {
     if (!this.state.errorMessage) return;
     return (
@@ -87,6 +97,7 @@ class Path extends React.Component {
     );
   }
   render() {
+    this.getConnection();
     const {path} = this.props;
     const selectingPath = this.props.selectingPath;
     const displayName = path.name.split(' ')[0];
@@ -96,12 +107,16 @@ class Path extends React.Component {
         <FFStatusBar />
         {/*scrollIndicatorInsets setting prevents bug: https://github.com/facebook/react-native/issues/26610*/}
         <ScrollView style={styles.rectangle} scrollIndicatorInsets={{right: 1}}>
-          <Image
-            style={styles.headerImg}
-            source={{
-              uri: path.theme.header_img_path,
-            }}
-          />
+          {this.state.isConnected ? (
+            <Image
+              style={styles.headerImg}
+              source={{
+                uri: path.theme.header_img_path,
+              }}
+            />
+          ) : (
+            <PathHeader />
+          )}
           <Text style={styles.title}>{displayName}</Text>
           <View style={styles.line} />
           {selectingPath ? (
@@ -117,17 +132,22 @@ class Path extends React.Component {
                   nutrient={nutrient}
                   style={styles.nutrientButton}
                   navigation={this.props.navigation}
+                  offline={!this.state.isConnected}
                 />
               );
             })}
           </View>
           {this.renderNote(path)}
-          <Image
-            style={styles.footerImg}
-            source={{
-              uri: path.theme.footer_img_path,
-            }}
-          />
+          {this.state.isConnected ? (
+            <Image
+              style={styles.footerImg}
+              source={{
+                uri: path.theme.footer_img_path,
+              }}
+            />
+          ) : (
+            <PathFooter />
+          )}
           {this.renderErrorMessage()}
           {selectingPath ? (
             <View style={styles.submitButton}>
