@@ -13,8 +13,8 @@ export async function buildOrRetrieveNutrientsCache() {
   return nutrients;
 }
 
-export async function buildOrRetrievePathsCache() {
-  const endpoint = '/paths';
+export async function buildOrRetrievePathsCache(userId) {
+  const endpoint = `/paths/${userId}`;
   const paths = await buildOrRetrieveCache(endpoint, 'PATHS');
   return paths;
 }
@@ -46,6 +46,7 @@ async function buildOrRetrieveCache(endpoint, KEY) {
       console.log(`get ${KEY} from db`);
       asyncStorage._storeData(KEY, JSON.stringify(res.response));
       cachedObject = res.response;
+      console.log(JSON.stringify(cachedObject));
     }
   } catch (error) {}
   // if fails, get object(s) from cache.

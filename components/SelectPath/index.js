@@ -1,7 +1,8 @@
-import React from 'react';
+import React, {useReducer} from 'react';
 import {ScrollView, Text, View, StyleSheet} from 'react-native';
 import {normalize} from '../../utils/deviceScaling';
 import FFStatusBar from '../common/FFStatusBar';
+import PathButton from './PathButton';
 import PathHeader from '../common/PathHeader';
 import BackArrow from '../common/BackArrow';
 import {connect} from 'react-redux';
@@ -11,6 +12,11 @@ class SelectPath extends React.Component {
   static propTypes = {
     navigation: propTypes.object,
   };
+  renderPathButtons() {
+    return this.props.paths.list.map((path) => {
+      return <PathButton path={path} />;
+    });
+  }
   render() {
     let navigation;
     try {
@@ -18,6 +24,7 @@ class SelectPath extends React.Component {
     } catch (error) {
       navigation = this.props.navigation;
     }
+    const paths = this.props.paths.list;
     return (
       <>
         <FFStatusBar />
@@ -39,6 +46,7 @@ class SelectPath extends React.Component {
           <Text style={[styles.h3, styles.textContainer]}>
             Tap the path name to select it. Tap the arrow to learn more.
           </Text>
+          {this.renderPathButtons(paths)}
         </ScrollView>
       </>
     );
@@ -80,6 +88,7 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => ({
+  user: state.user,
   paths: state.paths,
 });
 

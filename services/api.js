@@ -1,6 +1,16 @@
-import {putRequest} from './apiUtils';
+import {getRequest, putRequest} from './apiUtils';
 
 export default {
+  async getUserPaths(userId) {
+    try {
+      const endpoint = `/paths/${userId}`;
+      const res = await getRequest(endpoint);
+      return {response: JSON.stringify(res.response), status: res.status};
+    } catch (error) {
+      console.log(error);
+      return {response: error, status: 500};
+    }
+  },
   async putUser(userId, body) {
     try {
       const endpoint = `/users/${userId}`;

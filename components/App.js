@@ -40,7 +40,7 @@ class App extends React.Component {
     if (authSet && this.props.auth.userId) {
       // if user is already logged in, fetch logged in data
       this.props.dispatch(fetchUser(this.props.auth.userId));
-      this.props.dispatch(fetchPaths());
+      this.props.dispatch(fetchPaths(this.props.auth.userId));
       this.props.dispatch(fetchNutrients());
       this.props.dispatch(fetchDiets());
     }
@@ -59,7 +59,7 @@ class App extends React.Component {
     // if user logs in, fetch all logged in data.
     if (prevProps.auth.userId !== this.props.auth.userId) {
       this.props.dispatch(fetchUser(this.props.auth.userId));
-      this.props.dispatch(fetchPaths());
+      this.props.dispatch(fetchPaths(this.props.auth.userId));
       this.props.dispatch(fetchNutrients());
       this.props.dispatch(fetchDiets());
     }

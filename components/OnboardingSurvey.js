@@ -5,6 +5,7 @@ import {validateDate} from '../utils/formValidation';
 import api from '../services/api';
 import {connect} from 'react-redux';
 import {fetchUser} from '../redux/actions/userActionCreator';
+import {fetchPaths} from '../redux/actions/pathsActionCreator';
 import FFDateBox from './forms/FFDateBox';
 import FFSelectButtons from './forms/FFSelectButtons';
 import FFRadioButtons from './forms/FFRadioButtons';
@@ -116,9 +117,13 @@ class OnboardingSurvey extends React.Component {
     }
     // get fresh user data since it's been updated:
     this.props.dispatch(fetchUser(this.props.auth.userId));
+    this.props.dispatch(fetchPaths(this.props.auth.userId));
     const selectedPathName = this.getPathName();
+    // bad practice but separately getting user paths here as well so we know they are
+    // reflecting recent user changes.
+    const userPaths = await api.getUserPaths(this.props.auth.userId);
     let selectedPath;
-    this.props.paths.list.map((path) => {
+    userPaths.map((path) => {
       if (
         path.name.toLowerCase().trim() === selectedPathName.toLowerCase().trim()
       ) {
@@ -269,7 +274,6 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state) => ({
   auth: state.auth,
   diets: state.diets,
-  paths: state.paths,
 });
 
 export default connect(mapStateToProps)(OnboardingSurvey);
