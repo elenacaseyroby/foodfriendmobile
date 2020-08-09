@@ -13,8 +13,28 @@ class NutrientDetail extends React.Component {
   static propTypes = {
     nutrient: propTypes.object,
   };
+  renderRow(column1, column2, isHeader = false) {
+    const textStyle = isHeader ? styles.foodHeader : styles.foodBody;
+    return (
+      <>
+        <View key={column1} style={styles.foodRow}>
+          <Text style={[styles.foodDescription, textStyle]}>{column1}</Text>
+          <Text style={[styles.percentDv, textStyle]}>{column2}</Text>
+        </View>
+        <View style={styles.line} />
+      </>
+    );
+  }
+  renderFoodRow(food) {
+    let foodDescription = food.name;
+    let percent = food.NutrientFood.percentDvPerServing;
+    if (food.servingSize) {
+      foodDescription = `${food.name}  Serving Size: ${food.servingSize}`;
+    }
+    const percentDv = parseInt(percent * 100).toString() + '%';
+    return this.renderRow(foodDescription, percentDv, false);
+  }
   renderNutrientWarning(nutrient) {
-    console.log(JSON.stringify(nutrient));
     if (!nutrient.warnings) return;
     return (
       <>
@@ -22,6 +42,16 @@ class NutrientDetail extends React.Component {
           <Text style={styles.bannerText}>Warning</Text>
         </View>
         <Text style={styles.description}>{nutrient.warnings}</Text>
+      </>
+    );
+  }
+  renderFoods(nutrient) {
+    return (
+      <>
+        {this.renderRow('Food', '% of Daily Value Per Serving', true)}
+        {nutrient.foods.map((food) => {
+          return this.renderFoodRow(food);
+        })}
       </>
     );
   }
@@ -41,15 +71,7 @@ class NutrientDetail extends React.Component {
       }
       counter++;
     });
-    let foodsText = '';
-    counter = 1;
-    nutrient.foods.map((food) => {
-      foodsText = foodsText + food.name;
-      if (counter !== nutrient.foods.length) {
-        foodsText = foodsText + '\n';
-      }
-      counter++;
-    });
+
     return (
       <>
         <FFStatusBar />
@@ -72,7 +94,7 @@ class NutrientDetail extends React.Component {
           <View style={[styles.banner, styles.greenBackground]}>
             <Text style={styles.bannerText}>Foods</Text>
           </View>
-          <Text style={styles.description}>{foodsText}</Text>
+          {this.renderFoods(nutrient)}
           {this.renderNutrientWarning(nutrient)}
           <View style={[styles.banner, styles.blueBackground]}>
             <Text style={styles.bannerText}>Sources</Text>
@@ -143,6 +165,23 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     fontFamily: 'Cabin-Regular',
     fontSize: normalize(14),
+    color: '#555555',
+  },
+  foodRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: normalize(340),
+    alignSelf: 'center',
+    marginTop: '4%',
+    marginBottom: '4%',
+    fontSize: normalize(14),
+  },
+  foodBody: {
+    fontFamily: 'Cabin-Regular',
+    color: '#555555',
+  },
+  foodHeader: {
+    fontFamily: 'Cabin-Bold',
     color: '#555555',
   },
   disclaimer: {
