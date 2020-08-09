@@ -1,9 +1,9 @@
 import React from 'react';
-import {ScrollView, View, StyleSheet} from 'react-native';
-import {normalize} from '../utils/deviceScaling';
-import FFStatusBar from './common/FFStatusBar';
-import PathHeader from './common/PathHeader';
-import BackArrow from './common/BackArrow';
+import {ScrollView, Text, View, StyleSheet} from 'react-native';
+import {normalize} from '../../utils/deviceScaling';
+import FFStatusBar from '../common/FFStatusBar';
+import PathHeader from '../common/PathHeader';
+import BackArrow from '../common/BackArrow';
 import {connect} from 'react-redux';
 import propTypes from 'prop-types';
 
@@ -23,13 +23,22 @@ class SelectPath extends React.Component {
         <FFStatusBar />
         {/*scrollIndicatorInsets setting prevents bug: https://github.com/facebook/react-native/issues/26610*/}
         <ScrollView scrollIndicatorInsets={{right: 1}}>
-          <PathHeader />
+          <PathHeader style={styles.header} />
           <View style={styles.arrowContainer}>
             <BackArrow
               style={styles.backArrow}
               onPress={() => navigation.pop()}
             />
           </View>
+          <Text style={[styles.h1, styles.textContainer]}>
+            Choose a new path
+          </Text>
+          <Text style={[styles.h2, styles.textContainer]}>
+            Choose a nutrient path that’s right for you.
+          </Text>
+          <Text style={[styles.h3, styles.textContainer]}>
+            Tap the path name to select it. Tap the arrow to learn more.
+          </Text>
         </ScrollView>
       </>
     );
@@ -37,6 +46,9 @@ class SelectPath extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  header: {
+    marginBottom: '3%',
+  },
   arrowContainer: {
     position: 'absolute',
     width: normalize(325),
@@ -45,6 +57,25 @@ const styles = StyleSheet.create({
   },
   backArrow: {
     marginTop: normalize(41),
+  },
+  textContainer: {
+    width: normalize(300),
+    alignSelf: 'center',
+  },
+  h1: {
+    fontFamily: 'Cabin-Regular',
+    fontSize: normalize(30),
+    color: '#555555',
+  },
+  h2: {
+    fontFamily: 'Cabin-Regular',
+    fontSize: normalize(16),
+    color: '#555555',
+  },
+  h3: {
+    fontFamily: 'Cabin-Regular',
+    fontSize: normalize(16),
+    color: '#aaaaaa',
   },
 });
 
