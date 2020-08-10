@@ -98,7 +98,7 @@ class OnboardingSurvey extends React.Component {
       this.state.pathName,
     );
     if (pathReq.status === 200) {
-      const selectedPath = pathReq.response;
+      const selectedPath = JSON.parse(pathReq.response);
       this.props.navigation.navigate('Path Detail', {
         path: selectedPath,
       });

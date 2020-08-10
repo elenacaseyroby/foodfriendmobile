@@ -9,7 +9,6 @@ class PathDetail extends React.Component {
   };
   render() {
     const path = this.props.route.params.path;
-    console.log(`hey: ${this.props.navigation}`);
     return (
       <Path
         path={path}
