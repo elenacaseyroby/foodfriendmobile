@@ -13,7 +13,6 @@ import {connect} from 'react-redux';
 import {fetchUser} from '../../redux/actions/userActionCreator';
 import api from '../../services/api';
 import {normalize} from '../../utils/deviceScaling';
-import {isNetworkAvailable} from '../../utils/deviceStatus';
 import topFlag from './assets/top-flag.png';
 import bottomFlag from './assets/bottom-flag.png';
 import blueElipse from '../../assets/images/bottom-elipse-blue-2.png';
@@ -31,7 +30,6 @@ class Path extends React.Component {
   };
   state = {
     errorMessage: null,
-    isConnected: true,
   };
   getNutrients = (nutrientsWithIds) => {
     const allNutrients = this.props.nutrients.list;
@@ -82,12 +80,6 @@ class Path extends React.Component {
       </View>
     );
   }
-  getConnection = async () => {
-    const isConnected = await isNetworkAvailable();
-    if (isConnected !== this.state.isConnected) {
-      this.setState({isConnected: isConnected});
-    }
-  };
   renderErrorMessage() {
     if (!this.state.errorMessage) return;
     return (
@@ -97,7 +89,6 @@ class Path extends React.Component {
     );
   }
   render() {
-    this.getConnection();
     const {path} = this.props;
     const selectingPath = this.props.selectingPath;
     const displayName = path.name.split(' ')[0];
@@ -107,16 +98,16 @@ class Path extends React.Component {
         <FFStatusBar />
         {/*scrollIndicatorInsets setting prevents bug: https://github.com/facebook/react-native/issues/26610*/}
         <ScrollView style={styles.rectangle} scrollIndicatorInsets={{right: 1}}>
-          {this.state.isConnected ? (
+          {/**render default header under real header so if internet fails, default header appears.*/}
+          <View style={styles.headerImg}>
+            <PathHeader style={styles.pathHeaderDefault} />
             <Image
               style={styles.headerImg}
               source={{
                 uri: path.theme.header_img_path,
               }}
             />
-          ) : (
-            <PathHeader />
-          )}
+          </View>
           <Text style={styles.title}>{displayName}</Text>
           <View style={styles.line} />
           {selectingPath ? (
@@ -132,22 +123,20 @@ class Path extends React.Component {
                   nutrient={nutrient}
                   style={styles.nutrientButton}
                   navigation={this.props.navigation}
-                  offline={!this.state.isConnected}
                 />
               );
             })}
           </View>
           {this.renderNote(path)}
-          {this.state.isConnected ? (
+          <View style={styles.footerContainer}>
+            <PathFooter style={styles.PathFooterDefault} />
             <Image
               style={styles.footerImg}
               source={{
                 uri: path.theme.footer_img_path,
               }}
             />
-          ) : (
-            <PathFooter />
-          )}
+          </View>
           {this.renderErrorMessage()}
           {selectingPath ? (
             <View style={styles.submitButton}>
@@ -160,7 +149,6 @@ class Path extends React.Component {
           ) : (
             <></>
           )}
-
           <View style={styles.selectDifferentPathContainer}>
             <Text style={styles.grayText}>
               Looking for something different?
@@ -183,7 +171,6 @@ class Path extends React.Component {
               </TouchableOpacity>
             </View>
           </View>
-
           <Image style={styles.blueElipse} source={blueElipse} />
         </ScrollView>
       </>
@@ -192,6 +179,12 @@ class Path extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  pathHeaderDefault: {
+    position: 'absolute',
+  },
+  pathFooterDefault: {
+    position: 'absolute',
+  },
   headerImg: {
     // resizeMode: 'contain',
     width: '100%',
@@ -294,7 +287,15 @@ const styles = StyleSheet.create({
     fontSize: normalize(12),
     color: '#ffffff',
   },
+  footerContainer: {
+    alignSelf: 'center',
+    width: '102%',
+    height: undefined,
+    // aspectRatio: width / height,
+    aspectRatio: 375 / 279,
+  },
   footerImg: {
+    position: 'absolute',
     alignSelf: 'center',
     width: '102%',
     height: undefined,
