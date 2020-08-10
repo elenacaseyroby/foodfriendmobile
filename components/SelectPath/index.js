@@ -25,6 +25,7 @@ class SelectPath extends React.Component {
       navigation = this.props.navigation;
     }
     const paths = this.props.paths.list;
+    console.log(this.props.isFirstScreen);
     return (
       <>
         <FFStatusBar />
