@@ -47,7 +47,6 @@ async function buildOrRetrieveCache(endpoint, KEY) {
       console.log(`get ${KEY} from db`);
       asyncStorage._storeData(KEY, JSON.stringify(res.response));
       cachedObject = res.response;
-      console.log(JSON.stringify(cachedObject));
     }
   } catch (error) {}
   // if fails, get object(s) from cache.
