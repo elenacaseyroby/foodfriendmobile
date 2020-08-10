@@ -67,7 +67,7 @@ class App extends React.Component {
   renderOnboarding = () => {
     // If user is logged in and hasn't picked a path show them
     // the onboarding slides.
-    if (this.props.user && !this.props.user.birthday) {
+    if (this.props.user && !this.props.user.activePathId) {
       return (
         <>
           <Stack.Screen name="Onboarding Slides" component={OnboardingSlides} />
@@ -87,17 +87,8 @@ class App extends React.Component {
           <>
             {this.renderOnboarding()}
             {/*signed in landing page: */}
-            {this.props.user && !this.props.user.activePathId ? (
-              <>
-                <Stack.Screen name="Select Path" component={SelectPath} />
-                <Stack.Screen name="Dashboard" component={Dashboard} />
-              </>
-            ) : (
-              <>
-                <Stack.Screen name="Dashboard" component={Dashboard} />
-                <Stack.Screen name="Select Path" component={SelectPath} />
-              </>
-            )}
+            <Stack.Screen name="Dashboard" component={Dashboard} />
+            <Stack.Screen name="Select Path" component={SelectPath} />
             <Stack.Screen name="Path Detail" component={PathDetail} />
             <Stack.Screen name="My Path" component={MyPath} />
             <Stack.Screen name="Progress" component={Progress} />
