@@ -13,16 +13,16 @@ class NutrientDetail extends React.Component {
   static propTypes = {
     nutrient: propTypes.object,
   };
-  renderRow(column1, column2, isHeader = false) {
+  renderRow(key, column1, column2, isHeader = false) {
     const textStyle = isHeader ? styles.foodHeader : styles.foodBody;
     return (
-      <>
-        <View key={column1} style={styles.foodRow}>
+      <View key={key}>
+        <View style={styles.foodRow}>
           <Text style={[styles.foodDescription, textStyle]}>{column1}</Text>
           <Text style={[styles.percentDv, textStyle]}>{column2}</Text>
         </View>
         <View style={styles.line} />
-      </>
+      </View>
     );
   }
   renderFoodRow(food) {
@@ -32,7 +32,7 @@ class NutrientDetail extends React.Component {
       foodDescription = `${food.name}  Serving Size: ${food.servingSize}`;
     }
     const percentDv = parseInt(percent * 100).toString() + '%';
-    return this.renderRow(foodDescription, percentDv, false);
+    return this.renderRow(food.id, foodDescription, percentDv, false);
   }
   renderNutrientWarning(nutrient) {
     if (!nutrient.warnings) return;
@@ -48,7 +48,7 @@ class NutrientDetail extends React.Component {
   renderFoods(nutrient) {
     return (
       <>
-        {this.renderRow('Food', '% of Daily Value Per Serving', true)}
+        {this.renderRow('header', 'Food', '% of Daily Value Per Serving', true)}
         {nutrient.foods.map((food) => {
           return this.renderFoodRow(food);
         })}
