@@ -1,9 +1,9 @@
 import {getRequest, putRequest} from './apiUtils';
 
 export default {
-  async getUserPaths(userId) {
+  async generateUserActivePath(menstruates, isVegan, pathName) {
     try {
-      const endpoint = `/paths/${userId}`;
+      const endpoint = `/generateUserActivePath/?menstruates=${menstruates}&isVegan=${isVegan}&pathName=${pathName}`;
       const res = await getRequest(endpoint);
       return {response: JSON.stringify(res.response), status: res.status};
     } catch (error) {

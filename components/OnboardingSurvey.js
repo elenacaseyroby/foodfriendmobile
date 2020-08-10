@@ -37,41 +37,6 @@ class OnboardingSurvey extends React.Component {
   handleMenstruates = (menstruates) => {
     this.setState({menstruates: menstruates});
   };
-  getPathName = () => {
-    let vegan;
-    this.props.diets.list.map((diet) => {
-      if (diet.name.toLowerCase().trim() === 'vegan') {
-        vegan = diet;
-      }
-    });
-    const userIsVegan = this.state.diets.includes(JSON.stringify(vegan.id))
-      ? true
-      : false;
-    // beauty is same for everyone
-    if (this.state.pathName === 'beauty') return 'beauty';
-    // energy for vegans works for menstruating vegans too
-    if (this.state.pathName === 'energy' && userIsVegan) {
-      return 'energy for vegans';
-    }
-    if (this.state.pathName === 'mood' && userIsVegan) {
-      return 'mood for vegans';
-    }
-    if (this.state.pathName === 'cognition' && userIsVegan) {
-      return 'cognition for vegans';
-    }
-    if (this.state.pathName === 'immunity' && userIsVegan) {
-      return 'immunity for vegans';
-    }
-    // Energy for menstruation is energy for menstruating non-vegans
-    if (this.state.pathName === 'energy' && this.state.menstruates) {
-      return 'energy for menstruation';
-    }
-    // Without those issues, all paths are the same:
-    if (this.state.pathName === 'energy') return 'energy';
-    if (this.state.pathName === 'cognition') return 'cognition';
-    if (this.state.pathName === 'immunity') return 'immunity';
-    if (this.state.pathName === 'mood') return 'mood';
-  };
   handleSubmit = async () => {
     // Validate fields
     let errorMessage;
@@ -118,19 +83,22 @@ class OnboardingSurvey extends React.Component {
     // get fresh user data since it's been updated:
     this.props.dispatch(fetchUser(this.props.auth.userId));
     this.props.dispatch(fetchPaths(this.props.auth.userId));
-    const selectedPathName = this.getPathName();
-    // bad practice but separately getting user paths here as well so we know they are
-    // reflecting recent user changes.
-    const userPaths = await api.getUserPaths(this.props.auth.userId);
-    let selectedPath;
-    userPaths.map((path) => {
-      if (
-        path.name.toLowerCase().trim() === selectedPathName.toLowerCase().trim()
-      ) {
-        selectedPath = path;
+    let vegan;
+    this.props.diets.list.map((diet) => {
+      if (diet.name.toLowerCase().trim() === 'vegan') {
+        vegan = diet;
       }
     });
-    if (selectedPath) {
+    const userIsVegan = this.state.diets.includes(JSON.stringify(vegan.id))
+      ? true
+      : false;
+    const pathReq = await api.generateUserActivePath(
+      this.state.menstruates,
+      userIsVegan,
+      this.state.pathName,
+    );
+    if (pathReq.status === 200) {
+      const selectedPath = pathReq.response;
       this.props.navigation.navigate('Path Detail', {
         path: selectedPath,
       });
