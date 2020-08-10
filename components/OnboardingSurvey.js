@@ -65,10 +65,20 @@ class OnboardingSurvey extends React.Component {
         });
       }
     }
-    // post user birthday & menstruates
+    let vegan;
+    this.props.diets.list.map((diet) => {
+      if (diet.name.toLowerCase().trim() === 'vegan') {
+        vegan = diet;
+      }
+    });
+    const userIsVegan = this.state.diets.includes(JSON.stringify(vegan.id))
+      ? true
+      : false;
+    // post user birthday & menstruates & isVegan
     const body = {
       birthday: this.state.birthday,
       menstruates: this.state.menstruates,
+      isVegan: userIsVegan,
     };
     const userRequest = await api.putUser(this.props.auth.userId, body);
     if (userRequest.status !== 200) {
@@ -83,15 +93,7 @@ class OnboardingSurvey extends React.Component {
     // get fresh user data since it's been updated:
     this.props.dispatch(fetchUser(this.props.auth.userId));
     this.props.dispatch(fetchPaths(this.props.auth.userId));
-    let vegan;
-    this.props.diets.list.map((diet) => {
-      if (diet.name.toLowerCase().trim() === 'vegan') {
-        vegan = diet;
-      }
-    });
-    const userIsVegan = this.state.diets.includes(JSON.stringify(vegan.id))
-      ? true
-      : false;
+
     const pathReq = await api.generateUserActivePath(
       this.state.menstruates,
       userIsVegan,
