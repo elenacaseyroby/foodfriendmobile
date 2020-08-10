@@ -5,6 +5,7 @@ import FFStatusBar from '../common/FFStatusBar';
 import PathButton from './PathButton';
 import PathHeader from '../common/PathHeader';
 import BackArrow from '../common/BackArrow';
+import OfflineNotificationBanner from '../common/OfflineNoticeBanner';
 import {connect} from 'react-redux';
 import propTypes from 'prop-types';
 
@@ -49,6 +50,7 @@ class SelectPath extends React.Component {
           </Text>
           {this.renderPathButtons(paths)}
         </ScrollView>
+        <OfflineNotificationBanner />
       </>
     );
   }
