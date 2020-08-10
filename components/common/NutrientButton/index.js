@@ -45,7 +45,6 @@ class NutrientButton extends React.Component {
     displayAddNutrientButton: propTypes.bool,
     onAddNutrientClick: propTypes.func,
     navigation: propTypes.object,
-    offline: propTypes.bool,
   };
   renderAddNutrientButton(nutrient) {
     if (!this.props.displayAddNutrientButton) return;
@@ -100,16 +99,16 @@ class NutrientButton extends React.Component {
             });
           }}
         />
-        {this.props.offline ? (
+        {/*render blank icon under real icon so if internet fails, blank icon appears.*/}
+        <View style={styles.icon}>
           <Image style={styles.icon} source={theme.icon} />
-        ) : (
           <Image
             style={styles.icon}
             source={{
               uri: nutrient.iconPath,
             }}
           />
-        )}
+        </View>
         {this.renderAddNutrientButton(nutrient)}
       </View>
     );
