@@ -38,6 +38,7 @@ export async function buildOrRetrieveUserCache(userId) {
 }
 
 async function buildOrRetrieveCache(endpoint, KEY) {
+  // return object(s) or undefined.
   let cachedObject;
   try {
     const res = await getRequest(endpoint);
@@ -53,8 +54,8 @@ async function buildOrRetrieveCache(endpoint, KEY) {
   if (!cachedObject) {
     console.log(`get ${KEY} from cache`);
     const cachedObjectStr = await asyncStorage._retrieveData(KEY);
+    if (!cachedObjectStr) return;
     cachedObject = JSON.parse(cachedObjectStr);
   }
-  // return object(s) or undefined.
   return cachedObject;
 }
