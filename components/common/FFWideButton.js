@@ -17,6 +17,7 @@ class FFWideButton extends React.Component {
         onPress={this.props.onClick}
         style={[
           styles.button,
+          this.props.style,
           this.props.backgroundColorStyle
             ? this.props.backgroundColorStyle
             : styles.defaultBackgroundColor,

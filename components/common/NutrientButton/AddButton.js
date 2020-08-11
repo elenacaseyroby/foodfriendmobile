@@ -1,13 +1,20 @@
 import React from 'react';
 import {TouchableOpacity, Image, View, StyleSheet} from 'react-native';
-import {normalize} from '../../utils/deviceScaling';
-import arrow from '../../assets/images/black-forward-arrow.png';
+import {normalize} from '../../../utils/deviceScaling';
+import plus from '../../../assets/images/black-add-icon.png';
+import check from '../../../assets/images/green-checkmark.png';
 import propTypes from 'prop-types';
 
-class ArrowButton extends React.Component {
+class AddButton extends React.Component {
   static propTypes = {
     onPress: propTypes.func.isRequired,
     style: propTypes.object,
+  };
+  state = {
+    checked: false,
+  };
+  handlePress = () => {
+    this.setState({checked: !this.state.checked}, this.props.onPress());
   };
   render() {
     return (
@@ -15,7 +22,10 @@ class ArrowButton extends React.Component {
         style={(styles.container, this.props.style)}
         onPress={this.props.onPress}>
         <View style={[styles.circle]}>
-          <Image source={arrow} style={styles.arrow} />
+          <Image
+            source={this.state.checked ? check : plus}
+            style={styles.icon}
+          />
         </View>
       </TouchableOpacity>
     );
@@ -23,12 +33,11 @@ class ArrowButton extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  arrow: {
-    marginLeft: normalize(2),
-    width: normalize(8),
+  icon: {
+    width: normalize(15),
     height: undefined,
     // aspectRatio: width / height,
-    aspectRatio: 8 / 13,
+    aspectRatio: 1 / 1,
   },
   circle: {
     width: normalize(35),
@@ -56,4 +65,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ArrowButton;
+export default AddButton;

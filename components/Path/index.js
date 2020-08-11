@@ -8,16 +8,16 @@ import {
   StyleSheet,
 } from 'react-native';
 import FFStatusBar from '../common/FFStatusBar';
-import NutrientButton from '../NutrientButton';
+import NutrientButton from '../common/NutrientButton';
 import {connect} from 'react-redux';
-import {fetchUser} from '../../redux/actions/userActionCreator';
-import api from '../../services/api';
 import {normalize} from '../../utils/deviceScaling';
 import topFlag from './assets/top-flag.png';
 import bottomFlag from './assets/bottom-flag.png';
 import blueElipse from '../../assets/images/bottom-elipse-blue-2.png';
-import FFWideButton from '../common/FFWideButton';
-import FFErrorMessage from '../forms/FFErrorMessage';
+import PathHeader from '../common/PathHeader';
+import PathFooter from '../common/PathFooter';
+import BackArrow from '../common/BackArrow';
+import SelectPathButton from '../common/SelectPathButton';
 import propTypes from 'prop-types';
 
 class Path extends React.Component {
@@ -25,9 +25,7 @@ class Path extends React.Component {
     path: propTypes.object,
     selectingPath: propTypes.bool,
     navigation: propTypes.object,
-  };
-  state = {
-    errorMessage: null,
+    showBackArrow: propTypes.bool,
   };
   getNutrients = (nutrientsWithIds) => {
     const allNutrients = this.props.nutrients.list;
@@ -44,22 +42,6 @@ class Path extends React.Component {
       }
     });
     return nutrientsWithAllProperties;
-  };
-  handleSelectPath = async (path) => {
-    const body = {
-      activePathId: path.id,
-    };
-    const userRequest = await api.putUser(this.props.auth.userId, body);
-    if (userRequest.status !== 200) {
-      return this.setState({
-        errorMessage:
-          "Oops! Something's gone wrong. Please try selecting your path again.",
-      });
-    }
-    // Update user state after updating activePathId.
-    this.props.dispatch(fetchUser(this.props.auth.userId));
-    //navigate to path page
-    this.props.navigation.navigate('Dashboard');
   };
   renderNote(path) {
     if (!path.notes) return;
@@ -78,11 +60,24 @@ class Path extends React.Component {
       </View>
     );
   }
-  renderErrorMessage() {
-    if (!this.state.errorMessage) return;
+  renderChooseThisPathButton(path) {
+    if (!this.props.selectingPath) return;
     return (
-      <View style={styles.errorMessage}>
-        <FFErrorMessage errorMessage={this.state.errorMessage} />
+      <SelectPathButton
+        style={styles.selectPathButton}
+        path={path}
+        navigation={this.props.navigation}
+      />
+    );
+  }
+  renderBackArrow() {
+    if (!this.props.showBackArrow) return;
+    return (
+      <View style={styles.arrowContainer}>
+        <BackArrow
+          style={styles.backArrow}
+          onPress={() => this.props.navigation.pop()}
+        />
       </View>
     );
   }
@@ -93,18 +88,19 @@ class Path extends React.Component {
     const nutrients = this.getNutrients(path.nutrients);
     return (
       <>
-        <FFStatusBar
-          barStyle={'dark-content'}
-          backgroundColorStyle={styles.statusBarBackgroundColor}
-        />
+        <FFStatusBar />
         {/*scrollIndicatorInsets setting prevents bug: https://github.com/facebook/react-native/issues/26610*/}
         <ScrollView style={styles.rectangle} scrollIndicatorInsets={{right: 1}}>
-          <Image
-            style={styles.headerImg}
-            source={{
-              uri: path.theme.header_img_path,
-            }}
-          />
+          {/**render default header under real header so if internet fails, default header appears.*/}
+          <View style={styles.headerImg}>
+            <PathHeader style={styles.pathHeaderDefault} />
+            <Image
+              style={styles.headerImg}
+              source={{
+                uri: path.theme.header_img_path,
+              }}
+            />
+          </View>
           <Text style={styles.title}>{displayName}</Text>
           <View style={styles.line} />
           {selectingPath ? (
@@ -125,25 +121,16 @@ class Path extends React.Component {
             })}
           </View>
           {this.renderNote(path)}
-          <Image
-            style={styles.footerImg}
-            source={{
-              uri: path.theme.footer_img_path,
-            }}
-          />
-          {this.renderErrorMessage()}
-          {selectingPath ? (
-            <View style={styles.submitButton}>
-              <FFWideButton
-                label={'Choose this Path'}
-                textStyle={styles.submitButtonText}
-                onClick={() => this.handleSelectPath(path)}
-              />
-            </View>
-          ) : (
-            <></>
-          )}
-
+          <View style={styles.footerContainer}>
+            <PathFooter style={styles.PathFooterDefault} />
+            <Image
+              style={styles.footerImg}
+              source={{
+                uri: path.theme.footer_img_path,
+              }}
+            />
+          </View>
+          {this.renderChooseThisPathButton(path)}
           <View style={styles.selectDifferentPathContainer}>
             <Text style={styles.grayText}>
               Looking for something different?
@@ -164,8 +151,8 @@ class Path extends React.Component {
               </TouchableOpacity>
             </View>
           </View>
-
           <Image style={styles.blueElipse} source={blueElipse} />
+          {this.renderBackArrow()}
         </ScrollView>
       </>
     );
@@ -173,6 +160,21 @@ class Path extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  arrowContainer: {
+    position: 'absolute',
+    width: normalize(325),
+    alignSelf: 'center',
+    alignItems: 'flex-start',
+  },
+  backArrow: {
+    marginTop: normalize(41),
+  },
+  pathHeaderDefault: {
+    position: 'absolute',
+  },
+  pathFooterDefault: {
+    position: 'absolute',
+  },
   headerImg: {
     // resizeMode: 'contain',
     width: '100%',
@@ -275,7 +277,15 @@ const styles = StyleSheet.create({
     fontSize: normalize(12),
     color: '#ffffff',
   },
+  footerContainer: {
+    alignSelf: 'center',
+    width: '102%',
+    height: undefined,
+    // aspectRatio: width / height,
+    aspectRatio: 375 / 279,
+  },
   footerImg: {
+    position: 'absolute',
     alignSelf: 'center',
     width: '102%',
     height: undefined,
@@ -286,14 +296,9 @@ const styles = StyleSheet.create({
     marginTop: '7%',
     alignItems: 'center',
   },
-  submitButton: {
+  selectPathButton: {
     marginTop: '5%',
     alignItems: 'center',
-  },
-  submitButtonText: {
-    fontFamily: 'Bellota-Bold',
-    fontSize: normalize(29),
-    color: '#ffffff',
   },
   selectDifferentPathContainer: {
     marginTop: '2%',

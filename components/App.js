@@ -19,6 +19,7 @@ import OnboardingSurvey from './OnboardingSurvey';
 import Dashboard from './Dashboard';
 import NutrientDetail from './NutrientDetail';
 import MyPath from './MyPath';
+import SelectPath from './SelectPath';
 import PathDetail from './PathDetail';
 import TermsAndConditions from './TermsAndConditions';
 import PrivacyPolicy from './PrivacyPolicy';
@@ -39,7 +40,7 @@ class App extends React.Component {
     if (authSet && this.props.auth.userId) {
       // if user is already logged in, fetch logged in data
       this.props.dispatch(fetchUser(this.props.auth.userId));
-      this.props.dispatch(fetchPaths());
+      this.props.dispatch(fetchPaths(this.props.auth.userId));
       this.props.dispatch(fetchNutrients());
       this.props.dispatch(fetchDiets());
     }
@@ -58,7 +59,7 @@ class App extends React.Component {
     // if user logs in, fetch all logged in data.
     if (prevProps.auth.userId !== this.props.auth.userId) {
       this.props.dispatch(fetchUser(this.props.auth.userId));
-      this.props.dispatch(fetchPaths());
+      this.props.dispatch(fetchPaths(this.props.auth.userId));
       this.props.dispatch(fetchNutrients());
       this.props.dispatch(fetchDiets());
     }
@@ -87,6 +88,7 @@ class App extends React.Component {
             {this.renderOnboarding()}
             {/*signed in landing page: */}
             <Stack.Screen name="Dashboard" component={Dashboard} />
+            <Stack.Screen name="Select Path" component={SelectPath} />
             <Stack.Screen name="Path Detail" component={PathDetail} />
             <Stack.Screen name="My Path" component={MyPath} />
             <Stack.Screen name="Progress" component={Progress} />

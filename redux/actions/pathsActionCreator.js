@@ -1,11 +1,11 @@
 import C from '../constants';
 import {buildOrRetrievePathsCache} from '../../asyncStorage/cache';
 
-export function fetchPaths() {
+export function fetchPaths(userId) {
   console.log('FETCH PATHS');
   fetchPathsBegin();
   return async function (dispatch) {
-    const paths = await buildOrRetrievePathsCache();
+    const paths = await buildOrRetrievePathsCache(userId);
     if (!paths) {
       const error = 'Could not fetch paths from db or cache.';
       return dispatch(fetchPathsFailure(error));
