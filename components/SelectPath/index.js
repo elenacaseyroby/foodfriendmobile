@@ -1,4 +1,4 @@
-import React, {useReducer} from 'react';
+import React from 'react';
 import {ScrollView, Text, View, StyleSheet} from 'react-native';
 import {normalize} from '../../utils/deviceScaling';
 import FFStatusBar from '../common/FFStatusBar';
@@ -26,7 +26,6 @@ class SelectPath extends React.Component {
       navigation = this.props.navigation;
     }
     const paths = this.props.paths.list;
-    console.log(this.props.isFirstScreen);
     return (
       <>
         <FFStatusBar />
@@ -62,7 +61,7 @@ const styles = StyleSheet.create({
   },
   arrowContainer: {
     position: 'absolute',
-    width: normalize(325),
+    width: normalize(300),
     alignSelf: 'center',
     alignItems: 'flex-start',
   },
