@@ -10,17 +10,14 @@ import {
 import FFStatusBar from '../common/FFStatusBar';
 import NutrientButton from '../common/NutrientButton';
 import {connect} from 'react-redux';
-import {fetchUser} from '../../redux/actions/userActionCreator';
-import api from '../../services/api';
 import {normalize} from '../../utils/deviceScaling';
 import topFlag from './assets/top-flag.png';
 import bottomFlag from './assets/bottom-flag.png';
 import blueElipse from '../../assets/images/bottom-elipse-blue-2.png';
-import FFWideButton from '../common/FFWideButton';
-import FFErrorMessage from '../forms/FFErrorMessage';
 import PathHeader from '../common/PathHeader';
 import PathFooter from '../common/PathFooter';
 import BackArrow from '../common/BackArrow';
+import SelectPathButton from '../common/SelectPathButton';
 import propTypes from 'prop-types';
 
 class Path extends React.Component {
@@ -29,9 +26,6 @@ class Path extends React.Component {
     selectingPath: propTypes.bool,
     navigation: propTypes.object,
     showBackArrow: propTypes.bool,
-  };
-  state = {
-    errorMessage: null,
   };
   getNutrients = (nutrientsWithIds) => {
     const allNutrients = this.props.nutrients.list;
@@ -48,22 +42,6 @@ class Path extends React.Component {
       }
     });
     return nutrientsWithAllProperties;
-  };
-  handleSelectPath = async (path) => {
-    const body = {
-      activePathId: path.id,
-    };
-    const userRequest = await api.putUser(this.props.auth.userId, body);
-    if (userRequest.status !== 200) {
-      return this.setState({
-        errorMessage:
-          "Oops! Something's gone wrong. Please try selecting your path again.",
-      });
-    }
-    // Update user state after updating activePathId.
-    this.props.dispatch(fetchUser(this.props.auth.userId));
-    //navigate to path page
-    this.props.navigation.navigate('Dashboard');
   };
   renderNote(path) {
     if (!path.notes) return;
@@ -82,12 +60,14 @@ class Path extends React.Component {
       </View>
     );
   }
-  renderErrorMessage() {
-    if (!this.state.errorMessage) return;
+  renderChooseThisPathButton(path) {
+    if (!this.props.selectingPath) return;
     return (
-      <View style={styles.errorMessage}>
-        <FFErrorMessage errorMessage={this.state.errorMessage} />
-      </View>
+      <SelectPathButton
+        style={styles.selectPathButton}
+        path={path}
+        navigation={this.props.navigation}
+      />
     );
   }
   renderBackArrow() {
@@ -150,18 +130,7 @@ class Path extends React.Component {
               }}
             />
           </View>
-          {this.renderErrorMessage()}
-          {selectingPath ? (
-            <View style={styles.submitButton}>
-              <FFWideButton
-                label={'Choose this Path'}
-                textStyle={styles.submitButtonText}
-                onClick={() => this.handleSelectPath(path)}
-              />
-            </View>
-          ) : (
-            <></>
-          )}
+          {this.renderChooseThisPathButton(path)}
           <View style={styles.selectDifferentPathContainer}>
             <Text style={styles.grayText}>
               Looking for something different?
@@ -327,14 +296,9 @@ const styles = StyleSheet.create({
     marginTop: '7%',
     alignItems: 'center',
   },
-  submitButton: {
+  selectPathButton: {
     marginTop: '5%',
     alignItems: 'center',
-  },
-  submitButtonText: {
-    fontFamily: 'Bellota-Bold',
-    fontSize: normalize(29),
-    color: '#ffffff',
   },
   selectDifferentPathContainer: {
     marginTop: '2%',
