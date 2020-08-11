@@ -12,6 +12,7 @@ class SelectPathButton extends React.Component {
   static propTypes = {
     path: propTypes.object,
     style: propTypes.object,
+    navigation: propTypes.object.isRequired,
   };
   state = {
     errorMessage: null,
@@ -23,6 +24,7 @@ class SelectPathButton extends React.Component {
           'Please select a path before clicking "Choose this Path."',
       });
     }
+    console.log(path.id);
     const body = {
       activePathId: path.id,
     };
@@ -35,7 +37,7 @@ class SelectPathButton extends React.Component {
     }
     // Update user state after updating activePathId.
     this.props.dispatch(fetchUser(this.props.auth.userId));
-    //navigate to path page
+    //navigate to dashboard
     this.props.navigation.navigate('Dashboard');
   };
   renderErrorMessage() {
@@ -78,6 +80,7 @@ const styles = StyleSheet.create({
   },
   errorMessage: {
     alignSelf: 'center',
+    width: normalize(320),
   },
 });
 const mapStateToProps = (state) => ({

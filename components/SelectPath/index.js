@@ -20,7 +20,6 @@ class SelectPath extends React.Component {
     selectedPath: null,
   };
   handleSelectPath = (path) => {
-    console.log('MADE IT');
     this.setState({selectedPath: path});
   };
   renderPathButtons() {
@@ -71,7 +70,8 @@ class SelectPath extends React.Component {
           {this.renderPathButtons(paths)}
           <SelectPathButton
             style={styles.selectPathButton}
-            path={this.state.path}
+            path={this.state.selectedPath}
+            navigation={this.props.navigation}
           />
           <Text style={styles.grayText}>Looking for something different?</Text>
           <TouchableOpacity

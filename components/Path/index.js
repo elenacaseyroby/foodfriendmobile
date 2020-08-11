@@ -90,6 +90,17 @@ class Path extends React.Component {
       </View>
     );
   }
+  renderBackArrow() {
+    if (!this.props.showBackArrow) return;
+    return (
+      <View style={styles.arrowContainer}>
+        <BackArrow
+          style={styles.backArrow}
+          onPress={() => this.props.navigation.pop()}
+        />
+      </View>
+    );
+  }
   render() {
     const {path} = this.props;
     const selectingPath = this.props.selectingPath;
@@ -172,12 +183,7 @@ class Path extends React.Component {
             </View>
           </View>
           <Image style={styles.blueElipse} source={blueElipse} />
-          <View style={styles.arrowContainer}>
-            <BackArrow
-              style={styles.backArrow}
-              onPress={() => this.props.navigation.pop()}
-            />
-          </View>
+          {this.renderBackArrow()}
         </ScrollView>
       </>
     );
