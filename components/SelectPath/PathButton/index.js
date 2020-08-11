@@ -7,7 +7,7 @@ import propTypes from 'prop-types';
 class PathButton extends React.Component {
   static propTypes = {
     path: propTypes.object.isRequired,
-    onClick: propTypes.func.isRequired,
+    onPress: propTypes.func.isRequired,
     navigation: propTypes.object.isRequired,
     style: propTypes.object,
     selected: propTypes.bool,
@@ -16,8 +16,9 @@ class PathButton extends React.Component {
     const {path} = this.props;
     return (
       <TouchableOpacity
-        onclick={() => {
-          this.props.onClick(path.id);
+        onPress={() => {
+          console.log('hey!');
+          this.props.onPress(path);
         }}
         key={path.name}
         style={[styles.buttonContainer, this.props.style]}>

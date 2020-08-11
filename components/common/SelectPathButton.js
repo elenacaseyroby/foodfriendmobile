@@ -10,14 +10,19 @@ import propTypes from 'prop-types';
 
 class SelectPathButton extends React.Component {
   static propTypes = {
-    path: propTypes.object.isRequired,
-    onClick: propTypes.func,
+    path: propTypes.object,
     style: propTypes.object,
   };
   state = {
-    errorMessage: 'test error message',
+    errorMessage: null,
   };
   handleSelectPath = async (path) => {
+    if (!path) {
+      return this.setState({
+        errorMessage:
+          'Please select a path before clicking "Choose this Path."',
+      });
+    }
     const body = {
       activePathId: path.id,
     };
@@ -50,11 +55,12 @@ class SelectPathButton extends React.Component {
             <FFErrorMessage errorMessage={this.state.errorMessage} />
           </View>
         ) : (
-          ''
+          <></>
         )}
         <FFWideButton
+          style={styles.button}
           label={'Choose this Path'}
-          textStyle={styles.submitButtonText}
+          textStyle={styles.textStyle}
           onClick={() => this.handleSelectPath(path)}
         />
       </View>
@@ -62,7 +68,17 @@ class SelectPathButton extends React.Component {
   }
 }
 const styles = StyleSheet.create({
-  errorMessage: {},
+  button: {
+    alignSelf: 'center',
+  },
+  textStyle: {
+    fontFamily: 'Bellota-Bold',
+    fontSize: normalize(29),
+    color: '#ffffff',
+  },
+  errorMessage: {
+    alignSelf: 'center',
+  },
 });
 const mapStateToProps = (state) => ({
   auth: state.auth,
