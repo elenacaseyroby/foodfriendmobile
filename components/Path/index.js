@@ -187,8 +187,8 @@ const styles = StyleSheet.create({
     marginBottom: '1%',
     width: normalize(340),
     alignSelf: 'center',
-    fontFamily: 'Bellota-Regular',
-    fontSize: normalize(30),
+    fontFamily: 'Cabin-Italic',
+    fontSize: normalize(21),
     color: '#000000',
   },
   description: {
