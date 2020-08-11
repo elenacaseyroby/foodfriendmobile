@@ -10,8 +10,9 @@ import propTypes from 'prop-types';
 
 class SelectPathButton extends React.Component {
   static propTypes = {
+    path: propTypes.object.isRequired,
     onClick: propTypes.func,
-    path: propTypes.object,
+    style: propTypes.object,
   };
   state = {
     errorMessage: 'test error message',
@@ -43,7 +44,7 @@ class SelectPathButton extends React.Component {
   render() {
     const {path} = this.props;
     return (
-      <>
+      <View style={this.props.style}>
         {this.state.errorMessage ? (
           <View style={styles.errorMessage}>
             <FFErrorMessage errorMessage={this.state.errorMessage} />
@@ -56,7 +57,7 @@ class SelectPathButton extends React.Component {
           textStyle={styles.submitButtonText}
           onClick={() => this.handleSelectPath(path)}
         />
-      </>
+      </View>
     );
   }
 }

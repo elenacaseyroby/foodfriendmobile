@@ -20,6 +20,7 @@ import FFWideButton from '../common/FFWideButton';
 import FFErrorMessage from '../forms/FFErrorMessage';
 import PathHeader from '../common/PathHeader';
 import PathFooter from '../common/PathFooter';
+import BackArrow from '../common/BackArrow';
 import propTypes from 'prop-types';
 
 class Path extends React.Component {
@@ -27,6 +28,7 @@ class Path extends React.Component {
     path: propTypes.object,
     selectingPath: propTypes.bool,
     navigation: propTypes.object,
+    showBackArrow: propTypes.bool,
   };
   state = {
     errorMessage: null,
@@ -156,9 +158,7 @@ class Path extends React.Component {
             <View style={styles.rowContainer}>
               <TouchableOpacity
                 onPress={() => {
-                  this.props.navigation.navigate('Select Path', {
-                    navigation: this.props.navigation,
-                  });
+                  this.props.navigation.navigate('Select Path');
                 }}>
                 <Text style={styles.orangeText}>select a different path</Text>
               </TouchableOpacity>
@@ -172,6 +172,12 @@ class Path extends React.Component {
             </View>
           </View>
           <Image style={styles.blueElipse} source={blueElipse} />
+          <View style={styles.arrowContainer}>
+            <BackArrow
+              style={styles.backArrow}
+              onPress={() => this.props.navigation.pop()}
+            />
+          </View>
         </ScrollView>
       </>
     );
@@ -179,6 +185,15 @@ class Path extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  arrowContainer: {
+    position: 'absolute',
+    width: normalize(325),
+    alignSelf: 'center',
+    alignItems: 'flex-start',
+  },
+  backArrow: {
+    marginTop: normalize(41),
+  },
   pathHeaderDefault: {
     position: 'absolute',
   },

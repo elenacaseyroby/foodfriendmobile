@@ -6,6 +6,7 @@ import PathButton from './PathButton';
 import PathHeader from '../common/PathHeader';
 import BackArrow from '../common/BackArrow';
 import OfflineNotificationBanner from '../common/OfflineNoticeBanner';
+import SelectPathButton from '../common/SelectPathButton';
 import {connect} from 'react-redux';
 import propTypes from 'prop-types';
 
@@ -15,7 +16,14 @@ class SelectPath extends React.Component {
   };
   renderPathButtons() {
     return this.props.paths.list.map((path) => {
-      return <PathButton path={path} />;
+      return (
+        <PathButton
+          key={path.id}
+          path={path}
+          style={styles.pathButton}
+          navigation={this.props.navigation}
+        />
+      );
     });
   }
   render() {
@@ -81,11 +89,16 @@ const styles = StyleSheet.create({
     fontFamily: 'Cabin-Regular',
     fontSize: normalize(16),
     color: '#555555',
+    marginBottom: '1%',
   },
   h3: {
     fontFamily: 'Cabin-Regular',
     fontSize: normalize(16),
     color: '#aaaaaa',
+    marginBottom: '1%',
+  },
+  pathButton: {
+    marginTop: '3%',
   },
 });
 

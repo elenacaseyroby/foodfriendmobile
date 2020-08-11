@@ -54,7 +54,15 @@ class PathButton extends React.Component {
             </Text>
           </View>
           <View style={styles.arrow}>
-            <ArrowButton selected={this.props.selected} />
+            <ArrowButton
+              selected={this.props.selected}
+              onPress={() => {
+                this.props.navigation.navigate('Path Detail', {
+                  path: path,
+                  showBackArrow: true,
+                });
+              }}
+            />
           </View>
         </View>
       </TouchableOpacity>
