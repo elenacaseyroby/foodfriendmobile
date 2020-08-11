@@ -54,7 +54,7 @@ class PathButton extends React.Component {
             </Text>
           </View>
           <View style={styles.arrow}>
-            <ArrowButton />
+            <ArrowButton selected={this.props.selected} />
           </View>
         </View>
       </TouchableOpacity>
@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
   },
   unselectedLabel: {
-    color: '#000000',
+    color: '#555555',
   },
   selectedLabel: {
     color: '#ffffff',
