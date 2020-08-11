@@ -13,6 +13,7 @@ import FFNarrowButton from './common/FFNarrowButton';
 import FFErrorMessage from './forms/FFErrorMessage';
 import FFStatusBar from './common/FFStatusBar';
 import OfflineNotificationBanner from './common/OfflineNoticeBanner';
+import BlueBottomElipse2 from './common/BlueBottomElipse2';
 import orangeElipse from '../assets/images/top-elipse-two-toned-orange.png';
 import plant from '../assets/images/monstera.png';
 import blueElipse from '../assets/images/bottom-elipse-blue-2.png';
@@ -166,7 +167,7 @@ class OnboardingSurvey extends React.Component {
             />
             <FFErrorMessage errorMessage={this.state.errorMessage} />
           </View>
-          <Image style={styles.blueElipse} source={blueElipse} />
+          <BlueBottomElipse2 style={styles.blueElipse} />
           <View style={styles.submitButton}>
             <FFNarrowButton label={'Submit'} onClick={this.handleSubmit} />
           </View>
@@ -228,10 +229,6 @@ const styles = StyleSheet.create({
   },
   blueElipse: {
     marginTop: '10%',
-    width: '100%',
-    height: undefined,
-    // aspectRatio: width / height,
-    aspectRatio: 1110 / 270,
   },
   rectangle: {
     position: 'relative',
