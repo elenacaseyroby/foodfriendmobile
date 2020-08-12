@@ -21,7 +21,7 @@ test('Returns error if /sendpasswordresetemail request response is 404', () => {
   };
   const errorMessage = getPasswordResetError(signUpResponse);
   expect(errorMessage).toMatch(
-    'Could not find account under this email. Please check for typos an try again.',
+    'Could not find account under this email. Please check for typos and try again.',
   );
 });
 test('Returns error if /sendpasswordresetemail request response is 400', () => {

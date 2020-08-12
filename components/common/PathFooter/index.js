@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: undefined,
     // aspectRatio: width / height,
-    aspectRatio: 375 / 270,
+    aspectRatio: 375 / 279,
   },
 });
 

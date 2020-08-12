@@ -8,7 +8,7 @@ export function getLoginError(loginResponse) {
   if (loginResponse.status === 401)
     return 'Password is incorrect. Please try a different password.';
   if (loginResponse.status === 404)
-    return 'Could not find account under this email. Please check for typos an try again.';
+    return 'Could not find account under this email. Please check for typos and try again.';
   if (loginResponse.status !== 200)
     return 'The email and password you have entered are incorrect.';
   return;
@@ -32,7 +32,7 @@ export function getPasswordResetError(resetResponse) {
   if (resetResponse.status >= 500)
     return 'Network error. Please make sure you are connected to the internet.';
   if (resetResponse.status === 404)
-    return 'Could not find account under this email. Please check for typos an try again.';
+    return 'Could not find account under this email. Please check for typos and try again.';
   if (resetResponse.status !== 200)
     return 'Password reset failed.  Please submit a new request and try again.';
   return;

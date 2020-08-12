@@ -16,7 +16,6 @@ import OfflineNotificationBanner from './common/OfflineNoticeBanner';
 import BlueBottomElipse2 from './common/BlueBottomElipse2';
 import orangeElipse from '../assets/images/top-elipse-two-toned-orange.png';
 import plant from '../assets/images/monstera.png';
-import blueElipse from '../assets/images/bottom-elipse-blue-2.png';
 
 class OnboardingSurvey extends React.Component {
   state = {
@@ -40,6 +39,7 @@ class OnboardingSurvey extends React.Component {
   };
   handleSubmit = async () => {
     // Validate fields
+    this.setState({errorMessage: ''});
     let errorMessage;
     errorMessage = validateDate(this.state.birthday);
     errorMessage =

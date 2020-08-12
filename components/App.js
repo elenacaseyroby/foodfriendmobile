@@ -19,6 +19,7 @@ import OnboardingSurvey from './OnboardingSurvey';
 import Dashboard from './Dashboard';
 import NutrientDetail from './NutrientDetail';
 import MyPath from './MyPath';
+import CustomizePath from './CustomizePath';
 import SelectPath from './SelectPath';
 import PathDetail from './PathDetail';
 import TermsAndConditions from './TermsAndConditions';
@@ -91,6 +92,7 @@ class App extends React.Component {
             <Stack.Screen name="Select Path" component={SelectPath} />
             <Stack.Screen name="Path Detail" component={PathDetail} />
             <Stack.Screen name="My Path" component={MyPath} />
+            <Stack.Screen name="Customize Path" component={CustomizePath} />
             <Stack.Screen name="Progress" component={Progress} />
             <Stack.Screen name="Nutrient Detail" component={NutrientDetail} />
           </>

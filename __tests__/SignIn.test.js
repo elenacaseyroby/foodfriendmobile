@@ -62,7 +62,7 @@ test('Returns error if login response is 404', async () => {
   };
   const errorMessage = getLoginError(loginResponse);
   expect(errorMessage).toMatch(
-    'Could not find account under this email. Please check for typos an try again.',
+    'Could not find account under this email. Please check for typos and try again.',
   );
 });
 test('Returns error if login response is 401', async () => {
