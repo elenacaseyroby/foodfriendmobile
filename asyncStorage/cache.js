@@ -1,6 +1,12 @@
 import asyncStorage from './index';
 import {getRequest} from '../services/apiUtils';
 
+export async function buildOrRetrieveCustomPathCache(userId) {
+  const endpoint = `/users/${userId}/custompath`;
+  const customPath = await buildOrRetrieveCache(endpoint, 'CUSTOM_PATH');
+  return customPath;
+}
+
 export async function buildOrRetrieveDietsCache() {
   const endpoint = '/diets';
   const diets = await buildOrRetrieveCache(endpoint, 'DIETS');

@@ -5,6 +5,11 @@ import LoadingScreen from './LoadingScreen';
 
 class MyPath extends React.Component {
   getUserPath = () => {
+    const customPath = this.props.customPath;
+    const user = this.props.user;
+    if (customPath && user && customPath.id === user.activePathId) {
+      return customPath;
+    }
     if (!this.props.paths.list) return;
     const activePathId = this.props.user.activePathId;
     let userPath;
@@ -33,6 +38,7 @@ class MyPath extends React.Component {
 const mapStateToProps = (state) => ({
   user: state.user,
   paths: state.paths,
+  customPath: state.customPath,
 });
 
 export default connect(mapStateToProps)(MyPath);

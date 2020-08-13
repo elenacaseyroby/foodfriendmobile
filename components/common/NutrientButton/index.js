@@ -15,7 +15,7 @@ import yellowIcon from './assets/yellow-icon.png';
 import redBar from './assets/red-bar.png';
 import redIcon from './assets/red-icon.png';
 
-// if theme is added, must update in Customize Path page.
+// if theme is added, must update in orderNutrientsByTheme function.
 const themes = {
   1: {
     bar: blueBar,
