@@ -15,6 +15,7 @@ import BlueBottomElipse2 from './common/BlueBottomElipse2';
 import FFNarrowButton from './common/FFNarrowButton';
 import {connect} from 'react-redux';
 import {normalize} from '../utils/deviceScaling';
+import {orderNutrientsByTheme} from '../utils/nutrients';
 import propTypes from 'prop-types';
 
 class CustomizePath extends React.Component {
@@ -22,30 +23,19 @@ class CustomizePath extends React.Component {
     errorMessage: '',
   };
   renderNutrients = (nutrients) => {
-    let nutrientByTheme = {};
-    nutrients.map((nutrient) => {
-      if (!nutrientByTheme[nutrient.themeId]) {
-        nutrientByTheme[nutrient.themeId] = [];
-      }
-      nutrientByTheme[nutrient.themeId].push(nutrient);
-    });
-    // if theme is added, must update here:
-    const range = [1, 2, 3, 4, 5];
+    const orderedNutrients = orderNutrientsByTheme(nutrients);
     return (
       <View style={styles.nutrientsContainer}>
-        {range.map((i) => {
-          const themeNutrients = nutrientByTheme[i];
-          return themeNutrients.map((nutrient) => {
-            return (
-              <NutrientButton
-                key={nutrient.id}
-                nutrient={nutrient}
-                style={styles.nutrientButton}
-                navigation={this.props.navigation}
-                displayAddNutrientButton={true}
-              />
-            );
-          });
+        {orderedNutrients.map((nutrient) => {
+          return (
+            <NutrientButton
+              key={nutrient.id}
+              nutrient={nutrient}
+              style={styles.nutrientButton}
+              navigation={this.props.navigation}
+              displayAddNutrientButton={true}
+            />
+          );
         })}
       </View>
     );
