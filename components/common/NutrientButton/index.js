@@ -46,6 +46,7 @@ class NutrientButton extends React.Component {
     displayAddNutrientButton: propTypes.bool,
     onAddNutrientClick: propTypes.func,
     navigation: propTypes.object,
+    selected: propTypes.bool,
   };
   renderAddNutrientButton(nutrient) {
     if (!this.props.displayAddNutrientButton) return;
@@ -53,6 +54,7 @@ class NutrientButton extends React.Component {
       <View style={styles.addButtonContainer}>
         <AddButton
           style={styles.addButton}
+          showCheckmark={this.props.selected}
           onPress={() => {
             this.props.onAddNutrientClick(nutrient.id);
           }}
