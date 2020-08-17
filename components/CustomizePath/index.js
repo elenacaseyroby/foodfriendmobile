@@ -77,6 +77,7 @@ class CustomizePath extends React.Component {
   handleSubmit = async () => {
     console.log('SUBMIT');
     const pathName = this.state.pathName;
+    const nutrientIds = this.state.nutrientIds;
     const userId = this.props.user.id;
     // Don't allow names longer than 1 word in length.
     if (pathName.trim().split(' ').length > 1) {
@@ -85,11 +86,14 @@ class CustomizePath extends React.Component {
           'Path name cannot contain more than one word. Please shorten your path name and try again.',
       });
     }
-    const pathUpdated = await api.putCustomPath(
-      userId,
-      pathName,
-      this.state.nutrientIds,
-    );
+    // Must select between 1 and 3 nutrients.
+    if (nutrientIds.length < 1) {
+      return this.setState({
+        errorMessage:
+          'Must select at least one nutrient to submit.  Click the (+) button next to a nutrient to select it.',
+      });
+    }
+    const pathUpdated = await api.putCustomPath(userId, pathName, nutrientIds);
     if (pathUpdated.status !== 200) {
       return this.setState({
         errorMessage:
@@ -128,11 +132,10 @@ class CustomizePath extends React.Component {
               textContentType="name"
             />
             <Text style={[styles.h2, styles.yourNutrientsTopMargin]}>
-              Your nutrients
+              Select your nutrients
             </Text>
             <Text style={[styles.h4, styles.bottomMargin]}>
-              Select up to 3 nutrients. Tap nutrient to learn more. Tap the (+)
-              icon to add this nutrient to your path. Tap submit to continue.
+              Choose up to 3 nutrients. Scroll to the bottom to submit.
             </Text>
           </View>
           <Image style={styles.topElipse} source={topElipse} />
@@ -220,6 +223,7 @@ const styles = StyleSheet.create({
   formContainer: {
     alignSelf: 'center',
     width: normalize(310),
+    marginBottom: '2%',
   },
   yourNutrientsTopMargin: {
     marginTop: '2%',
