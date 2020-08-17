@@ -305,7 +305,7 @@ const styles = StyleSheet.create({
   selectDifferentPathContainer: {
     marginTop: '2%',
     alignItems: 'center',
-    marginBottom: '2%',
+    marginBottom: '3%',
     // borderColor: '#aaaaaa',
     // borderWidth: 0.5,
   },
