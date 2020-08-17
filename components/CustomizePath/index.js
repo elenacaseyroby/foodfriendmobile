@@ -51,8 +51,6 @@ class CustomizePath extends React.Component {
     this.setState({nutrientIds: [...nutrientIds, nutrientId]});
   };
   renderNutrients = (nutrients) => {
-    console.log(this.state.nutrientIds);
-    console.log(`nutrient ids: ${this.state.nutrientIds}`);
     const orderedNutrients = orderNutrientsByTheme(nutrients);
     return (
       <View style={styles.nutrientsContainer}>
@@ -77,12 +75,12 @@ class CustomizePath extends React.Component {
     this.setState({pathName: name});
   };
   handleSubmit = async () => {
-    console.log('YOOOO');
+    console.log('SUBMIT');
     const pathName = this.state.pathName;
     const userId = this.props.user.id;
-    // BUG: this doesn't seem to have prevented mult words from goin thru...
+    // Don't allow names longer than 1 word in length.
     if (pathName.trim().split(' ').length > 1) {
-      this.setState({
+      return this.setState({
         errorMessage:
           'Path name cannot contain more than one word. Please shorten your path name and try again.',
       });
@@ -207,7 +205,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     width: '100%',
     paddingTop: '5%',
-    paddingBottom: '5%',
+    paddingBottom: '10%',
     backgroundColor: '#36549a',
   },
   nutrientButton: {
@@ -215,17 +213,13 @@ const styles = StyleSheet.create({
     marginBottom: '1%',
   },
   errorMessage: {
-    marginTop: '7%',
-    alignItems: 'center',
+    marginTop: '5%',
+    alignSelf: 'center',
+    width: normalize(320),
   },
   formContainer: {
     alignSelf: 'center',
     width: normalize(310),
-  },
-  errorMessage: {
-    marginTop: '5%',
-    alignSelf: 'center',
-    width: normalize(320),
   },
   yourNutrientsTopMargin: {
     marginTop: '2%',
