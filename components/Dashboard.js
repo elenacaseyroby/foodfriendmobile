@@ -2,11 +2,15 @@ import React from 'react';
 import {StyleSheet, View, Text} from 'react-native';
 import Progress from './Progress';
 import MyPath from './MyPath';
+import NavBar from './common/NavBar';
 import OfflineNotificationBanner from './common/OfflineNoticeBanner';
 
 class Dashboard extends React.Component {
   state = {
     activeScreen: 'path',
+  };
+  updateActiveScreen = (screenName) => {
+    this.setState({activeScreen: screenName});
   };
   renderActiveScreen = () => {
     if (this.state.activeScreen === 'progress')
@@ -23,7 +27,7 @@ class Dashboard extends React.Component {
       <View style={styles.rectangle}>
         {this.renderActiveScreen()}
         <OfflineNotificationBanner />
-        {/*add NavBar-- pass through activeScreen prop */}
+        <NavBar updateActiveScreen={this.updateActiveScreen} />
       </View>
     );
   }
