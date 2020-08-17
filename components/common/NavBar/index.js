@@ -16,15 +16,16 @@ import propTypes from 'prop-types';
 class NavBar extends React.Component {
   static propTypes = {
     updateActiveScreen: propTypes.func.isRequired,
-    activeScreen: propTypes.string,
+    // activeScreen: 'path', 'progress', 'journal', 'food', or 'account'
+    activeScreen: propTypes.string.isRequired,
   };
-  state = {
-    activeScreen: this.props.activeScreen || 'path',
-  };
-  updateActiveScreen = (screenName) => {
-    this.setState({activeScreen: screenName});
-    this.props.updateActiveScreen(screenName);
-  };
+  // state = {
+  //   activeScreen: this.props.activeScreen || 'path',
+  // };
+  // updateActiveScreen = (screenName) => {
+  //   this.setState({activeScreen: screenName});
+  //   this.props.updateActiveScreen(screenName);
+  // };
   handleClickAdd = () => {};
   render() {
     return (
@@ -33,16 +34,16 @@ class NavBar extends React.Component {
           <TouchableOpacity
             style={styles.iconButton}
             onPress={() => {
-              this.updateActiveScreen('path');
+              this.props.updateActiveScreen('path');
             }}>
             <Image
-              source={this.state.activeScreen === 'path' ? activePath : path}
+              source={this.props.activeScreen === 'path' ? activePath : path}
               style={styles.path}
             />
             <Text
               style={[
                 styles.text,
-                this.state.activeScreen === 'path'
+                this.props.activeScreen === 'path'
                   ? styles.activeText
                   : styles.passiveText,
               ]}>
@@ -52,11 +53,11 @@ class NavBar extends React.Component {
           <TouchableOpacity
             style={styles.iconButton}
             onPress={() => {
-              this.updateActiveScreen('progress');
+              this.props.updateActiveScreen('progress');
             }}>
             <Image
               source={
-                this.state.activeScreen === 'progress'
+                this.props.activeScreen === 'progress'
                   ? activeProgress
                   : progress
               }
@@ -65,7 +66,7 @@ class NavBar extends React.Component {
             <Text
               style={[
                 styles.text,
-                this.state.activeScreen === 'progress'
+                this.props.activeScreen === 'progress'
                   ? styles.activeText
                   : styles.passiveText,
               ]}>
@@ -84,16 +85,16 @@ class NavBar extends React.Component {
           <TouchableOpacity
             style={styles.iconButton}
             onPress={() => {
-              this.updateActiveScreen('food');
+              this.props.updateActiveScreen('food');
             }}>
             <Image
-              source={this.state.activeScreen === 'food' ? activeFood : food}
+              source={this.props.activeScreen === 'food' ? activeFood : food}
               style={styles.food}
             />
             <Text
               style={[
                 styles.text,
-                this.state.activeScreen === 'food'
+                this.props.activeScreen === 'food'
                   ? styles.activeText
                   : styles.passiveText,
               ]}>
@@ -103,18 +104,18 @@ class NavBar extends React.Component {
           <TouchableOpacity
             style={styles.iconButton}
             onPress={() => {
-              this.updateActiveScreen('account');
+              this.props.updateActiveScreen('account');
             }}>
             <Image
               source={
-                this.state.activeScreen === 'account' ? activeAccount : account
+                this.props.activeScreen === 'account' ? activeAccount : account
               }
               style={styles.account}
             />
             <Text
               style={[
                 styles.text,
-                this.state.activeScreen === 'account'
+                this.props.activeScreen === 'account'
                   ? styles.activeText
                   : styles.passiveText,
               ]}>
