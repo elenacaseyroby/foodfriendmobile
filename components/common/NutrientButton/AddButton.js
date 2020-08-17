@@ -9,12 +9,7 @@ class AddButton extends React.Component {
   static propTypes = {
     onPress: propTypes.func.isRequired,
     style: propTypes.object,
-  };
-  state = {
-    checked: false,
-  };
-  handlePress = () => {
-    this.setState({checked: !this.state.checked}, this.props.onPress());
+    showCheckmark: propTypes.bool,
   };
   render() {
     return (
@@ -23,7 +18,7 @@ class AddButton extends React.Component {
         onPress={this.props.onPress}>
         <View style={[styles.circle]}>
           <Image
-            source={this.state.checked ? check : plus}
+            source={this.props.showCheckmark ? check : plus}
             style={styles.icon}
           />
         </View>

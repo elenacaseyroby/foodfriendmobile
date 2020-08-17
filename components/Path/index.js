@@ -11,6 +11,7 @@ import FFStatusBar from '../common/FFStatusBar';
 import NutrientButton from '../common/NutrientButton';
 import {connect} from 'react-redux';
 import {normalize} from '../../utils/deviceScaling';
+import {orderNutrientsByTheme} from '../../utils/nutrients';
 import topFlag from './assets/top-flag.png';
 import bottomFlag from './assets/bottom-flag.png';
 import blueElipse from '../../assets/images/bottom-elipse-blue-2.png';
@@ -86,6 +87,7 @@ class Path extends React.Component {
     const selectingPath = this.props.selectingPath;
     const displayName = path.name.split(' ')[0];
     const nutrients = this.getNutrients(path.nutrients);
+    const orderedNutrients = orderNutrientsByTheme(nutrients);
     return (
       <>
         <FFStatusBar />
@@ -109,7 +111,7 @@ class Path extends React.Component {
             <></>
           )}
           <View style={styles.nutrientsContainer}>
-            {nutrients.map((nutrient) => {
+            {orderedNutrients.map((nutrient) => {
               return (
                 <NutrientButton
                   key={nutrient.id}

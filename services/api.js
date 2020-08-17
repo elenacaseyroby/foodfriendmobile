@@ -34,4 +34,18 @@ export default {
       return {response: error, status: 500};
     }
   },
+  async putCustomPath(userId, pathName, nutrientIds) {
+    const body = {
+      pathName: pathName,
+      nutrientIds: nutrientIds,
+    };
+    try {
+      const endpoint = `/users/${userId}/custompath`;
+      const res = await putRequest(endpoint, body);
+      return {response: JSON.stringify(res.response), status: res.status};
+    } catch (error) {
+      console.log(error);
+      return {response: error, status: 500};
+    }
+  },
 };

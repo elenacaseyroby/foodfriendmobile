@@ -6,10 +6,15 @@ import {normalize} from '../../utils/deviceScaling';
 class FFErrorMessage extends React.Component {
   static propTypes = {
     errorMessage: propTypes.string,
+    textStyle: propTypes.object,
   };
   renderError = () => {
     if (!this.props.errorMessage) return;
-    return <Text style={styles.errorText}>{this.props.errorMessage}</Text>;
+    return (
+      <Text style={[styles.errorText, this.props.textStyle]}>
+        {this.props.errorMessage}
+      </Text>
+    );
   };
   render() {
     return <>{this.renderError()}</>;

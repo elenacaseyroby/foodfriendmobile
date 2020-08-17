@@ -6,6 +6,7 @@ import {fetchNutrients} from '../redux/actions/nutrientsActionCreator';
 import {fetchPaths} from '../redux/actions/pathsActionCreator';
 import {fetchDiets} from '../redux/actions/dietsActionCreator';
 import {fetchUser} from '../redux/actions/userActionCreator';
+import {fetchCustomPath} from '../redux/actions/customPathActionCreator';
 import {fetchTermsAndConditions} from '../redux/actions/termsAndConditionsActionCreator';
 import {fetchPrivacyPolicy} from '../redux/actions/privacyPolicyActionCreator';
 import {setAuth} from '../redux/actions/authActionCreator';
@@ -19,6 +20,7 @@ import OnboardingSurvey from './OnboardingSurvey';
 import Dashboard from './Dashboard';
 import NutrientDetail from './NutrientDetail';
 import MyPath from './MyPath';
+import CustomizePath from './CustomizePath';
 import SelectPath from './SelectPath';
 import PathDetail from './PathDetail';
 import TermsAndConditions from './TermsAndConditions';
@@ -38,9 +40,11 @@ class App extends React.Component {
     // start loading data while splash screen is shown:
     const authSet = await this.props.dispatch(setAuth());
     if (authSet && this.props.auth.userId) {
+      const userId = this.props.auth.userId;
       // if user is already logged in, fetch logged in data
-      this.props.dispatch(fetchUser(this.props.auth.userId));
-      this.props.dispatch(fetchPaths(this.props.auth.userId));
+      this.props.dispatch(fetchUser(userId));
+      this.props.dispatch(fetchPaths(userId));
+      this.props.dispatch(fetchCustomPath(userId));
       this.props.dispatch(fetchNutrients());
       this.props.dispatch(fetchDiets());
     }
@@ -58,8 +62,10 @@ class App extends React.Component {
   componentDidUpdate = (prevProps, prevState) => {
     // if user logs in, fetch all logged in data.
     if (prevProps.auth.userId !== this.props.auth.userId) {
-      this.props.dispatch(fetchUser(this.props.auth.userId));
-      this.props.dispatch(fetchPaths(this.props.auth.userId));
+      const userId = this.props.auth.userId;
+      this.props.dispatch(fetchUser(userId));
+      this.props.dispatch(fetchPaths(userId));
+      this.props.dispatch(fetchCustomPath(userId));
       this.props.dispatch(fetchNutrients());
       this.props.dispatch(fetchDiets());
     }
@@ -91,6 +97,7 @@ class App extends React.Component {
             <Stack.Screen name="Select Path" component={SelectPath} />
             <Stack.Screen name="Path Detail" component={PathDetail} />
             <Stack.Screen name="My Path" component={MyPath} />
+            <Stack.Screen name="Customize Path" component={CustomizePath} />
             <Stack.Screen name="Progress" component={Progress} />
             <Stack.Screen name="Nutrient Detail" component={NutrientDetail} />
           </>
