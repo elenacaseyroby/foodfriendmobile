@@ -77,7 +77,6 @@ class CustomizePath extends React.Component {
     this.setState({pathName: name});
   };
   handleSubmit = async () => {
-    console.log('SUBMIT');
     const pathName = this.state.pathName;
     const nutrientIds = this.state.nutrientIds;
     const userId = this.props.user.id;
@@ -122,7 +121,7 @@ class CustomizePath extends React.Component {
               Build a nutrient path to fit your needs.
             </Text>
             <Text style={[styles.h2, styles.textboxLabel, styles.topMargin]}>
-              Define your path in a word
+              Define your path in one word
             </Text>
             <FFTextBox
               onChangeText={this.handlePathName}
