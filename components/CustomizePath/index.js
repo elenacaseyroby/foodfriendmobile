@@ -274,7 +274,7 @@ const styles = StyleSheet.create({
   submitButton: {
     position: 'absolute',
     alignSelf: 'center',
-    bottom: normalize(60),
+    bottom: normalize(130),
   },
   rectangle: {
     backgroundColor: '#FFFFFF',

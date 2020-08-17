@@ -225,7 +225,7 @@ const styles = StyleSheet.create({
   submitButton: {
     position: 'absolute',
     alignSelf: 'center',
-    bottom: normalize(60),
+    bottom: normalize(130),
   },
   blueElipse: {
     marginTop: '10%',

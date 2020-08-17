@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: undefined,
     // aspectRatio: width / height,
-    aspectRatio: 375 / 90,
+    aspectRatio: 375 / 164,
     alignItems: 'center',
   },
 });
