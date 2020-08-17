@@ -105,7 +105,7 @@ class CustomizePath extends React.Component {
     // Update user and custom path state.
     this.props.dispatch(fetchUser(userId));
     this.props.dispatch(fetchCustomPath(userId));
-    this.props.navigation.navigate('My Path');
+    this.props.navigation.navigate('Dashboard');
   };
   render() {
     const nutrients = this.props.nutrients.list;
