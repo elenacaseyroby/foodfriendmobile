@@ -16,19 +16,25 @@ import propTypes from 'prop-types';
 class NavBar extends React.Component {
   static propTypes = {
     updateActiveScreen: propTypes.func.isRequired,
+    activeScreen: propTypes.string,
   };
   state = {
-    activeScreen: 'path',
+    activeScreen: this.props.activeScreen || 'path',
   };
   updateActiveScreen = (screenName) => {
     this.setState({activeScreen: screenName});
     this.props.updateActiveScreen(screenName);
   };
+  handleClickAdd = () => {};
   render() {
     return (
       <>
         <View style={styles.navBarContainer}>
-          <TouchableOpacity style={styles.iconButton}>
+          <TouchableOpacity
+            style={styles.iconButton}
+            onPress={() => {
+              this.updateActiveScreen('path');
+            }}>
             <Image
               source={this.state.activeScreen === 'path' ? activePath : path}
               style={styles.path}
@@ -43,7 +49,11 @@ class NavBar extends React.Component {
               Path
             </Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.iconButton}>
+          <TouchableOpacity
+            style={styles.iconButton}
+            onPress={() => {
+              this.updateActiveScreen('progress');
+            }}>
             <Image
               source={
                 this.state.activeScreen === 'progress'
@@ -64,12 +74,18 @@ class NavBar extends React.Component {
           </TouchableOpacity>
           <View style={styles.addContainer}>
             <View style={styles.grayCircle}>
-              <TouchableOpacity style={styles.blueCircle}>
+              <TouchableOpacity
+                style={styles.blueCircle}
+                onPress={this.handleClickAdd}>
                 <Image source={plus} style={styles.plusIcon} />
               </TouchableOpacity>
             </View>
           </View>
-          <TouchableOpacity style={styles.iconButton}>
+          <TouchableOpacity
+            style={styles.iconButton}
+            onPress={() => {
+              this.updateActiveScreen('food');
+            }}>
             <Image
               source={this.state.activeScreen === 'food' ? activeFood : food}
               style={styles.food}
@@ -84,7 +100,11 @@ class NavBar extends React.Component {
               Food
             </Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.iconButton}>
+          <TouchableOpacity
+            style={styles.iconButton}
+            onPress={() => {
+              this.updateActiveScreen('account');
+            }}>
             <Image
               source={
                 this.state.activeScreen === 'account' ? activeAccount : account
