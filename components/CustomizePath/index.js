@@ -3,6 +3,7 @@ import {ScrollView, View, Text, Image, StyleSheet} from 'react-native';
 import {connect} from 'react-redux';
 import api from '../../services/api';
 import {fetchCustomPath} from '../../redux/actions/customPathActionCreator';
+import {fetchUser} from '../../redux/actions/userActionCreator';
 import FFStatusBar from '../common/FFStatusBar';
 import NutrientButton from '../common/NutrientButton';
 import BackArrow from '../common/BackArrow';
@@ -11,6 +12,7 @@ import BlueBottomElipse2 from '../common/BlueBottomElipse2';
 import FFNarrowButton from '../common/FFNarrowButton';
 import FFTextBox from '../forms/FFTextBox';
 import FFErrorMessage from '../forms/FFErrorMessage';
+import OfflineNotificationBanner from '../common/OfflineNoticeBanner';
 import topElipse from './custom-elipse-top.png';
 import bottomElipse from './custom-elipse-bottom.png';
 import {normalize} from '../../utils/deviceScaling';
@@ -90,16 +92,18 @@ class CustomizePath extends React.Component {
     if (nutrientIds.length < 1) {
       return this.setState({
         errorMessage:
-          'Must select at least one nutrient to submit.  Click the (+) button next to a nutrient to select it.',
+          'Must select at least one nutrient to submit.  Click the (+) button next to a nutrient to select it.  If 3 nutrients already selected, must unselect a nutrient to select a new nutrient',
       });
     }
     const pathUpdated = await api.putCustomPath(userId, pathName, nutrientIds);
     if (pathUpdated.status !== 200) {
       return this.setState({
         errorMessage:
-          'Oops! An error ocurred and we were not able to update your custom path.  Please try again.',
+          'Oops! An error ocurred and we were not able to update your custom path.  Please check your network connection and try again.',
       });
     }
+    // Update user and custom path state.
+    this.props.dispatch(fetchUser(userId));
     this.props.dispatch(fetchCustomPath(userId));
     this.props.navigation.navigate('My Path');
   };
@@ -118,13 +122,13 @@ class CustomizePath extends React.Component {
               Build a nutrient path to fit your needs.
             </Text>
             <Text style={[styles.h2, styles.textboxLabel, styles.topMargin]}>
-              Name your path
+              Define your path in a word
             </Text>
             <FFTextBox
               onChangeText={this.handlePathName}
               placeholder={
                 this.props.customPath.name ||
-                'Pick a word to define your journey.'
+                'Choose a word to describe your journey.'
               }
               maxLength={30}
               autoCapitalize="words"
@@ -142,7 +146,10 @@ class CustomizePath extends React.Component {
           {this.renderNutrients(nutrients)}
           <Image style={styles.bottomElipse} source={bottomElipse} />
           <View style={styles.errorMessage}>
-            <FFErrorMessage errorMessage={this.state.errorMessage} />
+            <FFErrorMessage
+              textStyle={styles.errorMessageText}
+              errorMessage={this.state.errorMessage}
+            />
           </View>
           <BlueBottomElipse2 style={styles.blueElipse} />
           <View style={styles.submitButton}>
@@ -155,6 +162,7 @@ class CustomizePath extends React.Component {
             />
           </View>
         </ScrollView>
+        <OfflineNotificationBanner />
       </>
     );
   }
@@ -218,7 +226,10 @@ const styles = StyleSheet.create({
   errorMessage: {
     marginTop: '5%',
     alignSelf: 'center',
-    width: normalize(320),
+    width: normalize(340),
+  },
+  errorMessageText: {
+    textAlign: 'center',
   },
   formContainer: {
     alignSelf: 'center',
