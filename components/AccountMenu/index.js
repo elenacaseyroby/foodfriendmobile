@@ -168,6 +168,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   rectangle: {
+    backgroundColor: '#ffffff',
     position: 'relative',
     height: '100%',
     flex: 1,
