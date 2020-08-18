@@ -8,7 +8,9 @@ import {
   Text,
 } from 'react-native';
 import {connect} from 'react-redux';
+import asyncStorage from '../../asyncStorage';
 import {normalize} from '../../utils/deviceScaling';
+import {setAuth} from '../../redux/actions/authActionCreator';
 import FFStatusBar from '../common/FFStatusBar';
 import MenuButton from './MenuButton';
 import plantMascot from '../../assets/images/plant-mascot-blue.png';
@@ -23,8 +25,12 @@ import terms from './assets/terms.png';
 import termsIcon from './assets/terms-icon.png';
 
 class AccountMenu extends React.Component {
-  handleSignOut = () => {};
+  handleSignOut = async () => {
+    // await asyncStorage._clearData();
+    // this.props.dispatch(setAuth());
+  };
   render() {
+    console.log(this.props.navigation);
     return (
       <>
         <FFStatusBar />
@@ -69,7 +75,7 @@ class AccountMenu extends React.Component {
                 iconStyle={styles.detailsIcon}
                 label="Privacy Policy"
                 onPress={() => {
-                  this.props.navigation.navigate('Account Details');
+                  this.props.navigation.navigate('Privacy Policy');
                 }}
               />
             </View>
@@ -80,7 +86,7 @@ class AccountMenu extends React.Component {
                 iconStyle={styles.detailsIcon}
                 label="Terms & Conditions"
                 onPress={() => {
-                  this.props.navigation.navigate('Account Details');
+                  this.props.navigation.navigate('Terms And Conditions');
                 }}
               />
             </View>

@@ -110,13 +110,13 @@ class App extends React.Component {
             <Stack.Screen name="Sign Up" component={SignUp} />
             <Stack.Screen name="Password Reset" component={PasswordReset} />
             <Stack.Screen name="Update Password" component={UpdatePassword} />
-            <Stack.Screen
-              name="Terms And Conditions"
-              component={TermsAndConditions}
-            />
-            <Stack.Screen name="Privacy Policy" component={PrivacyPolicy} />
           </>
         )}
+        <Stack.Screen
+          name="Terms And Conditions"
+          component={TermsAndConditions}
+        />
+        <Stack.Screen name="Privacy Policy" component={PrivacyPolicy} />
       </Stack.Navigator>
     );
   }

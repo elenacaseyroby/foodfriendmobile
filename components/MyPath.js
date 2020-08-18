@@ -2,8 +2,12 @@ import React from 'react';
 import Path from './Path';
 import {connect} from 'react-redux';
 import LoadingScreen from './LoadingScreen';
+import propTypes from 'prop-types';
 
 class MyPath extends React.Component {
+  static propTypes = {
+    navigation: propTypes.object,
+  };
   getUserPath = () => {
     const customPath = this.props.customPath;
     const user = this.props.user;

@@ -23,7 +23,8 @@ class Dashboard extends React.Component {
       return <MyPath navigation={this.props.navigation} />;
     if (this.state.activeScreen === 'journal')
       return <Text style={styles.test}>Add Food</Text>;
-    if (this.state.activeScreen === 'account') return <AccountMenu />;
+    if (this.state.activeScreen === 'account')
+      return <AccountMenu navigation={this.props.navigation} />;
   };
   render() {
     return (
