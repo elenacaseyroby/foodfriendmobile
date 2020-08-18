@@ -10,6 +10,7 @@ import {fetchCustomPath} from '../redux/actions/customPathActionCreator';
 import {fetchTermsAndConditions} from '../redux/actions/termsAndConditionsActionCreator';
 import {fetchPrivacyPolicy} from '../redux/actions/privacyPolicyActionCreator';
 import {setAuth} from '../redux/actions/authActionCreator';
+import AccountMenu from './AccountMenu';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
 import PasswordReset from './PasswordReset';
@@ -100,6 +101,7 @@ class App extends React.Component {
             <Stack.Screen name="Customize Path" component={CustomizePath} />
             <Stack.Screen name="Progress" component={Progress} />
             <Stack.Screen name="Nutrient Detail" component={NutrientDetail} />
+            <Stack.Screen name="Account Menu" component={AccountMenu} />
           </>
         ) : (
           <>
