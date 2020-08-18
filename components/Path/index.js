@@ -14,7 +14,7 @@ import {normalize} from '../../utils/deviceScaling';
 import {orderNutrientsByTheme} from '../../utils/nutrients';
 import topFlag from './assets/top-flag.png';
 import bottomFlag from './assets/bottom-flag.png';
-import blueElipse from '../../assets/images/bottom-elipse-blue-2.png';
+import BlueBottomElipse2 from '../common/BlueBottomElipse2';
 import PathHeader from '../common/PathHeader';
 import PathFooter from '../common/PathFooter';
 import BackArrow from '../common/BackArrow';
@@ -153,7 +153,7 @@ class Path extends React.Component {
               </TouchableOpacity>
             </View>
           </View>
-          <Image style={styles.blueElipse} source={blueElipse} />
+          <BlueBottomElipse2 />
           {this.renderBackArrow()}
         </ScrollView>
       </>
@@ -305,6 +305,7 @@ const styles = StyleSheet.create({
   selectDifferentPathContainer: {
     marginTop: '2%',
     alignItems: 'center',
+    marginBottom: '3%',
     // borderColor: '#aaaaaa',
     // borderWidth: 0.5,
   },
@@ -317,13 +318,6 @@ const styles = StyleSheet.create({
     fontSize: normalize(16),
     fontFamily: 'Cabin-Regular',
     color: '#ed762c',
-  },
-  blueElipse: {
-    marginTop: '5%',
-    width: '100%',
-    height: undefined,
-    // aspectRatio: width / height,
-    aspectRatio: 375 / 90,
   },
   rowContainer: {
     flexDirection: 'row',

@@ -78,6 +78,7 @@ class NutrientButton extends React.Component {
       }
       counter++;
     });
+    console.log(this.props.navigation);
     return (
       <View style={[styles.buttonContainer, this.props.style]}>
         <View style={styles.buttonContentContainer}>
@@ -176,6 +177,7 @@ const styles = StyleSheet.create({
     marginRight: '1.5%',
   },
   addButtonContainer: {
+    width: normalize(50),
     height: '100%',
   },
   addButton: {

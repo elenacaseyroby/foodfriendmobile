@@ -77,7 +77,6 @@ class CustomizePath extends React.Component {
     this.setState({pathName: name});
   };
   handleSubmit = async () => {
-    console.log('SUBMIT');
     const pathName = this.state.pathName;
     const nutrientIds = this.state.nutrientIds;
     const userId = this.props.user.id;
@@ -105,7 +104,7 @@ class CustomizePath extends React.Component {
     // Update user and custom path state.
     this.props.dispatch(fetchUser(userId));
     this.props.dispatch(fetchCustomPath(userId));
-    this.props.navigation.navigate('My Path');
+    this.props.navigation.navigate('Dashboard');
   };
   render() {
     const nutrients = this.props.nutrients.list;
@@ -122,7 +121,7 @@ class CustomizePath extends React.Component {
               Build a nutrient path to fit your needs.
             </Text>
             <Text style={[styles.h2, styles.textboxLabel, styles.topMargin]}>
-              Define your path in a word
+              Define your path in one word
             </Text>
             <FFTextBox
               onChangeText={this.handlePathName}
@@ -274,7 +273,7 @@ const styles = StyleSheet.create({
   submitButton: {
     position: 'absolute',
     alignSelf: 'center',
-    bottom: normalize(60),
+    bottom: normalize(130),
   },
   rectangle: {
     backgroundColor: '#FFFFFF',
