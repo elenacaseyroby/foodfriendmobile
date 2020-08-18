@@ -27,6 +27,7 @@ class CustomizePath extends React.Component {
     nutrientIds: [],
   };
   componentDidMount = () => {
+    if (!customPath) return;
     const {customPath} = this.props;
     if (customPath) {
       const nutrientIds = customPath.nutrients.map((nutrient) => {
