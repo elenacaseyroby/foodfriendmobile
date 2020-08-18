@@ -26,8 +26,8 @@ import termsIcon from './assets/terms-icon.png';
 
 class AccountMenu extends React.Component {
   handleSignOut = async () => {
-    // await asyncStorage._clearData();
-    // this.props.dispatch(setAuth());
+    await asyncStorage._clearData();
+    this.props.dispatch(setAuth());
   };
   render() {
     console.log(this.props.navigation);
