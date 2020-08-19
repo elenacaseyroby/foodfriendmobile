@@ -11,6 +11,7 @@ import {fetchTermsAndConditions} from '../redux/actions/termsAndConditionsAction
 import {fetchPrivacyPolicy} from '../redux/actions/privacyPolicyActionCreator';
 import {setAuth} from '../redux/actions/authActionCreator';
 import AccountMenu from './AccountMenu';
+import AccountDetails from './AccountDetails';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
 import PasswordReset from './PasswordReset';
@@ -102,6 +103,7 @@ class App extends React.Component {
             <Stack.Screen name="Progress" component={Progress} />
             <Stack.Screen name="Nutrient Detail" component={NutrientDetail} />
             <Stack.Screen name="Account Menu" component={AccountMenu} />
+            <Stack.Screen name="Account Details" component={AccountDetails} />
           </>
         ) : (
           <>
