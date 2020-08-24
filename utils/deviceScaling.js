@@ -40,6 +40,13 @@ export const getIosStatusBarHeight = () => {
   return 20;
 };
 
+export const getIosSwipeBarHeight = () => {
+  if (Platform.OS !== 'ios') return 0;
+  if (Platform.isPad) return 5;
+  if (isIPhoneX()) return 15;
+  return 0;
+};
+
 export const statusBarHeight = Platform.select({
   ios: getIosStatusBarHeight(),
   android: StatusBar.currentHeight,

@@ -1,6 +1,6 @@
 import React from 'react';
 import {Text, Image, View, TouchableOpacity, StyleSheet} from 'react-native';
-import {normalize} from '../../../utils/deviceScaling';
+import {normalize, getIosSwipeBarHeight} from '../../../utils/deviceScaling';
 import activePath from './assets/path-icon-active.png';
 import activeProgress from './assets/progress-icon-active.png';
 import activeFood from './assets/food-icon-active.png';
@@ -31,102 +31,108 @@ class NavBar extends React.Component {
     return (
       <>
         <View style={styles.navBarContainer}>
-          <TouchableOpacity
-            style={styles.iconButton}
-            onPress={() => {
-              this.props.updateActiveScreen('path');
-            }}>
-            <Image
-              source={this.props.activeScreen === 'path' ? activePath : path}
-              style={styles.path}
-            />
-            <Text
-              style={[
-                styles.text,
-                this.props.activeScreen === 'path'
-                  ? styles.activeText
-                  : styles.passiveText,
-              ]}>
-              Path
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.iconButton}
-            onPress={() => {
-              this.props.updateActiveScreen('progress');
-            }}>
-            <Image
-              source={
-                this.props.activeScreen === 'progress'
-                  ? activeProgress
-                  : progress
-              }
-              style={styles.progress}
-            />
-            <Text
-              style={[
-                styles.text,
-                this.props.activeScreen === 'progress'
-                  ? styles.activeText
-                  : styles.passiveText,
-              ]}>
-              Progress
-            </Text>
-          </TouchableOpacity>
-          <View style={styles.addContainer}>
-            <View style={styles.grayCircle}>
-              <TouchableOpacity
-                style={styles.blueCircle}
-                onPress={this.handleClickAdd}>
-                <Image source={plus} style={styles.plusIcon} />
-              </TouchableOpacity>
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity
+              style={styles.iconButton}
+              onPress={() => {
+                this.props.updateActiveScreen('path');
+              }}>
+              <Image
+                source={this.props.activeScreen === 'path' ? activePath : path}
+                style={styles.path}
+              />
+              <Text
+                style={[
+                  styles.text,
+                  this.props.activeScreen === 'path'
+                    ? styles.activeText
+                    : styles.passiveText,
+                ]}>
+                Path
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.iconButton}
+              onPress={() => {
+                this.props.updateActiveScreen('progress');
+              }}>
+              <Image
+                source={
+                  this.props.activeScreen === 'progress'
+                    ? activeProgress
+                    : progress
+                }
+                style={styles.progress}
+              />
+              <Text
+                style={[
+                  styles.text,
+                  this.props.activeScreen === 'progress'
+                    ? styles.activeText
+                    : styles.passiveText,
+                ]}>
+                Progress
+              </Text>
+            </TouchableOpacity>
+            <View style={styles.addContainer}>
+              <View style={styles.grayCircle}>
+                <TouchableOpacity
+                  style={styles.blueCircle}
+                  onPress={this.handleClickAdd}>
+                  <Image source={plus} style={styles.plusIcon} />
+                </TouchableOpacity>
+              </View>
             </View>
+            <TouchableOpacity
+              style={styles.iconButton}
+              onPress={() => {
+                this.props.updateActiveScreen('food');
+              }}>
+              <Image
+                source={this.props.activeScreen === 'food' ? activeFood : food}
+                style={styles.food}
+              />
+              <Text
+                style={[
+                  styles.text,
+                  this.props.activeScreen === 'food'
+                    ? styles.activeText
+                    : styles.passiveText,
+                ]}>
+                Food
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.iconButton}
+              onPress={() => {
+                this.props.updateActiveScreen('account');
+              }}>
+              <Image
+                source={
+                  this.props.activeScreen === 'account'
+                    ? activeAccount
+                    : account
+                }
+                style={styles.account}
+              />
+              <Text
+                style={[
+                  styles.text,
+                  this.props.activeScreen === 'account'
+                    ? styles.activeText
+                    : styles.passiveText,
+                ]}>
+                Account
+              </Text>
+            </TouchableOpacity>
           </View>
-          <TouchableOpacity
-            style={styles.iconButton}
-            onPress={() => {
-              this.props.updateActiveScreen('food');
-            }}>
-            <Image
-              source={this.props.activeScreen === 'food' ? activeFood : food}
-              style={styles.food}
-            />
-            <Text
-              style={[
-                styles.text,
-                this.props.activeScreen === 'food'
-                  ? styles.activeText
-                  : styles.passiveText,
-              ]}>
-              Food
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.iconButton}
-            onPress={() => {
-              this.props.updateActiveScreen('account');
-            }}>
-            <Image
-              source={
-                this.props.activeScreen === 'account' ? activeAccount : account
-              }
-              style={styles.account}
-            />
-            <Text
-              style={[
-                styles.text,
-                this.props.activeScreen === 'account'
-                  ? styles.activeText
-                  : styles.passiveText,
-              ]}>
-              Account
-            </Text>
-          </TouchableOpacity>
+          <View style={styles.swipeBarPlaceholder} />
         </View>
       </>
     );
   }
 }
+
 const styles = StyleSheet.create({
   iconButton: {
     height: normalize(45),
@@ -134,8 +140,6 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'space-between',
     width: normalize(50),
-    // borderWidth: 0.5,
-    // borderColor: 'blue',
   },
   activeText: {
     color: '#5f7ec6',
@@ -211,16 +215,21 @@ const styles = StyleSheet.create({
     // aspectRatio: width / height,
     aspectRatio: 1 / 1,
   },
-
-  navBarContainer: {
+  swipeBarPlaceholder: {
+    width: '100%',
+    height: getIosSwipeBarHeight(),
+  },
+  buttonContainer: {
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-evenly',
     width: '100%',
     height: normalize(65),
-    backgroundColor: '#ffffff',
+  },
+  navBarContainer: {
     position: 'absolute',
     bottom: 0,
+    backgroundColor: '#ffffff',
     borderColor: '#e4e2e2',
     borderWidth: normalize(1),
   },
