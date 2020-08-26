@@ -30,7 +30,6 @@ class AccountMenu extends React.Component {
     this.props.dispatch(setAuth());
   };
   render() {
-    console.log(this.props.navigation);
     return (
       <>
         <FFStatusBar />
