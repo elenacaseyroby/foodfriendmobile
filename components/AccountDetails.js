@@ -7,7 +7,6 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {connect} from 'react-redux';
-import {setAuth} from '../redux/actions/authActionCreator';
 import {
   validateEmail,
   validatePassword,
@@ -53,13 +52,14 @@ class AccountDetails extends React.Component {
     this.setState({lastName: lastName});
   };
   handleSubmit = async () => {
+    const {user} = this.props;
     let body = {};
     let errorMessage;
     this.setState({errorMessage: null});
     // If feild exists, validate and add to body.
     if (this.state.firstName) {
       errorMessage = validateName(this.state.firstName);
-      if (!errorMessage) {
+      if (!errorMessage && this.state.firstName !== user.firstName) {
         body.firstName = this.state.firstName;
       } else {
         this.setState({errorMessage: errorMessage});
@@ -67,7 +67,7 @@ class AccountDetails extends React.Component {
     }
     if (this.state.lastName) {
       errorMessage = validateName(this.state.lastName);
-      if (!errorMessage) {
+      if (!errorMessage && this.state.lastName !== user.lastName) {
         body.lastName = this.state.lastName;
       } else if (!this.state.errorMessage) {
         this.setState({errorMessage: errorMessage});
@@ -75,22 +75,22 @@ class AccountDetails extends React.Component {
     }
     if (this.state.email) {
       errorMessage = validateEmail(this.state.email);
-      if (!errorMessage) {
+      if (!errorMessage && this.state.email !== user.email) {
         body.email = this.state.email;
       } else if (!this.state.errorMessage) {
         this.setState({errorMessage: errorMessage});
       }
     }
     if (this.state.password) {
-      errorMessage = validateEmail(this.state.password);
+      errorMessage = validatePassword(this.state.password);
       if (!errorMessage) {
         body.password = this.state.password;
       } else if (!this.state.errorMessage) {
         this.setState({errorMessage: errorMessage});
       }
     }
-    // If error with a form field, do not update user.
-    if (errorMessage) return;
+    // If error with a form field or there is nothing to change, do not update user.
+    if (errorMessage || !body) return;
     // Send body in http request to update user.
     const update = await api.putUser(this.state.user.id, body);
     errorMessage = getUserUpdateError(update);
@@ -172,7 +172,6 @@ class AccountDetails extends React.Component {
           {this.state.password ? (
             <FFPasswordBox onChangeText={this.handlePassword} />
           ) : (
-            // password placeholder must be less than 6 characters or it could get saved accidentally
             this.renderStaticFormField('password', '*****')
           )}
           <FFErrorMessage errorMessage={this.state.errorMessage} />
