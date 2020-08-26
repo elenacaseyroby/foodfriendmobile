@@ -53,11 +53,10 @@ class AccountDetails extends React.Component {
     this.setState({lastName: lastName});
   };
   handleSubmit = async () => {
-    // Validate fields.
     let body = {};
     let errorMessage;
     this.setState({errorMessage: null});
-    // if feild exists, validate and add to body.
+    // If feild exists, validate and add to body.
     if (this.state.firstName) {
       errorMessage = validateName(this.state.firstName);
       if (!errorMessage) {
@@ -95,11 +94,11 @@ class AccountDetails extends React.Component {
     // Send body in http request to update user.
     const update = await api.putUser(this.state.user.id, body);
     errorMessage = getUserUpdateError(update);
-    // if error on update, display error message.
+    // If error on update, display error message.
     if (errorMessage) {
       return this.setState({errorMessage: errorMessage});
     } else {
-      // otherwise reset state.
+      // Otherwise reset state.
       this.resetState();
     }
   };
@@ -124,12 +123,12 @@ class AccountDetails extends React.Component {
         {/* CASEY: add styles to make this a row and style edit button */}
 
         <View style={styles.textAndEditContainer}>
-          <Text style={styles.formText}>{value}</Text>
+          <Text style={styles.staticFormText}>{value}</Text>
           <TouchableOpacity onPress={() => this.handleEdit(fieldName, value)}>
-            <Text style={styles.editText}>Edit</Text>
+            <Text style={styles.editText}>EDIT</Text>
           </TouchableOpacity>
         </View>
-        <View style={styles.formBox} />
+        <View style={styles.staticFormBox} />
       </>
     );
   }
@@ -173,7 +172,8 @@ class AccountDetails extends React.Component {
           {this.state.password ? (
             <FFPasswordBox onChangeText={this.handlePassword} />
           ) : (
-            this.renderStaticFormField('password', '***')
+            // password placeholder must be less than 6 characters or it could get saved accidentally
+            this.renderStaticFormField('password', '*****')
           )}
           <FFErrorMessage errorMessage={this.state.errorMessage} />
           <View style={styles.submitButton}>
@@ -225,18 +225,29 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   staticFormText: {
-    marginTop: '5%',
-    marginBottom: '3%',
     fontSize: normalize(16),
     fontFamily: 'Cabin-Regular',
     color: '#aaaaaa',
-    width: normalize(310),
+    width: normalize(275),
   },
   staticFormBox: {
+    marginTop: '3%',
     marginBottom: '5%',
     borderBottomWidth: normalize(0.5),
     color: '#aaaaaa',
     width: normalize(310),
+  },
+  textAndEditContainer: {
+    height: normalize(40),
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+  },
+  editText: {
+    color: '#5f7ec6',
+    fontFamily: 'Cabin-Regular',
+    fontSize: normalize(14),
+    // borderColor: '#000000',
+    // borderWidth: 1.0,
   },
 });
 
