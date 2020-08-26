@@ -3,9 +3,8 @@ import {
   ScrollView,
   View,
   Text,
-  Image,
-  TouchableOpacity,
   StyleSheet,
+  TouchableOpacity,
 } from 'react-native';
 import {connect} from 'react-redux';
 import {setAuth} from '../redux/actions/authActionCreator';
@@ -14,7 +13,7 @@ import {
   validatePassword,
   validateName,
 } from '../utils/formValidation';
-import {getSignUpError, storeAsyncLoginData} from '../utils/auth';
+import {getUserUpdateError} from '../utils/auth';
 import {normalize} from '../utils/deviceScaling';
 import BackArrow from './common/BackArrow';
 import FFEmailTextBox from './forms/FFEmailTextBox';
@@ -23,7 +22,7 @@ import FFPasswordBox from './forms/FFPasswordBox';
 import FFErrorMessage from './forms/FFErrorMessage';
 import FFNarrowButton from './common/FFNarrowButton';
 import FFStatusBar from './common/FFStatusBar';
-import auth from '../services/auth';
+import api from '../services/api';
 
 class AccountDetails extends React.Component {
   state = {
@@ -31,7 +30,15 @@ class AccountDetails extends React.Component {
     password: null,
     firstName: null,
     lastName: null,
-    errorMessage: null,
+  };
+  resetState = () => {
+    this.setState({
+      errorMessage: null,
+      firstName: false,
+      lastName: false,
+      email: false,
+      password: false,
+    });
   };
   handleEmail = (email) => {
     this.setState({email: email});
@@ -47,34 +54,87 @@ class AccountDetails extends React.Component {
   };
   handleSubmit = async () => {
     // Validate fields.
-    let errorMessage = validateName(this.state.firstName);
-    errorMessage = errorMessage || validateName(this.state.lastName);
-    errorMessage = errorMessage || validateEmail(this.state.email);
-    errorMessage = errorMessage || validatePassword(this.state.password);
+    let body = {};
+    let errorMessage;
+    this.setState({errorMessage: null});
+    // if feild exists, validate and add to body.
+    if (this.state.firstName) {
+      errorMessage = validateName(this.state.firstName);
+      if (!errorMessage) {
+        body.firstName = this.state.firstName;
+      } else {
+        this.setState({errorMessage: errorMessage});
+      }
+    }
+    if (this.state.lastName) {
+      errorMessage = validateName(this.state.lastName);
+      if (!errorMessage) {
+        body.lastName = this.state.lastName;
+      } else if (!this.state.errorMessage) {
+        this.setState({errorMessage: errorMessage});
+      }
+    }
+    if (this.state.email) {
+      errorMessage = validateEmail(this.state.email);
+      if (!errorMessage) {
+        body.email = this.state.email;
+      } else if (!this.state.errorMessage) {
+        this.setState({errorMessage: errorMessage});
+      }
+    }
+    if (this.state.password) {
+      errorMessage = validateEmail(this.state.password);
+      if (!errorMessage) {
+        body.password = this.state.password;
+      } else if (!this.state.errorMessage) {
+        this.setState({errorMessage: errorMessage});
+      }
+    }
+    // If error with a form field, do not update user.
+    if (errorMessage) return;
+    // Send body in http request to update user.
+    const update = await api.putUser(this.state.user.id, body);
+    errorMessage = getUserUpdateError(update);
+    // if error on update, display error message.
     if (errorMessage) {
       return this.setState({errorMessage: errorMessage});
+    } else {
+      // otherwise reset state.
+      this.resetState();
     }
-    const signUp = await auth.signUp(
-      this.state.email,
-      this.state.password,
-      this.state.firstName,
-      this.state.lastName,
-    );
-    errorMessage = getSignUpError(signUp);
-    if (errorMessage) {
-      return this.setState({errorMessage: errorMessage});
-    }
-    const result = await storeAsyncLoginData(
-      signUp.response.userId,
-      signUp.response.accessToken,
-    );
-    if (result !== 'success') {
-      return this.setState({errorMessage: result});
-    }
-    // sign in user
-    this.props.dispatch(setAuth());
   };
+  handleEdit = (fieldName, value) => {
+    if (fieldName === 'firstName') {
+      return this.setState({firstName: value});
+    }
+    if (fieldName === 'lastName') {
+      return this.setState({lastName: value});
+    }
+    if (fieldName === 'email') {
+      return this.setState({email: value});
+    }
+    if (fieldName === 'password') {
+      return this.setState({password: value});
+    }
+  };
+  renderStaticFormField(fieldName, value) {
+    console.log('static');
+    return (
+      <>
+        {/* CASEY: add styles to make this a row and style edit button */}
+
+        <View style={styles.textAndEditContainer}>
+          <Text style={styles.formText}>{value}</Text>
+          <TouchableOpacity onPress={() => this.handleEdit(fieldName, value)}>
+            <Text style={styles.editText}>Edit</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.formBox} />
+      </>
+    );
+  }
   render() {
+    const {user} = this.props;
     return (
       <View style={styles.rectangle}>
         <FFStatusBar />
@@ -86,20 +146,35 @@ class AccountDetails extends React.Component {
               onPress={() => this.props.navigation.pop()}
             />
           </View>
-
-          <FFNameTextBox
-            placeholder={this.props.user.firstName}
-            onChangeText={this.handleFirstName}
-          />
-          <FFNameTextBox
-            placeholder={this.props.user.lastName}
-            onChangeText={this.handleLastName}
-          />
-          <FFEmailTextBox
-            placeholder={this.props.user.email}
-            onChangeText={this.handleEmail}
-          />
-          <FFPasswordBox onChangeText={this.handlePassword} />
+          {this.state.firstName ? (
+            <FFNameTextBox
+              placeholder={user.firstName}
+              onChangeText={this.handleFirstName}
+            />
+          ) : (
+            this.renderStaticFormField('firstName', user.firstName)
+          )}
+          {this.state.lastName ? (
+            <FFNameTextBox
+              placeholder={this.props.user.lastName}
+              onChangeText={this.handleLastName}
+            />
+          ) : (
+            this.renderStaticFormField('lastName', user.lastName)
+          )}
+          {this.state.email ? (
+            <FFEmailTextBox
+              placeholder={this.props.user.email}
+              onChangeText={this.handleEmail}
+            />
+          ) : (
+            this.renderStaticFormField('email', user.email)
+          )}
+          {this.state.password ? (
+            <FFPasswordBox onChangeText={this.handlePassword} />
+          ) : (
+            this.renderStaticFormField('password', '***')
+          )}
           <FFErrorMessage errorMessage={this.state.errorMessage} />
           <View style={styles.submitButton}>
             <FFNarrowButton label="Save" onClick={this.handleSubmit} />
@@ -148,6 +223,20 @@ const styles = StyleSheet.create({
   rectangle: {
     backgroundColor: '#ffffff',
     flex: 1,
+  },
+  staticFormText: {
+    marginTop: '5%',
+    marginBottom: '3%',
+    fontSize: normalize(16),
+    fontFamily: 'Cabin-Regular',
+    color: '#aaaaaa',
+    width: normalize(310),
+  },
+  staticFormBox: {
+    marginBottom: '5%',
+    borderBottomWidth: normalize(0.5),
+    color: '#aaaaaa',
+    width: normalize(310),
   },
 });
 
