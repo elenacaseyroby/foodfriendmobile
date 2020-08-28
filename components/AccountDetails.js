@@ -14,6 +14,7 @@ import {
 } from '../utils/formValidation';
 import {getUserUpdateError} from '../utils/auth';
 import {normalize} from '../utils/deviceScaling';
+import {fetchUser} from '../redux/actions/userActionCreator';
 import BackArrow from './common/BackArrow';
 import FFEmailTextBox from './forms/FFEmailTextBox';
 import FFNameTextBox from './forms/FFNameTextBox';
@@ -21,6 +22,7 @@ import FFPasswordBox from './forms/FFPasswordBox';
 import FFErrorMessage from './forms/FFErrorMessage';
 import FFNarrowButton from './common/FFNarrowButton';
 import FFStatusBar from './common/FFStatusBar';
+import FFSelectButtons from './forms/FFSelectButtons';
 import api from '../services/api';
 
 class AccountDetails extends React.Component {
@@ -29,6 +31,7 @@ class AccountDetails extends React.Component {
     password: null,
     firstName: null,
     lastName: null,
+    diets: [],
   };
   resetState = () => {
     this.setState({
@@ -38,6 +41,9 @@ class AccountDetails extends React.Component {
       email: false,
       password: false,
     });
+  };
+  handleDiets = (selectedDiets) => {
+    this.setState({diets: selectedDiets});
   };
   handleEmail = (email) => {
     this.setState({email: email});
@@ -92,7 +98,7 @@ class AccountDetails extends React.Component {
     // If error with a form field or there is nothing to change, do not update user.
     if (errorMessage || !body) return;
     // Send body in http request to update user.
-    const update = await api.putUser(this.state.user.id, body);
+    const update = await api.putUser(user.id, body);
     errorMessage = getUserUpdateError(update);
     // If error on update, display error message.
     if (errorMessage) {
@@ -101,6 +107,8 @@ class AccountDetails extends React.Component {
       // Otherwise reset state.
       this.resetState();
     }
+    // Update user state.
+    this.props.dispatch(fetchUser(user.id));
   };
   handleEdit = (fieldName, value) => {
     if (fieldName === 'firstName') {
@@ -117,7 +125,6 @@ class AccountDetails extends React.Component {
     }
   };
   renderStaticFormField(fieldName, value) {
-    console.log('static');
     return (
       <>
         {/* CASEY: add styles to make this a row and style edit button */}
@@ -134,6 +141,12 @@ class AccountDetails extends React.Component {
   }
   render() {
     const {user} = this.props;
+    let diets = [];
+    if (this.props.diets.list) {
+      this.props.diets.list.map((diet) => {
+        diets.push({id: JSON.stringify(diet.id), value: diet.name});
+      });
+    }
     return (
       <View style={styles.rectangle}>
         <FFStatusBar />
@@ -173,6 +186,16 @@ class AccountDetails extends React.Component {
             <FFPasswordBox onChangeText={this.handlePassword} />
           ) : (
             this.renderStaticFormField('password', '*****')
+          )}
+          {diets.length > 0 ? (
+            <FFSelectButtons
+              label="Dietary Restrictions"
+              instructions="Update your selections"
+              items={diets}
+              onChange={this.handleDiets}
+            />
+          ) : (
+            <></>
           )}
           <FFErrorMessage errorMessage={this.state.errorMessage} />
           <View style={styles.buttonContainer}>
@@ -277,6 +300,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => ({
   user: state.user,
+  diets: state.diets,
 });
 
 export default connect(mapStateToProps)(AccountDetails);
