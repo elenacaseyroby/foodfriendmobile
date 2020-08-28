@@ -175,8 +175,18 @@ class AccountDetails extends React.Component {
             this.renderStaticFormField('password', '*****')
           )}
           <FFErrorMessage errorMessage={this.state.errorMessage} />
-          <View style={styles.submitButton}>
-            <FFNarrowButton label="Save" onClick={this.handleSubmit} />
+          <View style={styles.buttonContainer}>
+            <View style={styles.cancelButton}>
+              <FFNarrowButton
+                textColor={styles.cancelTextColor}
+                backgroundColor={styles.cancelBackgroundColor}
+                label="Cancel"
+                onClick={this.resetState}
+              />
+            </View>
+            <View style={styles.submitButton}>
+              <FFNarrowButton label="Save" onClick={this.handleSubmit} />
+            </View>
           </View>
         </ScrollView>
       </View>
@@ -209,10 +219,6 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     position: 'absolute',
     marginLeft: normalize(4),
-  },
-  submitButton: {
-    alignSelf: 'center',
-    marginBottom: '3%',
   },
   content: {
     width: normalize(310),
@@ -247,6 +253,25 @@ const styles = StyleSheet.create({
     fontSize: normalize(14),
     // borderColor: '#000000',
     // borderWidth: 1.0,
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  submitButton: {
+    marginLeft: '4%',
+  },
+  cancelText: {
+    fontSize: normalize(14),
+    fontFamily: 'Cabin-Regular',
+    color: '#ed762c',
+    alignSelf: 'center',
+  },
+  cancelBackgroundColor: {
+    backgroundColor: '#ffffff',
+  },
+  cancelTextColor: {
+    color: '#719e3d',
   },
 });
 
