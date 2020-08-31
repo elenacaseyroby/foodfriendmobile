@@ -23,6 +23,7 @@ import FFErrorMessage from './forms/FFErrorMessage';
 import FFNarrowButton from './common/FFNarrowButton';
 import FFStatusBar from './common/FFStatusBar';
 import FFSelectButtons from './forms/FFSelectButtons';
+import Elipse from './common/BlueBottomElipse';
 import api from '../services/api';
 
 class AccountDetails extends React.Component {
@@ -150,54 +151,57 @@ class AccountDetails extends React.Component {
     return (
       <View style={styles.rectangle}>
         <FFStatusBar />
-        <ScrollView style={styles.content}>
-          <View style={styles.header}>
-            <Text style={styles.headerText}>Account Details</Text>
-            <BackArrow
-              style={styles.backArrow}
-              onPress={() => this.props.navigation.pop()}
-            />
+        <ScrollView style={styles.scroll}>
+          <View style={styles.content}>
+            <View style={styles.header}>
+              <Text style={styles.headerText}>Account Details</Text>
+              <BackArrow
+                style={styles.backArrow}
+                onPress={() => this.props.navigation.pop()}
+              />
+            </View>
+            {this.state.firstName ? (
+              <FFNameTextBox
+                placeholder={user.firstName}
+                onChangeText={this.handleFirstName}
+              />
+            ) : (
+              this.renderStaticFormField('firstName', user.firstName)
+            )}
+            {this.state.lastName ? (
+              <FFNameTextBox
+                placeholder={this.props.user.lastName}
+                onChangeText={this.handleLastName}
+              />
+            ) : (
+              this.renderStaticFormField('lastName', user.lastName)
+            )}
+            {this.state.email ? (
+              <FFEmailTextBox
+                placeholder={this.props.user.email}
+                onChangeText={this.handleEmail}
+              />
+            ) : (
+              this.renderStaticFormField('email', user.email)
+            )}
+            {this.state.password ? (
+              <FFPasswordBox onChangeText={this.handlePassword} />
+            ) : (
+              this.renderStaticFormField('password', '*****')
+            )}
+            {diets.length > 0 ? (
+              <FFSelectButtons
+                label="Dietary Restrictions"
+                instructions="Update your selections"
+                items={diets}
+                onChange={this.handleDiets}
+              />
+            ) : (
+              <></>
+            )}
+            <FFErrorMessage errorMessage={this.state.errorMessage} />
           </View>
-          {this.state.firstName ? (
-            <FFNameTextBox
-              placeholder={user.firstName}
-              onChangeText={this.handleFirstName}
-            />
-          ) : (
-            this.renderStaticFormField('firstName', user.firstName)
-          )}
-          {this.state.lastName ? (
-            <FFNameTextBox
-              placeholder={this.props.user.lastName}
-              onChangeText={this.handleLastName}
-            />
-          ) : (
-            this.renderStaticFormField('lastName', user.lastName)
-          )}
-          {this.state.email ? (
-            <FFEmailTextBox
-              placeholder={this.props.user.email}
-              onChangeText={this.handleEmail}
-            />
-          ) : (
-            this.renderStaticFormField('email', user.email)
-          )}
-          {this.state.password ? (
-            <FFPasswordBox onChangeText={this.handlePassword} />
-          ) : (
-            this.renderStaticFormField('password', '*****')
-          )}
-          {diets.length > 0 ? (
-            <FFSelectButtons
-              label="Dietary Restrictions"
-              instructions="Update your selections"
-              items={diets}
-              onChange={this.handleDiets}
-            />
-          ) : (
-            <></>
-          )}
-          <FFErrorMessage errorMessage={this.state.errorMessage} />
+
           <View style={styles.buttonContainer}>
             <View style={styles.cancelButton}>
               <FFNarrowButton
@@ -211,6 +215,7 @@ class AccountDetails extends React.Component {
               <FFNarrowButton label="Save" onClick={this.handleSubmit} />
             </View>
           </View>
+          <Elipse style={styles.elipse} />
         </ScrollView>
       </View>
     );
@@ -220,6 +225,7 @@ class AccountDetails extends React.Component {
 const styles = StyleSheet.create({
   header: {
     marginTop: '5%',
+    marginBottom: '2%',
     width: normalize(310),
     height: normalize(40),
     alignSelf: 'center',
@@ -232,7 +238,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     textAlign: 'center',
     fontFamily: 'Cabin-Medium',
-    fontSize: normalize(18),
+    fontSize: normalize(25),
     color: '#555555',
     // borderColor: '#000000',
     // borderWidth: 1.0,
@@ -245,8 +251,11 @@ const styles = StyleSheet.create({
   },
   content: {
     width: normalize(310),
-    height: normalize(540),
+
     alignSelf: 'center',
+  },
+  scroll: {
+    height: normalize(600),
   },
   rectangle: {
     backgroundColor: '#ffffff',
@@ -295,6 +304,9 @@ const styles = StyleSheet.create({
   },
   cancelTextColor: {
     color: '#719e3d',
+  },
+  elipse: {
+    marginTop: '7%',
   },
 });
 
