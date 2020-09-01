@@ -26,6 +26,8 @@ class FFRadioButton extends React.Component {
       value = false;
     }
     // Only pass 'yes' or 'no' answers back to the onChange function.
+    // Value is passed back as a boolean.
+    // 'none' (or "prefer not to answer") is treated the same as not selecting a response.
     this.props.onChange(value);
   };
   renderOptOut() {
