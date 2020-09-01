@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  ScrollView,
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-} from 'react-native';
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import {connect} from 'react-redux';
 import {
   validateEmail,
@@ -15,6 +9,7 @@ import {
 import {getUserUpdateError} from '../utils/auth';
 import {normalize} from '../utils/deviceScaling';
 import {fetchUser} from '../redux/actions/userActionCreator';
+import {fetchPaths} from '../redux/actions/pathsActionCreator';
 import BackArrow from './common/BackArrow';
 import FFEmailTextBox from './forms/FFEmailTextBox';
 import FFNameTextBox from './forms/FFNameTextBox';
@@ -22,7 +17,7 @@ import FFPasswordBox from './forms/FFPasswordBox';
 import FFErrorMessage from './forms/FFErrorMessage';
 import FFNarrowButton from './common/FFNarrowButton';
 import FFStatusBar from './common/FFStatusBar';
-import FFSelectButtons from './forms/FFSelectButtons';
+import FFRadioButtons from './forms/FFRadioButtons';
 import Elipse from './common/BlueBottomElipse';
 import api from '../services/api';
 
@@ -32,19 +27,20 @@ class AccountDetails extends React.Component {
     password: null,
     firstName: null,
     lastName: null,
-    diets: [],
+    isVegan: this.props.user.isVegan,
   };
   resetState = () => {
+    console.log('reset!');
+    console.log(this.state.isVegan);
+    console.log(this.props.user.isVegan);
     this.setState({
       errorMessage: null,
       firstName: false,
       lastName: false,
       email: false,
       password: false,
+      isVegan: this.props.user.isVegan,
     });
-  };
-  handleDiets = (selectedDiets) => {
-    this.setState({diets: selectedDiets});
   };
   handleEmail = (email) => {
     this.setState({email: email});
@@ -60,6 +56,7 @@ class AccountDetails extends React.Component {
   };
   handleSubmit = async () => {
     const {user} = this.props;
+    const isVeganUpdated = this.state.isVegan !== user.isVegan;
     let body = {};
     let errorMessage;
     this.setState({errorMessage: null});
@@ -96,6 +93,9 @@ class AccountDetails extends React.Component {
         this.setState({errorMessage: errorMessage});
       }
     }
+    if (isVeganUpdated) {
+      body.isVegan = this.state.isVegan;
+    }
     // If error with a form field or there is nothing to change, do not update user.
     if (errorMessage || !body) return;
     // Send body in http request to update user.
@@ -108,8 +108,14 @@ class AccountDetails extends React.Component {
       // Otherwise reset state.
       this.resetState();
     }
-    // Update user state.
+
+    // Update user and state.
     this.props.dispatch(fetchUser(user.id));
+    // Since user properties like isVegan and menstruates
+    // are used to determine the user's path and the list
+    // of paths they can choose from, we must also update
+    // the list of paths they can choose from.
+    this.props.dispatch(fetchPaths(user.id));
   };
   handleEdit = (fieldName, value) => {
     if (fieldName === 'firstName') {
@@ -125,11 +131,12 @@ class AccountDetails extends React.Component {
       return this.setState({password: value});
     }
   };
+  handleIsVegan = (isVegan) => {
+    this.setState({isVegan: isVegan});
+  };
   renderStaticFormField(fieldName, value) {
     return (
       <>
-        {/* CASEY: add styles to make this a row and style edit button */}
-
         <View style={styles.textAndEditContainer}>
           <Text style={styles.staticFormText}>{value}</Text>
           <TouchableOpacity onPress={() => this.handleEdit(fieldName, value)}>
@@ -142,81 +149,60 @@ class AccountDetails extends React.Component {
   }
   render() {
     const {user} = this.props;
-    let diets = [];
-    if (this.props.diets.list) {
-      this.props.diets.list.map((diet) => {
-        diets.push({id: JSON.stringify(diet.id), value: diet.name});
-      });
-    }
+    console.log(JSON.stringify(user));
+    const veganSelectedValue = this.state.isVegan ? 'yes' : 'no';
     return (
       <View style={styles.rectangle}>
         <FFStatusBar />
-        <ScrollView style={styles.scroll}>
-          <View style={styles.content}>
-            <View style={styles.header}>
-              <Text style={styles.headerText}>Account Details</Text>
-              <BackArrow
-                style={styles.backArrow}
-                onPress={() => this.props.navigation.pop()}
-              />
-            </View>
-            {this.state.firstName ? (
-              <FFNameTextBox
-                placeholder={user.firstName}
-                onChangeText={this.handleFirstName}
-              />
-            ) : (
-              this.renderStaticFormField('firstName', user.firstName)
-            )}
-            {this.state.lastName ? (
-              <FFNameTextBox
-                placeholder={this.props.user.lastName}
-                onChangeText={this.handleLastName}
-              />
-            ) : (
-              this.renderStaticFormField('lastName', user.lastName)
-            )}
-            {this.state.email ? (
-              <FFEmailTextBox
-                placeholder={this.props.user.email}
-                onChangeText={this.handleEmail}
-              />
-            ) : (
-              this.renderStaticFormField('email', user.email)
-            )}
-            {this.state.password ? (
-              <FFPasswordBox onChangeText={this.handlePassword} />
-            ) : (
-              this.renderStaticFormField('password', '*****')
-            )}
-            {diets.length > 0 ? (
-              <FFSelectButtons
-                label="Dietary Restrictions"
-                instructions="Update your selections"
-                items={diets}
-                onChange={this.handleDiets}
-              />
-            ) : (
-              <></>
-            )}
-            <FFErrorMessage errorMessage={this.state.errorMessage} />
+        <View style={styles.content}>
+          <View style={styles.header}>
+            <Text style={styles.headerText}>Account Details</Text>
+            <BackArrow
+              style={styles.backArrow}
+              onPress={() => this.props.navigation.pop()}
+            />
           </View>
-
-          <View style={styles.buttonContainer}>
-            <View style={styles.cancelButton}>
-              <FFNarrowButton
-                textColor={styles.cancelTextColor}
-                backgroundColor={styles.cancelBackgroundColor}
-                label="Cancel"
-                onClick={this.resetState}
-              />
-            </View>
-            <View style={styles.submitButton}>
-              <FFNarrowButton label="Save" onClick={this.handleSubmit} />
-            </View>
-          </View>
-          <Elipse style={styles.elipse} />
-        </ScrollView>
+          {this.state.firstName ? (
+            <FFNameTextBox
+              placeholder={user.firstName}
+              onChangeText={this.handleFirstName}
+            />
+          ) : (
+            this.renderStaticFormField('firstName', user.firstName)
+          )}
+          {this.state.lastName ? (
+            <FFNameTextBox
+              placeholder={this.props.user.lastName}
+              onChangeText={this.handleLastName}
+            />
+          ) : (
+            this.renderStaticFormField('lastName', user.lastName)
+          )}
+          {this.state.email ? (
+            <FFEmailTextBox
+              placeholder={this.props.user.email}
+              onChangeText={this.handleEmail}
+            />
+          ) : (
+            this.renderStaticFormField('email', user.email)
+          )}
+          {this.state.password ? (
+            <FFPasswordBox onChangeText={this.handlePassword} />
+          ) : (
+            this.renderStaticFormField('password', '*****')
+          )}
+          <FFRadioButtons
+            label="Are you vegan?"
+            onChange={this.handleIsVegan}
+            allowOptOut={false}
+            defaultSelectedValue={veganSelectedValue}
+          />
+          <FFErrorMessage errorMessage={this.state.errorMessage} />
+        </View>
+        <View style={styles.submitButton}>
+          <FFNarrowButton label="Save" onClick={this.handleSubmit} />
+        </View>
+        <Elipse style={styles.elipse} />
       </View>
     );
   }
@@ -251,11 +237,10 @@ const styles = StyleSheet.create({
   },
   content: {
     width: normalize(310),
-
     alignSelf: 'center',
   },
   scroll: {
-    height: normalize(600),
+    minHeight: '100%',
   },
   rectangle: {
     backgroundColor: '#ffffff',
@@ -286,33 +271,18 @@ const styles = StyleSheet.create({
     // borderColor: '#000000',
     // borderWidth: 1.0,
   },
-  buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-  },
   submitButton: {
-    marginLeft: '4%',
-  },
-  cancelText: {
-    fontSize: normalize(14),
-    fontFamily: 'Cabin-Regular',
-    color: '#ed762c',
     alignSelf: 'center',
   },
-  cancelBackgroundColor: {
-    backgroundColor: '#ffffff',
-  },
-  cancelTextColor: {
-    color: '#719e3d',
-  },
   elipse: {
-    marginTop: '7%',
+    bottom: 0,
+    position: 'absolute',
   },
 });
 
 const mapStateToProps = (state) => ({
   user: state.user,
-  diets: state.diets,
+  paths: state.paths,
 });
 
 export default connect(mapStateToProps)(AccountDetails);
