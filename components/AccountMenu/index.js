@@ -12,6 +12,7 @@ import asyncStorage from '../../asyncStorage';
 import {normalize} from '../../utils/deviceScaling';
 import {setAuth} from '../../redux/actions/authActionCreator';
 import FFStatusBar from '../common/FFStatusBar';
+import BrowserPopUpModal from '../common/BrowserPopUpModal';
 import MenuButton from './MenuButton';
 import plantMascot from '../../assets/images/plant-mascot-blue.png';
 import header from './assets/header-img.png';
@@ -25,6 +26,9 @@ import terms from './assets/terms.png';
 import termsIcon from './assets/terms-icon.png';
 
 class AccountMenu extends React.Component {
+  state = {
+    displayBrowser: false,
+  };
   handleSignOut = async () => {
     await asyncStorage._clearData();
     this.props.dispatch(setAuth());
@@ -33,6 +37,7 @@ class AccountMenu extends React.Component {
     return (
       <>
         <FFStatusBar />
+
         <ScrollView style={styles.rectangle}>
           <View style={styles.headerSize}>
             <Image
@@ -63,7 +68,7 @@ class AccountMenu extends React.Component {
                 iconStyle={styles.detailsIcon}
                 label="Support"
                 onPress={() => {
-                  this.props.navigation.navigate('Account Details');
+                  this.setState({displayBrowser: true});
                 }}
               />
             </View>
@@ -96,6 +101,11 @@ class AccountMenu extends React.Component {
             <Text style={styles.signOutText}>Sign Out</Text>
           </TouchableOpacity>
         </ScrollView>
+        <BrowserPopUpModal
+          uri="http://www.foodfriend.io/contact-us"
+          isVisible={this.state.displayBrowser}
+          onClose={() => this.setState({displayBrowser: false})}
+        />
       </>
     );
   }
