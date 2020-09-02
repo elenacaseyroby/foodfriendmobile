@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {Alert, View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import {connect} from 'react-redux';
 import {
   validateEmail,
@@ -18,6 +18,7 @@ import FFErrorMessage from './forms/FFErrorMessage';
 import FFNarrowButton from './common/FFNarrowButton';
 import FFStatusBar from './common/FFStatusBar';
 import FFRadioButtons from './forms/FFRadioButtons';
+import OfflineNotificationBanner from './common/OfflineNoticeBanner';
 import Elipse from './common/BlueBottomElipse';
 import api from '../services/api';
 
@@ -29,17 +30,15 @@ class AccountDetails extends React.Component {
     lastName: null,
     isVegan: this.props.user.isVegan,
   };
-  resetState = () => {
-    console.log('reset!');
-    console.log(this.state.isVegan);
-    console.log(this.props.user.isVegan);
+  saveAlert = () => {
+    Alert.alert('Changes successfully saved!');
+    // Resets textbox form to read-only.
     this.setState({
       errorMessage: null,
       firstName: false,
       lastName: false,
       email: false,
       password: false,
-      isVegan: this.props.user.isVegan,
     });
   };
   handleEmail = (email) => {
@@ -96,8 +95,10 @@ class AccountDetails extends React.Component {
     if (isVeganUpdated) {
       body.isVegan = this.state.isVegan;
     }
-    // If error with a form field or there is nothing to change, do not update user.
-    if (errorMessage || !body) return;
+    // If error with a form field, do not update user.
+    if (errorMessage) return;
+    // If nothing to update, reset form.
+    if (JSON.stringify(body) === '{}') return this.saveAlert();
     // Send body in http request to update user.
     const update = await api.putUser(user.id, body);
     errorMessage = getUserUpdateError(update);
@@ -105,8 +106,8 @@ class AccountDetails extends React.Component {
     if (errorMessage) {
       return this.setState({errorMessage: errorMessage});
     } else {
-      // Otherwise reset state.
-      this.resetState();
+      // Otherwise reset form.
+      this.saveAlert();
     }
 
     // Update user and state.
@@ -149,7 +150,6 @@ class AccountDetails extends React.Component {
   }
   render() {
     const {user} = this.props;
-    console.log(JSON.stringify(user));
     const veganSelectedValue = this.state.isVegan ? 'yes' : 'no';
     return (
       <View style={styles.rectangle}>
@@ -203,6 +203,7 @@ class AccountDetails extends React.Component {
           <FFNarrowButton label="Save" onClick={this.handleSubmit} />
         </View>
         <Elipse style={styles.elipse} />
+        <OfflineNotificationBanner />
       </View>
     );
   }
