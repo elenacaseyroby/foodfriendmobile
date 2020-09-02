@@ -10,6 +10,8 @@ import {fetchCustomPath} from '../redux/actions/customPathActionCreator';
 import {fetchTermsAndConditions} from '../redux/actions/termsAndConditionsActionCreator';
 import {fetchPrivacyPolicy} from '../redux/actions/privacyPolicyActionCreator';
 import {setAuth} from '../redux/actions/authActionCreator';
+import AccountMenu from './AccountMenu';
+import AccountDetails from './AccountDetails';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
 import PasswordReset from './PasswordReset';
@@ -100,6 +102,8 @@ class App extends React.Component {
             <Stack.Screen name="Customize Path" component={CustomizePath} />
             <Stack.Screen name="Progress" component={Progress} />
             <Stack.Screen name="Nutrient Detail" component={NutrientDetail} />
+            <Stack.Screen name="Account Menu" component={AccountMenu} />
+            <Stack.Screen name="Account Details" component={AccountDetails} />
           </>
         ) : (
           <>
@@ -108,13 +112,13 @@ class App extends React.Component {
             <Stack.Screen name="Sign Up" component={SignUp} />
             <Stack.Screen name="Password Reset" component={PasswordReset} />
             <Stack.Screen name="Update Password" component={UpdatePassword} />
-            <Stack.Screen
-              name="Terms And Conditions"
-              component={TermsAndConditions}
-            />
-            <Stack.Screen name="Privacy Policy" component={PrivacyPolicy} />
           </>
         )}
+        <Stack.Screen
+          name="Terms And Conditions"
+          component={TermsAndConditions}
+        />
+        <Stack.Screen name="Privacy Policy" component={PrivacyPolicy} />
       </Stack.Navigator>
     );
   }

@@ -7,11 +7,20 @@ class FFNarrowButton extends React.Component {
   static propTypes = {
     onClick: propTypes.func.isRequired,
     label: propTypes.string.isRequired,
+    textColor: propTypes.object,
+    backgroundColor: propTypes.object,
   };
   render() {
     return (
-      <TouchableOpacity onPress={this.props.onClick} style={styles.button}>
-        <Text style={styles.text}>{this.props.label}</Text>
+      <TouchableOpacity
+        onPress={this.props.onClick}
+        style={[
+          styles.button,
+          this.props.backgroundColor || styles.backgroundColor,
+        ]}>
+        <Text style={[styles.text, this.props.textColor || styles.textColor]}>
+          {this.props.label}
+        </Text>
       </TouchableOpacity>
     );
   }
@@ -21,8 +30,10 @@ const styles = StyleSheet.create({
   text: {
     fontFamily: 'Cabin-Regular',
     fontSize: normalize(17),
-    color: '#ffffff',
     textAlign: 'center',
+  },
+  backgroundColor: {
+    backgroundColor: '#719e3d',
   },
   button: {
     width: normalize(120),
@@ -34,10 +45,12 @@ const styles = StyleSheet.create({
       width: 0,
       height: 1,
     },
-    backgroundColor: '#719e3d',
     shadowOpacity: 0.35,
     shadowRadius: 2.22,
     elevation: 3,
+  },
+  textColor: {
+    color: '#ffffff',
   },
 });
 

@@ -3,6 +3,7 @@ import {StyleSheet, View, Text} from 'react-native';
 import Progress from './Progress';
 import MyPath from './MyPath';
 import NavBar from './common/NavBar';
+import AccountMenu from './AccountMenu';
 import OfflineNotificationBanner from './common/OfflineNoticeBanner';
 import {normalize} from '../utils/deviceScaling';
 
@@ -23,7 +24,7 @@ class Dashboard extends React.Component {
     if (this.state.activeScreen === 'journal')
       return <Text style={styles.test}>Add Food</Text>;
     if (this.state.activeScreen === 'account')
-      return <Text style={styles.test}>Account</Text>;
+      return <AccountMenu navigation={this.props.navigation} />;
   };
   render() {
     return (

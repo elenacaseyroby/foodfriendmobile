@@ -78,7 +78,6 @@ class NutrientButton extends React.Component {
       }
       counter++;
     });
-    console.log(this.props.navigation);
     return (
       <View style={[styles.buttonContainer, this.props.style]}>
         <View style={styles.buttonContentContainer}>

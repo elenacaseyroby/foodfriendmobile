@@ -65,3 +65,15 @@ export async function storeAsyncLoginData(userId, accessToken) {
   }
   return 'success';
 }
+
+export function getUserUpdateError(signUpResponse) {
+  // input response
+  // output error message or undefined;
+  if (signUpResponse.status >= 500)
+    return 'Could not update your account. Please make sure you are connected to the internet and try again.';
+  if (signUpResponse.status === 401)
+    return 'There is already an account under this email.';
+  if (signUpResponse.status !== 200)
+    return 'Invalid form field(s).  Could not update your account.';
+  return;
+}

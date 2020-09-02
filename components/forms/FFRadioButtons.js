@@ -8,12 +8,14 @@ class FFRadioButton extends React.Component {
     label: propTypes.string.isRequired,
     allowOptOut: propTypes.bool.isRequired,
     onChange: propTypes.func.isRequired,
+    // can only be 'yes', 'no', 'none':
+    defaultSelectedValue: propTypes.string,
   };
   onClick = () => {
     this.props.onSelect(this.props.id);
   };
   state = {
-    selected: null,
+    selected: this.props.defaultSelectedValue || null,
   };
   handleOnChange = () => {
     const {selected} = this.state;
@@ -23,6 +25,9 @@ class FFRadioButton extends React.Component {
     } else if (selected === 'no') {
       value = false;
     }
+    // Only pass 'yes' or 'no' answers back to the onChange function.
+    // Value is passed back as a boolean.
+    // 'none' (or "prefer not to answer") is treated the same as not selecting a response.
     this.props.onChange(value);
   };
   renderOptOut() {
