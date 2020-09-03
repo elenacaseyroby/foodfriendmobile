@@ -24,7 +24,6 @@ class SelectPathButton extends React.Component {
           'Please select a path before clicking "Choose this Path."',
       });
     }
-    console.log(path.id);
     const body = {
       activePathId: path.id,
     };
