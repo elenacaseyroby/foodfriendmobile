@@ -1,5 +1,6 @@
 import React from 'react';
 import {ScrollView, Image, Text, View, StyleSheet} from 'react-native';
+import orderBy from 'lodash/orderBy';
 import FFStatusBar from './common/FFStatusBar';
 import OfflineNoticeBanner from './common/OfflineNoticeBanner';
 import BlueTopElipse from './common/BlueTopElipse';
@@ -46,10 +47,16 @@ class NutrientDetail extends React.Component {
     );
   }
   renderFoods(nutrient) {
+    // Order food from highest to lowest in nutrient.
+    const orderedFoods = orderBy(
+      nutrient.foods,
+      ['NutrientFood.percentDvPerServing'],
+      ['desc'],
+    );
     return (
       <>
         {this.renderRow('header', 'Food', '% of Daily Value Per Serving', true)}
-        {nutrient.foods.map((food) => {
+        {orderedFoods.map((food) => {
           return this.renderFoodRow(food);
         })}
       </>
