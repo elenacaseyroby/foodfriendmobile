@@ -72,19 +72,6 @@ class App extends React.Component {
       this.props.dispatch(fetchDiets());
     }
   };
-  renderOnboarding = () => {
-    // If user is logged in and hasn't picked a path show them
-    // the onboarding slides.
-    if (this.props.user && !this.props.user.activePathId) {
-      return (
-        <>
-          <Stack.Screen name="Onboarding Slides" component={OnboardingSlides} />
-          <Stack.Screen name="Onboarding Survey" component={OnboardingSurvey} />
-        </>
-      );
-    }
-    return;
-  };
   render() {
     return (
       <Stack.Navigator
@@ -93,7 +80,6 @@ class App extends React.Component {
         }}>
         {this.props.auth.userId ? (
           <>
-            {this.renderOnboarding()}
             {/*signed in landing page: */}
             <Stack.Screen name="Dashboard" component={Dashboard} />
             <Stack.Screen name="Select Path" component={SelectPath} />
@@ -104,6 +90,14 @@ class App extends React.Component {
             <Stack.Screen name="Nutrient Detail" component={NutrientDetail} />
             <Stack.Screen name="Account Menu" component={AccountMenu} />
             <Stack.Screen name="Account Details" component={AccountDetails} />
+            <Stack.Screen
+              name="Onboarding Slides"
+              component={OnboardingSlides}
+            />
+            <Stack.Screen
+              name="Onboarding Survey"
+              component={OnboardingSurvey}
+            />
           </>
         ) : (
           <>

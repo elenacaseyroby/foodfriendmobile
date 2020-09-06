@@ -1,5 +1,6 @@
 import React from 'react';
 import {StyleSheet, View, Text} from 'react-native';
+import {connect} from 'react-redux';
 import Progress from './Progress';
 import MyPath from './MyPath';
 import NavBar from './common/NavBar';
@@ -21,6 +22,15 @@ class Dashboard extends React.Component {
     }
   };
   renderActiveScreen = () => {
+    const userNotHasOnboarded =
+      !this.props.user.activePathId && !this.props.user.birthday;
+    const userHasNotSelectedPath = !this.props.user.activePathId;
+    if (userNotHasOnboarded) {
+      return this.props.navigation.navigate('Onboarding Slides');
+    }
+    if (userHasNotSelectedPath) {
+      return this.props.navigation.navigate('Select Path');
+    }
     if (this.state.activeScreen === 'progress')
       return <Progress navigation={this.props.navigation} />;
     if (this.state.activeScreen === 'food')
@@ -60,4 +70,8 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Dashboard;
+const mapStateToProps = (state) => ({
+  user: state.user,
+});
+
+export default connect(mapStateToProps)(Dashboard);
