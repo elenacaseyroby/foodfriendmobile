@@ -1,7 +1,7 @@
 import React from 'react';
 import Path from './Path';
 import {connect} from 'react-redux';
-import {getUserPath} from '../utils/user';
+import {getUserPath} from '../utils/users';
 import LoadingScreen from './LoadingScreen';
 import propTypes from 'prop-types';
 

@@ -52,12 +52,17 @@ export function intersectionOfObjectArrays(arrays, distinctProperty = 'id') {
   arrays.map((array) => {
     array.map((obj) => {
       // if obj not in distictObjects and exists in all 3 arrays, add to distinctObjects.
-      if(!distinctPropertyValues.includes(obj[distinctProperty]) && hash[propertyValue].length === arrayCount) {
+      const propertyValue = obj[distinctProperty];
+      if (
+        !distinctPropertyValues.includes(propertyValue) &&
+        hash[propertyValue].length === arrayCount
+      ) {
         // add distinct property value to array to track added objects and avoid duplicates.
-        distinctPropertyValues.push(obj[distinctProperty]);
+        distinctPropertyValues.push(propertyValue);
         // add objects to array to be returned.
         objectsInAllArrays.push(obj);
       }
+    });
   });
   return objectsInAllArrays;
 }
