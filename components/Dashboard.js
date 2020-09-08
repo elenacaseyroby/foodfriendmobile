@@ -22,13 +22,18 @@ class Dashboard extends React.Component {
     }
   };
   renderActiveScreen = () => {
+    const {user} = this.props;
+    // Had to add user&&user.id so that it won't start on the onboarding
+    // slides when the user is already onboarded.
     const userNotHasOnboarded =
-      !this.props.user.activePathId && !this.props.user.birthday;
-    const userHasNotSelectedPath = !this.props.user.activePathId;
+      user && user.id && !user.activePathId && !user.birthday;
+    const userHasNotSelectedPath = user && user.id && !user.activePathId;
     if (userNotHasOnboarded) {
+      console.log('not onboarded');
       return this.props.navigation.navigate('Onboarding Slides');
     }
     if (userHasNotSelectedPath) {
+      console.log('not selected path');
       return this.props.navigation.navigate('Select Path');
     }
     if (this.state.activeScreen === 'progress')
