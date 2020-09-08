@@ -1,6 +1,7 @@
 import React from 'react';
-import {StyleSheet, Modal, TouchableOpacity, Image, View} from 'react-native';
-import {normalize, getIosStatusBarHeight} from '../utils/deviceScaling';
+import {StyleSheet, Modal} from 'react-native';
+import {connect} from 'react-redux';
+import {normalize, getIosStatusBarHeight} from '../../utils/deviceScaling';
 import propTypes from 'prop-types';
 
 class NutrientJournal extends React.Component {
@@ -20,4 +21,9 @@ class NutrientJournal extends React.Component {
 
 const styles = StyleSheet.create({});
 
-export default NutrientJournal;
+const mapStateToProps = (state) => ({
+  recommendedFoods: state.recommendedFoods,
+  paths: state.paths,
+});
+
+export default connect(mapStateToProps)(NutrientJournal);
