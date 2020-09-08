@@ -1,12 +1,6 @@
 import asyncStorage from './index';
 import {getRequest} from '../services/apiUtils';
 
-export async function buildOrRetrieveCustomPathCache(userId) {
-  const endpoint = `/users/${userId}/custompath`;
-  const customPath = await buildOrRetrieveCache(endpoint, 'CUSTOM_PATH');
-  return customPath;
-}
-
 export async function buildOrRetrieveDietsCache() {
   const endpoint = '/diets';
   const diets = await buildOrRetrieveCache(endpoint, 'DIETS');
@@ -20,7 +14,7 @@ export async function buildOrRetrieveNutrientsCache() {
 }
 
 export async function buildOrRetrievePathsCache(userId) {
-  const endpoint = `/paths/${userId}`;
+  const endpoint = `/paths/?userId=${userId}`;
   const paths = await buildOrRetrieveCache(endpoint, 'PATHS');
   return paths;
 }
@@ -41,6 +35,12 @@ export async function buildOrRetrieveUserCache(userId) {
   const endpoint = `/users/${userId}`;
   const user = await buildOrRetrieveCache(endpoint, 'USER');
   return user;
+}
+
+export async function buildOrRetrieveCustomPathCache(userId) {
+  const endpoint = `/users/${userId}/custompath`;
+  const customPath = await buildOrRetrieveCache(endpoint, 'CUSTOM_PATH');
+  return customPath;
 }
 
 async function buildOrRetrieveCache(endpoint, KEY) {
