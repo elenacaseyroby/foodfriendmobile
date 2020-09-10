@@ -25,7 +25,6 @@ class PathDetail extends React.Component {
 
 const mapStateToProps = (state) => ({
   user: state.user,
-  paths: state.paths,
 });
 
 export default connect(mapStateToProps)(PathDetail);

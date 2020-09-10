@@ -23,7 +23,8 @@ class SelectPath extends React.Component {
     this.setState({selectedPath: path});
   };
   renderPathButtons() {
-    return this.props.paths.list.map((path) => {
+    const {paths} = this.props.user;
+    return paths.map((path) => {
       const selected =
         this.state.selectedPath && this.state.selectedPath.id === path.id;
       return (
@@ -45,7 +46,7 @@ class SelectPath extends React.Component {
     } catch (error) {
       navigation = this.props.navigation;
     }
-    const paths = this.props.paths.list;
+    const {paths} = this.props.user;
     return (
       <>
         <FFStatusBar />
@@ -148,7 +149,6 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => ({
   user: state.user,
-  paths: state.paths,
 });
 
 export default connect(mapStateToProps)(SelectPath);

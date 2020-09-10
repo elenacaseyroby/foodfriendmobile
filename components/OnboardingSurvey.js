@@ -4,8 +4,6 @@ import {normalize} from '../utils/deviceScaling';
 import {validateDate} from '../utils/formValidation';
 import api from '../services/api';
 import {connect} from 'react-redux';
-import {fetchUser} from '../redux/actions/userActionCreator';
-import {fetchPaths} from '../redux/actions/pathsActionCreator';
 import FFDateBox from './forms/FFDateBox';
 import FFSelectButtons from './forms/FFSelectButtons';
 import FFRadioButtons from './forms/FFRadioButtons';
@@ -91,9 +89,11 @@ class OnboardingSurvey extends React.Component {
         errorMessage: errorMessage,
       });
     }
-    // get fresh user data since it's been updated:
-    this.props.dispatch(fetchUser(this.props.auth.userId));
-    this.props.dispatch(fetchPaths(this.props.auth.userId));
+    // Even though user has been updated, we can't fetch fresh user state yet
+    // or it will rerender the whole app
+    // and the user will be brought to the "Select Path" screen
+    // instead of the "Path Detail" screen with the recommended path.
+    // Fresh user state wil be fetched when the user selects a path.
 
     const pathReq = await api.generateUserActivePath(
       this.state.menstruates,

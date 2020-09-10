@@ -1,7 +1,6 @@
 import React from 'react';
 import Path from './Path';
 import {connect} from 'react-redux';
-import {getUserPath} from '../utils/users';
 import LoadingScreen from './LoadingScreen';
 import propTypes from 'prop-types';
 
@@ -10,14 +9,14 @@ class MyPath extends React.Component {
     navigation: propTypes.object,
   };
   render() {
-    const {customPath, paths, user} = this.props;
-    const path = getUserPath(user, customPath, paths);
-    if (!path) {
+    const {user} = this.props;
+    if (!user.id) {
       return <LoadingScreen />;
     }
+    const {activePath} = user;
     return (
       <Path
-        path={path}
+        path={activePath}
         selectingPath={false}
         navigation={this.props.navigation}
       />
@@ -26,8 +25,6 @@ class MyPath extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  customPath: state.customPath,
-  paths: state.paths,
   user: state.user,
 });
 

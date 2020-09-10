@@ -36,6 +36,7 @@ class Dashboard extends React.Component {
       console.log('not selected path');
       return this.props.navigation.navigate('Select Path');
     }
+    // do not allow user to access the following pages without selecting a path.
     if (this.state.activeScreen === 'progress')
       return <Progress navigation={this.props.navigation} />;
     if (this.state.activeScreen === 'food')

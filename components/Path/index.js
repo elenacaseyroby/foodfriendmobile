@@ -332,7 +332,6 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state) => ({
   auth: state.auth,
   user: state.user,
-  paths: state.paths,
   nutrients: state.nutrients,
 });
 
