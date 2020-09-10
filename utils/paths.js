@@ -20,17 +20,3 @@ export function getHighValueFoodsInPath(allNutrients, path) {
   console.log(highValueFoods);
   return highValueFoods;
 }
-
-export function getNutrientsInPath(allNutrients, path) {
-  const pathNutrientIds = path.nutrients.map((nutrient) => {
-    return nutrient.id;
-  });
-  const nutrients = [];
-  allNutrients.map((nutrient) => {
-    // if nutrient in path add it to the list.
-    if (pathNutrientIds.includes(nutrient.id)) {
-      nutrients.push(nutrient);
-    }
-  });
-  return nutrients;
-}
