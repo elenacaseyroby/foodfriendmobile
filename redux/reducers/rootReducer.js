@@ -3,7 +3,6 @@ import {authReducer} from './authReducer';
 import {dailyProgressReducer} from './dailyProgressReducer';
 import {dietsReducer} from './dietsReducer';
 import {nutrientsReducer} from './nutrientsReducer';
-import {pathsReducer} from './pathsReducer';
 import {privacyPolicyReducer} from './privacyPolicyReducer';
 import {recommendedFoodsReducer} from './recommendedFoodsReducer';
 import {termsAndConditionsReducer} from './termsAndConditionsReducer';
@@ -15,7 +14,6 @@ export default combineReducers({
   dailyProgress: dailyProgressReducer,
   diets: dietsReducer,
   nutrients: nutrientsReducer,
-  paths: pathsReducer,
   privacyPolicy: privacyPolicyReducer,
   recommendedFoods: recommendedFoodsReducer,
   termsAndConditions: termsAndConditionsReducer,

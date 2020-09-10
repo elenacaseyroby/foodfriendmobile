@@ -19,12 +19,6 @@ export async function buildOrRetrieveNutrientsCache() {
   return nutrients;
 }
 
-export async function buildOrRetrievePathsCache(userId) {
-  const endpoint = `/paths/?userId=${userId}`;
-  const paths = await buildOrRetrieveCache(endpoint, 'PATHS');
-  return paths;
-}
-
 export async function buildOrRetrievePrivacyPolicyCache() {
   const endpoint = '/privacypolicy';
   const privacyPolicy = await buildOrRetrieveCache(endpoint, 'PRIVACY_POLICY');
