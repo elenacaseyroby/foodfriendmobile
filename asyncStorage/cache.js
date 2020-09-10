@@ -43,12 +43,6 @@ export async function buildOrRetrieveUserFoodsCache(userId) {
   return userFoods;
 }
 
-export async function buildOrRetrieveUserRecommendedFoodsCache(userId) {
-  const endpoint = `/users/${userId}/foods/?dateRange=currentDay`;
-  const recFoods = await buildOrRetrieveCache(endpoint, 'RECOMMENDED_FOODS');
-  return recFoods;
-}
-
 async function buildOrRetrieveCache(endpoint, KEY) {
   // return object(s) or undefined.
   let cachedObject;
