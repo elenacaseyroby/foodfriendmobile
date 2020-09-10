@@ -25,6 +25,12 @@ export async function buildOrRetrievePrivacyPolicyCache() {
   return privacyPolicy;
 }
 
+export async function buildOrRetrieveUserRecommendedFoodsCache(userId) {
+  const endpoint = `/users/${userId}/foods/?dateRange=currentDay`;
+  const recFoods = await buildOrRetrieveCache(endpoint, 'RECOMMENDED_FOODS');
+  return recFoods;
+}
+
 export async function buildOrRetrieveTermsCache() {
   const endpoint = '/termsandconditions';
   const terms = await buildOrRetrieveCache(endpoint, 'TERMS_AND_CONDITIONS');
