@@ -1,6 +1,5 @@
 import {combineReducers} from 'redux';
 import {authReducer} from './authReducer';
-import {customPathReducer} from './customPathReducer';
 import {dailyProgressReducer} from './dailyProgressReducer';
 import {dietsReducer} from './dietsReducer';
 import {nutrientsReducer} from './nutrientsReducer';
@@ -13,7 +12,6 @@ import {userFoodsReducer} from './userFoodsReducer';
 
 export default combineReducers({
   auth: authReducer,
-  customPath: customPathReducer,
   dailyProgress: dailyProgressReducer,
   diets: dietsReducer,
   nutrients: nutrientsReducer,
