@@ -4,7 +4,7 @@ import {dailyProgressReducer} from './dailyProgressReducer';
 import {dietsReducer} from './dietsReducer';
 import {nutrientsReducer} from './nutrientsReducer';
 import {privacyPolicyReducer} from './privacyPolicyReducer';
-import {recommendedFoodsReducer} from './recommendedFoodsReducer';
+import {recentlyConsumedFoodsReducer} from './recentlyConsumedFoodsReducer';
 import {termsAndConditionsReducer} from './termsAndConditionsReducer';
 import {userReducer} from './userReducer';
 import {userFoodsReducer} from './userFoodsReducer';
@@ -15,7 +15,7 @@ export default combineReducers({
   diets: dietsReducer,
   nutrients: nutrientsReducer,
   privacyPolicy: privacyPolicyReducer,
-  recommendedFoods: recommendedFoodsReducer,
+  recentlyConsumedFoods: recentlyConsumedFoodsReducer,
   termsAndConditions: termsAndConditionsReducer,
   user: userReducer,
   userFoods: userFoodsReducer,
