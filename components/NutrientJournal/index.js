@@ -5,6 +5,9 @@ import {normalize, getIosStatusBarHeight} from '../../utils/deviceScaling';
 import backgroundImage from './assets/background-image.png';
 import FFStatusBar from '../common/FFStatusBar';
 import ExitButton from '../common/ExitButton';
+import Tab from './Tab';
+import searchIcon from '../../assets/images/search-icon-gray.png';
+import listIcon from '../../assets/images/menu-icon-gray.png';
 import propTypes from 'prop-types';
 
 class NutrientJournal extends React.Component {
@@ -12,7 +15,16 @@ class NutrientJournal extends React.Component {
     isVisible: propTypes.bool.isRequired,
     onClose: propTypes.func.isRequired,
   };
+  state = {
+    // 'search', 'listByNutrients'
+    activeTab: 'search',
+  };
   render() {
+    const activeTab = this.state.activeTab;
+    const tabDescription =
+      activeTab === 'search'
+        ? 'Search for foods in your path'
+        : 'Scroll to view foods by nutrient';
     return (
       <Modal
         animationType="swipe"
@@ -24,8 +36,28 @@ class NutrientJournal extends React.Component {
             <ExitButton onPress={this.props.onClose} style={styles.exitIcon} />
             <Text style={styles.headerText}>What did you eat today?</Text>
           </View>
-
           <Image source={backgroundImage} style={styles.backgroundImage} />
+          <View style={styles.tabs}>
+            <Tab
+              active={activeTab === 'search'}
+              iconSource={searchIcon}
+              style={styles.searchTab}
+              onPress={() => {
+                this.setState({activeTab: 'search'});
+              }}
+            />
+            <Tab
+              active={activeTab === 'listByNutrients'}
+              iconSource={listIcon}
+              style={styles.nutrientsTab}
+              onPress={() => {
+                this.setState({activeTab: 'listByNutrients'});
+              }}
+            />
+          </View>
+        </View>
+        <View style={styles.tabDescription}>
+          <Text style={styles.tabDescriptionText}>{tabDescription}</Text>
         </View>
       </Modal>
     );
@@ -60,6 +92,25 @@ const styles = StyleSheet.create({
     // aspectRatio: width / height,
     aspectRatio: 240 / 270,
     right: 0,
+  },
+  tabs: {
+    width: normalize(340),
+    alignSelf: 'center',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    position: 'absolute',
+    bottom: -2,
+  },
+  tabDescription: {
+    height: normalize(40),
+    backgroundColor: '#ffffff',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  tabDescriptionText: {
+    fontFamily: 'Cabin-Regular',
+    color: '#555555',
+    fontSize: normalize(18),
   },
 });
 
