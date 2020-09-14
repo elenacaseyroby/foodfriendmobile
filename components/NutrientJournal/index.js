@@ -32,16 +32,15 @@ class NutrientJournal extends React.Component {
     this.setState({filteredFoods: filteredFoods});
   };
   render() {
-    if (
-      this.props.recentlyConsumedFoods.loading ||
-      this.props.recentlyConsumedFoods.error
-    )
-      return <></>;
-    if (!this.props.user.activePath) return <></>;
+    const recentlyConsumedFoods = this.props.recentlyConsumedFoods.list || [];
+    console.log(this.props.recentlyConsumedFoods);
+    const {user} = this.props;
+    let pathFoods = [];
+    if (user && user.activePath) {
+      pathFoods = user.activePath.foods;
+    }
     const activeTab = this.state.activeTab;
-    const searchFoods = this.props.recentlyConsumedFoods.list.concat(
-      this.props.user.activePath.foods,
-    );
+    const searchFoods = recentlyConsumedFoods.concat(pathFoods);
     const tabDescription =
       activeTab === 'search'
         ? 'Search for foods in your path'

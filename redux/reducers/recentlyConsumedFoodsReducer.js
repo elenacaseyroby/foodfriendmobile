@@ -21,7 +21,7 @@ export const recentlyConsumedFoodsReducer = (
     return {
       error: null,
       loading: false,
-      list: action.payload.recentlyConsumedFoodss,
+      list: action.payload.recentlyConsumedFoods,
     };
   } else if (action.type === C.FETCH_RECENTLY_CONSUMED_FOODS_FAILURE) {
     return {
