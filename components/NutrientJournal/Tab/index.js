@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     aspectRatio: 516 / 165,
   },
   icon: {
-    width: normalize(26),
+    width: normalize(22),
     height: undefined,
     // aspectRatio: width / height,
     aspectRatio: 1 / 1,
