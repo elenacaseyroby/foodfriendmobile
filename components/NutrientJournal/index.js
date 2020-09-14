@@ -31,6 +31,25 @@ class NutrientJournal extends React.Component {
     const filteredFoods = filterObjectArray(searchFoods, keyword, 'name');
     this.setState({filteredFoods: filteredFoods});
   };
+  renderSearch = (searchFoods) => {
+    if (this.state.activeTab !== 'search') return;
+    return (
+      <>
+        <View style={styles.searchContainer}>
+          <SearchBar search={this.search} style={styles.searchBar} />
+        </View>
+        <Text>
+          {(this.state.filteredFoods || searchFoods).map((food) => {
+            return food.name;
+          })}
+        </Text>
+      </>
+    );
+  };
+  renderListByNutrients = () => {
+    if (this.state.activeTab !== 'listByNutrients') return;
+    return <></>;
+  };
   render() {
     const recentlyConsumedFoods = this.props.recentlyConsumedFoods.list || [];
     console.log(this.props.recentlyConsumedFoods);
@@ -79,14 +98,8 @@ class NutrientJournal extends React.Component {
         <View style={styles.tabDescription}>
           <Text style={styles.tabDescriptionText}>{tabDescription}</Text>
         </View>
-        <View style={styles.searchContainer}>
-          <SearchBar search={this.search} style={styles.searchBar} />
-        </View>
-        <Text>
-          {(this.state.filteredFoods || searchFoods).map((food) => {
-            return food.name;
-          })}
-        </Text>
+        {this.renderSearch(searchFoods)}
+        {this.renderListByNutrients()}
       </Modal>
     );
   }
