@@ -25,7 +25,7 @@ export async function buildOrRetrievePrivacyPolicyCache() {
   return privacyPolicy;
 }
 
-export async function buildOrRetrieveUserRecentlyConsumedFoodsCache(userId) {
+export async function buildOrRetrieveRecentlyConsumedFoodsCache(userId) {
   const endpoint = `/users/${userId}/foods/?limit=7`;
   const recFoods = await buildOrRetrieveCache(
     endpoint,
@@ -54,22 +54,25 @@ export async function buildOrRetrieveUserFoodsCache(userId) {
 
 async function buildOrRetrieveCache(endpoint, KEY) {
   // return object(s) or undefined.
-  let cachedObject;
+  let dbObject;
   try {
     const res = await getRequest(endpoint);
     if (res.status === 200) {
       //if succeeds, get object(s) from db and update cache.
       console.log(`get ${KEY} from db`);
       asyncStorage._storeData(KEY, JSON.stringify(res.response));
-      cachedObject = res.response;
+      dbObject = res.response;
     }
-  } catch (error) {}
-  // if fails, get object(s) from cache.
-  if (!cachedObject) {
-    console.log(`get ${KEY} from cache`);
-    const cachedObjectStr = await asyncStorage._retrieveData(KEY);
-    if (!cachedObjectStr) return;
-    cachedObject = JSON.parse(cachedObjectStr);
+  } catch (error) {
+    console.log(`error fetching ${KEY} from db: ${error}`);
   }
+  if (dbObject) {
+    return dbObject;
+  }
+  // if db request fails, get object(s) from cache.
+  console.log(`get ${KEY} from cache`);
+  const cachedObjectStr = await asyncStorage._retrieveData(KEY);
+  if (!cachedObjectStr) return;
+  const cachedObject = JSON.parse(cachedObjectStr);
   return cachedObject;
 }
