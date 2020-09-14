@@ -7,6 +7,7 @@ import {fetchDiets} from '../redux/actions/dietsActionCreator';
 import {fetchUser} from '../redux/actions/userActionCreator';
 import {fetchTermsAndConditions} from '../redux/actions/termsAndConditionsActionCreator';
 import {fetchPrivacyPolicy} from '../redux/actions/privacyPolicyActionCreator';
+import {fetchRecentlyConsumedFoods} from '../redux/actions/recentlyConsumedFoodsActionCreator';
 import {setAuth} from '../redux/actions/authActionCreator';
 import AccountMenu from './AccountMenu';
 import AccountDetails from './AccountDetails';
@@ -43,6 +44,7 @@ class App extends React.Component {
       const userId = this.props.auth.userId;
       // if user is already logged in, fetch logged in data
       this.props.dispatch(fetchUser(userId));
+      this.props.dispatch(fetchRecentlyConsumedFoods(userId));
       this.props.dispatch(fetchNutrients());
       this.props.dispatch(fetchDiets());
     }
@@ -62,6 +64,7 @@ class App extends React.Component {
     if (prevProps.auth.userId !== this.props.auth.userId) {
       const userId = this.props.auth.userId;
       this.props.dispatch(fetchUser(userId));
+      this.props.dispatch(fetchRecentlyConsumedFoods(userId));
       this.props.dispatch(fetchNutrients());
       this.props.dispatch(fetchDiets());
     }
