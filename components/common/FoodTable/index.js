@@ -1,7 +1,10 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import {Text, View, StyleSheet} from 'react-native';
-import {normalize} from '../../utils/deviceScaling';
+import {Text, View, StyleSheet, Modal} from 'react-native';
+import {normalize} from '../../../utils/deviceScaling';
+import AddButton from './AddButton';
+import DeleteButton from './DeleteButton';
+import AddFoodModal from './AddFoodModal';
 import orderBy from 'lodash/orderBy';
 
 class FoodTable extends React.Component {
@@ -9,6 +12,10 @@ class FoodTable extends React.Component {
     foods: propTypes.array.isRequired,
     // permissions: 'write', 'delete', 'read-only'
     permissions: propTypes.string.isRequired,
+  };
+  state = {
+    foodToAdd: null,
+    foodToDelete: null,
   };
   getFoodDescription(food) {
     let foodDescription = food.name;
@@ -27,7 +34,22 @@ class FoodTable extends React.Component {
       const percentDv = this.getPercentDv(food);
       return <Text style={styles.foodBody}>{percentDv}</Text>;
     } else if (this.props.permissions === 'write') {
+      return (
+        <AddButton
+          onPress={() => {
+            this.setState({foodToAdd: food});
+          }}
+        />
+      );
     } else if (this.props.permissions === 'delete') {
+      const percentDv = this.getPercentDv(food);
+      return (
+        <View>
+          <Text style={styles.foodBody}>{percentDv}</Text>
+          {/* add onPress function */}
+          <DeleteButton onPress={() => {}} />
+        </View>
+      );
     }
   }
   renderRow(food) {
@@ -71,6 +93,11 @@ class FoodTable extends React.Component {
         {foodsToRender.map((food) => {
           return this.renderRow(food);
         })}
+        <AddFoodModal
+          visible={!!this.state.foodToAdd}
+          food={this.state.foodToAdd}
+          onClose={() => this.setState({foodToAdd: null})}
+        />
       </>
     );
   }
@@ -82,11 +109,12 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     width: normalize(340),
     alignSelf: 'center',
-    marginTop: '4%',
-    marginBottom: '4%',
+    marginTop: '2%',
+    marginBottom: '2%',
     fontSize: normalize(14),
   },
   foodBody: {
+    alignSelf: 'center',
     fontFamily: 'Cabin-Regular',
     color: '#555555',
   },
@@ -95,7 +123,7 @@ const styles = StyleSheet.create({
     color: '#555555',
   },
   line: {
-    marginTop: '1%',
+    // marginTop: '1%',
     borderBottomWidth: normalize(0.5),
     color: '#d9d9d9',
     width: '100%',
