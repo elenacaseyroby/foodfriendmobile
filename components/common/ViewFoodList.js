@@ -52,9 +52,7 @@ class ViewFoodList extends React.Component {
             <Text style={[styles.foodDescription, styles.foodHeader]}>
               Food
             </Text>
-            <Text style={[styles.percentDv, styles.foodHeader]}>
-              % of Daily Value Per Serving
-            </Text>
+            <Text style={styles.foodHeader}>% of Daily Value Per Serving</Text>
           </View>
           <View style={styles.line} />
         </View>
@@ -83,6 +81,13 @@ const styles = StyleSheet.create({
   foodHeader: {
     fontFamily: 'Cabin-Bold',
     color: '#555555',
+  },
+  line: {
+    marginTop: '1%',
+    borderBottomWidth: normalize(0.5),
+    color: '#d9d9d9',
+    width: '100%',
+    opacity: 0.25,
   },
 });
 
