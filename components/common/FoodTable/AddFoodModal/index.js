@@ -7,7 +7,6 @@ import propTypes from 'prop-types';
 
 class AddFoodModal extends React.Component {
   static propTypes = {
-    visible: propTypes.bool.isRequired,
     onClose: propTypes.func.isRequired,
     food: propTypes.obj,
   };

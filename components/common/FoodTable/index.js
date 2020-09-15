@@ -78,6 +78,16 @@ class FoodTable extends React.Component {
       </View>
     );
   }
+  renderAddFoodModal = () => {
+    if (!this.state.foodToAdd) return;
+    return (
+      <AddFoodModal
+        food={this.state.foodToAdd}
+        onClose={() => this.setState({foodToAdd: null})}
+      />
+    );
+  };
+
   render() {
     const {foods} = this.props;
     // Order food from highest to lowest in nutrient.
@@ -93,11 +103,7 @@ class FoodTable extends React.Component {
         {foodsToRender.map((food) => {
           return this.renderRow(food);
         })}
-        <AddFoodModal
-          visible={!!this.state.foodToAdd}
-          food={this.state.foodToAdd}
-          onClose={() => this.setState({foodToAdd: null})}
-        />
+        {this.renderAddFoodModal()}
       </>
     );
   }
