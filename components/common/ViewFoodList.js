@@ -7,6 +7,8 @@ import orderBy from 'lodash/orderBy';
 class ViewFoodList extends React.Component {
   static propTypes = {
     foods: propTypes.array.isRequired,
+    // permissions: 'write', 'delete', 'read-only'
+    permissions: propTypes.string.isRequired,
   };
   getFoodDescription(food) {
     let foodDescription = food.name;
@@ -20,22 +22,40 @@ class ViewFoodList extends React.Component {
     const percentDv = parseInt(percent * 100).toString() + '%';
     return percentDv;
   }
+  renderColumnTwo(food) {
+    if (this.props.permissions === 'read-only') {
+      const percentDv = this.getPercentDv(food);
+      return <Text style={styles.foodBody}>{percentDv}</Text>;
+    } else if (this.props.permissions === 'write') {
+    } else if (this.props.permissions === 'delete') {
+    }
+  }
   renderRow(food) {
     const foodDescription = this.getFoodDescription(food);
-    const percentDv = this.getPercentDv(food);
     return (
       <View key={food.id}>
         <View style={styles.foodRow}>
           <Text style={[styles.foodDescription, styles.foodBody]}>
             {foodDescription}
           </Text>
-          <Text style={[styles.percentDv, styles.foodBody]}>{percentDv}</Text>
+          {this.renderColumnTwo(food)}
         </View>
         <View style={styles.line} />
       </View>
     );
   }
-
+  renderHeader() {
+    if (this.props.permissions !== 'read-only') return;
+    return (
+      <View key={0}>
+        <View style={styles.foodRow}>
+          <Text style={[styles.foodDescription, styles.foodHeader]}>Food</Text>
+          <Text style={styles.foodHeader}>% of Daily Value Per Serving</Text>
+        </View>
+        <View style={styles.line} />
+      </View>
+    );
+  }
   render() {
     const {foods} = this.props;
     // Order food from highest to lowest in nutrient.
@@ -47,15 +67,7 @@ class ViewFoodList extends React.Component {
     );
     return (
       <>
-        <View key={0}>
-          <View style={styles.foodRow}>
-            <Text style={[styles.foodDescription, styles.foodHeader]}>
-              Food
-            </Text>
-            <Text style={styles.foodHeader}>% of Daily Value Per Serving</Text>
-          </View>
-          <View style={styles.line} />
-        </View>
+        {this.renderHeader()}
         {foodsToRender.map((food) => {
           return this.renderRow(food);
         })}

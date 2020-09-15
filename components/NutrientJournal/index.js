@@ -81,10 +81,7 @@ class NutrientJournal extends React.Component {
             style={styles.searchBar}
           />
         </View>
-        {searchResults.map((food) => {
-          return <Text>{food.name}</Text>;
-        })}
-        {/* <FoodTable foods={searchResults} permissions="write" /> */}
+        <ViewFoodList foods={searchResults} permissions="write" />
       </>
     );
   };
@@ -103,7 +100,7 @@ class NutrientJournal extends React.Component {
       return (
         <>
           <Text>{nutrient.name}</Text>
-          <ViewFoodList foods={nutrient.foods} />
+          <ViewFoodList foods={nutrient.foods} permissions="write" />
         </>
       );
     });

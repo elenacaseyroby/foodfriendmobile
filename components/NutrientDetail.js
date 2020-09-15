@@ -65,7 +65,7 @@ class NutrientDetail extends React.Component {
             <Text style={styles.bannerText}>Foods</Text>
           </View>
           <ScrollView>
-            <ViewFoodTable foods={nutrient.foods} />
+            <ViewFoodTable foods={nutrient.foods} permissions="read-only" />
           </ScrollView>
           {this.renderNutrientWarning(nutrient)}
           <View style={[styles.banner, styles.blueBackground]}>
