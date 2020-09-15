@@ -4,7 +4,7 @@ import FFStatusBar from './common/FFStatusBar';
 import OfflineNoticeBanner from './common/OfflineNoticeBanner';
 import BlueTopElipse from './common/BlueTopElipse';
 import BlueBottomElipse from './common/BlueBottomElipse';
-import ViewFoodTable from './common/ViewFoodList';
+import FoodTable from './common/FoodTable';
 import {normalize} from '../utils/deviceScaling';
 import BackArrow from './common/BackArrow';
 import plantMascot from '../assets/images/plant-mascot-blue.png';
@@ -65,7 +65,7 @@ class NutrientDetail extends React.Component {
             <Text style={styles.bannerText}>Foods</Text>
           </View>
           <ScrollView>
-            <ViewFoodTable foods={nutrient.foods} permissions="read-only" />
+            <FoodTable foods={nutrient.foods} permissions="read-only" />
           </ScrollView>
           {this.renderNutrientWarning(nutrient)}
           <View style={[styles.banner, styles.blueBackground]}>

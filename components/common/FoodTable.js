@@ -4,7 +4,7 @@ import {Text, View, StyleSheet} from 'react-native';
 import {normalize} from '../../utils/deviceScaling';
 import orderBy from 'lodash/orderBy';
 
-class ViewFoodList extends React.Component {
+class FoodTable extends React.Component {
   static propTypes = {
     foods: propTypes.array.isRequired,
     // permissions: 'write', 'delete', 'read-only'
@@ -103,4 +103,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ViewFoodList;
+export default FoodTable;

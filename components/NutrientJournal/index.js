@@ -7,7 +7,7 @@ import FFStatusBar from '../common/FFStatusBar';
 import ExitButton from '../common/ExitButton';
 import Tab from './Tab';
 import SearchBar from '../common/SearchBar';
-import ViewFoodList from '../common/ViewFoodList';
+import FoodTable from '../common/FoodTable';
 import searchIcon from '../../assets/images/search-icon-gray.png';
 import listIcon from '../../assets/images/menu-icon-gray.png';
 import {searchFoods} from '../../utils/dataProcessing';
@@ -81,7 +81,7 @@ class NutrientJournal extends React.Component {
             style={styles.searchBar}
           />
         </View>
-        <ViewFoodList foods={searchResults} permissions="write" />
+        <FoodTable foods={searchResults} permissions="write" />
       </>
     );
   };
@@ -100,7 +100,7 @@ class NutrientJournal extends React.Component {
       return (
         <>
           <Text>{nutrient.name}</Text>
-          <ViewFoodList foods={nutrient.foods} permissions="write" />
+          <FoodTable foods={nutrient.foods} permissions="write" />
         </>
       );
     });
