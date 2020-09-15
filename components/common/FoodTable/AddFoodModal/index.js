@@ -1,8 +1,9 @@
 import React from 'react';
-import {View, StyleSheet, Modal} from 'react-native';
+import {View, Text, StyleSheet, Modal} from 'react-native';
 import {connect} from 'react-redux';
 import {normalize} from '../../../../utils/deviceScaling';
 import ExitButton from './ExitButton';
+import FFNarrowButton from '../../../common/FFNarrowButton';
 import propTypes from 'prop-types';
 
 class AddFoodModal extends React.Component {
@@ -11,7 +12,12 @@ class AddFoodModal extends React.Component {
     food: propTypes.obj,
   };
   state = {};
+  submit = () => {
+    // submit using premade fun
+    this.props.onClose();
+  };
   render() {
+    const {food} = this.props;
     return (
       <Modal
         animationType="fade"
@@ -20,7 +26,20 @@ class AddFoodModal extends React.Component {
         <View style={styles.screen}>
           <View style={styles.backgroundColor} />
           <View style={styles.modalContainer}>
-            <View style={styles.container}></View>
+            <View style={styles.container}>
+              <Text style={styles.text}>
+                {food.name}
+                {food.servingsNote ? `Serving size: ${food.servingsNote}` : ''}
+              </Text>
+              <Text style={[styles.text, styles.servingsContainer]}>
+                Servings consumed:
+              </Text>
+              <FFNarrowButton
+                onClick={this.submit}
+                label="add"
+                style={styles.addButton}
+              />
+            </View>
             <ExitButton
               onPress={this.props.onClose}
               style={styles.exitButton}
@@ -48,9 +67,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   container: {
+    padding: '10%',
     backgroundColor: '#ffffff',
-    height: normalize(200),
-    width: normalize(300),
+    width: normalize(250),
     borderRadius: 100 / 4,
     shadowColor: '#000',
     shadowOffset: {
@@ -65,6 +84,18 @@ const styles = StyleSheet.create({
     position: 'absolute',
     marginTop: normalize(-10),
     right: normalize(-7),
+  },
+  text: {
+    fontFamily: 'Cabin-Regular',
+    fontSize: normalize(16),
+    alignSelf: 'center',
+  },
+  servingsContainer: {
+    marginTop: '10%',
+  },
+  addButton: {
+    marginTop: '5%',
+    alignSelf: 'center',
   },
 });
 

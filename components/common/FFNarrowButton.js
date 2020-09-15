@@ -9,6 +9,7 @@ class FFNarrowButton extends React.Component {
     label: propTypes.string.isRequired,
     textColor: propTypes.object,
     backgroundColor: propTypes.object,
+    style: propTypes.object,
   };
   render() {
     return (
@@ -17,6 +18,7 @@ class FFNarrowButton extends React.Component {
         style={[
           styles.button,
           this.props.backgroundColor || styles.backgroundColor,
+          this.props.style,
         ]}>
         <Text style={[styles.text, this.props.textColor || styles.textColor]}>
           {this.props.label}
