@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Modal, Image, Text, View} from 'react-native';
+import {ScrollView, StyleSheet, Modal, Image, Text, View} from 'react-native';
 import {connect} from 'react-redux';
 import {normalize, getIosStatusBarHeight} from '../../utils/deviceScaling';
 import backgroundImage from './assets/background-image.png';
@@ -7,7 +7,7 @@ import FFStatusBar from '../common/FFStatusBar';
 import ExitButton from '../common/ExitButton';
 import Tab from './Tab';
 import SearchBar from '../common/SearchBar';
-import FoodTable from '../common/FoodTable';
+import ViewFoodList from '../common/ViewFoodList';
 import searchIcon from '../../assets/images/search-icon-gray.png';
 import listIcon from '../../assets/images/menu-icon-gray.png';
 import {searchFoods} from '../../utils/dataProcessing';
@@ -23,16 +23,14 @@ class NutrientJournal extends React.Component {
     this.state = {
       activeTab: 'search',
       filteredFoods: null,
-      foods: this.getFoodsToRender(),
     };
   }
   search = (keyword) => {
-    const {foods} = this.state;
-    const filteredFoods = searchFoods(foods, keyword);
+    const foodsToRender = this.getFoodsToRender();
+    const filteredFoods = searchFoods(foodsToRender, keyword);
     this.setState({filteredFoods: filteredFoods});
   };
   getFoodsToRender = () => {
-    console.log('GET FOODS TO RENDER');
     const recentlyConsumedFoods = this.props.recentlyConsumedFoods.list || [];
     const {user} = this.props;
     const nutrients = this.props.nutrients.list;
@@ -67,13 +65,13 @@ class NutrientJournal extends React.Component {
         foodsToRender.push(food);
       }
     });
-    console.log(foodsToRender);
     return foodsToRender;
   };
   renderSearch = () => {
     if (this.state.activeTab !== 'search') return;
-    const {foods, filteredFoods} = this.state;
-    const searchResults = filteredFoods || foods;
+    const {filteredFoods} = this.state;
+    const foodsToRender = this.getFoodsToRender();
+    const searchResults = filteredFoods || foodsToRender;
     return (
       <>
         <View style={styles.searchContainer}>
@@ -92,7 +90,23 @@ class NutrientJournal extends React.Component {
   };
   renderListByNutrients = () => {
     if (this.state.activeTab !== 'listByNutrients') return;
-    return <></>;
+    const {user} = this.props;
+    if (!user && !user.activePath) return;
+    if (!this.props.nutrients) return;
+    const nutrients = this.props.nutrients.list;
+    // get list of ids for nutrients in path.
+    const pathNutrientIds = user.activePath.nutrients.map((nutrient) => {
+      return nutrient.id;
+    });
+    return nutrients.map((nutrient) => {
+      if (!pathNutrientIds.includes(nutrient.id)) return;
+      return (
+        <>
+          <Text>{nutrient.name}</Text>
+          <ViewFoodList foods={nutrient.foods} />
+        </>
+      );
+    });
   };
   render() {
     const activeTab = this.state.activeTab;
@@ -134,8 +148,10 @@ class NutrientJournal extends React.Component {
         <View style={styles.tabDescription}>
           <Text style={styles.tabDescriptionText}>{tabDescription}</Text>
         </View>
-        {this.renderSearch()}
-        {this.renderListByNutrients()}
+        <ScrollView>
+          {this.renderSearch()}
+          {this.renderListByNutrients()}
+        </ScrollView>
       </Modal>
     );
   }
