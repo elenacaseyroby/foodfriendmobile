@@ -8,6 +8,7 @@ export function fetchRecentlyConsumedFoods(userId) {
     const recentlyConsumedFoods = await buildOrRetrieveRecentlyConsumedFoodsCache(
       userId,
     );
+    console.log(recentlyConsumedFoods);
     if (!recentlyConsumedFoods) {
       const error = 'Could not fetch recommended foods from db or cache.';
       return dispatch(fetchRecentlyConsumedFoodsFailure(error));

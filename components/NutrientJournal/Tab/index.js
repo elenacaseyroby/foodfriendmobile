@@ -9,7 +9,7 @@ class Tab extends React.Component {
   static propTypes = {
     onPress: propTypes.func.isRequired,
     active: propTypes.bool.isRequired,
-    iconSource: propTypes.string.isRequired,
+    iconSource: propTypes.number.isRequired,
     style: propTypes.object,
   };
   render() {

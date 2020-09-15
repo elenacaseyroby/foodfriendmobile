@@ -7,9 +7,10 @@ import FFStatusBar from '../common/FFStatusBar';
 import ExitButton from '../common/ExitButton';
 import Tab from './Tab';
 import SearchBar from '../common/SearchBar';
+import FoodTable from '../common/FoodTable';
 import searchIcon from '../../assets/images/search-icon-gray.png';
 import listIcon from '../../assets/images/menu-icon-gray.png';
-import {filterObjectArray} from '../../utils/dataProcessing';
+import {searchFoods} from '../../utils/dataProcessing';
 import propTypes from 'prop-types';
 
 class NutrientJournal extends React.Component {
@@ -17,32 +18,75 @@ class NutrientJournal extends React.Component {
     isVisible: propTypes.bool.isRequired,
     onClose: propTypes.func.isRequired,
   };
-  state = {
-    // 'search', 'listByNutrients'
-    activeTab: 'search',
-    filteredFoods: null,
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      activeTab: 'search',
+      filteredFoods: null,
+      foods: this.getFoodsToRender(),
+    };
+  }
   search = (keyword) => {
-    const searchFoods = this.props.recentlyConsumedFoods.list.concat(
-      this.props.user.activePath.foods,
-    );
-    // I don't think this works
-    // how do I most efficiently filter through this array of objects? lodash?
-    const filteredFoods = filterObjectArray(searchFoods, keyword, 'name');
+    const {foods} = this.state;
+    const filteredFoods = searchFoods(foods, keyword);
     this.setState({filteredFoods: filteredFoods});
   };
-  renderSearch = (searchFoods) => {
+  getFoodsToRender = () => {
+    console.log('GET FOODS TO RENDER');
+    const recentlyConsumedFoods = this.props.recentlyConsumedFoods.list || [];
+    const {user} = this.props;
+    const nutrients = this.props.nutrients.list;
+    let pathFoods = [];
+    if (user && user.activePath) {
+      // get list of ids for nutrients in path.
+      const pathNutrientIds = user.activePath.nutrients.map((nutrient) => {
+        return nutrient.id;
+      });
+      // if nutrient in path, add foods in nutrient to pathFoods list.
+      nutrients.map((nutrient) => {
+        if (!pathNutrientIds.includes(nutrient.id)) return;
+        pathFoods = pathFoods.concat(nutrient.foods);
+      });
+    }
+    // combine list of foods and path and recently consumed foods into a
+    // list of foods to render.
+    let addedfoodIds = [];
+    let foodsToRender = [];
+    // make sure recently consumed foods are at top of list.
+    recentlyConsumedFoods.map((food) => {
+      // weed out duplicate food records.
+      if (!addedfoodIds.includes(food.id)) {
+        addedfoodIds.push(food.id);
+        foodsToRender.push(food);
+      }
+    });
+    pathFoods.map((food) => {
+      // weed out duplicate food records.
+      if (!addedfoodIds.includes(food.id)) {
+        addedfoodIds.push(food.id);
+        foodsToRender.push(food);
+      }
+    });
+    console.log(foodsToRender);
+    return foodsToRender;
+  };
+  renderSearch = () => {
     if (this.state.activeTab !== 'search') return;
+    const {foods, filteredFoods} = this.state;
+    const searchResults = filteredFoods || foods;
     return (
       <>
         <View style={styles.searchContainer}>
-          <SearchBar search={this.search} style={styles.searchBar} />
+          <SearchBar
+            placeholder="Search foods"
+            search={this.search}
+            style={styles.searchBar}
+          />
         </View>
-        <Text>
-          {(this.state.filteredFoods || searchFoods).map((food) => {
-            return food.name;
-          })}
-        </Text>
+        {searchResults.map((food) => {
+          return <Text>{food.name}</Text>;
+        })}
+        {/* <FoodTable foods={searchResults} permissions="write" /> */}
       </>
     );
   };
@@ -51,15 +95,7 @@ class NutrientJournal extends React.Component {
     return <></>;
   };
   render() {
-    const recentlyConsumedFoods = this.props.recentlyConsumedFoods.list || [];
-    console.log(this.props.recentlyConsumedFoods);
-    const {user} = this.props;
-    let pathFoods = [];
-    if (user && user.activePath) {
-      pathFoods = user.activePath.foods;
-    }
     const activeTab = this.state.activeTab;
-    const searchFoods = recentlyConsumedFoods.concat(pathFoods);
     const tabDescription =
       activeTab === 'search'
         ? 'Search for foods in your path'
@@ -98,7 +134,7 @@ class NutrientJournal extends React.Component {
         <View style={styles.tabDescription}>
           <Text style={styles.tabDescriptionText}>{tabDescription}</Text>
         </View>
-        {this.renderSearch(searchFoods)}
+        {this.renderSearch()}
         {this.renderListByNutrients()}
       </Modal>
     );

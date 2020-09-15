@@ -8,17 +8,18 @@ import debounce from 'lodash/debounce';
 class SearchBar extends React.Component {
   static propTypes = {
     search: propTypes.func.isRequired,
+    placeholder: propTypes.string,
     style: propTypes.object,
   };
   state = {
     searchTerm: '',
   };
-  debounchedSearchDeals = debounce(this.props.search, 600);
+  debounchedSearchItems = debounce(this.props.search, 600);
   handleChange = (searchTerm) => {
     this.setState({searchTerm}, () => {
       // if no more is typed into search box for 600 milaseconds,
       // search & susequent api request are trigged.
-      this.debounchedSearchDeals(this.state.searchTerm);
+      this.debounchedSearchItems(this.state.searchTerm);
     });
   };
   render() {
@@ -26,7 +27,7 @@ class SearchBar extends React.Component {
       <View style={[styles.inputBox, this.props.style]}>
         <TextInput
           placeholderTextColor="#ffffff"
-          placeholder="Search"
+          placeholder={this.props.placeholder || 'Search'}
           style={styles.inputText}
           onChangeText={this.handleChange}
           maxLength={100}
@@ -47,6 +48,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   inputText: {
+    width: normalize(270),
     color: '#ffffff',
     marginLeft: '7%',
     fontFamily: 'Cabin-Regular',
