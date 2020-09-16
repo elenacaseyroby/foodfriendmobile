@@ -126,11 +126,13 @@ const styles = StyleSheet.create({
   foodBody: {
     alignSelf: 'center',
     fontFamily: 'Cabin-Regular',
+    fontSize: normalize(16),
     color: '#555555',
   },
   foodHeader: {
     alignSelf: 'center',
     fontFamily: 'Cabin-Bold',
+    fontSize: normalize(16),
     color: '#555555',
   },
   line: {
