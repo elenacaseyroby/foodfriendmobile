@@ -82,7 +82,9 @@ class NutrientJournal extends React.Component {
             style={styles.searchBar}
           />
         </View>
-        <FoodTable foods={searchResults} permissions="write" />
+        <ScrollView>
+          <FoodTable foods={searchResults} permissions="write" />
+        </ScrollView>
       </>
     );
   };
@@ -96,15 +98,19 @@ class NutrientJournal extends React.Component {
     const pathNutrientIds = user.activePath.nutrients.map((nutrient) => {
       return nutrient.id;
     });
-    return nutrients.map((nutrient) => {
-      if (!pathNutrientIds.includes(nutrient.id)) return;
-      return (
-        <>
-          <Text>{nutrient.name}</Text>
-          <FoodTable foods={nutrient.foods} permissions="write" />
-        </>
-      );
-    });
+    return (
+      <ScrollView>
+        {nutrients.map((nutrient) => {
+          if (!pathNutrientIds.includes(nutrient.id)) return <></>;
+          return (
+            <>
+              <Text>{nutrient.name}</Text>
+              <FoodTable foods={nutrient.foods} permissions="write" />
+            </>
+          );
+        })}
+      </ScrollView>
+    );
   };
   render() {
     const activeTab = this.state.activeTab;
@@ -147,10 +153,8 @@ class NutrientJournal extends React.Component {
         <View style={styles.tabDescription}>
           <Text style={styles.tabDescriptionText}>{tabDescription}</Text>
         </View>
-        <ScrollView>
-          {this.renderSearch()}
-          {this.renderListByNutrients()}
-        </ScrollView>
+        {this.renderSearch()}
+        {this.renderListByNutrients()}
       </Modal>
     );
   }

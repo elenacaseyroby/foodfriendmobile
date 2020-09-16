@@ -2,9 +2,11 @@ import React from 'react';
 import {View, Text, StyleSheet, Modal} from 'react-native';
 import {connect} from 'react-redux';
 import {normalize} from '../../../../utils/deviceScaling';
+import api from '../../../../services/api';
 import ExitButton from './ExitButton';
 import FFNumberBox from '../../../forms/FFNumberBox';
 import FFNarrowButton from '../../../common/FFNarrowButton';
+import FFErrorMessage from '../../../forms/FFErrorMessage';
 import propTypes from 'prop-types';
 
 class AddFoodModal extends React.Component {
@@ -13,12 +15,44 @@ class AddFoodModal extends React.Component {
     food: propTypes.object,
   };
   state = {
-    servingsCount: 0.5,
+    servingsCount: 1,
+    errorMessage: null,
   };
-  submit = () => {
-    // submit using premade fun
-    this.props.onClose();
+  submit = async () => {
+    const {user, food} = this.props;
+    const servingsCount = this.state.servingsCount;
+    try {
+      const postUserFood = await api.postUserFood(
+        user.id,
+        food.id,
+        servingsCount,
+      );
+      // if submits, close window.
+      if (postUserFood.status === 200) {
+        return this.props.onClose();
+      } else {
+        const error = `response status:${postUserFood.status.toString()} \n response message:${
+          postUserFood.response
+        }`;
+        this.logError(error);
+      }
+    } catch (error) {
+      // log error to console.
+      this.logError(error);
+    }
+    // render error for user.
+    this.setState({
+      errorMessage:
+        'Oops! We could not submit your meal. Please check your internet connection and try again.',
+    });
   };
+  logError(error) {
+    const {user, food} = this.props;
+    const servingsCount = this.state.servingsCount;
+    console.log(
+      `record failed to submit: user: ${user.id} \n food: ${food.id} \n servingsCount: ${servingsCount} \n ${error}`,
+    );
+  }
   handleServingsConsumed = (servingsCount) => {
     this.setState({servingsCount: servingsCount});
   };
@@ -41,11 +75,12 @@ class AddFoodModal extends React.Component {
                 Servings consumed:
               </Text>
               <FFNumberBox
-                initialValue={1}
+                initialValue={this.state.servingsCount}
                 iterateBy={0.5}
                 onChange={this.handleServingsConsumed}
                 style={styles.numberbox}
               />
+              <FFErrorMessage errorMessage={this.state.errorMessage} />
               <FFNarrowButton
                 onClick={this.submit}
                 label="add"
