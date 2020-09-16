@@ -8,6 +8,7 @@ import OfflineNotificationBanner from '../common/OfflineNotificationBanner';
 import ExitButton from '../common/ExitButton';
 import Tab from './Tab';
 import SearchBar from '../common/SearchBar';
+import AddNutrientFoodsList from './AddNutrientFoodsList';
 import FoodTable from '../common/FoodTable';
 import searchIcon from '../../assets/images/search-icon-gray.png';
 import listIcon from '../../assets/images/menu-icon-gray.png';
@@ -98,15 +99,19 @@ class NutrientJournal extends React.Component {
     const pathNutrientIds = user.activePath.nutrients.map((nutrient) => {
       return nutrient.id;
     });
+    // Expand only first nutrient.
+    let nutrientHasBeenExpanded = false;
     return (
       <ScrollView>
         {nutrients.map((nutrient) => {
           if (!pathNutrientIds.includes(nutrient.id)) return <></>;
+          const defaultIsExpanded = !nutrientHasBeenExpanded;
+          nutrientHasBeenExpanded = true;
           return (
-            <>
-              <Text>{nutrient.name}</Text>
-              <FoodTable foods={nutrient.foods} permissions="write" />
-            </>
+            <AddNutrientFoodsList
+              nutrient={nutrient}
+              defaultIsExpanded={defaultIsExpanded}
+            />
           );
         })}
       </ScrollView>
