@@ -28,6 +28,10 @@ export async function putRequest(endpoint, body = {}) {
   return request('PUT', endpoint, body);
 }
 
+export async function deleteRequest(endpoint, body = {}) {
+  return request('DELETE', endpoint, body);
+}
+
 export async function request(method, endpoint, body = {}) {
   let headers = {
     Accept: 'application/json',

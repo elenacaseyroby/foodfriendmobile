@@ -22,7 +22,6 @@ class LoadingScreen extends React.Component {
   };
   render() {
     this.getConnection();
-    console.log(this.state.isConnected);
     if (this.state.isConnected) return this.renderLoadingScreen();
     return this.renderOfflineScreen();
   }

@@ -9,7 +9,6 @@ import {
 import {getUserUpdateError} from '../utils/auth';
 import {normalize} from '../utils/deviceScaling';
 import {fetchUser} from '../redux/actions/userActionCreator';
-import {fetchPaths} from '../redux/actions/pathsActionCreator';
 import BackArrow from './common/BackArrow';
 import FFEmailTextBox from './forms/FFEmailTextBox';
 import FFNameTextBox from './forms/FFNameTextBox';
@@ -18,7 +17,7 @@ import FFErrorMessage from './forms/FFErrorMessage';
 import FFNarrowButton from './common/FFNarrowButton';
 import FFStatusBar from './common/FFStatusBar';
 import FFRadioButtons from './forms/FFRadioButtons';
-import OfflineNotificationBanner from './common/OfflineNoticeBanner';
+import OfflineNotificationBanner from './common/OfflineNotificationBanner';
 import Elipse from './common/BlueBottomElipse';
 import api from '../services/api';
 
@@ -110,13 +109,8 @@ class AccountDetails extends React.Component {
       this.saveAlert();
     }
 
-    // Update user and state.
+    // Update state.
     this.props.dispatch(fetchUser(user.id));
-    // Since user properties like isVegan and menstruates
-    // are used to determine the user's path and the list
-    // of paths they can choose from, we must also update
-    // the list of paths they can choose from.
-    this.props.dispatch(fetchPaths(user.id));
   };
   handleEdit = (fieldName, value) => {
     if (fieldName === 'firstName') {
@@ -283,7 +277,6 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => ({
   user: state.user,
-  paths: state.paths,
 });
 
 export default connect(mapStateToProps)(AccountDetails);

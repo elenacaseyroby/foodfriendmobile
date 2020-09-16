@@ -2,7 +2,6 @@ import React from 'react';
 import {ScrollView, View, Text, Image, StyleSheet} from 'react-native';
 import {connect} from 'react-redux';
 import api from '../../services/api';
-import {fetchCustomPath} from '../../redux/actions/customPathActionCreator';
 import {fetchUser} from '../../redux/actions/userActionCreator';
 import FFStatusBar from '../common/FFStatusBar';
 import NutrientButton from '../common/NutrientButton';
@@ -12,29 +11,25 @@ import BlueBottomElipse2 from '../common/BlueBottomElipse2';
 import FFNarrowButton from '../common/FFNarrowButton';
 import FFTextBox from '../forms/FFTextBox';
 import FFErrorMessage from '../forms/FFErrorMessage';
-import OfflineNotificationBanner from '../common/OfflineNoticeBanner';
+import OfflineNotificationBanner from '../common/OfflineNotificationBanner';
 import topElipse from './custom-elipse-top.png';
 import bottomElipse from './custom-elipse-bottom.png';
 import {normalize} from '../../utils/deviceScaling';
 import {orderNutrientsByTheme} from '../../utils/nutrients';
-import propTypes from 'prop-types';
 
 class CustomizePath extends React.Component {
-  static propTypes = {};
   state = {
     errorMessage: '',
     pathName: '',
     nutrientIds: [],
   };
   componentDidMount = () => {
+    const {customPath} = this.props.user;
     if (!customPath) return;
-    const {customPath} = this.props;
-    if (customPath) {
-      const nutrientIds = customPath.nutrients.map((nutrient) => {
-        return nutrient.id;
-      });
-      this.setState({nutrientIds: nutrientIds, pathName: customPath.name});
-    }
+    const nutrientIds = customPath.nutrients.map((nutrient) => {
+      return nutrient.id;
+    });
+    this.setState({nutrientIds: nutrientIds, pathName: customPath.name});
   };
   handleNutrients = (nutrientId) => {
     const nutrientIds = this.state.nutrientIds;
@@ -102,12 +97,12 @@ class CustomizePath extends React.Component {
           'Oops! An error ocurred and we were not able to update your custom path.  Please check your network connection and try again.',
       });
     }
-    // Update user and custom path state.
+    // Update user state.
     this.props.dispatch(fetchUser(userId));
-    this.props.dispatch(fetchCustomPath(userId));
     this.props.navigation.navigate('Dashboard');
   };
   render() {
+    const {customPath} = this.props.user;
     const nutrients = this.props.nutrients.list;
     return (
       <>
@@ -127,7 +122,7 @@ class CustomizePath extends React.Component {
             <FFTextBox
               onChangeText={this.handlePathName}
               placeholder={
-                this.props.customPath.name ||
+                (customPath && customPath.name) ||
                 'Choose a word to describe your journey.'
               }
               maxLength={30}
@@ -285,7 +280,6 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => ({
   user: state.user,
-  customPath: state.customPath,
   nutrients: state.nutrients,
 });
 

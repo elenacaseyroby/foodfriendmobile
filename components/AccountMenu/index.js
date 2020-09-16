@@ -11,6 +11,7 @@ import {connect} from 'react-redux';
 import asyncStorage from '../../asyncStorage';
 import {normalize} from '../../utils/deviceScaling';
 import {setAuth} from '../../redux/actions/authActionCreator';
+import {fetchUser} from '../../redux/actions/userActionCreator';
 import FFStatusBar from '../common/FFStatusBar';
 import BrowserPopUpModal from '../common/BrowserPopUpModal';
 import MenuButton from './MenuButton';
@@ -32,6 +33,7 @@ class AccountMenu extends React.Component {
   handleSignOut = async () => {
     await asyncStorage._clearData();
     this.props.dispatch(setAuth());
+    this.props.dispatch(fetchUser());
   };
   render() {
     return (

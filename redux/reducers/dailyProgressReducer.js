@@ -5,25 +5,23 @@ import C from '../constants';
 const initialState = {
   error: null,
   loading: false,
-  id: null,
-  name: null,
-  themeId: null,
+  nutrientReports: [],
 };
 
-export const customPathReducer = (prevState = initialState, action) => {
+export const dailyProgressReducer = (prevState = initialState, action) => {
   // If action is matched, return a new state else return prevState.
-  if (action.type === C.FETCH_CUSTOM_PATH_BEGIN) {
+  if (action.type === C.FETCH_DAILY_PROGRESS_BEGIN) {
     let newState = prevState;
     newState.error = null;
     newState.loading = true;
     return newState;
-  } else if (action.type === C.FETCH_CUSTOM_PATH_SUCCESS) {
+  } else if (action.type === C.FETCH_DAILY_PROGRESS_SUCCESS) {
     return {
       error: null,
       loading: false,
-      ...action.payload.customPath,
+      nutrientReports: action.payload.dailyProgress,
     };
-  } else if (action.type === C.FETCH_CUSTOM_PATH_FAILURE) {
+  } else if (action.type === C.FETCH_DAILY_PROGRESS_FAILURE) {
     let newState = prevState;
     newState.error = action.payload.error;
     newState.loading = false;

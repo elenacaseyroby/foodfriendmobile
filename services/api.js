@@ -1,4 +1,4 @@
-import {getRequest, putRequest} from './apiUtils';
+import {getRequest, putRequest, postRequest, deleteRequest} from './apiUtils';
 
 export default {
   async generateUserActivePath(menstruates, isVegan, pathName) {
@@ -42,6 +42,34 @@ export default {
     try {
       const endpoint = `/users/${userId}/custompath`;
       const res = await putRequest(endpoint, body);
+      return {response: JSON.stringify(res.response), status: res.status};
+    } catch (error) {
+      console.log(error);
+      return {response: error, status: 500};
+    }
+  },
+  async postUserFood(userId, foodId, servingsCount) {
+    // servingsCount must be decimal 00.00
+    const body = {
+      foodId: foodId,
+      servingsCount: servingsCount,
+    };
+    try {
+      const endpoint = `/users/${userId}/userfoods`;
+      const res = await postRequest(endpoint, body);
+      return {response: JSON.stringify(res.response), status: res.status};
+    } catch (error) {
+      console.log(error);
+      return {response: error, status: 500};
+    }
+  },
+  async deleteUserFood(userId, userFoodId) {
+    const body = {
+      userFoodId: userFoodId,
+    };
+    try {
+      const endpoint = `/users/${userId}/userfoods`;
+      const res = await deleteRequest(endpoint, body);
       return {response: JSON.stringify(res.response), status: res.status};
     } catch (error) {
       console.log(error);

@@ -78,7 +78,9 @@ class NavBar extends React.Component {
               <View style={styles.grayCircle}>
                 <TouchableOpacity
                   style={styles.blueCircle}
-                  onPress={this.handleClickAdd}>
+                  onPress={() => {
+                    this.props.updateActiveScreen('journal');
+                  }}>
                   <Image source={plus} style={styles.plusIcon} />
                 </TouchableOpacity>
               </View>

@@ -1,9 +1,10 @@
 import React from 'react';
 import {ScrollView, Image, Text, View, StyleSheet} from 'react-native';
 import FFStatusBar from './common/FFStatusBar';
-import OfflineNoticeBanner from './common/OfflineNoticeBanner';
+import OfflineNotificationBanner from './common/OfflineNotificationBanner';
 import BlueTopElipse from './common/BlueTopElipse';
 import BlueBottomElipse from './common/BlueBottomElipse';
+import FoodTable from './common/FoodTable';
 import {normalize} from '../utils/deviceScaling';
 import BackArrow from './common/BackArrow';
 import plantMascot from '../assets/images/plant-mascot-blue.png';
@@ -13,27 +14,6 @@ class NutrientDetail extends React.Component {
   static propTypes = {
     nutrient: propTypes.object,
   };
-  renderRow(key, column1, column2, isHeader = false) {
-    const textStyle = isHeader ? styles.foodHeader : styles.foodBody;
-    return (
-      <View key={key}>
-        <View style={styles.foodRow}>
-          <Text style={[styles.foodDescription, textStyle]}>{column1}</Text>
-          <Text style={[styles.percentDv, textStyle]}>{column2}</Text>
-        </View>
-        <View style={styles.line} />
-      </View>
-    );
-  }
-  renderFoodRow(food) {
-    let foodDescription = food.name;
-    let percent = food.NutrientFood.percentDvPerServing;
-    if (food.servingSize) {
-      foodDescription = `${food.name}  Serving Size: ${food.servingSize}`;
-    }
-    const percentDv = parseInt(percent * 100).toString() + '%';
-    return this.renderRow(food.id, foodDescription, percentDv, false);
-  }
   renderNutrientWarning(nutrient) {
     if (!nutrient.warnings) return;
     return (
@@ -42,16 +22,6 @@ class NutrientDetail extends React.Component {
           <Text style={styles.bannerText}>Warning</Text>
         </View>
         <Text style={styles.description}>{nutrient.warnings}</Text>
-      </>
-    );
-  }
-  renderFoods(nutrient) {
-    return (
-      <>
-        {this.renderRow('header', 'Food', '% of Daily Value Per Serving', true)}
-        {nutrient.foods.map((food) => {
-          return this.renderFoodRow(food);
-        })}
       </>
     );
   }
@@ -75,7 +45,7 @@ class NutrientDetail extends React.Component {
     return (
       <>
         <FFStatusBar />
-        <OfflineNoticeBanner />
+        <OfflineNotificationBanner />
         <ScrollView style={styles.rectangle}>
           <BlueTopElipse />
           <Image
@@ -94,7 +64,9 @@ class NutrientDetail extends React.Component {
           <View style={[styles.banner, styles.greenBackground]}>
             <Text style={styles.bannerText}>Foods</Text>
           </View>
-          {this.renderFoods(nutrient)}
+          <ScrollView>
+            <FoodTable foods={nutrient.foods} permissions="read-only" />
+          </ScrollView>
           {this.renderNutrientWarning(nutrient)}
           <View style={[styles.banner, styles.blueBackground]}>
             <Text style={styles.bannerText}>Sources</Text>
@@ -165,23 +137,6 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     fontFamily: 'Cabin-Regular',
     fontSize: normalize(14),
-    color: '#555555',
-  },
-  foodRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: normalize(340),
-    alignSelf: 'center',
-    marginTop: '4%',
-    marginBottom: '4%',
-    fontSize: normalize(14),
-  },
-  foodBody: {
-    fontFamily: 'Cabin-Regular',
-    color: '#555555',
-  },
-  foodHeader: {
-    fontFamily: 'Cabin-Bold',
     color: '#555555',
   },
   disclaimer: {

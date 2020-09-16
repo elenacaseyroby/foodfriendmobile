@@ -17,7 +17,6 @@ class PathButton extends React.Component {
     return (
       <TouchableOpacity
         onPress={() => {
-          console.log('hey!');
           this.props.onPress(path);
         }}
         key={path.name}

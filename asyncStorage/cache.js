@@ -1,10 +1,10 @@
 import asyncStorage from './index';
 import {getRequest} from '../services/apiUtils';
 
-export async function buildOrRetrieveCustomPathCache(userId) {
-  const endpoint = `/users/${userId}/custompath`;
-  const customPath = await buildOrRetrieveCache(endpoint, 'CUSTOM_PATH');
-  return customPath;
+export async function buildOrRetrieveDailyProgressCache(userId) {
+  const endpoint = `/users/${userId}/progressreport/daily`;
+  const progress = await buildOrRetrieveCache(endpoint, 'DAILY_PROGRESS');
+  return progress;
 }
 
 export async function buildOrRetrieveDietsCache() {
@@ -19,16 +19,19 @@ export async function buildOrRetrieveNutrientsCache() {
   return nutrients;
 }
 
-export async function buildOrRetrievePathsCache(userId) {
-  const endpoint = `/paths/${userId}`;
-  const paths = await buildOrRetrieveCache(endpoint, 'PATHS');
-  return paths;
-}
-
 export async function buildOrRetrievePrivacyPolicyCache() {
   const endpoint = '/privacypolicy';
   const privacyPolicy = await buildOrRetrieveCache(endpoint, 'PRIVACY_POLICY');
   return privacyPolicy;
+}
+
+export async function buildOrRetrieveRecentlyConsumedFoodsCache(userId) {
+  const endpoint = `/users/${userId}/foods/?limit=7`;
+  const recFoods = await buildOrRetrieveCache(
+    endpoint,
+    'RECENTLY_CONSUMED_FOODS',
+  );
+  return recFoods;
 }
 
 export async function buildOrRetrieveTermsCache() {
@@ -43,24 +46,33 @@ export async function buildOrRetrieveUserCache(userId) {
   return user;
 }
 
+export async function buildOrRetrieveUserFoodsCache(userId) {
+  const endpoint = `/users/${userId}/userfoods/?dateRange=currentDay`;
+  const userFoods = await buildOrRetrieveCache(endpoint, 'USER_FOODS');
+  return userFoods;
+}
+
 async function buildOrRetrieveCache(endpoint, KEY) {
   // return object(s) or undefined.
-  let cachedObject;
+  let dbObject;
   try {
     const res = await getRequest(endpoint);
     if (res.status === 200) {
       //if succeeds, get object(s) from db and update cache.
       console.log(`get ${KEY} from db`);
       asyncStorage._storeData(KEY, JSON.stringify(res.response));
-      cachedObject = res.response;
+      dbObject = res.response;
     }
-  } catch (error) {}
-  // if fails, get object(s) from cache.
-  if (!cachedObject) {
-    console.log(`get ${KEY} from cache`);
-    const cachedObjectStr = await asyncStorage._retrieveData(KEY);
-    if (!cachedObjectStr) return;
-    cachedObject = JSON.parse(cachedObjectStr);
+  } catch (error) {
+    console.log(`error fetching ${KEY} from db: ${error}`);
   }
+  if (dbObject) {
+    return dbObject;
+  }
+  // if db request fails, get object(s) from cache.
+  console.log(`get ${KEY} from cache`);
+  const cachedObjectStr = await asyncStorage._retrieveData(KEY);
+  if (!cachedObjectStr) return;
+  const cachedObject = JSON.parse(cachedObjectStr);
   return cachedObject;
 }

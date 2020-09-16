@@ -3,12 +3,11 @@ import {createStackNavigator} from '@react-navigation/stack';
 import SplashScreen from 'react-native-splash-screen';
 import {connect} from 'react-redux';
 import {fetchNutrients} from '../redux/actions/nutrientsActionCreator';
-import {fetchPaths} from '../redux/actions/pathsActionCreator';
 import {fetchDiets} from '../redux/actions/dietsActionCreator';
 import {fetchUser} from '../redux/actions/userActionCreator';
-import {fetchCustomPath} from '../redux/actions/customPathActionCreator';
 import {fetchTermsAndConditions} from '../redux/actions/termsAndConditionsActionCreator';
 import {fetchPrivacyPolicy} from '../redux/actions/privacyPolicyActionCreator';
+import {fetchRecentlyConsumedFoods} from '../redux/actions/recentlyConsumedFoodsActionCreator';
 import {setAuth} from '../redux/actions/authActionCreator';
 import AccountMenu from './AccountMenu';
 import AccountDetails from './AccountDetails';
@@ -27,14 +26,14 @@ import SelectPath from './SelectPath';
 import PathDetail from './PathDetail';
 import TermsAndConditions from './TermsAndConditions';
 import PrivacyPolicy from './PrivacyPolicy';
-//import asyncStorage from '../asyncStorage';
+// import asyncStorage from '../asyncStorage';
 
 const Stack = createStackNavigator();
 
 class App extends React.Component {
   componentDidMount = async () => {
     // log out to test:
-    //await asyncStorage._clearData();
+    // await asyncStorage._clearData();
 
     this.timeoutHandle = setTimeout(() => {
       SplashScreen.hide();
@@ -45,8 +44,7 @@ class App extends React.Component {
       const userId = this.props.auth.userId;
       // if user is already logged in, fetch logged in data
       this.props.dispatch(fetchUser(userId));
-      this.props.dispatch(fetchPaths(userId));
-      this.props.dispatch(fetchCustomPath(userId));
+      this.props.dispatch(fetchRecentlyConsumedFoods(userId));
       this.props.dispatch(fetchNutrients());
       this.props.dispatch(fetchDiets());
     }
@@ -66,24 +64,10 @@ class App extends React.Component {
     if (prevProps.auth.userId !== this.props.auth.userId) {
       const userId = this.props.auth.userId;
       this.props.dispatch(fetchUser(userId));
-      this.props.dispatch(fetchPaths(userId));
-      this.props.dispatch(fetchCustomPath(userId));
+      this.props.dispatch(fetchRecentlyConsumedFoods(userId));
       this.props.dispatch(fetchNutrients());
       this.props.dispatch(fetchDiets());
     }
-  };
-  renderOnboarding = () => {
-    // If user is logged in and hasn't picked a path show them
-    // the onboarding slides.
-    if (this.props.user && !this.props.user.activePathId) {
-      return (
-        <>
-          <Stack.Screen name="Onboarding Slides" component={OnboardingSlides} />
-          <Stack.Screen name="Onboarding Survey" component={OnboardingSurvey} />
-        </>
-      );
-    }
-    return;
   };
   render() {
     return (
@@ -93,17 +77,24 @@ class App extends React.Component {
         }}>
         {this.props.auth.userId ? (
           <>
-            {this.renderOnboarding()}
             {/*signed in landing page: */}
             <Stack.Screen name="Dashboard" component={Dashboard} />
+            <Stack.Screen name="Progress" component={Progress} />
+            <Stack.Screen name="My Path" component={MyPath} />
+            <Stack.Screen name="Account Menu" component={AccountMenu} />
             <Stack.Screen name="Select Path" component={SelectPath} />
             <Stack.Screen name="Path Detail" component={PathDetail} />
-            <Stack.Screen name="My Path" component={MyPath} />
             <Stack.Screen name="Customize Path" component={CustomizePath} />
-            <Stack.Screen name="Progress" component={Progress} />
             <Stack.Screen name="Nutrient Detail" component={NutrientDetail} />
-            <Stack.Screen name="Account Menu" component={AccountMenu} />
             <Stack.Screen name="Account Details" component={AccountDetails} />
+            <Stack.Screen
+              name="Onboarding Slides"
+              component={OnboardingSlides}
+            />
+            <Stack.Screen
+              name="Onboarding Survey"
+              component={OnboardingSurvey}
+            />
           </>
         ) : (
           <>
