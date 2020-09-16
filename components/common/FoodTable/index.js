@@ -12,6 +12,7 @@ class FoodTable extends React.Component {
     foods: propTypes.array.isRequired,
     // permissions: 'write', 'delete', 'read-only'
     permissions: propTypes.string.isRequired,
+    style: propTypes.object,
   };
   state = {
     foodToAdd: null,
@@ -100,19 +101,20 @@ class FoodTable extends React.Component {
       ['desc'],
     );
     return (
-      <>
+      <View style={this.props.style}>
         {this.renderHeader()}
         {foodsToRender.map((food) => {
           return this.renderRow(food);
         })}
         {this.renderAddFoodModal()}
-      </>
+      </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
   foodRow: {
+    minHeight: normalize(30),
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: normalize(340),
@@ -127,6 +129,7 @@ const styles = StyleSheet.create({
     color: '#555555',
   },
   foodHeader: {
+    alignSelf: 'center',
     fontFamily: 'Cabin-Bold',
     color: '#555555',
   },
