@@ -36,6 +36,7 @@
     "@babel/core": "^7.10.2",
     "@bam.tech/react-native-make": "^3.0.0",
     "@react-native-community/eslint-config": "^2.0.0",
+    "@types/react-native": "^0.63.18",
     "babel-jest": "^26.0.1",
     "eslint": "^5.16.0",
     "jest": "^26.0.1",
