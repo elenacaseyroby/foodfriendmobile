@@ -5,7 +5,7 @@ import FFStatusBar from '../common/FFStatusBar';
 import PathButton from './PathButton';
 import PathHeader from '../common/PathHeader';
 import BackArrow from '../common/BackArrow';
-import OfflineNotificationBanner from '../common/OfflineNoticeBanner';
+import OfflineNotificationBanner from '../common/OfflineNotificationBanner';
 import SelectPathButton from '../common/SelectPathButton';
 import {connect} from 'react-redux';
 import propTypes from 'prop-types';

@@ -13,6 +13,7 @@ class OfflineNoticeBanner extends React.Component {
       this.setState({isConnected: state.isConnected});
     });
   }
+
   render() {
     if (this.state.isConnected) return <></>;
     return (

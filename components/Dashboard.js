@@ -6,7 +6,7 @@ import MyPath from './MyPath';
 import NavBar from './common/NavBar';
 import AccountMenu from './AccountMenu';
 import NutrientJournal from './NutrientJournal';
-import OfflineNotificationBanner from './common/OfflineNoticeBanner';
+import OfflineNotificationBanner from './common/OfflineNotificationBanner';
 import {normalize} from '../utils/deviceScaling';
 
 class Dashboard extends React.Component {

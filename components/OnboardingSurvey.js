@@ -10,7 +10,7 @@ import FFRadioButtons from './forms/FFRadioButtons';
 import FFNarrowButton from './common/FFNarrowButton';
 import FFErrorMessage from './forms/FFErrorMessage';
 import FFStatusBar from './common/FFStatusBar';
-import OfflineNotificationBanner from './common/OfflineNoticeBanner';
+import OfflineNotificationBanner from './common/OfflineNotificationBanner';
 import BlueBottomElipse2 from './common/BlueBottomElipse2';
 import orangeElipse from '../assets/images/top-elipse-two-toned-orange.png';
 import plant from '../assets/images/monstera.png';

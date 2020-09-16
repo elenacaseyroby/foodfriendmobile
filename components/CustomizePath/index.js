@@ -11,7 +11,7 @@ import BlueBottomElipse2 from '../common/BlueBottomElipse2';
 import FFNarrowButton from '../common/FFNarrowButton';
 import FFTextBox from '../forms/FFTextBox';
 import FFErrorMessage from '../forms/FFErrorMessage';
-import OfflineNotificationBanner from '../common/OfflineNoticeBanner';
+import OfflineNotificationBanner from '../common/OfflineNotificationBanner';
 import topElipse from './custom-elipse-top.png';
 import bottomElipse from './custom-elipse-bottom.png';
 import {normalize} from '../../utils/deviceScaling';

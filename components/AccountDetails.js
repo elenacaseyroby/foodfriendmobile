@@ -17,7 +17,7 @@ import FFErrorMessage from './forms/FFErrorMessage';
 import FFNarrowButton from './common/FFNarrowButton';
 import FFStatusBar from './common/FFStatusBar';
 import FFRadioButtons from './forms/FFRadioButtons';
-import OfflineNotificationBanner from './common/OfflineNoticeBanner';
+import OfflineNotificationBanner from './common/OfflineNotificationBanner';
 import Elipse from './common/BlueBottomElipse';
 import api from '../services/api';
 

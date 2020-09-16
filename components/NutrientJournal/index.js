@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import {normalize, getIosStatusBarHeight} from '../../utils/deviceScaling';
 import backgroundImage from './assets/background-image.png';
 import FFStatusBar from '../common/FFStatusBar';
+import OfflineNotificationBanner from '../common/OfflineNotificationBanner';
 import ExitButton from '../common/ExitButton';
 import Tab from './Tab';
 import SearchBar from '../common/SearchBar';
@@ -117,6 +118,7 @@ class NutrientJournal extends React.Component {
         transparent={false}
         visible={this.props.isVisible}>
         <FFStatusBar />
+        <OfflineNotificationBanner />
         <View style={styles.headerContainer}>
           <View style={styles.headerContent}>
             <ExitButton onPress={this.props.onClose} style={styles.exitIcon} />
