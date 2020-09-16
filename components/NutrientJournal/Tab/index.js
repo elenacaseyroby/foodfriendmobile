@@ -15,6 +15,7 @@ class Tab extends React.Component {
   render() {
     return (
       <TouchableOpacity
+        activeOpacity={1.0}
         style={[styles.tabContainer, styles.tabSize, this.props.style]}
         onPress={this.props.onPress}>
         <Image
