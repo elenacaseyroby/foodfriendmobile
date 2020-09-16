@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, Text, StyleSheet, Modal} from 'react-native';
 import {connect} from 'react-redux';
+import {fetchRecentlyConsumedFoods} from '../../../../redux/actions/recentlyConsumedFoodsActionCreator';
 import {normalize} from '../../../../utils/deviceScaling';
 import api from '../../../../services/api';
 import ExitButton from './ExitButton';
@@ -29,6 +30,7 @@ class AddFoodModal extends React.Component {
       );
       // if submits, close window.
       if (postUserFood.status === 200) {
+        this.props.dispatch(fetchRecentlyConsumedFoods(user.id));
         return this.props.onClose();
       } else {
         const error = `response status:${postUserFood.status.toString()} \n response message:${
