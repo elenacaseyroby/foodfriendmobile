@@ -36,20 +36,9 @@ class NutrientJournal extends React.Component {
     const recentlyConsumedFoods = this.props.recentlyConsumedFoods.list || [];
     const {user} = this.props;
     const nutrients = this.props.nutrients.list;
-    let pathFoods = [];
-    if (user && user.activePath) {
-      // get list of ids for nutrients in path.
-      const pathNutrientIds = user.activePath.nutrients.map((nutrient) => {
-        return nutrient.id;
-      });
-      // if nutrient in path, add foods in nutrient to pathFoods list.
-      nutrients.map((nutrient) => {
-        if (!pathNutrientIds.includes(nutrient.id)) return;
-        pathFoods = pathFoods.concat(nutrient.foods);
-      });
-    }
-    // combine list of foods and path and recently consumed foods into a
-    // list of foods to render.
+    // Combine list of foods in nutrients in active path
+    // with list of recently consumed foods
+    // to get list of foods to render.
     let addedfoodIds = [];
     let foodsToRender = [];
     // make sure recently consumed foods are at top of list.
@@ -60,13 +49,23 @@ class NutrientJournal extends React.Component {
         foodsToRender.push(food);
       }
     });
-    pathFoods.map((food) => {
-      // weed out duplicate food records.
-      if (!addedfoodIds.includes(food.id)) {
-        addedfoodIds.push(food.id);
-        foodsToRender.push(food);
-      }
-    });
+    if (user && user.activePath) {
+      // get list of ids for nutrients in active path.
+      const pathNutrientIds = user.activePath.nutrients.map((nutrient) => {
+        return nutrient.id;
+      });
+      // if nutrient in path, add nutrient's foods to foodsToRender list.
+      nutrients.map((nutrient) => {
+        if (!pathNutrientIds.includes(nutrient.id)) return;
+        nutrient.foods.map((food) => {
+          // weed out duplicate food records.
+          if (!addedfoodIds.includes(food.id)) {
+            addedfoodIds.push(food.id);
+            foodsToRender.push(food);
+          }
+        });
+      });
+    }
     return foodsToRender;
   };
   renderSearch = () => {
