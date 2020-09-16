@@ -106,12 +106,9 @@ const styles = StyleSheet.create({
     marginTop: '10%',
   },
   addButton: {
-    marginTop: '5%',
     alignSelf: 'center',
   },
   numberbox: {
-    marginTop: '5%',
-    marginBottom: '5%',
     alignSelf: 'center',
   },
 });

@@ -10,6 +10,7 @@ class FFNumberBox extends React.Component {
     initialValue: propTypes.number.isRequired,
     iterateBy: propTypes.number.isRequired,
     onChange: propTypes.func.isRequired,
+    allowNegatives: propTypes.bool,
     style: propTypes.object,
   };
   state = {
@@ -22,10 +23,12 @@ class FFNumberBox extends React.Component {
   };
   handleSubtract = () => {
     const newValue = this.state.value - this.props.iterateBy;
+    // If new value will be negative and negatives not allowed, do nothing.
+    if (newValue < 0 && !this.props.allowNegatives) return;
     this.setState({value: newValue}, this.props.onChange(newValue));
   };
   render() {
-    const renderValue = parseInt(this.state.value).toFixed(2);
+    const renderValue = parseFloat(this.state.value).toFixed(2);
     return (
       <View style={[styles.numberBoxContainer, this.props.style]}>
         <View>
