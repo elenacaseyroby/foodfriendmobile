@@ -2,7 +2,7 @@ import React from 'react';
 import propTypes from 'prop-types';
 import {Text, View, StyleSheet, Modal} from 'react-native';
 import {normalize} from '../../../utils/deviceScaling';
-import AddButton from './AddButton';
+import AddButton from '../AddButton';
 import DeleteButton from './DeleteButton';
 import AddFoodModal from './AddFoodModal';
 import orderBy from 'lodash/orderBy';
@@ -35,11 +35,13 @@ class FoodTable extends React.Component {
       return <Text style={styles.foodBody}>{percentDv}</Text>;
     } else if (this.props.permissions === 'write') {
       return (
-        <AddButton
-          onPress={() => {
-            this.setState({foodToAdd: food});
-          }}
-        />
+        <View>
+          <AddButton
+            onPress={() => {
+              this.setState({foodToAdd: food});
+            }}
+          />
+        </View>
       );
     } else if (this.props.permissions === 'delete') {
       const percentDv = this.getPercentDv(food);

@@ -3,18 +3,24 @@ import {View, Text, StyleSheet, Modal} from 'react-native';
 import {connect} from 'react-redux';
 import {normalize} from '../../../../utils/deviceScaling';
 import ExitButton from './ExitButton';
+import FFNumberBox from '../../../forms/FFNumberBox';
 import FFNarrowButton from '../../../common/FFNarrowButton';
 import propTypes from 'prop-types';
 
 class AddFoodModal extends React.Component {
   static propTypes = {
     onClose: propTypes.func.isRequired,
-    food: propTypes.obj,
+    food: propTypes.object,
   };
-  state = {};
+  state = {
+    servingsCount: 0.5,
+  };
   submit = () => {
     // submit using premade fun
     this.props.onClose();
+  };
+  handleServingsConsumed = (servingsCount) => {
+    this.setState({servingsCount: servingsCount});
   };
   render() {
     const {food} = this.props;
@@ -34,6 +40,12 @@ class AddFoodModal extends React.Component {
               <Text style={[styles.text, styles.servingsContainer]}>
                 Servings consumed:
               </Text>
+              <FFNumberBox
+                initialValue={1}
+                iterateBy={0.5}
+                onChange={this.handleServingsConsumed}
+                style={styles.numberbox}
+              />
               <FFNarrowButton
                 onClick={this.submit}
                 label="add"
@@ -95,6 +107,11 @@ const styles = StyleSheet.create({
   },
   addButton: {
     marginTop: '5%',
+    alignSelf: 'center',
+  },
+  numberbox: {
+    marginTop: '5%',
+    marginBottom: '5%',
     alignSelf: 'center',
   },
 });

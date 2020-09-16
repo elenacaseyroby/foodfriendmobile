@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     width: normalize(340),
     height: normalize(35),
     backgroundColor: 'gray',
-    borderRadius: 100 / 2,
+    borderRadius: normalize(100 / 2),
     justifyContent: 'space-between',
     flexDirection: 'row',
   },

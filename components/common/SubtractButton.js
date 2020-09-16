@@ -1,21 +1,27 @@
 import React from 'react';
 import {TouchableOpacity, Image, View, StyleSheet} from 'react-native';
-import {normalize} from '../../../utils/deviceScaling';
-import addIcon from '../../../assets/images/black-add-icon.png';
+import {normalize} from '../../utils/deviceScaling';
+import subtractIcon from '../../assets/images/subtract-icon-black.png';
 import propTypes from 'prop-types';
 
-class AddButton extends React.Component {
+class SubtractButton extends React.Component {
   static propTypes = {
     onPress: propTypes.func.isRequired,
     style: propTypes.object,
+    iconWidth: propTypes.object,
+    // diameter height & width
+    diameter: propTypes.object,
   };
   render() {
     return (
       <TouchableOpacity
-        style={(styles.container, this.props.style)}
+        style={[styles.container, this.props.style]}
         onPress={this.props.onPress}>
-        <View style={[styles.circle]}>
-          <Image source={addIcon} style={styles.addIcon} />
+        <View style={[styles.circle, this.props.diameter || styles.diameter]}>
+          <Image
+            source={subtractIcon}
+            style={[styles.addIcon, this.props.iconWidth || styles.iconWidth]}
+          />
         </View>
       </TouchableOpacity>
     );
@@ -24,14 +30,18 @@ class AddButton extends React.Component {
 
 const styles = StyleSheet.create({
   addIcon: {
-    width: normalize(15),
     height: undefined,
     // aspectRatio: width / height,
-    aspectRatio: 1 / 1,
+    aspectRatio: 14 / 2,
   },
-  circle: {
+  iconWidth: {
+    width: normalize(15),
+  },
+  diameter: {
     width: normalize(35),
     height: normalize(35),
+  },
+  circle: {
     borderRadius: 100 / 2,
     alignItems: 'center',
     justifyContent: 'center',
@@ -47,12 +57,8 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   container: {
-    // Button Hovers over other components:
-    // marginLeft: 33,
-    // marginTop: '10.5%',
-    // position: 'absolute',
     flex: 1,
   },
 });
 
-export default AddButton;
+export default SubtractButton;
