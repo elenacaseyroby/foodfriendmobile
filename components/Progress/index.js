@@ -29,6 +29,12 @@ class Progress extends React.Component {
     report.nutrientReports.map((nutrientReport) => {
       console.log(nutrientReport.percentDvConsumed);
     });
+    const totalChartConfig = {
+      backgroundGradientFrom: '#ffffff',
+      backgroundGradientTo: '#ffffff',
+      decimalPlaces: 2, // optional, defaults to 2dp
+      color: (opacity = 1) => `rgba(95,126,198, ${opacity})`,
+    };
     return (
       <View style={styles.rectangle}>
         <FFStatusBar />
@@ -40,6 +46,19 @@ class Progress extends React.Component {
           <Image source={plantMascot} style={styles.plantMascot} />
           <Text style={styles.h1}>Progress</Text>
           <Text style={styles.h2}>{wordsOfEncouragement}</Text>
+          <View style={styles.totalChart}>
+            <ProgressChart
+              data={{
+                data: [report.nutrientsTotalDvConsumed],
+              }}
+              width={normalize(180)}
+              height={normalize(180)}
+              strokeWidth={normalize(23)}
+              radius={normalize(75)}
+              chartConfig={totalChartConfig}
+              hideLegend={true}
+            />
+          </View>
         </View>
       </View>
     );
@@ -96,6 +115,9 @@ const styles = StyleSheet.create({
     fontFamily: 'Cabin-Regular',
     fontSize: normalize(16),
     color: '#555555',
+  },
+  totalChart: {
+    alignSelf: 'center',
   },
 });
 
