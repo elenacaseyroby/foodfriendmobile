@@ -1,13 +1,50 @@
 import React from 'react';
-import {View, Image, Text, StyleSheet} from 'react-native';
+import {ScrollView, View, Image, Text, StyleSheet} from 'react-native';
 import {connect} from 'react-redux';
 import FFStatusBar from '../common/FFStatusBar';
+import FFProgressRing from './FFProgressRing';
 import {normalize} from '../../utils/deviceScaling';
-import {ProgressChart} from 'react-native-chart-kit';
 import plantMascot from '../../assets/images/plant-mascot.png';
 import greenCircle from './assets/green-circle.png';
 
+// if theme is added, must update in orderNutrientsByTheme function.
+const themes = [
+  {
+    rgb: [50, 119, 16],
+    hex: '#327710',
+  },
+  {
+    rgb: [204, 57, 4],
+    hex: '#cc3904',
+  },
+  {
+    rgb: [255, 131, 53],
+    hex: '#ff8335',
+  },
+];
+
 class Progress extends React.Component {
+  renderNutrientProgressRow = (theme, report) => {
+    const percent = parseFloat(report.percentDvConsumed);
+    return (
+      <View key={report.nutrientId} style={styles.nutrientProgressRow}>
+        <FFProgressRing
+          rgb={theme.rgb}
+          percent={percent}
+          strokeWidth={normalize(8)}
+          radius={normalize(40)}
+          chartWidth={normalize(110)}
+          chartHeight={100}
+        />
+        <View style={styles.nutrientLabel}>
+          <Text style={styles.nutrientH1}>{report.nutrientName}</Text>
+          <Text style={styles.nutrientH2}>{`You have consumed ${(
+            report.percentDvConsumed * 100
+          ).toString()}% of your daily value of ${report.nutrientName}.`}</Text>
+        </View>
+      </View>
+    );
+  };
   render() {
     // think about if this naming makes sense...
     const report = this.props.dailyProgress;
@@ -26,17 +63,13 @@ class Progress extends React.Component {
       wordsOfEncouragement =
         'Wow! Great job reaching your goal today! Take a moment to thank yourself for taking such good care of you.';
     }
-    report.nutrientReports.map((nutrientReport) => {
-      console.log(nutrientReport.percentDvConsumed);
-    });
-    const totalChartConfig = {
-      backgroundGradientFrom: '#ffffff',
-      backgroundGradientTo: '#ffffff',
-      decimalPlaces: 2, // optional, defaults to 2dp
-      color: (opacity = 1) => `rgba(95,126,198, ${opacity})`,
-    };
+    // report.nutrientReports.map((nutrientReport) => {
+    //   console.log(nutrientReport.percentDvConsumed);
+    // });
+
+    const totalPercent = parseFloat(report.nutrientsTotalDvConsumed);
     return (
-      <View style={styles.rectangle}>
+      <ScrollView style={styles.rectangle}>
         <FFStatusBar />
         <View style={styles.header}>
           <Image source={greenCircle} style={styles.greenCircle} />
@@ -46,21 +79,26 @@ class Progress extends React.Component {
           <Image source={plantMascot} style={styles.plantMascot} />
           <Text style={styles.h1}>Progress</Text>
           <Text style={styles.h2}>{wordsOfEncouragement}</Text>
-          <View style={styles.totalChart}>
-            <ProgressChart
-              data={{
-                data: [report.nutrientsTotalDvConsumed],
-              }}
-              width={normalize(180)}
-              height={normalize(180)}
-              strokeWidth={normalize(23)}
-              radius={normalize(75)}
-              chartConfig={totalChartConfig}
-              hideLegend={true}
-            />
-          </View>
+          <FFProgressRing
+            rgb={[95, 126, 198]}
+            percent={totalPercent}
+            strokeWidth={normalize(23)}
+            radius={normalize(70)}
+            chartWidth={normalize(180)}
+            chartHeight={180}
+            style={styles.totalChart}
+          />
+          <View style={styles.line} />
+          {report.nutrientReports.map((nutrientReport, index) => {
+            const themeIndex = index % 3;
+            return this.renderNutrientProgressRow(
+              themes[themeIndex],
+              nutrientReport,
+            );
+          })}
         </View>
-      </View>
+        <View style={styles.menuWhiteSpace} />
+      </ScrollView>
     );
   }
 }
@@ -113,11 +151,60 @@ const styles = StyleSheet.create({
     marginTop: '2%',
     alignSelf: 'center',
     fontFamily: 'Cabin-Regular',
+    fontSize: normalize(14),
+    color: '#555555',
+  },
+  h3: {
+    width: normalize(300),
+    textAlign: 'center',
+    marginTop: '2%',
+    alignSelf: 'center',
+    fontFamily: 'Cabin-Regular',
     fontSize: normalize(16),
     color: '#555555',
   },
   totalChart: {
     alignSelf: 'center',
+    marginTop: '3%',
+    marginBottom: '3%',
+  },
+  line: {
+    marginTop: '1%',
+    borderBottomWidth: normalize(0.5),
+    color: '#d9d9d9',
+    width: '100%',
+    opacity: 0.25,
+  },
+  nutrientProgressRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: normalize(282),
+    height: normalize(120),
+    alignSelf: 'center',
+    borderBottomColor: '#d6d9dc',
+    borderBottomWidth: normalize(2),
+  },
+  nutrientLabel: {
+    alignSelf: 'center',
+    width: normalize(150),
+  },
+  nutrientH1: {
+    textAlign: 'left',
+    fontFamily: 'Cabin-Regular',
+    fontSize: normalize(21),
+    color: '#555555',
+  },
+  nutrientH2: {
+    marginTop: '2%',
+    textAlign: 'left',
+    fontFamily: 'Cabin-Regular',
+    fontSize: normalize(14),
+    color: '#555555',
+  },
+  menuWhiteSpace: {
+    backgroundColor: '#ffffff',
+    width: '100%',
+    height: normalize(100),
   },
 });
 
