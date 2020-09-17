@@ -3,6 +3,7 @@ import {View, Image, Text, StyleSheet} from 'react-native';
 import {connect} from 'react-redux';
 import FFStatusBar from '../common/FFStatusBar';
 import {normalize} from '../../utils/deviceScaling';
+import {ProgressChart} from 'react-native-chart-kit';
 import plantMascot from '../../assets/images/plant-mascot.png';
 import greenCircle from './assets/green-circle.png';
 
