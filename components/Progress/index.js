@@ -8,21 +8,26 @@ import greenCircle from './assets/green-circle.png';
 
 class Progress extends React.Component {
   render() {
-    const reports = this.props.dailyProgress.nutrientReports;
-    console.log(reports);
+    // think about if this naming makes sense...
+    const report = this.props.dailyProgress;
+    if (!report.nutrientsTotalDvConsumed) return <></>;
+    console.log(report);
     let wordsOfEncouragement = `Looks like you're just getting started! Click on the "+" to record foods you've eaten today, then return to this page to track your progress.`;
-    if (reports.totalDvConsumed > 0) {
+    if (report.nutrientsTotalDvConsumed > 0) {
       wordsOfEncouragement =
         'Off to a great start! Checkout the "Food" page to see which foods will help you reach your goals faster.';
     }
-    if (reports.totalDvConsumed > 0.5) {
+    if (report.nutrientsTotalDvConsumed > 0.5) {
       wordsOfEncouragement =
         'Nice work! Log more foods to reach 100% of the daily value for each nutrient in your path.';
     }
-    if (reports.totalDvConsumed === 1) {
+    if (report.nutrientsTotalDvConsumed === 1) {
       wordsOfEncouragement =
-        'Wow! Great job reaching your goal today! Keep up the good work and feel like your best you.';
+        'Wow! Great job reaching your goal today! Take a moment to thank yourself for taking such good care of you.';
     }
+    report.nutrientReports.map((nutrientReport) => {
+      console.log(nutrientReport.percentDvConsumed);
+    });
     return (
       <View style={styles.rectangle}>
         <FFStatusBar />
