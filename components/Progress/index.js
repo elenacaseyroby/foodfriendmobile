@@ -59,10 +59,11 @@ class Progress extends React.Component {
       wordsOfEncouragement =
         'Nice work! Log more foods to reach 100% of the daily value for each nutrient in your path.';
     }
-    if (report.nutrientsTotalDvConsumed === 1) {
+    if (report.nutrientsTotalDvConsumed === '1.00') {
       wordsOfEncouragement =
         'Wow! Great job reaching your goal today! Take a moment to thank yourself for taking such good care of you.';
     }
+    console.log(report.nutrientsTotalDvConsumed);
     // report.nutrientReports.map((nutrientReport) => {
     //   console.log(nutrientReport.percentDvConsumed);
     // });
