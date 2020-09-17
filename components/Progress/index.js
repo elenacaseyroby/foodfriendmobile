@@ -90,12 +90,20 @@ class Progress extends React.Component {
           />
           <View style={styles.line} />
           {report.nutrientReports.map((nutrientReport, index) => {
+            // Don't render dash for last nutrient in report.
+            const renderDash = index + 1 !== report.nutrientReports.length;
             const themeIndex = index % 3;
-            return this.renderNutrientProgressRow(
-              themes[themeIndex],
-              nutrientReport,
+            return (
+              <>
+                {this.renderNutrientProgressRow(
+                  themes[themeIndex],
+                  nutrientReport,
+                )}
+                {renderDash ? <View style={styles.dash} /> : <></>}
+              </>
             );
           })}
+          <View style={styles.line} />
         </View>
         <View style={styles.menuWhiteSpace} />
       </ScrollView>
@@ -169,11 +177,15 @@ const styles = StyleSheet.create({
     marginBottom: '3%',
   },
   line: {
-    marginTop: '1%',
-    borderBottomWidth: normalize(0.5),
-    color: '#d9d9d9',
+    borderBottomWidth: normalize(2),
+    borderBottomColor: '#d6d9dc',
     width: '100%',
-    opacity: 0.25,
+  },
+  dash: {
+    borderBottomColor: '#d6d9dc',
+    borderBottomWidth: normalize(2),
+    alignSelf: 'center',
+    width: normalize(282),
   },
   nutrientProgressRow: {
     flexDirection: 'row',
@@ -181,8 +193,6 @@ const styles = StyleSheet.create({
     width: normalize(282),
     height: normalize(120),
     alignSelf: 'center',
-    borderBottomColor: '#d6d9dc',
-    borderBottomWidth: normalize(2),
   },
   nutrientLabel: {
     alignSelf: 'center',
