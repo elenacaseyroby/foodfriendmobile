@@ -31,11 +31,12 @@ class FFProgressRing extends React.Component {
       color: (opacity = 1) => `rgba(${rgb[0]},${rgb[1]},${rgb[2]}, ${opacity})`,
     };
     const fontSize = {fontSize: (21 / 70) * radius};
+    const percentMax100 = percent > 1 ? 1 : percent;
     return (
       <View style={[styles.chart, style]}>
         <ProgressChart
           data={{
-            data: [percent],
+            data: [percentMax100],
           }}
           width={chartWidth}
           height={chartHeight}
