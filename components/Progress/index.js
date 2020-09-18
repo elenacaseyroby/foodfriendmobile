@@ -71,61 +71,62 @@ class Progress extends React.Component {
 
     const totalPercent = parseFloat(report.nutrientsTotalDvConsumed);
     return (
-      <ScrollView style={styles.rectangle}>
+      <>
         <FFStatusBar />
-        <View style={styles.header}>
-          <Image source={greenCircle} style={styles.greenCircle} />
-        </View>
-
-        <View style={styles.progressCard}>
-          <Image source={plantMascot} style={styles.plantMascot} />
-          <Text style={styles.h1}>Progress</Text>
-          <Text style={styles.h2}>{wordsOfEncouragement}</Text>
-          <FFProgressRing
-            rgb={[95, 126, 198]}
-            percent={totalPercent}
-            strokeWidth={normalize(23)}
-            radius={normalize(70)}
-            chartWidth={normalize(180)}
-            chartHeight={180}
-            style={styles.totalChart}
-          />
-          <View style={styles.line} />
-          {report.nutrientReports.map((nutrientReport, index) => {
-            // Don't render dash for last nutrient in report.
-            const renderDash = index + 1 !== report.nutrientReports.length;
-            const themeIndex = index % 3;
-            return (
-              <>
-                {this.renderNutrientProgressRow(
-                  themes[themeIndex],
-                  nutrientReport,
-                )}
-                {renderDash ? <View style={styles.dash} /> : <></>}
-              </>
-            );
-          })}
-          <View style={styles.line} />
-          <View style={styles.nutrientCardsContainer}>
+        <ScrollView style={styles.rectangle}>
+          <View style={styles.header}>
+            <Image source={greenCircle} style={styles.greenCircle} />
+          </View>
+          <View style={styles.progressCard}>
+            <Image source={plantMascot} style={styles.plantMascot} />
+            <Text style={styles.h1}>Progress</Text>
+            <Text style={styles.h2}>{wordsOfEncouragement}</Text>
+            <FFProgressRing
+              rgb={[95, 126, 198]}
+              percent={totalPercent}
+              strokeWidth={normalize(23)}
+              radius={normalize(70)}
+              chartWidth={normalize(180)}
+              chartHeight={180}
+              style={styles.totalChart}
+            />
+            <View style={styles.line} />
             {report.nutrientReports.map((nutrientReport, index) => {
+              // Don't render dash for last nutrient in report.
+              const renderDash = index + 1 !== report.nutrientReports.length;
               const themeIndex = index % 3;
-              const backgroundColor = {
-                backgroundColor: themes[themeIndex].hex,
-              };
               return (
-                <NutrientUserFoodsCard
-                  nutrientName={nutrientReport.nutrientName}
-                  foods={nutrientReport.consumedFoods}
-                  defaultIsExpanded={true}
-                  nutrientBarBackgroundColor={backgroundColor}
-                  style={styles.nutrientCard}
-                />
+                <>
+                  {this.renderNutrientProgressRow(
+                    themes[themeIndex],
+                    nutrientReport,
+                  )}
+                  {renderDash ? <View style={styles.dash} /> : <></>}
+                </>
               );
             })}
+            <View style={styles.line} />
+            <View style={styles.nutrientCardsContainer}>
+              {report.nutrientReports.map((nutrientReport, index) => {
+                const themeIndex = index % 3;
+                const backgroundColor = {
+                  backgroundColor: themes[themeIndex].hex,
+                };
+                return (
+                  <NutrientUserFoodsCard
+                    nutrientName={nutrientReport.nutrientName}
+                    foods={nutrientReport.consumedFoods}
+                    defaultIsExpanded={true}
+                    nutrientBarBackgroundColor={backgroundColor}
+                    style={styles.nutrientCard}
+                  />
+                );
+              })}
+            </View>
           </View>
-        </View>
-        <View style={styles.menuWhiteSpace} />
-      </ScrollView>
+          <View style={styles.menuWhiteSpace} />
+        </ScrollView>
+      </>
     );
   }
 }
@@ -233,10 +234,10 @@ const styles = StyleSheet.create({
   menuWhiteSpace: {
     backgroundColor: '#ffffff',
     width: '100%',
-    height: normalize(100),
+    height: normalize(120),
   },
   nutrientCardsContainer: {
-    marginTop: '5%',
+    marginTop: '3%',
   },
   nutrientCard: {
     alignSelf: 'center',
