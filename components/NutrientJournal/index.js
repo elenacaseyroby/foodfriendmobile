@@ -131,7 +131,13 @@ class NutrientJournal extends React.Component {
         <OfflineNotificationBanner />
         <View style={styles.headerContainer}>
           <View style={styles.headerContent}>
-            <ExitButton onPress={this.props.onClose} style={styles.exitIcon} />
+            <ExitButton
+              onPress={() => {
+                this.setState({filteredFoods: null});
+                this.props.onClose();
+              }}
+              style={styles.exitIcon}
+            />
             <Text style={styles.headerText}>What did you eat today?</Text>
           </View>
           <Image source={backgroundImage} style={styles.backgroundImage} />
