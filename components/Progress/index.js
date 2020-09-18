@@ -28,7 +28,7 @@ class Progress extends React.Component {
   renderNutrientProgressRow = (theme, report) => {
     const percent = parseFloat(report.percentDvConsumed);
     return (
-      <View key={report.nutrientId} style={styles.nutrientProgressRow}>
+      <View style={styles.nutrientProgressRow}>
         <FFProgressRing
           rgb={theme.rgb}
           percent={percent}
@@ -51,7 +51,7 @@ class Progress extends React.Component {
     const report = this.props.dailyProgress;
     if (!report.nutrientsTotalDvConsumed) return <></>;
     console.log(report);
-    let wordsOfEncouragement = `Looks like you're just getting started! Click on the "+" to record foods you've eaten today, then return to this page to track your progress.`;
+    let wordsOfEncouragement = `Looks like you're just getting started! Click on the (+) to record foods you've eaten today, then return to this page to track your progress.`;
     if (report.nutrientsTotalDvConsumed > 0) {
       wordsOfEncouragement =
         'Off to a great start! Checkout the "Food" page to see which foods will help you reach your goals faster.';
@@ -106,20 +106,23 @@ class Progress extends React.Component {
             );
           })}
           <View style={styles.line} />
-          {report.nutrientReports.map((nutrientReport, index) => {
-            const themeIndex = index % 3;
-            const backgroundColor = {
-              backgroundColor: themes[themeIndex].hex,
-            };
-            return (
-              <NutrientUserFoodsCard
-                nutrientName={nutrientReport.nutrientName}
-                foods={nutrientReport.consumedFoods}
-                defaultIsExpanded={true}
-                nutrientBarBackgroundColor={backgroundColor}
-              />
-            );
-          })}
+          <View style={styles.nutrientCardsContainer}>
+            {report.nutrientReports.map((nutrientReport, index) => {
+              const themeIndex = index % 3;
+              const backgroundColor = {
+                backgroundColor: themes[themeIndex].hex,
+              };
+              return (
+                <NutrientUserFoodsCard
+                  nutrientName={nutrientReport.nutrientName}
+                  foods={nutrientReport.consumedFoods}
+                  defaultIsExpanded={true}
+                  nutrientBarBackgroundColor={backgroundColor}
+                  style={styles.nutrientCard}
+                />
+              );
+            })}
+          </View>
         </View>
         <View style={styles.menuWhiteSpace} />
       </ScrollView>
@@ -231,6 +234,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
     width: '100%',
     height: normalize(100),
+  },
+  nutrientCardsContainer: {
+    marginTop: '5%',
+  },
+  nutrientCard: {
+    alignSelf: 'center',
+    marginTop: '2%',
   },
 });
 
