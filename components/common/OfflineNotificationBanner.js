@@ -4,7 +4,7 @@ import {normalize} from '../../utils/deviceScaling';
 import {statusBarHeight} from '../../utils/deviceScaling';
 import NetInfo from '@react-native-community/netinfo';
 
-class OfflineNoticeBanner extends React.Component {
+class OfflineNotificationBanner extends React.Component {
   state = {
     isConnected: true,
   };
@@ -61,4 +61,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default OfflineNoticeBanner;
+export default OfflineNotificationBanner;
