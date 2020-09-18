@@ -1,7 +1,7 @@
 import React from 'react';
 import {TouchableOpacity, Image, View, StyleSheet} from 'react-native';
-import {normalize} from '../../../../utils/deviceScaling';
-import exitIcon from '../../../../assets/images/close-icon.png';
+import {normalize} from '../../../utils/deviceScaling';
+import exitIcon from '../../../assets/images/close-icon.png';
 import propTypes from 'prop-types';
 
 class ExitButton extends React.Component {

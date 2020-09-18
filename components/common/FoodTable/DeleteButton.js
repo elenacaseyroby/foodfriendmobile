@@ -20,7 +20,7 @@ class DeleteButton extends React.Component {
 
 const styles = StyleSheet.create({
   deleteIcon: {
-    width: normalize(15),
+    width: normalize(20),
     height: undefined,
     // aspectRatio: width / height,
     aspectRatio: 1 / 1,

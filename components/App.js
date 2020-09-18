@@ -3,6 +3,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import SplashScreen from 'react-native-splash-screen';
 import {connect} from 'react-redux';
 import {fetchNutrients} from '../redux/actions/nutrientsActionCreator';
+import {fetchDailyProgress} from '../redux/actions/dailyProgressActionCreator';
 import {fetchDiets} from '../redux/actions/dietsActionCreator';
 import {fetchUser} from '../redux/actions/userActionCreator';
 import {fetchTermsAndConditions} from '../redux/actions/termsAndConditionsActionCreator';
@@ -45,6 +46,7 @@ class App extends React.Component {
       // if user is already logged in, fetch logged in data
       this.props.dispatch(fetchUser(userId));
       this.props.dispatch(fetchRecentlyConsumedFoods(userId));
+      this.props.dispatch(fetchDailyProgress(userId));
       this.props.dispatch(fetchNutrients());
       this.props.dispatch(fetchDiets());
     }
@@ -67,6 +69,7 @@ class App extends React.Component {
       this.props.dispatch(fetchRecentlyConsumedFoods(userId));
       this.props.dispatch(fetchNutrients());
       this.props.dispatch(fetchDiets());
+      this.props.dispatch(fetchDailyProgress(userId));
     }
   };
   render() {

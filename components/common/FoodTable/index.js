@@ -1,10 +1,11 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import {Text, View, StyleSheet, Modal} from 'react-native';
+import {Text, View, StyleSheet} from 'react-native';
 import {normalize} from '../../../utils/deviceScaling';
 import AddButton from '../AddButton';
 import DeleteButton from './DeleteButton';
 import AddFoodModal from './AddFoodModal';
+import DeleteFoodModal from './DeleteFoodModal';
 import orderBy from 'lodash/orderBy';
 
 class FoodTable extends React.Component {
@@ -45,13 +46,21 @@ class FoodTable extends React.Component {
         </View>
       );
     } else if (this.props.permissions === 'delete') {
-      const percentDv = this.getPercentDv(food);
       return (
-        <View>
-          <Text style={styles.foodBody}>{percentDv}</Text>
-          {/* add onPress function */}
-          <DeleteButton onPress={() => {}} />
-        </View>
+        <>
+          <Text
+            style={
+              styles.foodBody
+            }>{`Servings: ${food.userFoodServingsCount}`}</Text>
+          <DeleteButton
+            onPress={() => {
+              console.log('SET STATE!');
+              console.log(JSON.stringify(food));
+              this.setState({foodToDelete: food});
+            }}
+            style={styles.deleteButton}
+          />
+        </>
       );
     }
   }
@@ -90,7 +99,16 @@ class FoodTable extends React.Component {
       />
     );
   };
-
+  renderDeleteFoodModal = () => {
+    if (!this.state.foodToDelete) return;
+    const {foodToDelete} = this.state;
+    return (
+      <DeleteFoodModal
+        food={foodToDelete}
+        onClose={() => this.setState({foodToDelete: null})}
+      />
+    );
+  };
   render() {
     const {foods} = this.props;
     // Order food from highest to lowest in nutrient.
@@ -107,6 +125,7 @@ class FoodTable extends React.Component {
           return this.renderRow(food);
         })}
         {this.renderAddFoodModal()}
+        {this.renderDeleteFoodModal()}
       </View>
     );
   }
@@ -114,11 +133,11 @@ class FoodTable extends React.Component {
 
 const styles = StyleSheet.create({
   foodRow: {
+    width: '90%',
+    alignSelf: 'center',
     minHeight: normalize(30),
     flexDirection: 'row',
     justifyContent: 'space-between',
-    width: normalize(340),
-    alignSelf: 'center',
     marginTop: '2%',
     marginBottom: '2%',
     fontSize: normalize(14),
@@ -126,11 +145,13 @@ const styles = StyleSheet.create({
   foodBody: {
     alignSelf: 'center',
     fontFamily: 'Cabin-Regular',
+    fontSize: normalize(16),
     color: '#555555',
   },
   foodHeader: {
     alignSelf: 'center',
     fontFamily: 'Cabin-Bold',
+    fontSize: normalize(16),
     color: '#555555',
   },
   line: {
@@ -139,6 +160,9 @@ const styles = StyleSheet.create({
     color: '#d9d9d9',
     width: '100%',
     opacity: 0.25,
+  },
+  deleteButton: {
+    marginTop: '2%',
   },
 });
 

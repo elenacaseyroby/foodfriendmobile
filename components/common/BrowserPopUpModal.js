@@ -1,8 +1,16 @@
 import React from 'react';
-import {StyleSheet, Modal, TouchableOpacity, Image, View} from 'react-native';
+import {
+  StyleSheet,
+  Modal,
+  ScrollView,
+  TouchableOpacity,
+  Image,
+  View,
+} from 'react-native';
 import {WebView} from 'react-native-webview';
 import {normalize, getIosStatusBarHeight} from '../../utils/deviceScaling';
-import closeIcon from '../../assets/images/close-icon.png';
+import closeIcon from '../../assets/images/white-exit-icon.png';
+import FFStatusBar from './FFStatusBar';
 import propTypes from 'prop-types';
 
 class BrowserPopUpModal extends React.Component {
@@ -17,12 +25,18 @@ class BrowserPopUpModal extends React.Component {
         animationType="swipe"
         transparent={false}
         visible={this.props.isVisible}>
+        <FFStatusBar
+          backgroundColorStyle={{backgroundColor: '#555555'}}
+          barStyle="light-content"
+        />
         <View style={styles.browserContainer}>
-          <TouchableOpacity
-            style={styles.closeButton}
-            onPress={this.props.onClose}>
-            <Image style={styles.closeIcon} source={closeIcon} />
-          </TouchableOpacity>
+          <View style={styles.topBar}>
+            <TouchableOpacity
+              style={styles.closeButton}
+              onPress={this.props.onClose}>
+              <Image style={styles.closeIcon} source={closeIcon} />
+            </TouchableOpacity>
+          </View>
           <WebView style={styles.browser} source={{uri: this.props.uri}} />
         </View>
       </Modal>
@@ -31,10 +45,20 @@ class BrowserPopUpModal extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  whitePlaceholder: {
+    width: '100%',
+    height: normalize(50),
+  },
+  topBar: {
+    opacity: 0.8,
+    width: '100%',
+    height: normalize(50),
+    justifyContent: 'center',
+    backgroundColor: '#555555',
+  },
   closeButton: {
-    marginTop: getIosStatusBarHeight() + normalize(2),
-    marginRight: '2%',
-    alignSelf: 'flex-end',
+    alignSelf: 'flex-start',
+    marginLeft: '5%',
   },
   closeIcon: {
     width: normalize(15),
@@ -43,19 +67,12 @@ const styles = StyleSheet.create({
     aspectRatio: 32 / 31,
   },
   browserContainer: {
-    flex: 1,
-    flexDirection: 'column',
-    alignContent: 'center',
-    alignItems: 'center',
+    height: '100%',
+    width: '100%',
   },
   browser: {
-    margin: '2%',
-    maxHeight: '98%',
-    width: normalize(365),
-    bottom: 0,
-    // borderRadius: normalize(28.5),
-    // borderColor: '#555555',
-    // borderWidth: 0.5,
+    height: '100%',
+    width: '100%',
   },
 });
 

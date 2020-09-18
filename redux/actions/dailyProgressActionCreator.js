@@ -3,7 +3,7 @@ import {buildOrRetrieveDailyProgressCache} from '../../asyncStorage/cache';
 
 export function fetchDailyProgress(userId) {
   console.log('FETCH DAILY PROGRESS');
-  fetchDailyProgress();
+  fetchDailyProgressBegin();
   return async function (dispatch) {
     const dailyProgress = await buildOrRetrieveDailyProgressCache(userId);
     if (!dailyProgress) {

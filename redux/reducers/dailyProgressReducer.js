@@ -5,7 +5,7 @@ import C from '../constants';
 const initialState = {
   error: null,
   loading: false,
-  nutrientReports: [],
+  nutrientsTotalDvConsumed: null,
 };
 
 export const dailyProgressReducer = (prevState = initialState, action) => {
@@ -19,7 +19,7 @@ export const dailyProgressReducer = (prevState = initialState, action) => {
     return {
       error: null,
       loading: false,
-      nutrientReports: action.payload.dailyProgress,
+      ...action.payload.dailyProgress,
     };
   } else if (action.type === C.FETCH_DAILY_PROGRESS_FAILURE) {
     let newState = prevState;
