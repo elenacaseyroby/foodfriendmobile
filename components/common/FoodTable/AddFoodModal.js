@@ -1,14 +1,14 @@
 import React from 'react';
 import {View, Text, StyleSheet, Modal} from 'react-native';
 import {connect} from 'react-redux';
-import {fetchRecentlyConsumedFoods} from '../../../../redux/actions/recentlyConsumedFoodsActionCreator';
-import {fetchDailyProgress} from '../../../../redux/actions/dailyProgressActionCreator';
-import {normalize} from '../../../../utils/deviceScaling';
-import api from '../../../../services/api';
+import {fetchRecentlyConsumedFoods} from '../../../redux/actions/recentlyConsumedFoodsActionCreator';
+import {fetchDailyProgress} from '../../../redux/actions/dailyProgressActionCreator';
+import {normalize} from '../../../utils/deviceScaling';
+import api from '../../../services/api';
 import ExitButton from './ExitButton';
-import FFNumberBox from '../../../forms/FFNumberBox';
-import FFNarrowButton from '../../../common/FFNarrowButton';
-import FFErrorMessage from '../../../forms/FFErrorMessage';
+import FFNumberBox from '../../forms/FFNumberBox';
+import FFNarrowButton from '../../common/FFNarrowButton';
+import FFErrorMessage from '../../forms/FFErrorMessage';
 import propTypes from 'prop-types';
 
 class AddFoodModal extends React.Component {

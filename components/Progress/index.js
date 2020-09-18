@@ -3,6 +3,7 @@ import {ScrollView, View, Image, Text, StyleSheet} from 'react-native';
 import {connect} from 'react-redux';
 import FFStatusBar from '../common/FFStatusBar';
 import FFProgressRing from './FFProgressRing';
+import NutrientUserFoodsCard from './NutrientUserFoodsCard';
 import {normalize} from '../../utils/deviceScaling';
 import plantMascot from '../../assets/images/plant-mascot.png';
 import greenCircle from './assets/green-circle.png';
@@ -105,6 +106,20 @@ class Progress extends React.Component {
             );
           })}
           <View style={styles.line} />
+          {report.nutrientReports.map((nutrientReport, index) => {
+            const themeIndex = index % 3;
+            const backgroundColor = {
+              backgroundColor: themes[themeIndex].hex,
+            };
+            return (
+              <NutrientUserFoodsCard
+                nutrientName={nutrientReport.nutrientName}
+                foods={nutrientReport.consumedFoods}
+                defaultIsExpanded={true}
+                nutrientBarBackgroundColor={backgroundColor}
+              />
+            );
+          })}
         </View>
         <View style={styles.menuWhiteSpace} />
       </ScrollView>

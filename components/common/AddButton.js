@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     height: normalize(35),
   },
   circle: {
-    borderRadius: 100 / 2,
+    borderRadius: normalize(100 / 2),
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#ffffff',
