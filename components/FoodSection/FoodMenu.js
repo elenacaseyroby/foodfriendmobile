@@ -17,7 +17,12 @@ class FoodMenu extends React.Component {
         <View style={styles.menuContainer}>
           <View style={styles.buttonContainer}>
             <TouchableOpacity
-              style={styles.iconButton}
+              style={[
+                styles.button,
+                this.props.activeScreen === 'nutrientFoods'
+                  ? styles.activeButton
+                  : styles.passiveButton,
+              ]}
               onPress={() => {
                 this.props.updateActiveScreen('nutrientFoods');
               }}>
@@ -28,11 +33,16 @@ class FoodMenu extends React.Component {
                     ? styles.activeText
                     : styles.passiveText,
                 ]}>
-                Path
+                Food
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
-              style={styles.iconButton}
+              style={[
+                styles.button,
+                this.props.activeScreen === 'recipes'
+                  ? styles.activeButton
+                  : styles.passiveButton,
+              ]}
               onPress={() => {
                 this.props.updateActiveScreen('recipes');
               }}>
@@ -43,9 +53,10 @@ class FoodMenu extends React.Component {
                     ? styles.activeText
                     : styles.passiveText,
                 ]}>
-                Progress
+                Recipes
               </Text>
             </TouchableOpacity>
+            {/* add new touchable menu item here and update styles.button.width */}
           </View>
         </View>
       </>
@@ -54,35 +65,42 @@ class FoodMenu extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  iconButton: {
-    height: normalize(45),
-    padding: 0,
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    width: normalize(50),
+  button: {
+    // width: iPhone 8 width / number of menu items
+    // remember to change the diviser if you add
+    // a new menu item
+    width: 375 / 2,
+    borderBottomWidth: normalize(4),
+    height: normalize(40),
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  activeButton: {
+    borderBottomColor: '#cc3904',
+  },
+  passiveButton: {
+    borderBottomColor: '#d9d9d9',
   },
   activeText: {
-    color: '#5f7ec6',
+    fontFamily: 'Cabin-Bold',
+    color: '#cc3904',
   },
   passiveText: {
-    color: '#a5a5a5',
+    fontFamily: 'Cabin-Regular',
+    color: '#555555',
   },
   text: {
-    alignSelf: 'center',
-    fontFamily: 'Cabin-Regular',
-    fontSize: normalize(13),
+    fontSize: normalize(16),
   },
   buttonContainer: {
-    alignItems: 'center',
+    alignItems: 'flex-start',
     flexDirection: 'row',
     justifyContent: 'space-evenly',
     width: '100%',
-    height: normalize(65),
   },
   menuContainer: {
     backgroundColor: '#ffffff',
-    borderColor: '#e4e2e2',
-    borderWidth: normalize(1),
+    height: normalize(55),
   },
 });
 
