@@ -3,6 +3,7 @@ import {StyleSheet, View, Text} from 'react-native';
 import {connect} from 'react-redux';
 import Progress from './Progress';
 import MyPath from './MyPath';
+import FoodSection from './FoodSection';
 import NavBar from './common/NavBar';
 import AccountMenu from './AccountMenu';
 import NutrientJournal from './NutrientJournal';
@@ -29,18 +30,15 @@ class Dashboard extends React.Component {
       user && user.id && !user.activePathId && !user.birthday;
     const userHasNotSelectedPath = user && user.id && !user.activePathId;
     if (userNotHasOnboarded) {
-      console.log('not onboarded');
       return this.props.navigation.navigate('Onboarding Slides');
     }
     if (userHasNotSelectedPath) {
-      console.log('not selected path');
       return this.props.navigation.navigate('Select Path');
     }
     // do not allow user to access the following pages without selecting a path.
     if (this.state.activeScreen === 'progress')
       return <Progress navigation={this.props.navigation} />;
-    if (this.state.activeScreen === 'food')
-      return <Text style={styles.test}>Food and Recipes</Text>;
+    if (this.state.activeScreen === 'food') return <FoodSection />;
     if (this.state.activeScreen === 'path')
       return <MyPath navigation={this.props.navigation} />;
     if (this.state.activeScreen === 'account')
