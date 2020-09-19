@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, Image, View, TouchableOpacity, StyleSheet} from 'react-native';
+import {Text, View, TouchableOpacity, StyleSheet} from 'react-native';
 import {normalize} from '../../utils/deviceScaling';
 
 import propTypes from 'prop-types';
@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
   },
   menuContainer: {
     backgroundColor: '#ffffff',
-    height: normalize(55),
+    height: normalize(50),
   },
 });
 

@@ -1,7 +1,9 @@
 import React from 'react';
-import {StyleSheet, Image, View, Text} from 'react-native';
+import {StyleSheet, ScrollView, Image, View, Text} from 'react-native';
+import {connect} from 'react-redux';
 import FoodMenu from './FoodMenu';
 import OfflineNotificationBanner from '../common/OfflineNotificationBanner';
+import ViewNutrientFoodsList from './ViewNutrientFoodsList';
 import FFStatusBar from '../common/FFStatusBar';
 import groceryPile from './assets/grocery-pile.png';
 import {normalize} from '../../utils/deviceScaling';
@@ -16,13 +18,41 @@ class FoodSection extends React.Component {
   renderActiveScreen = () => {
     // do not allow user to access the following pages without selecting a path.
     if (this.state.activeScreen === 'nutrientFoods')
-      return <Text> Nutrient Foods </Text>;
+      return this.renderNutrientFoodsScreen();
     if (this.state.activeScreen === 'recipes')
       return <Text>Food and Recipes</Text>;
   };
+  renderNutrientFoodsScreen = () => {
+    const {user} = this.props;
+    if (!user && !user.activePath) return;
+    if (!this.props.nutrients) return;
+    const nutrients = this.props.nutrients.list;
+    // get list of ids for nutrients in path.
+    const pathNutrientIds = user.activePath.nutrients.map((nutrient) => {
+      return nutrient.id;
+    });
+    // Expand only first nutrient.
+    let nutrientHasBeenExpanded = false;
+    return (
+      <ScrollView>
+        {nutrients.map((nutrient) => {
+          if (!pathNutrientIds.includes(nutrient.id)) return <></>;
+          const defaultIsExpanded = !nutrientHasBeenExpanded;
+          nutrientHasBeenExpanded = true;
+          return (
+            <ViewNutrientFoodsList
+              nutrient={nutrient}
+              defaultIsExpanded={defaultIsExpanded}
+            />
+          );
+        })}
+        <View style={styles.navBarWhiteSpace} />
+      </ScrollView>
+    );
+  };
   render() {
     return (
-      <View>
+      <View style={styles.foodSectionContainer}>
         <FFStatusBar />
         <OfflineNotificationBanner />
         <View style={styles.header}>
@@ -52,6 +82,20 @@ const styles = StyleSheet.create({
     // aspectRatio: width / height,
     aspectRatio: 354 / 154,
   },
+  navBarWhiteSpace: {
+    backgroundColor: '#ffffff',
+    width: '100%',
+    height: normalize(380),
+  },
+  foodSectionContainer: {
+    backgroundColor: '#ffffff',
+    minHeight: '100%',
+  },
 });
 
-export default FoodSection;
+const mapStateToProps = (state) => ({
+  user: state.user,
+  nutrients: state.nutrients,
+});
+
+export default connect(mapStateToProps)(FoodSection);
