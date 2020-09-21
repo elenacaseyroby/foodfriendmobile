@@ -1,5 +1,5 @@
 import React from 'react';
-import {ScrollView, View, Text, StyleSheet} from 'react-native';
+import {View, FlatList, StyleSheet} from 'react-native';
 import RecipeCard from './RecipeCard';
 import {normalize} from '../../utils/deviceScaling';
 
@@ -11,29 +11,46 @@ class RecipeCarousel extends React.Component {
     recipes: propTypes.array.isRequired,
     style: propTypes.object,
   };
+  state = {
+    currentIndex: 0,
+    startIndex: 0,
+    endIndex: 3,
+  };
+  keyExtractor = (item, index) => {
+    return index.toString();
+  };
+  renderRecipeCard = (item) => {
+    const recipe = item.item;
+    return (
+      <View style={styles.card}>
+        <RecipeCard recipe={recipe} />
+      </View>
+    );
+  };
+  onScroll = (event) => {
+    const {recipes} = this.props;
+    const recipeCardWidth = normalize(300);
+    const cardMarginRight = 0;
+    const recipeWidth = recipeCardWidth + cardMarginRight;
+    const index = parseInt(event.nativeEvent.contentOffset.x / recipeWidth);
+    if (this.state.currentIndex !== index) {
+      this.setState({
+        currentIndex: index,
+      });
+    }
+  };
   render() {
     const {recipes, style, nutrientId} = this.props;
     return (
       <View style={[styles.menuContainer, style]}>
-        <ScrollView
-          horizontal={true}
-          // contentContainerStyle={{
-          //   ...styles.scrollView,
-          //   width: `100%`,
-          // }}
-          showsHorizontalScrollIndicator={false}>
-          {recipes.map((recipe) => {
-            // return <Text>{recipe.name}</Text>;
-            return (
-              <View style={styles.card}>
-                <RecipeCard
-                  recipeKey={`${nutrientId}${recipe.id}`}
-                  recipe={recipe}
-                />
-              </View>
-            );
-          })}
-        </ScrollView>
+        <FlatList
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          keyExtractor={this.keyExtractor}
+          data={recipes}
+          renderItem={this.renderRecipeCard}
+          onScroll={this.onScroll}
+        />
       </View>
     );
   }
@@ -44,7 +61,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   // card: {
-  //   marginRight: '4%',
+  //   marginRight: noramlize(10),
   // },
 });
 

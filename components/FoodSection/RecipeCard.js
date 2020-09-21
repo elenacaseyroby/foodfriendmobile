@@ -55,7 +55,7 @@ class RecipeCard extends React.Component {
           </TouchableOpacity>
           <Text style={styles.recipeNameText}>{recipe.name}</Text>
           <Text style={styles.trackableFoodsText}>
-            Trackable Foods:{'\n'}
+            Contains:{'\n'}
             {recipe.trackableFoods}
           </Text>
           <TouchableOpacity
@@ -99,6 +99,8 @@ const styles = StyleSheet.create({
   recipeCardContainer: {
     overflow: 'hidden',
     backgroundColor: '#ffffff',
+    // if you change the width you must update
+    // onScroll function in carousel.
     width: normalize(300),
     height: normalize(175),
     borderColor: '#d0d0d0',
