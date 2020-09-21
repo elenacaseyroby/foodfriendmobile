@@ -17,6 +17,8 @@ class FoodSection extends React.Component {
     this.setState({activeScreen: screenName});
   };
   renderActiveScreen = () => {
+    const {user} = this.props;
+    if (!user && !user.activePath) return;
     // do not allow user to access the following pages without selecting a path.
     if (this.state.activeScreen === 'nutrientFoods')
       return this.renderNutrientFoodsScreen();
@@ -82,7 +84,7 @@ const styles = StyleSheet.create({
     width: normalize(354),
     height: undefined,
     // aspectRatio: width / height,
-    aspectRatio: 354 / 154,
+    aspectRatio: 361 / 158,
   },
   navBarWhiteSpace: {
     backgroundColor: '#ffffff',
