@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Cabin-Regular',
     fontSize: normalize(16),
     color: '#555555',
-    marginTop: '4%',
+    marginTop: '5%',
     marginBottom: '2%',
   },
   navBarWhiteSpace: {
