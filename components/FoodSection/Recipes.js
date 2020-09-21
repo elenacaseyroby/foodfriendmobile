@@ -35,10 +35,18 @@ class Recipes extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  menuContainer: {},
-  sectionHeader: {},
+  menuContainer: {
+    backgroundColor: '#f9f9f9',
+  },
+  sectionHeader: {
+    fontFamily: 'Cabin-Regular',
+    fontSize: normalize(16),
+    color: '#555555',
+    marginTop: '4%',
+    marginBottom: '2%',
+  },
   navBarWhiteSpace: {
-    backgroundColor: '#ffffff',
+    backgroundColor: '#f9f9f9',
     width: '100%',
     height: normalize(380),
   },

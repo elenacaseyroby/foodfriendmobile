@@ -99,7 +99,6 @@ const styles = StyleSheet.create({
   },
   menuContainer: {
     backgroundColor: '#ffffff',
-    height: normalize(50),
   },
 });
 

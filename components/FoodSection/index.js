@@ -36,6 +36,7 @@ class FoodSection extends React.Component {
     let nutrientHasBeenExpanded = false;
     return (
       <ScrollView>
+        <View style={styles.whiteSpaceUnderMenu} />
         {nutrients.map((nutrient) => {
           if (!pathNutrientIds.includes(nutrient.id)) return <></>;
           const defaultIsExpanded = !nutrientHasBeenExpanded;
@@ -91,6 +92,10 @@ const styles = StyleSheet.create({
   foodSectionContainer: {
     backgroundColor: '#ffffff',
     minHeight: '100%',
+  },
+  whiteSpaceUnderMenu: {
+    backgroundColor: '#ffffff',
+    height: normalize(10),
   },
 });
 

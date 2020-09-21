@@ -28,6 +28,7 @@ class RecipeCard extends React.Component {
 
 const styles = StyleSheet.create({
   recipeCardContainer: {
+    backgroundColor: '#ffffff',
     width: normalize(300),
     borderColor: '#d0d0d0',
     borderWidth: normalize(1),
