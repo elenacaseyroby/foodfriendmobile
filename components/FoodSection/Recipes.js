@@ -44,6 +44,7 @@ const styles = StyleSheet.create({
     color: '#555555',
     marginTop: '5%',
     marginBottom: '2%',
+    marginLeft: normalize(40),
   },
   navBarWhiteSpace: {
     backgroundColor: '#f9f9f9',

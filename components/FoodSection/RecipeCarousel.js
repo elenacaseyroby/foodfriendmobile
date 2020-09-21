@@ -1,5 +1,6 @@
 import React from 'react';
 import {View, FlatList, StyleSheet} from 'react-native';
+import ParallaxImage from 'react-native-snap-carousel';
 import RecipeCard from './RecipeCard';
 import {normalize} from '../../utils/deviceScaling';
 
@@ -11,14 +12,6 @@ class RecipeCarousel extends React.Component {
     recipes: propTypes.array.isRequired,
     style: propTypes.object,
   };
-  state = {
-    currentIndex: 0,
-    startIndex: 0,
-    endIndex: 3,
-  };
-  keyExtractor = (item, index) => {
-    return index.toString();
-  };
   renderRecipeCard = (item) => {
     const recipe = item.item;
     return (
@@ -27,29 +20,21 @@ class RecipeCarousel extends React.Component {
       </View>
     );
   };
-  onScroll = (event) => {
-    const {recipes} = this.props;
+  render() {
+    const {recipes, style, nutrientId} = this.props;
     const recipeCardWidth = normalize(300);
     const cardMarginRight = 0;
     const recipeWidth = recipeCardWidth + cardMarginRight;
-    const index = parseInt(event.nativeEvent.contentOffset.x / recipeWidth);
-    if (this.state.currentIndex !== index) {
-      this.setState({
-        currentIndex: index,
-      });
-    }
-  };
-  render() {
-    const {recipes, style, nutrientId} = this.props;
     return (
       <View style={[styles.menuContainer, style]}>
-        <FlatList
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          keyExtractor={this.keyExtractor}
+        <ParallaxImage
+          ref={(c) => {
+            this._carousel = c;
+          }}
           data={recipes}
           renderItem={this.renderRecipeCard}
-          onScroll={this.onScroll}
+          sliderWidth={normalize(375)}
+          itemWidth={recipeWidth}
         />
       </View>
     );
