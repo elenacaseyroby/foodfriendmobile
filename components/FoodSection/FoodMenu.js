@@ -10,7 +10,6 @@ class FoodMenu extends React.Component {
     // activeScreen: 'nutrientFoods', 'recipes
     activeScreen: propTypes.string.isRequired,
   };
-  handleClickAdd = () => {};
   render() {
     return (
       <>

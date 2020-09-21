@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import FoodMenu from './FoodMenu';
 import OfflineNotificationBanner from '../common/OfflineNotificationBanner';
 import ViewNutrientFoodsList from './ViewNutrientFoodsList';
+import Recipes from './Recipes';
 import FFStatusBar from '../common/FFStatusBar';
 import groceryPile from './assets/grocery-pile.png';
 import {normalize} from '../../utils/deviceScaling';
@@ -20,7 +21,7 @@ class FoodSection extends React.Component {
     if (this.state.activeScreen === 'nutrientFoods')
       return this.renderNutrientFoodsScreen();
     if (this.state.activeScreen === 'recipes')
-      return <Text>Food and Recipes</Text>;
+      return <Recipes nutrients={this.props.user.activePath.nutrients} />;
   };
   renderNutrientFoodsScreen = () => {
     const {user} = this.props;
