@@ -13,11 +13,10 @@ class RecipeCarousel extends React.Component {
     style: propTypes.object,
   };
   renderRecipeCard = (item) => {
+    const {nutrientId} = this.props;
     const recipe = item.item;
     return (
-      <View style={styles.card}>
-        <RecipeCard recipe={recipe} />
-      </View>
+      <RecipeCard recipeKey={`${nutrientId}${recipe.id}`} recipe={recipe} />
     );
   };
   render() {

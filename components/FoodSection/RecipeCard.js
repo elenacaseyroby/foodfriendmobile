@@ -35,7 +35,7 @@ class RecipeCard extends React.Component {
     );
   };
   render() {
-    const {recipe, style, recipeKey} = this.props;
+    const {recipe, recipeKey} = this.props;
     const urlRoot = 'https://foodfriendapp.s3.us-east-2.amazonaws.com/recipes/';
     return (
       <View key={recipeKey} style={styles.recipeCardContainer}>
