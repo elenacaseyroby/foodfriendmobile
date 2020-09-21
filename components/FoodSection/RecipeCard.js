@@ -1,6 +1,8 @@
 import React from 'react';
 import {View, Image, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import BrowserPopUpModal from '../common/BrowserPopUpModal';
+import fullStar from './assets/full-star.png';
+import emptyStar from './assets/empty-star.png';
 import {normalize} from '../../utils/deviceScaling';
 import propTypes from 'prop-types';
 
@@ -8,16 +10,35 @@ class RecipeCard extends React.Component {
   static propTypes = {
     recipe: propTypes.object.isRequired,
     recipeKey: propTypes.string.isRequired,
-    style: propTypes.object,
   };
   state = {
     displayBrowser: false,
+  };
+  handleLikeRecipe = () => {};
+  handleDislikeRecipe = () => {};
+  renderLikeButton = () => {
+    return (
+      <TouchableOpacity
+        style={styles.starButton}
+        onPress={this.handleLikeRecipe}>
+        <Image source={emptyStar} style={styles.star} />
+      </TouchableOpacity>
+    );
+  };
+  renderDislikeButton = () => {
+    return (
+      <TouchableOpacity
+        style={styles.starButton}
+        onPress={this.handleDislikeRecipe}>
+        <Image source={fullStar} style={styles.star} />
+      </TouchableOpacity>
+    );
   };
   render() {
     const {recipe, style, recipeKey} = this.props;
     const urlRoot = 'https://foodfriendapp.s3.us-east-2.amazonaws.com/recipes/';
     return (
-      <View key={recipeKey} style={[styles.recipeCardContainer, style]}>
+      <View key={recipeKey} style={styles.recipeCardContainer}>
         <View style={[styles.imagePlaceholder, styles.imageDims]} />
         <TouchableOpacity
           onPress={() => {
@@ -50,6 +71,7 @@ class RecipeCard extends React.Component {
           isVisible={this.state.displayBrowser}
           onClose={() => this.setState({displayBrowser: false})}
         />
+        {this.renderLikeButton()}
       </View>
     );
   }
@@ -59,6 +81,16 @@ const styles = StyleSheet.create({
   imageDims: {
     width: normalize(135),
     height: '100%',
+  },
+  starButton: {
+    position: 'absolute',
+    marginTop: '2%',
+    marginLeft: '2%',
+  },
+  star: {
+    width: normalize(32),
+    height: undefined,
+    aspectRatio: 1 / 1,
   },
   imagePlaceholder: {
     backgroundColor: '#cc3904',

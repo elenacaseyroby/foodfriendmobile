@@ -1,5 +1,5 @@
 import React from 'react';
-import {ScrollView, Text, StyleSheet} from 'react-native';
+import {ScrollView, View, Text, StyleSheet} from 'react-native';
 import RecipeCard from './RecipeCard';
 import {normalize} from '../../utils/deviceScaling';
 
@@ -14,24 +14,38 @@ class RecipeCarousel extends React.Component {
   render() {
     const {recipes, style, nutrientId} = this.props;
     return (
-      <ScrollView horizontal={true} style={[styles.menuContainer, style]}>
-        {recipes.map((recipe) => {
-          // return <Text>{recipe.name}</Text>;
-          return (
-            <RecipeCard
-              recipeKey={`${nutrientId}${recipe.id}`}
-              recipe={recipe}
-              style={styles.card}
-            />
-          );
-        })}
-      </ScrollView>
+      <View style={[styles.menuContainer, style]}>
+        <ScrollView
+          horizontal={true}
+          // contentContainerStyle={{
+          //   ...styles.scrollView,
+          //   width: `100%`,
+          // }}
+          showsHorizontalScrollIndicator={false}>
+          {recipes.map((recipe) => {
+            // return <Text>{recipe.name}</Text>;
+            return (
+              <View style={styles.card}>
+                <RecipeCard
+                  recipeKey={`${nutrientId}${recipe.id}`}
+                  recipe={recipe}
+                />
+              </View>
+            );
+          })}
+        </ScrollView>
+      </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  card: {},
+  menuContainer: {
+    width: '100%',
+  },
+  // card: {
+  //   marginRight: '4%',
+  // },
 });
 
 export default RecipeCarousel;
