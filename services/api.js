@@ -34,6 +34,19 @@ export default {
       return {response: error, status: 500};
     }
   },
+  async reportRecipeLink(userId, recipeId) {
+    const body = {
+      userId: userId,
+    };
+    try {
+      const endpoint = `/recipes/${recipeId}/reportlink`;
+      const res = await putRequest(endpoint, body);
+      return {response: JSON.stringify(res.response), status: res.status};
+    } catch (error) {
+      console.log(error);
+      return {response: error, status: 500};
+    }
+  },
   async putCustomPath(userId, pathName, nutrientIds) {
     const body = {
       pathName: pathName,
@@ -69,6 +82,32 @@ export default {
     };
     try {
       const endpoint = `/users/${userId}/userfoods`;
+      const res = await deleteRequest(endpoint, body);
+      return {response: JSON.stringify(res.response), status: res.status};
+    } catch (error) {
+      console.log(error);
+      return {response: error, status: 500};
+    }
+  },
+  async postUserRecipe(userId, recipeId) {
+    const body = {
+      recipeId: recipeId,
+    };
+    try {
+      const endpoint = `/users/${userId}/recipes`;
+      const res = await postRequest(endpoint, body);
+      return {response: JSON.stringify(res.response), status: res.status};
+    } catch (error) {
+      console.log(error);
+      return {response: error, status: 500};
+    }
+  },
+  async deleteUserRecipe(userId, recipeId) {
+    const body = {
+      recipeId: recipeId,
+    };
+    try {
+      const endpoint = `/users/${userId}/recipes`;
       const res = await deleteRequest(endpoint, body);
       return {response: JSON.stringify(res.response), status: res.status};
     } catch (error) {

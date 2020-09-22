@@ -1,9 +1,19 @@
 import React from 'react';
-import {View, Image, Text, TouchableOpacity, StyleSheet} from 'react-native';
+import {
+  Alert,
+  View,
+  Image,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+} from 'react-native';
+import {connect} from 'react-redux';
+import {fetchUser} from '../../redux/actions/userActionCreator';
 import BrowserPopUpModal from '../common/BrowserPopUpModal';
 import fullStar from './assets/full-star.png';
 import emptyStar from './assets/empty-star.png';
 import {normalize} from '../../utils/deviceScaling';
+import api from '../../services/api';
 import propTypes from 'prop-types';
 
 class RecipeCard extends React.Component {
@@ -14,8 +24,49 @@ class RecipeCard extends React.Component {
   state = {
     displayBrowser: false,
   };
-  handleLikeRecipe = () => {};
-  handleDislikeRecipe = () => {};
+  handleReportBrokenLink = () => {
+    const {recipe} = this.props;
+    Alert.alert(
+      'Report Broken Link',
+      `Are you sure you would like to report ${recipe.name}'s link as broken?`,
+      [
+        {
+          text: 'Yes',
+          onPress: this.reportBrokenLink,
+        },
+        {
+          text: 'Cancel',
+          onPress: () => {},
+          style: 'cancel',
+        },
+        {cancelable: true},
+      ],
+    );
+  };
+  reportBrokenLink = () => {
+    const {user, recipe} = this.props;
+    const reported = api.reportRecipeLink(user.id, recipe.id);
+    if (reported) {
+      // Update user.activePath.recipes
+      this.props.dispatch(fetchUser(user.id));
+    }
+  };
+  handleLikeRecipe = () => {
+    const {user, recipe} = this.props;
+    const favorite = api.postUserRecipe(user.id, recipe.id);
+    if (favorite) {
+      // Update user.activePath.recipes
+      this.props.dispatch(fetchUser(user.id));
+    }
+  };
+  handleDislikeRecipe = () => {
+    const {user, recipe} = this.props;
+    const unfavorite = api.deleteUserRecipe(user.id, recipe.id);
+    if (unfavorite) {
+      // Update user.activePath.recipes
+      this.props.dispatch(fetchUser(user.id));
+    }
+  };
   renderLikeButton = () => {
     return (
       <TouchableOpacity
@@ -31,6 +82,16 @@ class RecipeCard extends React.Component {
         style={styles.starButton}
         onPress={this.handleDislikeRecipe}>
         <Image source={fullStar} style={styles.star} />
+      </TouchableOpacity>
+    );
+  };
+  renderReportRecipeLink = () => {
+    if (this.props.recipe.isUnderReview) {
+      return <Text style={styles.linkUnderReviewText}>Link Under Review</Text>;
+    }
+    return (
+      <TouchableOpacity onPress={this.handleReportBrokenLink}>
+        <Text style={styles.reportLinkText}>Report Broken Link</Text>
       </TouchableOpacity>
     );
   };
@@ -50,9 +111,7 @@ class RecipeCard extends React.Component {
           />
         </TouchableOpacity>
         <View style={styles.textContainer}>
-          <TouchableOpacity onPress={() => {}}>
-            <Text style={styles.reportLinkText}>Report Broken Link</Text>
-          </TouchableOpacity>
+          {this.renderReportRecipeLink()}
           <Text style={styles.recipeNameText}>{recipe.name}</Text>
           <Text style={styles.trackableFoodsText}>
             Contains:{'\n'}
@@ -132,6 +191,12 @@ const styles = StyleSheet.create({
     fontSize: normalize(12),
     color: '#ff7547',
   },
+  linkUnderReviewText: {
+    alignSelf: 'flex-end',
+    fontFamily: 'Cabin-Regular',
+    fontSize: normalize(12),
+    color: '#5d80c1',
+  },
   recipeNameText: {
     fontFamily: 'Cabin-Regular',
     fontSize: normalize(15),
@@ -156,4 +221,8 @@ const styles = StyleSheet.create({
   },
 });
 
-export default RecipeCard;
+const mapStateToProps = (state) => ({
+  user: state.user,
+});
+
+export default connect(mapStateToProps)(RecipeCard);
