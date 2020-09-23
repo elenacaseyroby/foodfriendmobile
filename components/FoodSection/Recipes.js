@@ -31,8 +31,6 @@ class Recipes extends React.Component {
     const savedRecipeIds = userRecipes.list.map((recipe) => {
       return recipe.id;
     });
-    console.log('render user carousel');
-    console.log(savedRecipeIds);
     return (
       <>
         <Text style={styles.sectionHeader}>Your Saved Recipes</Text>
