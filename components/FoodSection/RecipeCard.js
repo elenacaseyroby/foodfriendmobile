@@ -8,7 +8,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import {connect} from 'react-redux';
-import {fetchUser} from '../../redux/actions/userActionCreator';
+import {fetchUserRecipes} from '../../redux/actions/userRecipesActionCreator';
 import BrowserPopUpModal from '../common/BrowserPopUpModal';
 import fullStar from './assets/full-star.png';
 import emptyStar from './assets/empty-star.png';
@@ -47,24 +47,21 @@ class RecipeCard extends React.Component {
     const {user, recipe} = this.props;
     const reported = api.reportRecipeLink(user.id, recipe.id);
     if (reported) {
-      // Update user.activePath.recipes
-      this.props.dispatch(fetchUser(user.id));
+      //update activePath recipes
     }
   };
   handleLikeRecipe = () => {
     const {user, recipe} = this.props;
     const favorite = api.postUserRecipe(user.id, recipe.id);
     if (favorite) {
-      // Update user.activePath.recipes
-      this.props.dispatch(fetchUser(user.id));
+      this.props.dispatch(fetchUserRecipes(user.id));
     }
   };
   handleDislikeRecipe = () => {
     const {user, recipe} = this.props;
     const unfavorite = api.deleteUserRecipe(user.id, recipe.id);
     if (unfavorite) {
-      // Update user.activePath.recipes
-      this.props.dispatch(fetchUser(user.id));
+      this.props.dispatch(fetchUserRecipes(user.id));
     }
   };
   renderLikeButton = () => {

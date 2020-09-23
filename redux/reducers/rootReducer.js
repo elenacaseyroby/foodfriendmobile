@@ -8,6 +8,7 @@ import {recentlyConsumedFoodsReducer} from './recentlyConsumedFoodsReducer';
 import {termsAndConditionsReducer} from './termsAndConditionsReducer';
 import {userReducer} from './userReducer';
 import {userFoodsReducer} from './userFoodsReducer';
+import {userRecipesReducer} from './userRecipesReducer';
 
 export default combineReducers({
   auth: authReducer,
@@ -19,4 +20,5 @@ export default combineReducers({
   termsAndConditions: termsAndConditionsReducer,
   user: userReducer,
   userFoods: userFoodsReducer,
+  userRecipes: userRecipesReducer,
 });
