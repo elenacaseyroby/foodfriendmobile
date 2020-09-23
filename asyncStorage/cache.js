@@ -52,6 +52,21 @@ export async function buildOrRetrieveUserFoodsCache(userId) {
   return userFoods;
 }
 
+export async function buildOrRetrieveUserRecipesCache(userId) {
+  const endpoint = `/users/${userId}/recipes`;
+  const userRecipes = await buildOrRetrieveCache(endpoint, 'USER_RECIPES');
+  return userRecipes;
+}
+
+export async function buildOrRetrieveActivePathRecipesCache(userId) {
+  const endpoint = `/users/${userId}/activePath/recipes`;
+  const activePathRecipes = await buildOrRetrieveCache(
+    endpoint,
+    'ACTIVEPATH_RECIPES',
+  );
+  return activePathRecipes;
+}
+
 async function buildOrRetrieveCache(endpoint, KEY) {
   // return object(s) or undefined.
   let dbObject;
@@ -62,6 +77,12 @@ async function buildOrRetrieveCache(endpoint, KEY) {
       console.log(`get ${KEY} from db`);
       asyncStorage._storeData(KEY, JSON.stringify(res.response));
       dbObject = res.response;
+    } else {
+      console.log(
+        `error fetching ${KEY} from db. status: ${res.status}, message: ${
+          res.response.message || ''
+        }`,
+      );
     }
   } catch (error) {
     console.log(`error fetching ${KEY} from db: ${error}`);

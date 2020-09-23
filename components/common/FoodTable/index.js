@@ -54,8 +54,6 @@ class FoodTable extends React.Component {
             }>{`Servings: ${food.userFoodServingsCount}`}</Text>
           <DeleteButton
             onPress={() => {
-              console.log('SET STATE!');
-              console.log(JSON.stringify(food));
               this.setState({foodToDelete: food});
             }}
             style={styles.deleteButton}

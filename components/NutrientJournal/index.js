@@ -49,23 +49,23 @@ class NutrientJournal extends React.Component {
         foodsToRender.push(food);
       }
     });
-    if (user && user.activePath) {
-      // get list of ids for nutrients in active path.
-      const pathNutrientIds = user.activePath.nutrients.map((nutrient) => {
-        return nutrient.id;
+    if (!user || (user && !user.activePath)) return foodsToRender;
+    // get list of ids for nutrients in active path.
+    const pathNutrientIds = user.activePath.nutrients.map((nutrient) => {
+      return nutrient.id;
+    });
+    // if nutrient in path, add nutrient's foods to foodsToRender list.
+    nutrients.map((nutrient) => {
+      if (!pathNutrientIds.includes(nutrient.id)) return;
+      nutrient.foods.map((food) => {
+        // weed out duplicate food records.
+        if (!addedfoodIds.includes(food.id)) {
+          addedfoodIds.push(food.id);
+          foodsToRender.push(food);
+        }
       });
-      // if nutrient in path, add nutrient's foods to foodsToRender list.
-      nutrients.map((nutrient) => {
-        if (!pathNutrientIds.includes(nutrient.id)) return;
-        nutrient.foods.map((food) => {
-          // weed out duplicate food records.
-          if (!addedfoodIds.includes(food.id)) {
-            addedfoodIds.push(food.id);
-            foodsToRender.push(food);
-          }
-        });
-      });
-    }
+    });
+
     return foodsToRender;
   };
   renderSearch = () => {

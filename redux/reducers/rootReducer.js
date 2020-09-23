@@ -1,4 +1,5 @@
 import {combineReducers} from 'redux';
+import {activePathRecipesReducer} from './activePathRecipesReducer';
 import {authReducer} from './authReducer';
 import {dailyProgressReducer} from './dailyProgressReducer';
 import {dietsReducer} from './dietsReducer';
@@ -8,8 +9,10 @@ import {recentlyConsumedFoodsReducer} from './recentlyConsumedFoodsReducer';
 import {termsAndConditionsReducer} from './termsAndConditionsReducer';
 import {userReducer} from './userReducer';
 import {userFoodsReducer} from './userFoodsReducer';
+import {userRecipesReducer} from './userRecipesReducer';
 
 export default combineReducers({
+  activePathRecipes: activePathRecipesReducer,
   auth: authReducer,
   dailyProgress: dailyProgressReducer,
   diets: dietsReducer,
@@ -19,4 +22,5 @@ export default combineReducers({
   termsAndConditions: termsAndConditionsReducer,
   user: userReducer,
   userFoods: userFoodsReducer,
+  userRecipes: userRecipesReducer,
 });

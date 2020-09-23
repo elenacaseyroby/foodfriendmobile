@@ -3,6 +3,7 @@ import {ScrollView, View, Text, Image, StyleSheet} from 'react-native';
 import {connect} from 'react-redux';
 import api from '../../services/api';
 import {fetchUser} from '../../redux/actions/userActionCreator';
+import {fetchActivePathRecipes} from '../../redux/actions/activePathRecipesActionCreator';
 import FFStatusBar from '../common/FFStatusBar';
 import NutrientButton from '../common/NutrientButton';
 import BackArrow from '../common/BackArrow';
@@ -99,6 +100,7 @@ class CustomizePath extends React.Component {
     }
     // Update user state.
     this.props.dispatch(fetchUser(userId));
+    this.props.dispatch(fetchActivePathRecipes(userId));
     this.props.navigation.navigate('Dashboard');
   };
   render() {

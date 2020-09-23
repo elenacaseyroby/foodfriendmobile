@@ -64,10 +64,6 @@ class Progress extends React.Component {
       wordsOfEncouragement =
         'Wow! Great job reaching your goal today! Take a moment to thank yourself for taking such good care of you.';
     }
-    console.log(report.nutrientsTotalDvConsumed);
-    // report.nutrientReports.map((nutrientReport) => {
-    //   console.log(nutrientReport.percentDvConsumed);
-    // });
 
     const totalPercent = parseFloat(report.nutrientsTotalDvConsumed);
     return (
@@ -124,7 +120,7 @@ class Progress extends React.Component {
               })}
             </View>
           </View>
-          <View style={styles.menuWhiteSpace} />
+          <View style={styles.navBarWhiteSpace} />
         </ScrollView>
       </>
     );
@@ -231,17 +227,17 @@ const styles = StyleSheet.create({
     fontSize: normalize(14),
     color: '#555555',
   },
-  menuWhiteSpace: {
-    backgroundColor: '#ffffff',
-    width: '100%',
-    height: normalize(120),
-  },
   nutrientCardsContainer: {
     marginTop: '3%',
   },
   nutrientCard: {
     alignSelf: 'center',
     marginTop: '2%',
+  },
+  navBarWhiteSpace: {
+    backgroundColor: '#ffffff',
+    width: '100%',
+    height: normalize(120),
   },
 });
 

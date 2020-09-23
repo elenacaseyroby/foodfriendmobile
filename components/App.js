@@ -9,6 +9,8 @@ import {fetchUser} from '../redux/actions/userActionCreator';
 import {fetchTermsAndConditions} from '../redux/actions/termsAndConditionsActionCreator';
 import {fetchPrivacyPolicy} from '../redux/actions/privacyPolicyActionCreator';
 import {fetchRecentlyConsumedFoods} from '../redux/actions/recentlyConsumedFoodsActionCreator';
+import {fetchUserRecipes} from '../redux/actions/userRecipesActionCreator';
+import {fetchActivePathRecipes} from '../redux/actions/activePathRecipesActionCreator';
 import {setAuth} from '../redux/actions/authActionCreator';
 import AccountMenu from './AccountMenu';
 import AccountDetails from './AccountDetails';
@@ -47,6 +49,8 @@ class App extends React.Component {
       this.props.dispatch(fetchUser(userId));
       this.props.dispatch(fetchRecentlyConsumedFoods(userId));
       this.props.dispatch(fetchDailyProgress(userId));
+      this.props.dispatch(fetchUserRecipes(userId));
+      this.props.dispatch(fetchActivePathRecipes(userId));
       this.props.dispatch(fetchNutrients());
       this.props.dispatch(fetchDiets());
     }
@@ -67,6 +71,8 @@ class App extends React.Component {
       const userId = this.props.auth.userId;
       this.props.dispatch(fetchUser(userId));
       this.props.dispatch(fetchRecentlyConsumedFoods(userId));
+      this.props.dispatch(fetchUserRecipes(userId));
+      this.props.dispatch(fetchActivePathRecipes(userId));
       this.props.dispatch(fetchNutrients());
       this.props.dispatch(fetchDiets());
       this.props.dispatch(fetchDailyProgress(userId));

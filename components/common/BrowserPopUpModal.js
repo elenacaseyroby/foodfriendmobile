@@ -26,7 +26,7 @@ class BrowserPopUpModal extends React.Component {
         transparent={false}
         visible={this.props.isVisible}>
         <FFStatusBar
-          backgroundColorStyle={{backgroundColor: '#555555'}}
+          backgroundColorStyle={{backgroundColor: '#36549a'}}
           barStyle="light-content"
         />
         <View style={styles.browserContainer}>
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: normalize(50),
     justifyContent: 'center',
-    backgroundColor: '#555555',
+    backgroundColor: '#36549a',
   },
   closeButton: {
     alignSelf: 'flex-start',
