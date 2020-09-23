@@ -5,6 +5,7 @@ const initialState = {
 };
 
 export const authReducer = (prevState = initialState, action) => {
+  console.log('REDUCE AUTH');
   // If action is matched, return a new state else return prevState.
   if (action.type === C.SET_AUTH) {
     return {

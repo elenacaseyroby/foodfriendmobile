@@ -2,16 +2,10 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import SplashScreen from 'react-native-splash-screen';
 import {connect} from 'react-redux';
-import {fetchNutrients} from '../redux/actions/nutrientsActionCreator';
-import {fetchDailyProgress} from '../redux/actions/dailyProgressActionCreator';
-import {fetchDiets} from '../redux/actions/dietsActionCreator';
-import {fetchUser} from '../redux/actions/userActionCreator';
 import {fetchTermsAndConditions} from '../redux/actions/termsAndConditionsActionCreator';
 import {fetchPrivacyPolicy} from '../redux/actions/privacyPolicyActionCreator';
-import {fetchRecentlyConsumedFoods} from '../redux/actions/recentlyConsumedFoodsActionCreator';
-import {fetchUserRecipes} from '../redux/actions/userRecipesActionCreator';
-import {fetchActivePathRecipes} from '../redux/actions/activePathRecipesActionCreator';
 import {setAuth} from '../redux/actions/authActionCreator';
+import {fetchAllSignedInData} from '../redux/bulkFetch';
 import AccountMenu from './AccountMenu';
 import AccountDetails from './AccountDetails';
 import SignIn from './SignIn';
@@ -46,13 +40,7 @@ class App extends React.Component {
     if (authSet && this.props.auth && this.props.auth.userId) {
       const userId = this.props.auth.userId;
       // if user is already logged in, fetch logged in data
-      this.props.dispatch(fetchUser(userId));
-      this.props.dispatch(fetchRecentlyConsumedFoods(userId));
-      this.props.dispatch(fetchDailyProgress(userId));
-      this.props.dispatch(fetchUserRecipes(userId));
-      this.props.dispatch(fetchActivePathRecipes(userId));
-      this.props.dispatch(fetchNutrients());
-      this.props.dispatch(fetchDiets());
+      fetchAllSignedInData(this.props.dispatch, userId);
     }
     // fetch non logged in data
     this.props.dispatch(fetchTermsAndConditions());
@@ -67,19 +55,20 @@ class App extends React.Component {
   }
   componentDidUpdate = (prevProps, prevState) => {
     // if user logs in, fetch all logged in data.
+    console.log('componentDidUpdate');
+    console.log(JSON.stringify(prevProps));
+    console.log(JSON.stringify(prevState));
     if (!this.props.auth) return;
     if (prevProps.auth.userId !== this.props.auth.userId) {
+      console.log('UPDATE!!');
       const userId = this.props.auth.userId;
-      this.props.dispatch(fetchUser(userId));
-      this.props.dispatch(fetchRecentlyConsumedFoods(userId));
-      this.props.dispatch(fetchUserRecipes(userId));
-      this.props.dispatch(fetchActivePathRecipes(userId));
-      this.props.dispatch(fetchNutrients());
-      this.props.dispatch(fetchDiets());
-      this.props.dispatch(fetchDailyProgress(userId));
+      fetchAllSignedInData(this.props.dispatch, userId);
     }
   };
   render() {
+    console.log('RERENDER APP!');
+    console.log(JSON.stringify(this.props.auth));
+    if (this.props.auth) console.log(this.props.auth.userId);
     return (
       <Stack.Navigator
         screenOptions={{
