@@ -67,6 +67,7 @@ class App extends React.Component {
   }
   componentDidUpdate = (prevProps, prevState) => {
     // if user logs in, fetch all logged in data.
+    if (!this.props.auth) return;
     if (prevProps.auth.userId !== this.props.auth.userId) {
       const userId = this.props.auth.userId;
       this.props.dispatch(fetchUser(userId));
@@ -84,7 +85,7 @@ class App extends React.Component {
         screenOptions={{
           headerShown: false,
         }}>
-        {this.props.auth.userId ? (
+        {this.props.auth && this.props.auth.userId ? (
           <>
             {/*signed in landing page: */}
             <Stack.Screen name="Dashboard" component={Dashboard} />
