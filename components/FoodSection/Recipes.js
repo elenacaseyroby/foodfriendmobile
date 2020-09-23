@@ -12,8 +12,6 @@ class Recipes extends React.Component {
     const savedRecipeIds = userRecipes.list.map((recipe) => {
       return recipe.id;
     });
-    console.log('render nutrient carousels');
-    console.log(savedRecipeIds);
     return activePathRecipes.list.map((nutrient) => {
       return (
         <>
