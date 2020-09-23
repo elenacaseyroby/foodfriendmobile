@@ -64,10 +64,6 @@ class Progress extends React.Component {
       wordsOfEncouragement =
         'Wow! Great job reaching your goal today! Take a moment to thank yourself for taking such good care of you.';
     }
-    console.log(report.nutrientsTotalDvConsumed);
-    // report.nutrientReports.map((nutrientReport) => {
-    //   console.log(nutrientReport.percentDvConsumed);
-    // });
 
     const totalPercent = parseFloat(report.nutrientsTotalDvConsumed);
     return (
