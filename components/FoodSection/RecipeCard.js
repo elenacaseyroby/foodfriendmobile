@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import {connect} from 'react-redux';
 import {fetchUserRecipes} from '../../redux/actions/userRecipesActionCreator';
+import {fetchActivePathRecipes} from '../../redux/actions/activePathRecipesActionCreator';
 import BrowserPopUpModal from '../common/BrowserPopUpModal';
 import fullStar from './assets/full-star.png';
 import emptyStar from './assets/empty-star.png';
@@ -48,6 +49,7 @@ class RecipeCard extends React.Component {
     const reported = api.reportRecipeLink(user.id, recipe.id);
     if (reported) {
       //update activePath recipes
+      this.props.dispatch(fetchActivePathRecipes(user.id));
     }
   };
   handleLikeRecipe = () => {

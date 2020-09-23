@@ -3,17 +3,12 @@ import {Text, View, ScrollView, StyleSheet} from 'react-native';
 import {connect} from 'react-redux';
 import RecipeCarousel from './RecipeCarousel';
 import {normalize} from '../../utils/deviceScaling';
-import propTypes from 'prop-types';
 
 class Recipes extends React.Component {
-  static propTypes = {
-    nutrients: propTypes.array.isRequired,
-    // userRecipes: propTypes.array.isRequired,
-  };
-  // Immediately bugs out when this is called...
   renderNutrientRecipeCarousels = () => {
-    const {nutrients} = this.props;
-    return nutrients.map((nutrient) => {
+    const {activePathRecipes} = this.props;
+    if (!activePathRecipes.list) return <></>;
+    return activePathRecipes.list.map((nutrient) => {
       return (
         <>
           <Text style={styles.sectionHeader}>{nutrient.name}</Text>
@@ -27,8 +22,6 @@ class Recipes extends React.Component {
   };
   renderUserRecipeCarousel = () => {
     const {userRecipes} = this.props;
-    console.log('////////////////////');
-    console.log(JSON.stringify(userRecipes));
     return (
       <>
         <Text style={styles.sectionHeader}>Your Saved Recipes</Text>
@@ -68,6 +61,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) => ({
   userRecipes: state.userRecipes,
+  activePathRecipes: state.activePathRecipes,
 });
 
 export default connect(mapStateToProps)(Recipes);

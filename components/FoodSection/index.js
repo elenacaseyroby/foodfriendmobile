@@ -17,13 +17,10 @@ class FoodSection extends React.Component {
     this.setState({activeScreen: screenName});
   };
   renderActiveScreen = () => {
-    const {user} = this.props;
-    if (!user && !user.activePath) return;
     // do not allow user to access the following pages without selecting a path.
     if (this.state.activeScreen === 'nutrientFoods')
       return this.renderNutrientFoodsScreen();
-    if (this.state.activeScreen === 'recipes')
-      return <Recipes nutrients={this.props.user.activePath.nutrients} />;
+    if (this.state.activeScreen === 'recipes') return <Recipes />;
   };
   renderNutrientFoodsScreen = () => {
     const {user} = this.props;

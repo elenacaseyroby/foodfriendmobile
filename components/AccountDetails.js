@@ -9,6 +9,7 @@ import {
 import {getUserUpdateError} from '../utils/auth';
 import {normalize} from '../utils/deviceScaling';
 import {fetchUser} from '../redux/actions/userActionCreator';
+import {fetchActivePathRecipes} from '../redux/actions/activePathRecipesActionCreator';
 import BackArrow from './common/BackArrow';
 import FFEmailTextBox from './forms/FFEmailTextBox';
 import FFNameTextBox from './forms/FFNameTextBox';
@@ -111,6 +112,7 @@ class AccountDetails extends React.Component {
 
     // Update state.
     this.props.dispatch(fetchUser(user.id));
+    this.props.dispatch(fetchActivePathRecipes(user.id));
   };
   handleEdit = (fieldName, value) => {
     if (fieldName === 'firstName') {
