@@ -59,6 +59,8 @@ class RecipeCard extends React.Component {
     const favorite = await api.postUserRecipe(user.id, recipe.id);
     if (favorite) {
       this.props.dispatch(fetchUserRecipes(user.id));
+      // unnecessary db request, but for some reason nutrient
+      // carousels won't update without this.
       this.props.dispatch(fetchActivePathRecipes(user.id));
     }
   };
@@ -67,6 +69,8 @@ class RecipeCard extends React.Component {
     const unfavorite = await api.deleteUserRecipe(user.id, recipe.id);
     if (unfavorite) {
       this.props.dispatch(fetchUserRecipes(user.id));
+      // unnecessary db request, but for some reason nutrient
+      // carousels won't update without this.
       this.props.dispatch(fetchActivePathRecipes(user.id));
     }
   };
