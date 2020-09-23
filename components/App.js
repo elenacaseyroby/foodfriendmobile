@@ -43,7 +43,7 @@ class App extends React.Component {
     }, 3000);
     // start loading data while splash screen is shown:
     const authSet = await this.props.dispatch(setAuth());
-    if (authSet && this.props.auth.userId) {
+    if (authSet && this.props.auth && this.props.auth.userId) {
       const userId = this.props.auth.userId;
       // if user is already logged in, fetch logged in data
       this.props.dispatch(fetchUser(userId));
