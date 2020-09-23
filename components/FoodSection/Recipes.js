@@ -6,13 +6,20 @@ import {normalize} from '../../utils/deviceScaling';
 
 class Recipes extends React.Component {
   renderNutrientRecipeCarousels = () => {
-    const {activePathRecipes} = this.props;
+    const {activePathRecipes, userRecipes} = this.props;
     if (!activePathRecipes.list) return <></>;
+    if (userRecipes.list === null) return <></>;
+    const savedRecipeIds = userRecipes.list.map((recipe) => {
+      return recipe.id;
+    });
+    console.log('render nutrient carousels');
+    console.log(savedRecipeIds);
     return activePathRecipes.list.map((nutrient) => {
       return (
         <>
           <Text style={styles.sectionHeader}>{nutrient.name}</Text>
           <RecipeCarousel
+            savedRecipeIds={savedRecipeIds}
             nutrientId={nutrient.id}
             recipes={nutrient.recipes || []}
           />
@@ -22,10 +29,20 @@ class Recipes extends React.Component {
   };
   renderUserRecipeCarousel = () => {
     const {userRecipes} = this.props;
+    if (userRecipes.list === null) return <></>;
+    const savedRecipeIds = userRecipes.list.map((recipe) => {
+      return recipe.id;
+    });
+    console.log('render user carousel');
+    console.log(savedRecipeIds);
     return (
       <>
         <Text style={styles.sectionHeader}>Your Saved Recipes</Text>
-        <RecipeCarousel nutrientId={0} recipes={userRecipes.list || []} />
+        <RecipeCarousel
+          savedRecipeIds={savedRecipeIds}
+          nutrientId={0}
+          recipes={userRecipes.list || []}
+        />
       </>
     );
   };

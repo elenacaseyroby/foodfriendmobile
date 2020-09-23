@@ -21,6 +21,7 @@ class RecipeCard extends React.Component {
   static propTypes = {
     recipe: propTypes.object.isRequired,
     recipeKey: propTypes.string.isRequired,
+    recipeIsSaved: propTypes.bool.isRequired,
   };
   state = {
     displayBrowser: false,
@@ -48,38 +49,41 @@ class RecipeCard extends React.Component {
     const {user, recipe} = this.props;
     const reported = await api.reportRecipeLink(user.id, recipe.id);
     if (reported) {
-      //update activePath recipes
+      //update recipes to reflect broken link status
       this.props.dispatch(fetchActivePathRecipes(user.id));
+      this.props.dispatch(fetchUserRecipes(user.id));
     }
   };
-  handleLikeRecipe = async () => {
+  handleSaveRecipe = async () => {
     const {user, recipe} = this.props;
     const favorite = await api.postUserRecipe(user.id, recipe.id);
     if (favorite) {
       this.props.dispatch(fetchUserRecipes(user.id));
+      this.props.dispatch(fetchActivePathRecipes(user.id));
     }
   };
-  handleDislikeRecipe = async () => {
+  handleUnsaveRecipe = async () => {
     const {user, recipe} = this.props;
     const unfavorite = await api.deleteUserRecipe(user.id, recipe.id);
     if (unfavorite) {
       this.props.dispatch(fetchUserRecipes(user.id));
+      this.props.dispatch(fetchActivePathRecipes(user.id));
     }
   };
-  renderLikeButton = () => {
+  renderSaveButton = () => {
     return (
       <TouchableOpacity
         style={styles.starButton}
-        onPress={this.handleLikeRecipe}>
+        onPress={this.handleSaveRecipe}>
         <Image source={emptyStar} style={styles.star} />
       </TouchableOpacity>
     );
   };
-  renderDislikeButton = () => {
+  renderUnsaveButton = () => {
     return (
       <TouchableOpacity
         style={styles.starButton}
-        onPress={this.handleDislikeRecipe}>
+        onPress={this.handleUnsaveRecipe}>
         <Image source={fullStar} style={styles.star} />
       </TouchableOpacity>
     );
@@ -95,7 +99,7 @@ class RecipeCard extends React.Component {
     );
   };
   render() {
-    const {recipe, recipeKey} = this.props;
+    const {recipe, recipeKey, recipeIsSaved} = this.props;
     const urlRoot = 'https://foodfriendapp.s3.us-east-2.amazonaws.com/recipes/';
     return (
       <View key={recipeKey} style={styles.recipeCardContainer}>
@@ -129,7 +133,7 @@ class RecipeCard extends React.Component {
           isVisible={this.state.displayBrowser}
           onClose={() => this.setState({displayBrowser: false})}
         />
-        {this.renderLikeButton()}
+        {recipeIsSaved ? this.renderUnsaveButton() : this.renderSaveButton()}
       </View>
     );
   }

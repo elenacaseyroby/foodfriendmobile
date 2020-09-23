@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, FlatList, StyleSheet} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import ParallaxImage from 'react-native-snap-carousel';
 import RecipeCard from './RecipeCard';
 import {normalize} from '../../utils/deviceScaling';
@@ -10,13 +10,24 @@ class RecipeCarousel extends React.Component {
   static propTypes = {
     nutrientId: propTypes.number.isRequired,
     recipes: propTypes.array.isRequired,
+    savedRecipeIds: propTypes.array.isRequired,
     style: propTypes.object,
   };
   renderRecipeCard = (item) => {
-    const {nutrientId} = this.props;
+    const {nutrientId, savedRecipeIds} = this.props;
     const recipe = item.item;
+    console.log('////');
+    console.log(`nutrient id: ${nutrientId}`);
+    console.log(savedRecipeIds);
+    console.log(recipe.id);
+    const recipeIsSaved = savedRecipeIds.includes(recipe.id);
+    console.log(recipeIsSaved);
     return (
-      <RecipeCard recipeKey={`${nutrientId}${recipe.id}`} recipe={recipe} />
+      <RecipeCard
+        recipeIsSaved={recipeIsSaved}
+        recipeKey={`${nutrientId}${recipe.id}`}
+        recipe={recipe}
+      />
     );
   };
   render() {
