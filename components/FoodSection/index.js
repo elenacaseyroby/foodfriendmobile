@@ -24,7 +24,7 @@ class FoodSection extends React.Component {
   };
   renderNutrientFoodsScreen = () => {
     const {user} = this.props;
-    if (!user && !user.activePath) return;
+    if (!user || (user && !user.activePath)) return;
     if (!this.props.nutrients) return;
     const nutrients = this.props.nutrients.list;
     // get list of ids for nutrients in path.

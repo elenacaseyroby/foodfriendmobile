@@ -44,24 +44,24 @@ class RecipeCard extends React.Component {
       ],
     );
   };
-  reportBrokenLink = () => {
+  reportBrokenLink = async () => {
     const {user, recipe} = this.props;
-    const reported = api.reportRecipeLink(user.id, recipe.id);
+    const reported = await api.reportRecipeLink(user.id, recipe.id);
     if (reported) {
       //update activePath recipes
       this.props.dispatch(fetchActivePathRecipes(user.id));
     }
   };
-  handleLikeRecipe = () => {
+  handleLikeRecipe = async () => {
     const {user, recipe} = this.props;
-    const favorite = api.postUserRecipe(user.id, recipe.id);
+    const favorite = await api.postUserRecipe(user.id, recipe.id);
     if (favorite) {
       this.props.dispatch(fetchUserRecipes(user.id));
     }
   };
-  handleDislikeRecipe = () => {
+  handleDislikeRecipe = async () => {
     const {user, recipe} = this.props;
-    const unfavorite = api.deleteUserRecipe(user.id, recipe.id);
+    const unfavorite = await api.deleteUserRecipe(user.id, recipe.id);
     if (unfavorite) {
       this.props.dispatch(fetchUserRecipes(user.id));
     }
