@@ -73,12 +73,13 @@ class NutrientDetail extends React.Component {
           </View>
           <Text style={styles.description}>{nutrient.sourceNote}</Text>
           <Text style={styles.disclaimer}>
-            Please note, FoodFriend does not represent expert advice and should
-            never be used as a substitute for direct medical advice. If you are
-            experiencing a health issue, we ask that you reach out to a
-            healthcare professional. Additionally, we encourage you to explore
-            how the introduction of new nutrients into your diet might impact
-            your health with your doctor or other qualified healthcare provider.
+            Please note, FoodFriend is a reference tool. It does not represent
+            expert advice and should never be used as a substitute for direct
+            medical advice. If you are experiencing a health issue, we ask that
+            you reach out to a healthcare professional. Additionally, we
+            encourage you to explore how the introduction of new nutrients or
+            foods into your diet might impact your health with your doctor or
+            other qualified healthcare provider.
           </Text>
           <BlueBottomElipse style={styles.bottomElipse} />
 

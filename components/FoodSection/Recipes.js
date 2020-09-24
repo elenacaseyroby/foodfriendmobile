@@ -2,6 +2,7 @@ import React from 'react';
 import {Text, View, ScrollView, StyleSheet} from 'react-native';
 import {connect} from 'react-redux';
 import RecipeCarousel from './RecipeCarousel';
+import Loader from '../common/Loader';
 import {normalize} from '../../utils/deviceScaling';
 
 class Recipes extends React.Component {
@@ -27,7 +28,7 @@ class Recipes extends React.Component {
   };
   renderUserRecipeCarousel = () => {
     const {userRecipes} = this.props;
-    if (userRecipes.list === null) return <></>;
+    if (userRecipes.list === null) return <> </>;
     const savedRecipeIds = userRecipes.list.map((recipe) => {
       return recipe.id;
     });
@@ -42,7 +43,23 @@ class Recipes extends React.Component {
       </>
     );
   };
+  renderLoader() {
+    console.log('render');
+    return (
+      <View style={{height: '50%', width: '100%'}}>
+        <Loader />
+      </View>
+    );
+  }
   render() {
+    const {userRecipes, activePathRecipes} = this.props;
+    if (
+      userRecipes &&
+      activePathRecipes &&
+      !activePathRecipes.list &&
+      !userRecipes.list
+    )
+      return this.renderLoader();
     return (
       <ScrollView style={styles.menuContainer}>
         {this.renderUserRecipeCarousel()}

@@ -1,7 +1,7 @@
 import React from 'react';
 import Path from './Path';
 import {connect} from 'react-redux';
-import LoadingScreen from './LoadingScreen';
+import Loader from './common/Loader';
 import propTypes from 'prop-types';
 
 class MyPath extends React.Component {
@@ -10,8 +10,8 @@ class MyPath extends React.Component {
   };
   render() {
     const {user} = this.props;
-    if (!user.id) {
-      return <LoadingScreen />;
+    if (user && !user.id) {
+      return <Loader />;
     }
     const {activePath} = user;
     return (

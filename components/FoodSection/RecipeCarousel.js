@@ -16,12 +16,7 @@ class RecipeCarousel extends React.Component {
   renderRecipeCard = (item) => {
     const {nutrientId, savedRecipeIds} = this.props;
     const recipe = item.item;
-    // console.log('////');
-    // console.log(`nutrient id: ${nutrientId}`);
-    // console.log(savedRecipeIds);
-    // console.log(recipe.id);
     const recipeIsSaved = savedRecipeIds.includes(recipe.id);
-    // console.log(recipeIsSaved);
     return (
       <RecipeCard
         recipeIsSaved={recipeIsSaved}

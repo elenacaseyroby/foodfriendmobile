@@ -3,8 +3,8 @@ import {buildOrRetrieveDietsCache} from '../../asyncStorage/cache';
 
 export function fetchDiets() {
   console.log('FETCH DIETS');
-  fetchDietsBegin();
   return async function (dispatch) {
+    dispatch(fetchDietsBegin());
     const diets = await buildOrRetrieveDietsCache();
     if (!diets) {
       const error = 'Could not fetch diets from db or cache.';

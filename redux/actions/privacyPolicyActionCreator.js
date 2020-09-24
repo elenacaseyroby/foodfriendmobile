@@ -3,8 +3,8 @@ import {buildOrRetrievePrivacyPolicyCache} from '../../asyncStorage/cache';
 
 export function fetchPrivacyPolicy() {
   console.log('FETCH PRIVACY POLICY');
-  fetchPrivacyPolicyBegin();
   return async function (dispatch) {
+    dispatch(fetchPrivacyPolicyBegin());
     const privacyPolicy = await buildOrRetrievePrivacyPolicyCache();
     if (!privacyPolicy) {
       const error = 'Could not fetch privacy policy from db or cache.';

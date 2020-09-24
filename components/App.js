@@ -42,7 +42,7 @@ class App extends React.Component {
       // if user is already logged in, fetch logged in data
       fetchAllSignedInData(this.props.dispatch, userId);
     }
-    // fetch non logged in data
+    // fetch non signed in data
     this.props.dispatch(fetchTermsAndConditions());
     this.props.dispatch(fetchPrivacyPolicy());
   };
@@ -53,22 +53,7 @@ class App extends React.Component {
     // the user experience.
     clearTimeout(this.timeoutHandle);
   }
-  componentDidUpdate = (prevProps, prevState) => {
-    // if user logs in, fetch all logged in data.
-    console.log('componentDidUpdate');
-    console.log(JSON.stringify(prevProps));
-    console.log(JSON.stringify(prevState));
-    if (!this.props.auth) return;
-    if (prevProps.auth.userId !== this.props.auth.userId) {
-      console.log('UPDATE!!');
-      const userId = this.props.auth.userId;
-      fetchAllSignedInData(this.props.dispatch, userId);
-    }
-  };
   render() {
-    console.log('RERENDER APP!');
-    console.log(JSON.stringify(this.props.auth));
-    if (this.props.auth) console.log(this.props.auth.userId);
     return (
       <Stack.Navigator
         screenOptions={{

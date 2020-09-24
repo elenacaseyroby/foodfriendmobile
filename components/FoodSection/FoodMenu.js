@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     // width: iPhone 8 width / number of menu items
     // remember to change the diviser if you add
     // a new menu item
-    width: 375 / 2,
+    width: normalize(375 / 2),
     borderBottomWidth: normalize(4),
     height: normalize(40),
     justifyContent: 'center',

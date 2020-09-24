@@ -3,8 +3,8 @@ import {buildOrRetrieveTermsCache} from '../../asyncStorage/cache';
 
 export function fetchTermsAndConditions() {
   console.log('FETCH TERMS');
-  fetchTermsBegin();
   return async function (dispatch) {
+    dispatch(fetchTermsBegin());
     const terms = await buildOrRetrieveTermsCache();
     if (!terms) {
       const error = 'Could not fetch terms and conditions from db or cache.';

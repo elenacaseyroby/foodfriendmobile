@@ -6,6 +6,7 @@ import OfflineNotificationBanner from '../common/OfflineNotificationBanner';
 import ViewNutrientFoodsList from './ViewNutrientFoodsList';
 import Recipes from './Recipes';
 import FFStatusBar from '../common/FFStatusBar';
+import Loader from '../common/Loader';
 import groceryPile from './assets/grocery-pile.png';
 import {normalize} from '../../utils/deviceScaling';
 
@@ -22,10 +23,20 @@ class FoodSection extends React.Component {
       return this.renderNutrientFoodsScreen();
     if (this.state.activeScreen === 'recipes') return <Recipes />;
   };
+  renderLoader() {
+    console.log('render');
+    return (
+      <View style={{height: '50%', width: '100%'}}>
+        <Loader />
+      </View>
+    );
+  }
   renderNutrientFoodsScreen = () => {
     const {user} = this.props;
-    if (!user || (user && !user.activePath)) return;
-    if (!this.props.nutrients) return;
+    console.log(!user || (user && !user.activePath));
+    console.log(!this.props.nutrients);
+    if (!user || (user && !user.activePath)) return this.renderLoader();
+    if (!this.props.nutrients) return <Loader />;
     const nutrients = this.props.nutrients.list;
     // get list of ids for nutrients in path.
     const pathNutrientIds = user.activePath.nutrients.map((nutrient) => {

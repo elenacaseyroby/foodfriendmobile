@@ -5,6 +5,7 @@ export function fetchDailyProgress(userId) {
   console.log('FETCH DAILY PROGRESS');
   fetchDailyProgressBegin();
   return async function (dispatch) {
+    dispatch(fetchDailyProgressBegin());
     const dailyProgress = await buildOrRetrieveDailyProgressCache(userId);
     if (!dailyProgress) {
       const error = 'Could not fetch daily progress from db or cache.';

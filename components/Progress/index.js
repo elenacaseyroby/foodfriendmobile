@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import FFStatusBar from '../common/FFStatusBar';
 import FFProgressRing from './FFProgressRing';
 import NutrientUserFoodsCard from './NutrientUserFoodsCard';
+import Loader from '../common/Loader';
 import {normalize} from '../../utils/deviceScaling';
 import plantMascot from '../../assets/images/plant-mascot.png';
 import greenCircle from './assets/green-circle.png';
@@ -49,8 +50,7 @@ class Progress extends React.Component {
   render() {
     // think about if this naming makes sense...
     const report = this.props.dailyProgress;
-    if (!report.nutrientsTotalDvConsumed) return <></>;
-    console.log(report);
+    if (!report.nutrientsTotalDvConsumed) return <Loader />;
     let wordsOfEncouragement = `Looks like you're just getting started! Click on the (+) to record foods you've eaten today, then return to this page to track your progress.`;
     if (report.nutrientsTotalDvConsumed > 0) {
       wordsOfEncouragement =
@@ -237,7 +237,7 @@ const styles = StyleSheet.create({
   navBarWhiteSpace: {
     backgroundColor: '#ffffff',
     width: '100%',
-    height: normalize(120),
+    height: normalize(160),
   },
 });
 
