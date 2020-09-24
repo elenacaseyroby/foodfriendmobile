@@ -33,10 +33,8 @@ class FoodSection extends React.Component {
   }
   renderNutrientFoodsScreen = () => {
     const {user} = this.props;
-    console.log(!user || (user && !user.activePath));
-    console.log(!this.props.nutrients);
     if (!user || (user && !user.activePath)) return this.renderLoader();
-    if (!this.props.nutrients) return <Loader />;
+    if (!this.props.nutrients) return this.renderLoader();
     const nutrients = this.props.nutrients.list;
     // get list of ids for nutrients in path.
     const pathNutrientIds = user.activePath.nutrients.map((nutrient) => {
