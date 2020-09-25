@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import RecipeCarousel from './RecipeCarousel';
 import Loader from '../common/Loader';
 import {normalize} from '../../utils/deviceScaling';
+import orderBy from 'lodash/orderBy';
 
 class Recipes extends React.Component {
   renderNutrientRecipeCarousels = () => {
@@ -14,13 +15,19 @@ class Recipes extends React.Component {
       return recipe.id;
     });
     return activePathRecipes.list.map((nutrient) => {
+      // show newest recipes first.
+      const nutrientRecipesNewestFirst = orderBy(
+        nutrient.recipes,
+        ['createdAt'],
+        ['desc'],
+      );
       return (
         <>
           <Text style={styles.sectionHeader}>{nutrient.name}</Text>
           <RecipeCarousel
             savedRecipeIds={savedRecipeIds}
             nutrientId={nutrient.id}
-            recipes={nutrient.recipes || []}
+            recipes={nutrientRecipesNewestFirst}
           />
         </>
       );
@@ -29,7 +36,13 @@ class Recipes extends React.Component {
   renderUserRecipeCarousel = () => {
     const {userRecipes} = this.props;
     if (userRecipes.list === null) return <> </>;
-    const savedRecipeIds = userRecipes.list.map((recipe) => {
+    // order recipes by most recently saved first.
+    const userRecipesNewestFirst = orderBy(
+      userRecipes.list,
+      ['UserRecipe.createdAt'],
+      ['desc'],
+    );
+    const savedRecipeIds = userRecipesNewestFirst.map((recipe) => {
       return recipe.id;
     });
     return (
@@ -38,15 +51,14 @@ class Recipes extends React.Component {
         <RecipeCarousel
           savedRecipeIds={savedRecipeIds}
           nutrientId={0}
-          recipes={userRecipes.list || []}
+          recipes={userRecipesNewestFirst}
         />
       </>
     );
   };
   renderLoader() {
-    console.log('render');
     return (
-      <View style={{height: '50%', width: '100%'}}>
+      <View style={styles.loader}>
         <Loader />
       </View>
     );
@@ -61,7 +73,7 @@ class Recipes extends React.Component {
     )
       return this.renderLoader();
     return (
-      <ScrollView style={styles.menuContainer}>
+      <ScrollView style={styles.container}>
         {this.renderUserRecipeCarousel()}
         {this.renderNutrientRecipeCarousels()}
         <View style={styles.navBarWhiteSpace} />
@@ -71,8 +83,13 @@ class Recipes extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  menuContainer: {
+  loader: {
+    width: '100%',
+    height: '50%',
+  },
+  container: {
     backgroundColor: '#f9f9f9',
+    minHeight: normalize(350),
   },
   sectionHeader: {
     fontFamily: 'Cabin-Regular',

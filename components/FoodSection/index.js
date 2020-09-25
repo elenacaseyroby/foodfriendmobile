@@ -18,24 +18,23 @@ class FoodSection extends React.Component {
     this.setState({activeScreen: screenName});
   };
   renderActiveScreen = () => {
-    // do not allow user to access the following pages without selecting a path.
     if (this.state.activeScreen === 'nutrientFoods')
       return this.renderNutrientFoodsScreen();
     if (this.state.activeScreen === 'recipes') return <Recipes />;
   };
   renderLoader() {
-    console.log('render');
     return (
-      <View style={{height: '50%', width: '100%'}}>
+      <View style={styles.loader}>
         <Loader />
       </View>
     );
   }
   renderNutrientFoodsScreen = () => {
-    const {user} = this.props;
+    const {user, nutrients} = this.props;
+    // if data hasn't loaded, render load page
     if (!user || (user && !user.activePath)) return this.renderLoader();
-    if (!this.props.nutrients) return this.renderLoader();
-    const nutrients = this.props.nutrients.list;
+    if (!nutrients || (nutrients && !nutrients.list))
+      return this.renderLoader();
     // get list of ids for nutrients in path.
     const pathNutrientIds = user.activePath.nutrients.map((nutrient) => {
       return nutrient.id;
@@ -45,7 +44,7 @@ class FoodSection extends React.Component {
     return (
       <ScrollView>
         <View style={styles.whiteSpaceUnderMenu} />
-        {nutrients.map((nutrient) => {
+        {nutrients.list.map((nutrient) => {
           if (!pathNutrientIds.includes(nutrient.id)) return <></>;
           const defaultIsExpanded = !nutrientHasBeenExpanded;
           nutrientHasBeenExpanded = true;
@@ -91,6 +90,10 @@ const styles = StyleSheet.create({
     height: undefined,
     // aspectRatio: width / height,
     aspectRatio: 361 / 158,
+  },
+  loader: {
+    height: '50%',
+    width: '100%',
   },
   navBarWhiteSpace: {
     backgroundColor: '#ffffff',
