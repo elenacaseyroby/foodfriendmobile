@@ -26,7 +26,7 @@ export async function buildOrRetrievePrivacyPolicyCache() {
 }
 
 export async function buildOrRetrieveRecentlyConsumedFoodsCache(userId) {
-  const endpoint = `/users/${userId}/foods/?limit=7`;
+  const endpoint = `/users/${userId}/foods/?limit=5`;
   const recFoods = await getData(endpoint, 'RECENTLY_CONSUMED_FOODS');
   return recFoods;
 }
