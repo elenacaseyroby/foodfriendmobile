@@ -34,7 +34,7 @@ class App extends React.Component {
 
     this.timeoutHandle = setTimeout(() => {
       SplashScreen.hide();
-    }, 3000);
+    }, 4000);
     // start loading data while splash screen is shown:
     const authSet = await this.props.dispatch(setAuth());
     if (authSet && this.props.auth && this.props.auth.userId) {
