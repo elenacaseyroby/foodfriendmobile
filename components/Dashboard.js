@@ -12,7 +12,7 @@ import {normalize} from '../utils/deviceScaling';
 
 class Dashboard extends React.Component {
   state = {
-    activeScreen: 'path',
+    activeScreen: 'progress',
     displayNutrientJournal: false,
   };
   updateActiveScreen = (screenName) => {
