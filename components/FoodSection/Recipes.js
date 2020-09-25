@@ -47,7 +47,11 @@ class Recipes extends React.Component {
     });
     return (
       <>
-        <Text style={styles.sectionHeader}>Your Saved Recipes</Text>
+        {userRecipesNewestFirst.length > 0 ? (
+          <Text style={styles.sectionHeader}>Your Saved Recipes</Text>
+        ) : (
+          <></>
+        )}
         <RecipeCarousel
           savedRecipeIds={savedRecipeIds}
           nutrientId={0}
