@@ -46,7 +46,7 @@ class FFProgressRing extends React.Component {
           hideLegend={true}
         />
         <Text style={[styles.chartPercentLabel, fontSize]}>
-          {`${(percent * 100).toString()}%`}
+          {`${parseInt(percent * 100).toString()}%`}
         </Text>
       </View>
     );
