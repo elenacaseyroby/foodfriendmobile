@@ -10,8 +10,12 @@ export default class Loader extends React.Component {
     super(props);
     this.state = {
       isConnected: true,
+      _isMounted: true,
     };
   }
+  componentWillUnmount = () => {
+    this.setState({_isMounted: false});
+  };
   renderOfflineScreen() {
     return (
       <View style={styles.rectangle}>
@@ -29,6 +33,7 @@ export default class Loader extends React.Component {
     return <LoaderAnimation />;
   };
   getConnection = async () => {
+    if (!this.state._isMounted) return;
     const isConnected = await isNetworkAvailable();
     if (isConnected !== this.state.isConnected) {
       this.setState({isConnected: isConnected});

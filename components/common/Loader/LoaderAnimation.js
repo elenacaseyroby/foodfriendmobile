@@ -6,17 +6,21 @@ import loadingDots from './assets/basic-blue-loader.json';
 
 export default class LoaderAnimation extends React.Component {
   state = {
-    isConnected: true,
     visible: true,
+    _isMounted: true,
   };
-  componentDidMount() {
+  componentDidMount = () => {
     this.animation.play();
     setInterval(() => {
+      if (!this.state._isMounted) return;
       this.setState({
         visible: !this.state.visible,
       });
     }, 2000);
-  }
+  };
+  componentWillUnmount = () => {
+    this.setState({_isMounted: false});
+  };
   render() {
     return (
       <View style={styles.rectangle}>
