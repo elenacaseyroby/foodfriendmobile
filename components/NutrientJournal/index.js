@@ -49,7 +49,7 @@ class NutrientJournal extends React.Component {
         foodsToRender.push(food);
       }
     });
-    if (!user || (user && !user.activePath)) return foodsToRender;
+    if (!user || (user && !user.activePathId)) return foodsToRender;
     // get list of ids for nutrients in active path.
     const pathNutrientIds = user.activePath.nutrients.map((nutrient) => {
       return nutrient.id;
@@ -91,7 +91,7 @@ class NutrientJournal extends React.Component {
   renderListByNutrients = () => {
     if (this.state.activeTab !== 'listByNutrients') return;
     const {user} = this.props;
-    if (!user && !user.activePath) return;
+    if (!user || (user && !user.activePathId)) return;
     if (!this.props.nutrients) return;
     const nutrients = this.props.nutrients.list;
     // get list of ids for nutrients in path.
