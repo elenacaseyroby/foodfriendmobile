@@ -26,10 +26,10 @@ class Dashboard extends React.Component {
     const {user} = this.props;
     // Had to add user&&user.id so that it won't start on the onboarding
     // slides when the user is already onboarded.
-    const userNotHasOnboarded =
+    const userHasNotOnboarded =
       user && user.id && !user.activePathId && !user.birthday;
     const userHasNotSelectedPath = user && user.id && !user.activePathId;
-    if (userNotHasOnboarded) {
+    if (userHasNotOnboarded) {
       return this.props.navigation.navigate('Onboarding Slides');
     }
     if (userHasNotSelectedPath) {
