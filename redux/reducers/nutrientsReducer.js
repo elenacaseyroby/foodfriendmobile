@@ -26,6 +26,8 @@ export const nutrientsReducer = (prevState = initialState, action) => {
       loading: false,
       list: prevState.list,
     };
+  } else if (action.type === C.DESTROY_SESSION) {
+    return {};
   } else {
     return prevState;
   }

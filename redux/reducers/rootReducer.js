@@ -10,7 +10,6 @@ import {termsAndConditionsReducer} from './termsAndConditionsReducer';
 import {userReducer} from './userReducer';
 import {userFoodsReducer} from './userFoodsReducer';
 import {userRecipesReducer} from './userRecipesReducer';
-import C from '../constants';
 
 const appReducer = combineReducers({
   activePathRecipes: activePathRecipesReducer,
@@ -26,10 +25,6 @@ const appReducer = combineReducers({
   userRecipes: userRecipesReducer,
 });
 const rootReducer = (state, action) => {
-  if (action.type === C.DESTROY_SESSION) {
-    state = undefined;
-  }
-
   return appReducer(state, action);
 };
 export default rootReducer;
