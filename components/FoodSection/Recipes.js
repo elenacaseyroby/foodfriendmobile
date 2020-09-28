@@ -22,14 +22,14 @@ class Recipes extends React.Component {
         ['desc'],
       );
       return (
-        <>
+        <View key={`recipeCarousel-${nutrient.name}`}>
           <Text style={styles.sectionHeader}>{nutrient.name}</Text>
           <RecipeCarousel
             savedRecipeIds={savedRecipeIds}
             nutrientId={nutrient.id}
             recipes={nutrientRecipesNewestFirst}
           />
-        </>
+        </View>
       );
     });
   };
