@@ -1,14 +1,7 @@
 import React from 'react';
-import {
-  StyleSheet,
-  Modal,
-  ScrollView,
-  TouchableOpacity,
-  Image,
-  View,
-} from 'react-native';
+import {StyleSheet, Modal, TouchableOpacity, Image, View} from 'react-native';
 import {WebView} from 'react-native-webview';
-import {normalize, getIosStatusBarHeight} from '../../utils/deviceScaling';
+import {normalize} from '../../utils/deviceScaling';
 import closeIcon from '../../assets/images/white-exit-icon.png';
 import FFStatusBar from './FFStatusBar';
 import propTypes from 'prop-types';
