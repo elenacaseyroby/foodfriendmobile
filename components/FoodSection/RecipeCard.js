@@ -20,7 +20,6 @@ import propTypes from 'prop-types';
 class RecipeCard extends React.Component {
   static propTypes = {
     recipe: propTypes.object.isRequired,
-    recipeKey: propTypes.string.isRequired,
     recipeIsSaved: propTypes.bool.isRequired,
   };
   state = {
@@ -103,10 +102,10 @@ class RecipeCard extends React.Component {
     );
   };
   render() {
-    const {recipe, recipeKey, recipeIsSaved} = this.props;
+    const {recipe, recipeIsSaved} = this.props;
     const urlRoot = 'https://foodfriendapp.s3.us-east-2.amazonaws.com/recipes/';
     return (
-      <View key={recipeKey} style={styles.recipeCardContainer}>
+      <View style={styles.recipeCardContainer}>
         <View style={[styles.imagePlaceholder, styles.imageDims]} />
         <TouchableOpacity
           onPress={() => {

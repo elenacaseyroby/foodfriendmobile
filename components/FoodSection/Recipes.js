@@ -26,7 +26,7 @@ class Recipes extends React.Component {
           <Text style={styles.sectionHeader}>{nutrient.name}</Text>
           <RecipeCarousel
             savedRecipeIds={savedRecipeIds}
-            nutrientId={nutrient.id}
+            keyPrefix={nutrient.id.toString()}
             recipes={nutrientRecipesNewestFirst}
           />
         </View>
@@ -54,7 +54,7 @@ class Recipes extends React.Component {
         )}
         <RecipeCarousel
           savedRecipeIds={savedRecipeIds}
-          nutrientId={0}
+          keyPrefix={'saved'}
           recipes={userRecipesNewestFirst}
         />
       </>
