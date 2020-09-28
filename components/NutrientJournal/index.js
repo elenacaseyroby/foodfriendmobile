@@ -20,13 +20,10 @@ class NutrientJournal extends React.Component {
     isVisible: propTypes.bool.isRequired,
     onClose: propTypes.func.isRequired,
   };
-  constructor(props) {
-    super(props);
-    this.state = {
-      activeTab: 'search',
-      filteredFoods: null,
-    };
-  }
+  state = {
+    activeTab: 'search',
+    filteredFoods: null,
+  };
   search = (keyword) => {
     const foodsToRender = this.getFoodsToRender();
     const filteredFoods = searchFoods(foodsToRender, keyword);
@@ -83,7 +80,11 @@ class NutrientJournal extends React.Component {
           />
         </View>
         <ScrollView>
-          <FoodTable foods={searchResults} permissions="write" />
+          <FoodTable
+            keyPrefix={'search'}
+            foods={searchResults}
+            permissions="write"
+          />
         </ScrollView>
       </>
     );
@@ -102,15 +103,18 @@ class NutrientJournal extends React.Component {
     let nutrientHasBeenExpanded = false;
     return (
       <ScrollView>
-        {nutrients.map((nutrient) => {
-          if (!pathNutrientIds.includes(nutrient.id)) return <></>;
+        {nutrients.map((nutrient, index) => {
+          if (!pathNutrientIds.includes(nutrient.id)) return;
           const defaultIsExpanded = !nutrientHasBeenExpanded;
           nutrientHasBeenExpanded = true;
+          const key = `njAddNutrientFoodTable-${index.toString()}`;
           return (
-            <AddNutrientFoodsList
-              nutrient={nutrient}
-              defaultIsExpanded={defaultIsExpanded}
-            />
+            <View key={key}>
+              <AddNutrientFoodsList
+                nutrient={nutrient}
+                defaultIsExpanded={defaultIsExpanded}
+              />
+            </View>
           );
         })}
       </ScrollView>

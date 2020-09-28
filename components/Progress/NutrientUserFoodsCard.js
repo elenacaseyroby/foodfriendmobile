@@ -30,7 +30,15 @@ class NutrientUserFoodsCard extends React.Component {
           isExpanded={isExpanded}
           onChange={this.handleOnChange}
         />
-        {isExpanded ? <FoodTable foods={foods} permissions="delete" /> : <></>}
+        {isExpanded ? (
+          <FoodTable
+            keyPrefix={`nutrientMeal-${nutrientName}`}
+            foods={foods}
+            permissions="delete"
+          />
+        ) : (
+          <></>
+        )}
         <View style={styles.descriptionTextContainer}>
           <Text style={styles.descriptionText}>
             Foods added using the add food page (+) will appear here.

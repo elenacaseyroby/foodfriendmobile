@@ -44,15 +44,18 @@ class FoodSection extends React.Component {
     return (
       <ScrollView>
         <View style={styles.whiteSpaceUnderMenu} />
-        {nutrients.list.map((nutrient) => {
-          if (!pathNutrientIds.includes(nutrient.id)) return <></>;
+        {nutrients.list.map((nutrient, index) => {
+          if (!pathNutrientIds.includes(nutrient.id)) return;
           const defaultIsExpanded = !nutrientHasBeenExpanded;
           nutrientHasBeenExpanded = true;
+          const key = `foodVwNutrientFoodTable-${index.toString()}`;
           return (
-            <ViewNutrientFoodsList
-              nutrient={nutrient}
-              defaultIsExpanded={defaultIsExpanded}
-            />
+            <View key={key}>
+              <ViewNutrientFoodsList
+                nutrient={nutrient}
+                defaultIsExpanded={defaultIsExpanded}
+              />
+            </View>
           );
         })}
         <View style={styles.navBarWhiteSpace} />

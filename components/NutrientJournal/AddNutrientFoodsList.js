@@ -25,7 +25,11 @@ class AddNutrientFoodsList extends React.Component {
           onChange={this.handleOnChange}
         />
         {isExpanded ? (
-          <FoodTable foods={nutrient.foods} permissions="write" />
+          <FoodTable
+            keyPrefix={nutrient.id.toString()}
+            foods={nutrient.foods}
+            permissions="write"
+          />
         ) : (
           <></>
         )}

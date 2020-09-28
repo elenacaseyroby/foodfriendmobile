@@ -26,7 +26,11 @@ class ViewNutrientFoodsList extends React.Component {
           onChange={this.handleOnChange}
         />
         {isExpanded ? (
-          <FoodTable foods={nutrient.foods} permissions="read-only" />
+          <FoodTable
+            keyPrefix={`vwNutrientFoodTable-${nutrient.id}`}
+            foods={nutrient.foods}
+            permissions="read-only"
+          />
         ) : (
           <></>
         )}
