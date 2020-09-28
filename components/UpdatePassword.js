@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, Image, StyleSheet} from 'react-native';
+import {TouchableOpacity, View, Text, Image, StyleSheet} from 'react-native';
 import {connect} from 'react-redux';
 import {fetchUser} from '../redux/actions/userActionCreator';
 import {setAuth} from '../redux/actions/authActionCreator';
@@ -62,6 +62,11 @@ class UpdatePassword extends React.Component {
     this.props.dispatch(setAuth());
   };
   render() {
+    // If user is logged in, redirect to dashboard
+    if (this.props.auth && this.props.auth.userId) {
+      this.props.navigation.navigate('Dashboard');
+      return <></>;
+    }
     return (
       <View style={styles.rectangle}>
         <View style={styles.content}>
@@ -74,6 +79,10 @@ class UpdatePassword extends React.Component {
           <View style={styles.button}>
             <SubmitButton onClick={this.handleSubmit} />
           </View>
+          <TouchableOpacity
+            onPress={() => this.props.navigation.navigate('Sign In')}>
+            <Text style={styles.navigateToLoginText}>Go to Sign In Screen</Text>
+          </TouchableOpacity>
         </View>
         <Elipse />
       </View>
@@ -93,12 +102,6 @@ const styles = StyleSheet.create({
     width: normalize(140),
     fontFamily: 'Cabin-SemiBold',
     fontSize: normalize(30),
-    // marginTop: 25,
-    // color: '#555555',
-    // width: 140,
-    // height: 75,
-    // fontFamily: 'Cabin-SemiBold',
-    // fontSize: 30,
   },
   plantMascot: {
     width: normalize(131),
@@ -117,6 +120,14 @@ const styles = StyleSheet.create({
     // borderColor: '#aaaaaa',
     // borderWidth: 0.5,
   },
+  navigateToLoginText: {
+    marginTop: '5%',
+    fontFamily: 'Cabin-Regular',
+    fontSize: normalize(14),
+    color: '#ed762c',
+    alignSelf: 'center',
+    textAlign: 'center',
+  },
   rectangle: {
     backgroundColor: '#ffffff',
     minHeight: '100%',
@@ -124,6 +135,8 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
 
 export default connect(mapStateToProps)(UpdatePassword);

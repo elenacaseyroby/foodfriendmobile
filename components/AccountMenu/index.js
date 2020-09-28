@@ -32,6 +32,7 @@ class AccountMenu extends React.Component {
   handleSignOut = async () => {
     await asyncStorage._clearData();
     this.props.dispatch({type: C.DESTROY_SESSION});
+    this.props.navigation.navigate('Sign In');
   };
   render() {
     return (

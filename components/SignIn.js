@@ -87,6 +87,11 @@ class SignIn extends React.Component {
     fetchAllSignedInData(this.props.dispatch, login.response.userId);
   };
   render() {
+    // If user is logged in, redirect to dashboard
+    if (this.props.auth && this.props.auth.userId) {
+      this.props.navigation.navigate('Dashboard');
+      return <></>;
+    }
     return (
       <View style={styles.rectangle}>
         <View style={styles.content}>
@@ -185,6 +190,8 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
 
 export default connect(mapStateToProps)(SignIn);

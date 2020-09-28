@@ -58,37 +58,27 @@ class App extends React.Component {
       <Stack.Navigator
         screenOptions={{
           headerShown: false,
+          // fixes warning but then can't use transitions:
+          // animationEnabled: false,
         }}>
-        {this.props.auth && this.props.auth.userId ? (
-          <>
-            {/*signed in landing page: */}
-            <Stack.Screen name="Dashboard" component={Dashboard} />
-            <Stack.Screen name="Progress" component={Progress} />
-            <Stack.Screen name="My Path" component={MyPath} />
-            <Stack.Screen name="Account Menu" component={AccountMenu} />
-            <Stack.Screen name="Select Path" component={SelectPath} />
-            <Stack.Screen name="Path Detail" component={PathDetail} />
-            <Stack.Screen name="Customize Path" component={CustomizePath} />
-            <Stack.Screen name="Nutrient Detail" component={NutrientDetail} />
-            <Stack.Screen name="Account Details" component={AccountDetails} />
-            <Stack.Screen
-              name="Onboarding Slides"
-              component={OnboardingSlides}
-            />
-            <Stack.Screen
-              name="Onboarding Survey"
-              component={OnboardingSurvey}
-            />
-          </>
-        ) : (
-          <>
-            {/*signed out landing page: */}
-            <Stack.Screen name="Sign In" component={SignIn} />
-            <Stack.Screen name="Sign Up" component={SignUp} />
-            <Stack.Screen name="Password Reset" component={PasswordReset} />
-            <Stack.Screen name="Update Password" component={UpdatePassword} />
-          </>
-        )}
+        {/*Starts on sign in page and navigates to dashboard if logged in*/}
+        <Stack.Screen name="Sign In" component={SignIn} />
+        {/*signed in landing page: */}
+        <Stack.Screen name="Dashboard" component={Dashboard} />
+        <Stack.Screen name="Progress" component={Progress} />
+        <Stack.Screen name="My Path" component={MyPath} />
+        <Stack.Screen name="Account Menu" component={AccountMenu} />
+        <Stack.Screen name="Select Path" component={SelectPath} />
+        <Stack.Screen name="Path Detail" component={PathDetail} />
+        <Stack.Screen name="Customize Path" component={CustomizePath} />
+        <Stack.Screen name="Nutrient Detail" component={NutrientDetail} />
+        <Stack.Screen name="Account Details" component={AccountDetails} />
+        <Stack.Screen name="Onboarding Slides" component={OnboardingSlides} />
+        <Stack.Screen name="Onboarding Survey" component={OnboardingSurvey} />
+        <Stack.Screen name="Sign Up" component={SignUp} />
+        <Stack.Screen name="Password Reset" component={PasswordReset} />
+        <Stack.Screen name="Update Password" component={UpdatePassword} />
+
         <Stack.Screen
           name="Terms And Conditions"
           component={TermsAndConditions}
