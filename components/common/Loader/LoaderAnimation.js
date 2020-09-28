@@ -1,25 +1,12 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import Animation from 'lottie-react-native';
-import {normalize} from '../../../utils/deviceScaling';
 import loadingDots from './assets/basic-blue-loader.json';
 
 export default class LoaderAnimation extends React.Component {
-  state = {
-    visible: true,
-    _isMounted: true,
-  };
   componentDidMount = () => {
+    // currently the animation will play for as long as this component is mounted.
     this.animation.play();
-    setInterval(() => {
-      if (!this.state._isMounted) return;
-      this.setState({
-        visible: !this.state.visible,
-      });
-    }, 2000);
-  };
-  componentWillUnmount = () => {
-    this.setState({_isMounted: false});
   };
   render() {
     return (
