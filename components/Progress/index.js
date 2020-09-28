@@ -42,7 +42,9 @@ class Progress extends React.Component {
           <Text style={styles.nutrientH1}>{report.nutrientName}</Text>
           <Text style={styles.nutrientH2}>{`You have consumed ${(
             report.percentDvConsumed * 100
-          ).toString()}% of your daily value of ${report.nutrientName}.`}</Text>
+          ).toString()}% of your daily value of ${report.nutrientName} (${
+            report.nutrientDvNote
+          }).`}</Text>
         </View>
       </View>
     );
@@ -118,6 +120,25 @@ class Progress extends React.Component {
                 );
               })}
             </View>
+          </View>
+          <View>
+            <Text style={styles.disclaimerText}>
+              Please note, Daily Value (DV) is a term created by the Food and
+              Drug Administration (FDA) to help consumers understand how
+              nutritional contents of foods and supplements contribute to
+              overall diet. The nutrient DVs in FoodFriend are based on the
+              adult average recommended DVs from the National Institutes of
+              Health: Office of Dietary Supplements online factsheets from June
+              2020. The recommended DVs displayed on FoodFriend are in no way
+              intended to fit every person's individual needs; rather they
+              provide an estimate of what the average adult person might need in
+              their diet. For example, if you are defficient in a given
+              nutrient, you might need to consume more of that nutrient than
+              FoodFriend suggests. As always, we encourage you to explore how
+              the introduction of new nutrients or foods into your diet might
+              impact your health with your doctor or other qualified healthcare
+              provider.
+            </Text>
           </View>
           <View style={styles.navBarWhiteSpace} />
         </ScrollView>
@@ -216,14 +237,14 @@ const styles = StyleSheet.create({
   nutrientH1: {
     textAlign: 'left',
     fontFamily: 'Cabin-Regular',
-    fontSize: normalize(21),
+    fontSize: normalize(18),
     color: '#555555',
   },
   nutrientH2: {
     marginTop: '2%',
     textAlign: 'left',
     fontFamily: 'Cabin-Regular',
-    fontSize: normalize(14),
+    fontSize: normalize(12),
     color: '#555555',
   },
   nutrientCardsContainer: {
@@ -232,6 +253,15 @@ const styles = StyleSheet.create({
   nutrientCard: {
     alignSelf: 'center',
     marginTop: '2%',
+  },
+  disclaimerText: {
+    marginTop: '15%',
+    width: normalize(250),
+    alignSelf: 'center',
+    textAlign: 'center',
+    fontFamily: 'Cabin-Regular',
+    fontSize: normalize(9),
+    color: '#aaaaaa',
   },
   navBarWhiteSpace: {
     backgroundColor: '#ffffff',
