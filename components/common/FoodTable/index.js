@@ -120,9 +120,9 @@ class FoodTable extends React.Component {
     return (
       <View style={this.props.style}>
         {this.renderHeader()}
-        {foodsToRender.map((food) => {
+        {foodsToRender.map((food, index) => {
           return (
-            <View key={`${keyPrefix}-${food.id.toString()}`}>
+            <View key={`${keyPrefix}-${index.toString()}`}>
               {this.renderRow(food)}
             </View>
           );
