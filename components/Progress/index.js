@@ -42,9 +42,9 @@ class Progress extends React.Component {
           <Text style={styles.nutrientH1}>{report.nutrientName}</Text>
           <Text style={styles.nutrientH2}>{`You have consumed ${(
             report.percentDvConsumed * 100
-          ).toString()}% of your daily value of ${report.nutrientName} (${
-            report.nutrientDvNote
-          }).`}</Text>
+          ).toString()}% of your daily value (DV) of ${
+            report.nutrientName
+          }, based on a DV of ${report.nutrientDvNote}.`}</Text>
         </View>
       </View>
     );
