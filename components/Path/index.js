@@ -153,6 +153,17 @@ class Path extends React.Component {
               </TouchableOpacity>
             </View>
           </View>
+          <View>
+            <Text style={styles.disclaimerText}>
+              Please note, FoodFriend is a reference tool. It does not represent
+              expert advice and should never be used as a substitute for direct
+              medical counsel. If you are experiencing a health issue, we ask
+              that you reach out to a healthcare professional. Additionally, we
+              encourage you to explore how the introduction of new nutrients or
+              foods into your diet might impact your health with your doctor or
+              other qualified healthcare provider.
+            </Text>
+          </View>
           <BlueBottomElipse2 />
           {this.renderBackArrow()}
         </ScrollView>
@@ -318,6 +329,16 @@ const styles = StyleSheet.create({
     fontSize: normalize(16),
     fontFamily: 'Cabin-Regular',
     color: '#ed762c',
+  },
+  disclaimerText: {
+    marginTop: '5%',
+    marginBottom: '10%',
+    width: normalize(250),
+    alignSelf: 'center',
+    textAlign: 'center',
+    fontFamily: 'Cabin-Regular',
+    fontSize: normalize(9),
+    color: '#aaaaaa',
   },
   rowContainer: {
     flexDirection: 'row',

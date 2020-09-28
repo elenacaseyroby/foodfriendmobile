@@ -75,7 +75,7 @@ class NutrientDetail extends React.Component {
           <Text style={styles.disclaimer}>
             Please note, FoodFriend is a reference tool. It does not represent
             expert advice and should never be used as a substitute for direct
-            medical advice. If you are experiencing a health issue, we ask that
+            medical counsel. If you are experiencing a health issue, we ask that
             you reach out to a healthcare professional. Additionally, we
             encourage you to explore how the introduction of new nutrients or
             foods into your diet might impact your health with your doctor or
@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
     width: normalize(301),
     color: '#aaaaaa',
     fontFamily: 'Cabin-Regular',
-    fontSize: normalize(12),
+    fontSize: normalize(9),
   },
   bottomElipse: {
     marginTop: normalize(80),
