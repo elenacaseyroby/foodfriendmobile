@@ -48,7 +48,6 @@ class Progress extends React.Component {
     );
   };
   render() {
-    // think about if this naming makes sense...
     const report = this.props.dailyProgress;
     if (!report.nutrientsTotalDvConsumed) return <Loader />;
     let wordsOfEncouragement = `Looks like you're just getting started! Click on the (+) to record foods you've eaten today, then return to this page to track your progress.`;
