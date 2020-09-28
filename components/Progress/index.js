@@ -93,13 +93,13 @@ class Progress extends React.Component {
               const renderDash = index + 1 !== report.nutrientReports.length;
               const themeIndex = index % 3;
               return (
-                <>
+                <View key={`nutrientReport-${index.toString()}`}>
                   {this.renderNutrientProgressRow(
                     themes[themeIndex],
                     nutrientReport,
                   )}
                   {renderDash ? <View style={styles.dash} /> : <></>}
-                </>
+                </View>
               );
             })}
             <View style={styles.line} />
@@ -110,13 +110,15 @@ class Progress extends React.Component {
                   backgroundColor: themes[themeIndex].hex,
                 };
                 return (
-                  <NutrientUserFoodsCard
-                    nutrientName={nutrientReport.nutrientName}
-                    foods={nutrientReport.consumedFoods}
-                    defaultIsExpanded={true}
-                    nutrientBarBackgroundColor={backgroundColor}
-                    style={styles.nutrientCard}
-                  />
+                  <View key={`nutrientCard-${index.toString()}`}>
+                    <NutrientUserFoodsCard
+                      nutrientName={nutrientReport.nutrientName}
+                      foods={nutrientReport.consumedFoods}
+                      defaultIsExpanded={true}
+                      nutrientBarBackgroundColor={backgroundColor}
+                      style={styles.nutrientCard}
+                    />
+                  </View>
                 );
               })}
             </View>

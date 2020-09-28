@@ -331,7 +331,7 @@ const styles = StyleSheet.create({
     color: '#ed762c',
   },
   disclaimerText: {
-    marginTop: '5%',
+    marginTop: '2%',
     marginBottom: '10%',
     width: normalize(250),
     alignSelf: 'center',
