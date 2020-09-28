@@ -62,8 +62,12 @@ class App extends React.Component {
           // animationEnabled: false,
         }}>
         {/*Starts on sign in page and navigates to dashboard if logged in*/}
+        {/* Signed out screens: */}
         <Stack.Screen name="Sign In" component={SignIn} />
-        {/*signed in landing page: */}
+        <Stack.Screen name="Sign Up" component={SignUp} />
+        <Stack.Screen name="Password Reset" component={PasswordReset} />
+        <Stack.Screen name="Update Password" component={UpdatePassword} />
+        {/*Signed in screens: */}
         <Stack.Screen name="Dashboard" component={Dashboard} />
         <Stack.Screen name="Progress" component={Progress} />
         <Stack.Screen name="My Path" component={MyPath} />
@@ -75,10 +79,7 @@ class App extends React.Component {
         <Stack.Screen name="Account Details" component={AccountDetails} />
         <Stack.Screen name="Onboarding Slides" component={OnboardingSlides} />
         <Stack.Screen name="Onboarding Survey" component={OnboardingSurvey} />
-        <Stack.Screen name="Sign Up" component={SignUp} />
-        <Stack.Screen name="Password Reset" component={PasswordReset} />
-        <Stack.Screen name="Update Password" component={UpdatePassword} />
-
+        {/* Signed in/out screens: */}
         <Stack.Screen
           name="Terms And Conditions"
           component={TermsAndConditions}
