@@ -161,7 +161,7 @@ class CustomizePath extends React.Component {
             />
           </View>
         </ScrollView>
-        <OfflineNotificationBanner />
+        <OfflineNotificationBanner style={styles.offlineBanner} />
       </>
     );
   }
@@ -274,6 +274,10 @@ const styles = StyleSheet.create({
     position: 'absolute',
     alignSelf: 'center',
     bottom: normalize(130),
+  },
+  offlineBanner: {
+    position: 'absolute',
+    bottom: normalize(5),
   },
   rectangle: {
     backgroundColor: '#FFFFFF',

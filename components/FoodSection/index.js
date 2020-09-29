@@ -2,7 +2,6 @@ import React from 'react';
 import {StyleSheet, ScrollView, Image, View, Text} from 'react-native';
 import {connect} from 'react-redux';
 import FoodMenu from './FoodMenu';
-import OfflineNotificationBanner from '../common/OfflineNotificationBanner';
 import ViewNutrientFoodsList from './ViewNutrientFoodsList';
 import Recipes from './Recipes';
 import FFStatusBar from '../common/FFStatusBar';
@@ -66,7 +65,6 @@ class FoodSection extends React.Component {
     return (
       <View style={styles.foodSectionContainer}>
         <FFStatusBar />
-        <OfflineNotificationBanner />
         <View style={styles.header}>
           <Image source={groceryPile} style={styles.groceryPile} />
         </View>

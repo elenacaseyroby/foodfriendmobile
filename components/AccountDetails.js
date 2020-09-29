@@ -19,7 +19,6 @@ import FFErrorMessage from './forms/FFErrorMessage';
 import FFNarrowButton from './common/FFNarrowButton';
 import FFStatusBar from './common/FFStatusBar';
 import FFRadioButtons from './forms/FFRadioButtons';
-import OfflineNotificationBanner from './common/OfflineNotificationBanner';
 import Elipse from './common/BlueBottomElipse';
 import api from '../services/api';
 
@@ -201,7 +200,6 @@ class AccountDetails extends React.Component {
           <FFNarrowButton label="Save" onClick={this.handleSubmit} />
         </View>
         <Elipse style={styles.elipse} />
-        <OfflineNotificationBanner />
       </View>
     );
   }

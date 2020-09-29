@@ -48,7 +48,7 @@ class Dashboard extends React.Component {
     return (
       <View style={styles.rectangle}>
         {this.renderActiveScreen()}
-        <OfflineNotificationBanner />
+        <OfflineNotificationBanner style={styles.offlineBanner} />
         <NavBar
           updateActiveScreen={this.updateActiveScreen}
           activeScreen={this.state.activeScreen}
@@ -63,6 +63,9 @@ class Dashboard extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  offlineBanner: {
+    height: normalize(50),
+  },
   test: {
     alignSelf: 'center',
     marginTop: normalize(330),

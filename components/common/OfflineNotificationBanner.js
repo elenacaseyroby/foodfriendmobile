@@ -3,8 +3,12 @@ import {Text, View, StyleSheet} from 'react-native';
 import {normalize} from '../../utils/deviceScaling';
 import {statusBarHeight} from '../../utils/deviceScaling';
 import NetInfo from '@react-native-community/netinfo';
+import propTypes from 'prop-types';
 
 class OfflineNotificationBanner extends React.Component {
+  static propTypes = {
+    style: propTypes.object,
+  };
   state = {
     isConnected: true,
   };
@@ -17,7 +21,7 @@ class OfflineNotificationBanner extends React.Component {
   render() {
     if (this.state.isConnected) return <></>;
     return (
-      <View style={styles.banner}>
+      <View style={[styles.banner, this.props.style]}>
         <Text style={[styles.text, styles.bold]}>
           Oh no! It looks like you’re offline.
         </Text>

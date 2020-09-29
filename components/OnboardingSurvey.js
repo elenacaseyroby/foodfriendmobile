@@ -172,7 +172,7 @@ class OnboardingSurvey extends React.Component {
             <FFNarrowButton label={'Submit'} onClick={this.handleSubmit} />
           </View>
         </ScrollView>
-        <OfflineNotificationBanner />
+        <OfflineNotificationBanner style={styles.offlineBanner} />
       </>
     );
   }
@@ -229,6 +229,10 @@ const styles = StyleSheet.create({
   },
   blueElipse: {
     marginTop: '10%',
+  },
+  offlineBanner: {
+    position: 'absolute',
+    bottom: normalize(5),
   },
   rectangle: {
     position: 'relative',

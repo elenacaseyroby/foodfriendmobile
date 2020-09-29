@@ -10,7 +10,6 @@ import progress from './assets/progress-icon-passive.png';
 import food from './assets/food-icon-passive.png';
 import account from './assets/account-icon-passive.png';
 import plus from './assets/plus-icon.png';
-
 import propTypes from 'prop-types';
 
 class NavBar extends React.Component {

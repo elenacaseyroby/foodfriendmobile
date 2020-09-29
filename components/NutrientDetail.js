@@ -1,7 +1,6 @@
 import React from 'react';
 import {ScrollView, Image, Text, View, StyleSheet} from 'react-native';
 import FFStatusBar from './common/FFStatusBar';
-import OfflineNotificationBanner from './common/OfflineNotificationBanner';
 import BlueTopElipse from './common/BlueTopElipse';
 import BlueBottomElipse from './common/BlueBottomElipse';
 import FoodTable from './common/FoodTable';
@@ -45,7 +44,6 @@ class NutrientDetail extends React.Component {
     return (
       <>
         <FFStatusBar />
-        <OfflineNotificationBanner />
         <ScrollView style={styles.rectangle}>
           <BlueTopElipse />
           <Image

@@ -23,7 +23,8 @@ export default class Loader extends React.Component {
           <Text style={styles.ohNoText}>Oh no!</Text>
           <Image source={benny} style={styles.bennyImg} />
           <Text style={styles.noInternetText}>
-            We can't detect an internet connection. Please check your settings.
+            We can't detect an internet connection. Please check your settings
+            and try restarting the app.
           </Text>
         </View>
       </View>
