@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import {connect} from 'react-redux';
 import {setAuth} from '../redux/actions/authActionCreator';
+import {fetchAllSignedInData} from '../redux/bulkFetch';
 import {
   validateEmail,
   validatePassword,
@@ -74,6 +75,7 @@ class SignUp extends React.Component {
     }
     // sign in user
     this.props.dispatch(setAuth());
+    fetchAllSignedInData(this.props.dispatch, signUp.response.userId);
   };
   render() {
     return (

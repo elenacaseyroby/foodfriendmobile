@@ -1,7 +1,7 @@
 import React from 'react';
 import {TouchableOpacity, View, Text, Image, StyleSheet} from 'react-native';
 import {connect} from 'react-redux';
-import {fetchUser} from '../redux/actions/userActionCreator';
+import {fetchAllSignedInData} from '../redux/bulkFetch';
 import {setAuth} from '../redux/actions/authActionCreator';
 import {storeAsyncLoginData, getPasswordUpdateError} from '../utils/auth';
 import {validatePassword} from '../utils/formValidation';
@@ -56,10 +56,9 @@ class UpdatePassword extends React.Component {
     if (result !== 'success') {
       return this.setState({errorMessage: result});
     }
-    // Update user state.
-    this.props.dispatch(fetchUser(reset.response.userId));
     // Sign in user.
     this.props.dispatch(setAuth());
+    fetchAllSignedInData(this.props.dispatch, reset.response.userId);
   };
   render() {
     // If user is logged in, redirect to dashboard
