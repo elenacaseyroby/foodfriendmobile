@@ -3,6 +3,7 @@ import Path from './Path';
 import {View, StyleSheet} from 'react-native';
 import {connect} from 'react-redux';
 import Loader from './common/Loader';
+import FFStatusBar from './common/FFStatusBar';
 import PathHeader from './common/PathHeader';
 import propTypes from 'prop-types';
 
@@ -14,12 +15,15 @@ class MyPath extends React.Component {
     const {user} = this.props;
     if (user && !user.id) {
       return (
-        <View style={styles.container}>
-          <PathHeader />
-          <View style={styles.loader}>
-            <Loader />
+        <>
+          <FFStatusBar />
+          <View style={styles.container}>
+            <PathHeader />
+            <View style={styles.loader}>
+              <Loader />
+            </View>
           </View>
-        </View>
+        </>
       );
     }
     const {activePath} = user;
@@ -39,7 +43,7 @@ const styles = StyleSheet.create({
   },
   loader: {
     width: '100%',
-    height: '55%',
+    height: '45%',
   },
 });
 
