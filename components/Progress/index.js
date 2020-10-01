@@ -9,7 +9,6 @@ import {normalize} from '../../utils/deviceScaling';
 import plantMascot from '../../assets/images/plant-mascot.png';
 import greenCircle from './assets/green-circle.png';
 
-// if theme is added, must update in orderNutrientsByTheme function.
 const themes = [
   {
     rgb: [50, 119, 16],
@@ -49,9 +48,16 @@ class Progress extends React.Component {
       </View>
     );
   };
-  render() {
+  renderProgressContent = () => {
+    const {user} = this.props;
     const report = this.props.dailyProgress;
-    if (!report.nutrientsTotalDvConsumed) return <Loader />;
+    if (user.id && !user.activePathId) return <></>;
+    if (!report.nutrientsTotalDvConsumed)
+      return (
+        <View style={styles.loader}>
+          <Loader />
+        </View>
+      );
     let wordsOfEncouragement = `Looks like you're just getting started! Click on the (+) to record foods you've eaten today, then return to this page to track your progress.`;
     if (report.nutrientsTotalDvConsumed > 0) {
       wordsOfEncouragement =
@@ -69,6 +75,57 @@ class Progress extends React.Component {
     const totalPercent = parseFloat(report.nutrientsTotalDvConsumed);
     return (
       <>
+        <Text style={styles.h2}>{wordsOfEncouragement}</Text>
+        <FFProgressRing
+          rgb={[95, 126, 198]}
+          percent={totalPercent}
+          strokeWidth={normalize(23)}
+          radius={normalize(70)}
+          chartWidth={normalize(180)}
+          chartHeight={180}
+          style={styles.totalChart}
+        />
+        <View style={styles.line} />
+        {report.nutrientReports.map((nutrientReport, index) => {
+          // Don't render dash for last nutrient in report.
+          const renderDash = index + 1 !== report.nutrientReports.length;
+          const themeIndex = index % 3;
+          return (
+            <View key={`nutrientReport-${index.toString()}`}>
+              {this.renderNutrientProgressRow(
+                themes[themeIndex],
+                nutrientReport,
+              )}
+              {renderDash ? <View style={styles.dash} /> : <></>}
+            </View>
+          );
+        })}
+        <View style={styles.line} />
+        <View style={styles.nutrientCardsContainer}>
+          {report.nutrientReports.map((nutrientReport, index) => {
+            const themeIndex = index % 3;
+            const backgroundColor = {
+              backgroundColor: themes[themeIndex].hex,
+            };
+            return (
+              <View key={`nutrientCard-${index.toString()}`}>
+                <NutrientUserFoodsCard
+                  nutrientName={nutrientReport.nutrientName}
+                  foods={nutrientReport.consumedFoods}
+                  defaultIsExpanded={true}
+                  nutrientBarBackgroundColor={backgroundColor}
+                  style={styles.nutrientCard}
+                />
+              </View>
+            );
+          })}
+        </View>
+      </>
+    );
+  };
+  render() {
+    return (
+      <>
         <FFStatusBar />
         <ScrollView style={styles.rectangle}>
           <View style={styles.header}>
@@ -77,51 +134,7 @@ class Progress extends React.Component {
           <View style={styles.progressCard}>
             <Image source={plantMascot} style={styles.plantMascot} />
             <Text style={styles.h1}>Progress</Text>
-            <Text style={styles.h2}>{wordsOfEncouragement}</Text>
-            <FFProgressRing
-              rgb={[95, 126, 198]}
-              percent={totalPercent}
-              strokeWidth={normalize(23)}
-              radius={normalize(70)}
-              chartWidth={normalize(180)}
-              chartHeight={180}
-              style={styles.totalChart}
-            />
-            <View style={styles.line} />
-            {report.nutrientReports.map((nutrientReport, index) => {
-              // Don't render dash for last nutrient in report.
-              const renderDash = index + 1 !== report.nutrientReports.length;
-              const themeIndex = index % 3;
-              return (
-                <View key={`nutrientReport-${index.toString()}`}>
-                  {this.renderNutrientProgressRow(
-                    themes[themeIndex],
-                    nutrientReport,
-                  )}
-                  {renderDash ? <View style={styles.dash} /> : <></>}
-                </View>
-              );
-            })}
-            <View style={styles.line} />
-            <View style={styles.nutrientCardsContainer}>
-              {report.nutrientReports.map((nutrientReport, index) => {
-                const themeIndex = index % 3;
-                const backgroundColor = {
-                  backgroundColor: themes[themeIndex].hex,
-                };
-                return (
-                  <View key={`nutrientCard-${index.toString()}`}>
-                    <NutrientUserFoodsCard
-                      nutrientName={nutrientReport.nutrientName}
-                      foods={nutrientReport.consumedFoods}
-                      defaultIsExpanded={true}
-                      nutrientBarBackgroundColor={backgroundColor}
-                      style={styles.nutrientCard}
-                    />
-                  </View>
-                );
-              })}
-            </View>
+            {this.renderProgressContent()}
           </View>
           <View>
             <Text style={styles.disclaimerText}>
@@ -136,9 +149,12 @@ class Progress extends React.Component {
               provide an estimate of what the average adult person might need in
               their diet. For example, if you are defficient in a given
               nutrient, you might need to consume more of that nutrient than
-              FoodFriend suggests. As always, we encourage you to explore how
-              the introduction of new nutrients or foods into your diet might
-              impact your health with your doctor or other qualified healthcare
+              FoodFriend suggests. Additionally, the percentages you see on this
+              page are estimates, not exact reprepresentations, of the nutrients
+              you have consumed based on the food servings you record through
+              the app. As always, we encourage you to explore how the
+              introduction of new nutrients or foods into your diet might impact
+              your health with your doctor or other qualified healthcare
               provider.
             </Text>
           </View>
@@ -264,6 +280,10 @@ const styles = StyleSheet.create({
     fontFamily: 'Cabin-Regular',
     fontSize: normalize(9),
     color: '#aaaaaa',
+  },
+  loader: {
+    width: '100%',
+    height: '55%',
   },
   navBarWhiteSpace: {
     backgroundColor: '#ffffff',

@@ -2,6 +2,7 @@ import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import Animation from 'lottie-react-native';
 import loadingDots from './assets/basic-blue-loader.json';
+import {normalize} from '../../../utils/deviceScaling';
 
 export default class LoaderAnimation extends React.Component {
   componentDidMount = () => {
@@ -34,8 +35,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   container: {
-    width: '8%',
-    height: '8%',
+    width: normalize(30),
+    height: normalize(30),
     justifyContent: 'center',
     alignItems: 'center',
   },

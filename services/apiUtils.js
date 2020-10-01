@@ -3,9 +3,12 @@ import asyncStorage from '../asyncStorage';
 const API_HOST = 'http://localhost:5000';
 
 export async function getRequest(endpoint) {
+  const date = new Date();
+  const offsetInHours = date.getTimezoneOffset() / 60;
   let headers = {
     Accept: 'application/json',
     'Content-Type': 'application/json',
+    utcoffsetinhours: offsetInHours,
   };
   // accessToken granted on login. need accessToken to get any user data.
   const accessToken = await asyncStorage._retrieveData('ACCESS_TOKEN');
@@ -33,9 +36,12 @@ export async function deleteRequest(endpoint, body = {}) {
 }
 
 export async function request(method, endpoint, body = {}) {
+  const date = new Date();
+  const offsetInHours = date.getTimezoneOffset() / 60;
   let headers = {
     Accept: 'application/json',
     'Content-Type': 'application/json',
+    utcoffsetinhours: offsetInHours,
   };
   // accessToken granted on login. need accessToken to get any user data.
   const accessToken = await asyncStorage._retrieveData('ACCESS_TOKEN');
