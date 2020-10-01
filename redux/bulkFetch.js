@@ -16,3 +16,9 @@ export function fetchAllSignedInData(dispatch, userId) {
   dispatch(fetchDiets());
   return 'success';
 }
+
+export function fetchAllActivePathData(dispatch, userId) {
+  dispatch(fetchUser(userId));
+  dispatch(fetchActivePathRecipes(userId));
+  dispatch(fetchDailyProgress(userId));
+}

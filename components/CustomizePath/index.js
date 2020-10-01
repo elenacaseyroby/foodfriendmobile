@@ -2,9 +2,7 @@ import React from 'react';
 import {ScrollView, View, Text, Image, StyleSheet} from 'react-native';
 import {connect} from 'react-redux';
 import api from '../../services/api';
-import {fetchUser} from '../../redux/actions/userActionCreator';
-import {fetchDailyProgress} from '../../redux/actions/dailyProgressActionCreator';
-import {fetchActivePathRecipes} from '../../redux/actions/activePathRecipesActionCreator';
+import {fetchAllActivePathData} from '../../redux/bulkFetch';
 import FFStatusBar from '../common/FFStatusBar';
 import NutrientButton from '../common/NutrientButton';
 import BackArrow from '../common/BackArrow';
@@ -100,9 +98,7 @@ class CustomizePath extends React.Component {
       });
     }
     // Update user state.
-    this.props.dispatch(fetchUser(userId));
-    this.props.dispatch(fetchActivePathRecipes(userId));
-    this.props.dispatch(fetchDailyProgress(userId));
+    fetchAllActivePathData(this.props.dispatch, userId);
     this.props.navigation.navigate('Dashboard');
   };
   render() {

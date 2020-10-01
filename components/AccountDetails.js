@@ -8,9 +8,7 @@ import {
 } from '../utils/formValidation';
 import {getUserUpdateError} from '../utils/auth';
 import {normalize} from '../utils/deviceScaling';
-import {fetchUser} from '../redux/actions/userActionCreator';
-import {fetchDailyProgress} from '../redux/actions/dailyProgressActionCreator';
-import {fetchActivePathRecipes} from '../redux/actions/activePathRecipesActionCreator';
+import {fetchAllActivePathData} from '../redux/bulkFetch';
 import BackArrow from './common/BackArrow';
 import FFEmailTextBox from './forms/FFEmailTextBox';
 import FFNameTextBox from './forms/FFNameTextBox';
@@ -111,9 +109,7 @@ class AccountDetails extends React.Component {
     }
 
     // Update state.
-    this.props.dispatch(fetchUser(user.id));
-    this.props.dispatch(fetchActivePathRecipes(user.id));
-    this.props.dispatch(fetchDailyProgress(user.id));
+    fetchAllActivePathData(this.props.dispatch, user.id);
   };
   handleEdit = (fieldName, value) => {
     if (fieldName === 'firstName') {

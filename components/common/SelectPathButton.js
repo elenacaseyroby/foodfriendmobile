@@ -1,9 +1,7 @@
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
 import {connect} from 'react-redux';
-import {fetchUser} from '../../redux/actions/userActionCreator';
-import {fetchDailyProgress} from '../../redux/actions/dailyProgressActionCreator';
-import {fetchActivePathRecipes} from '../../redux/actions/activePathRecipesActionCreator';
+import {fetchAllActivePathData} from '../../redux/bulkFetch';
 import api from '../../services/api';
 import {normalize} from '../../utils/deviceScaling';
 import FFWideButton from '../common/FFWideButton';
@@ -37,9 +35,7 @@ class SelectPathButton extends React.Component {
       });
     }
     // Update user state after updating activePathId.
-    this.props.dispatch(fetchUser(this.props.auth.userId));
-    this.props.dispatch(fetchActivePathRecipes(this.props.auth.userId));
-    this.props.dispatch(fetchDailyProgress(this.props.auth.userId));
+    fetchAllActivePathData(this.props.dispatch, user.id);
     //navigate to dashboard
     this.props.navigation.navigate('Dashboard');
   };
