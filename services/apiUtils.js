@@ -1,6 +1,6 @@
 import asyncStorage from '../asyncStorage';
 
-const API_HOST = 'http://localhost:5000';
+const API_HOST = 'http://localhost:5000/api';
 
 export async function getRequest(endpoint) {
   const date = new Date();
