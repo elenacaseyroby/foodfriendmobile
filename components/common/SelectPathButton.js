@@ -35,7 +35,7 @@ class SelectPathButton extends React.Component {
       });
     }
     // Update user state after updating activePathId.
-    fetchAllActivePathData(this.props.dispatch, user.id);
+    fetchAllActivePathData(this.props.dispatch, this.props.user.id);
     //navigate to dashboard
     this.props.navigation.navigate('Dashboard');
   };

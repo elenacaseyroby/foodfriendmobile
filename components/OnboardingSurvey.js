@@ -56,7 +56,7 @@ class OnboardingSurvey extends React.Component {
       );
       if (dietsRequest.status !== 200) {
         const errorMessage =
-          userRequest.status === 500
+          dietsRequest.status === 500
             ? 'Network error. Please make sure you are connected to the internet.'
             : 'Form submit has failed, please try again.';
         return this.setState({
