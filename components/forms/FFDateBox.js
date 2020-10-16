@@ -39,6 +39,7 @@ class FFDateBox extends React.Component {
             ref="MM"
             style={styles.formText}
             placeholder="MM"
+            placeholderTextColor="#aaaaaa"
             onChangeText={this.handleChangeMonth}
             maxLength={2}
             // Go to next box on enter:
@@ -51,6 +52,7 @@ class FFDateBox extends React.Component {
             ref="DD"
             style={styles.formText}
             placeholder="DD"
+            placeholderTextColor="#aaaaaa"
             onChangeText={this.handleChangeDay}
             maxLength={2}
             // Go to next box on enter:
@@ -63,6 +65,7 @@ class FFDateBox extends React.Component {
             ref="YYYY"
             style={styles.formText}
             placeholder="YYYY"
+            placeholderTextColor="#aaaaaa"
             onChangeText={this.handleChangeYear}
             maxLength={4}
           />
