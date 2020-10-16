@@ -10,8 +10,6 @@ import {
 import {connect} from 'react-redux';
 import asyncStorage from '../../asyncStorage';
 import {normalize} from '../../utils/deviceScaling';
-import {setAuth} from '../../redux/actions/authActionCreator';
-import {fetchUser} from '../../redux/actions/userActionCreator';
 import FFStatusBar from '../common/FFStatusBar';
 import BrowserPopUpModal from '../common/BrowserPopUpModal';
 import MenuButton from './MenuButton';
@@ -25,6 +23,7 @@ import privacy from './assets/privacy.png';
 import privacyIcon from './assets/privacy-icon.png';
 import terms from './assets/terms.png';
 import termsIcon from './assets/terms-icon.png';
+import C from '../../redux/constants';
 
 class AccountMenu extends React.Component {
   state = {
@@ -32,8 +31,8 @@ class AccountMenu extends React.Component {
   };
   handleSignOut = async () => {
     await asyncStorage._clearData();
-    this.props.dispatch(setAuth());
-    this.props.dispatch(fetchUser());
+    this.props.dispatch({type: C.DESTROY_SESSION});
+    this.props.navigation.navigate('Sign In');
   };
   render() {
     return (

@@ -2,10 +2,10 @@ import React from 'react';
 import {StyleSheet, ScrollView, Image, View, Text} from 'react-native';
 import {connect} from 'react-redux';
 import FoodMenu from './FoodMenu';
-import OfflineNotificationBanner from '../common/OfflineNotificationBanner';
 import ViewNutrientFoodsList from './ViewNutrientFoodsList';
 import Recipes from './Recipes';
 import FFStatusBar from '../common/FFStatusBar';
+import Loader from '../common/Loader';
 import groceryPile from './assets/grocery-pile.png';
 import {normalize} from '../../utils/deviceScaling';
 
@@ -17,16 +17,23 @@ class FoodSection extends React.Component {
     this.setState({activeScreen: screenName});
   };
   renderActiveScreen = () => {
-    // do not allow user to access the following pages without selecting a path.
     if (this.state.activeScreen === 'nutrientFoods')
       return this.renderNutrientFoodsScreen();
     if (this.state.activeScreen === 'recipes') return <Recipes />;
   };
+  renderLoader() {
+    return (
+      <View style={styles.loader}>
+        <Loader />
+      </View>
+    );
+  }
   renderNutrientFoodsScreen = () => {
-    const {user} = this.props;
-    if (!user || (user && !user.activePath)) return;
-    if (!this.props.nutrients) return;
-    const nutrients = this.props.nutrients.list;
+    const {user, nutrients} = this.props;
+    // if data hasn't loaded, render load page
+    if (!user || (user && !user.activePath)) return this.renderLoader();
+    if (!nutrients || (nutrients && !nutrients.list))
+      return this.renderLoader();
     // get list of ids for nutrients in path.
     const pathNutrientIds = user.activePath.nutrients.map((nutrient) => {
       return nutrient.id;
@@ -36,15 +43,18 @@ class FoodSection extends React.Component {
     return (
       <ScrollView>
         <View style={styles.whiteSpaceUnderMenu} />
-        {nutrients.map((nutrient) => {
-          if (!pathNutrientIds.includes(nutrient.id)) return <></>;
+        {nutrients.list.map((nutrient, index) => {
+          if (!pathNutrientIds.includes(nutrient.id)) return;
           const defaultIsExpanded = !nutrientHasBeenExpanded;
           nutrientHasBeenExpanded = true;
+          const key = `foodVwNutrientFoodTable-${index.toString()}`;
           return (
-            <ViewNutrientFoodsList
-              nutrient={nutrient}
-              defaultIsExpanded={defaultIsExpanded}
-            />
+            <View key={key}>
+              <ViewNutrientFoodsList
+                nutrient={nutrient}
+                defaultIsExpanded={defaultIsExpanded}
+              />
+            </View>
           );
         })}
         <View style={styles.navBarWhiteSpace} />
@@ -55,7 +65,6 @@ class FoodSection extends React.Component {
     return (
       <View style={styles.foodSectionContainer}>
         <FFStatusBar />
-        <OfflineNotificationBanner />
         <View style={styles.header}>
           <Image source={groceryPile} style={styles.groceryPile} />
         </View>
@@ -82,6 +91,10 @@ const styles = StyleSheet.create({
     height: undefined,
     // aspectRatio: width / height,
     aspectRatio: 361 / 158,
+  },
+  loader: {
+    height: '50%',
+    width: '100%',
   },
   navBarWhiteSpace: {
     backgroundColor: '#ffffff',

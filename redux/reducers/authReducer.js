@@ -10,6 +10,8 @@ export const authReducer = (prevState = initialState, action) => {
     return {
       userId: action.payload.userId,
     };
+  } else if (action.type === C.DESTROY_SESSION) {
+    return {};
   } else {
     return prevState;
   }

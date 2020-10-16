@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import {connect} from 'react-redux';
 import {setAuth} from '../redux/actions/authActionCreator';
+import {fetchAllSignedInData} from '../redux/bulkFetch';
 import {validateEmail, validatePassword} from '../utils/formValidation';
 import {storeAsyncLoginData, getLoginError} from '../utils/auth';
 import {normalize} from '../utils/deviceScaling';
@@ -81,10 +82,16 @@ class SignIn extends React.Component {
     if (result !== 'success') {
       return this.setState({errorMessage: result});
     }
-    // sign in user.
+    // sign in user: set auth in redux to re-render app as logged in user.
     this.props.dispatch(setAuth());
+    fetchAllSignedInData(this.props.dispatch, login.response.userId);
   };
   render() {
+    // If user is logged in, redirect to dashboard
+    if (this.props.auth && this.props.auth.userId) {
+      this.props.navigation.navigate('Dashboard');
+      return <></>;
+    }
     return (
       <View style={styles.rectangle}>
         <View style={styles.content}>
@@ -183,6 +190,8 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
 
 export default connect(mapStateToProps)(SignIn);

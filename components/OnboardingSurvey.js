@@ -56,7 +56,7 @@ class OnboardingSurvey extends React.Component {
       );
       if (dietsRequest.status !== 200) {
         const errorMessage =
-          userRequest.status === 500
+          dietsRequest.status === 500
             ? 'Network error. Please make sure you are connected to the internet.'
             : 'Form submit has failed, please try again.';
         return this.setState({
@@ -172,7 +172,7 @@ class OnboardingSurvey extends React.Component {
             <FFNarrowButton label={'Submit'} onClick={this.handleSubmit} />
           </View>
         </ScrollView>
-        <OfflineNotificationBanner />
+        <OfflineNotificationBanner style={styles.offlineBanner} />
       </>
     );
   }
@@ -229,6 +229,10 @@ const styles = StyleSheet.create({
   },
   blueElipse: {
     marginTop: '10%',
+  },
+  offlineBanner: {
+    position: 'absolute',
+    bottom: normalize(5),
   },
   rectangle: {
     position: 'relative',

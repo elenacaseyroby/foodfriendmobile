@@ -10,6 +10,7 @@ import orderBy from 'lodash/orderBy';
 
 class FoodTable extends React.Component {
   static propTypes = {
+    keyPrefix: propTypes.string.isRequired,
     foods: propTypes.array.isRequired,
     // permissions: 'write', 'delete', 'read-only'
     permissions: propTypes.string.isRequired,
@@ -65,7 +66,7 @@ class FoodTable extends React.Component {
   renderRow(food) {
     const foodDescription = this.getFoodDescription(food);
     return (
-      <View key={food.id}>
+      <>
         <View style={styles.foodRow}>
           <Text style={[styles.foodDescription, styles.foodBody]}>
             {foodDescription}
@@ -73,7 +74,7 @@ class FoodTable extends React.Component {
           {this.renderColumnTwo(food)}
         </View>
         <View style={styles.line} />
-      </View>
+      </>
     );
   }
   renderHeader() {
@@ -108,7 +109,7 @@ class FoodTable extends React.Component {
     );
   };
   render() {
-    const {foods} = this.props;
+    const {foods, keyPrefix} = this.props;
     // Order food from highest to lowest in nutrient.
     // permissions: ‘write’, ‘delete’, ‘read-only’
     const foodsToRender = orderBy(
@@ -119,8 +120,12 @@ class FoodTable extends React.Component {
     return (
       <View style={this.props.style}>
         {this.renderHeader()}
-        {foodsToRender.map((food) => {
-          return this.renderRow(food);
+        {foodsToRender.map((food, index) => {
+          return (
+            <View key={`${keyPrefix}-${index.toString()}`}>
+              {this.renderRow(food)}
+            </View>
+          );
         })}
         {this.renderAddFoodModal()}
         {this.renderDeleteFoodModal()}

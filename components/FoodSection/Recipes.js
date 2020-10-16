@@ -2,7 +2,9 @@ import React from 'react';
 import {Text, View, ScrollView, StyleSheet} from 'react-native';
 import {connect} from 'react-redux';
 import RecipeCarousel from './RecipeCarousel';
+import Loader from '../common/Loader';
 import {normalize} from '../../utils/deviceScaling';
+import orderBy from 'lodash/orderBy';
 
 class Recipes extends React.Component {
   renderNutrientRecipeCarousels = () => {
@@ -13,40 +15,69 @@ class Recipes extends React.Component {
       return recipe.id;
     });
     return activePathRecipes.list.map((nutrient) => {
+      // show newest recipes first.
+      const nutrientRecipesNewestFirst = orderBy(
+        nutrient.recipes,
+        ['createdAt'],
+        ['desc'],
+      );
       return (
-        <>
+        <View key={`recipeCarousel-${nutrient.name}`}>
           <Text style={styles.sectionHeader}>{nutrient.name}</Text>
           <RecipeCarousel
             savedRecipeIds={savedRecipeIds}
-            nutrientId={nutrient.id}
-            recipes={nutrient.recipes || []}
+            keyPrefix={nutrient.id.toString()}
+            recipes={nutrientRecipesNewestFirst}
           />
-        </>
+        </View>
       );
     });
   };
   renderUserRecipeCarousel = () => {
     const {userRecipes} = this.props;
-    if (userRecipes.list === null) return <></>;
-    const savedRecipeIds = userRecipes.list.map((recipe) => {
+    if (userRecipes.list === null) return <> </>;
+    // order recipes by most recently saved first.
+    const userRecipesNewestFirst = orderBy(
+      userRecipes.list,
+      ['UserRecipe.createdAt'],
+      ['desc'],
+    );
+    const savedRecipeIds = userRecipesNewestFirst.map((recipe) => {
       return recipe.id;
     });
-    console.log('render user carousel');
-    console.log(savedRecipeIds);
     return (
       <>
-        <Text style={styles.sectionHeader}>Your Saved Recipes</Text>
+        {userRecipesNewestFirst.length > 0 ? (
+          <Text style={styles.sectionHeader}>Your Saved Recipes</Text>
+        ) : (
+          <></>
+        )}
         <RecipeCarousel
           savedRecipeIds={savedRecipeIds}
-          nutrientId={0}
-          recipes={userRecipes.list || []}
+          keyPrefix={'saved'}
+          recipes={userRecipesNewestFirst}
         />
       </>
     );
   };
-  render() {
+  renderLoader() {
     return (
-      <ScrollView style={styles.menuContainer}>
+      <View style={styles.loader}>
+        <Loader />
+      </View>
+    );
+  }
+  render() {
+    const {userRecipes, activePathRecipes} = this.props;
+    if (
+      userRecipes &&
+      activePathRecipes &&
+      !activePathRecipes.list &&
+      !userRecipes.list
+    )
+      return this.renderLoader();
+    return (
+      <ScrollView style={styles.container}>
         {this.renderUserRecipeCarousel()}
         {this.renderNutrientRecipeCarousels()}
         <View style={styles.navBarWhiteSpace} />
@@ -56,8 +87,13 @@ class Recipes extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  menuContainer: {
+  loader: {
+    width: '100%',
+    height: '50%',
+  },
+  container: {
     backgroundColor: '#f9f9f9',
+    minHeight: normalize(350),
   },
   sectionHeader: {
     fontFamily: 'Cabin-Regular',

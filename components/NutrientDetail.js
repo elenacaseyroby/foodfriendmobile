@@ -1,7 +1,6 @@
 import React from 'react';
 import {ScrollView, Image, Text, View, StyleSheet} from 'react-native';
 import FFStatusBar from './common/FFStatusBar';
-import OfflineNotificationBanner from './common/OfflineNotificationBanner';
 import BlueTopElipse from './common/BlueTopElipse';
 import BlueBottomElipse from './common/BlueBottomElipse';
 import FoodTable from './common/FoodTable';
@@ -45,7 +44,6 @@ class NutrientDetail extends React.Component {
     return (
       <>
         <FFStatusBar />
-        <OfflineNotificationBanner />
         <ScrollView style={styles.rectangle}>
           <BlueTopElipse />
           <Image
@@ -65,7 +63,11 @@ class NutrientDetail extends React.Component {
             <Text style={styles.bannerText}>Foods</Text>
           </View>
           <ScrollView>
-            <FoodTable foods={nutrient.foods} permissions="read-only" />
+            <FoodTable
+              keyPrefix={'nutrientDetail'}
+              foods={nutrient.foods}
+              permissions="read-only"
+            />
           </ScrollView>
           {this.renderNutrientWarning(nutrient)}
           <View style={[styles.banner, styles.blueBackground]}>
@@ -73,12 +75,13 @@ class NutrientDetail extends React.Component {
           </View>
           <Text style={styles.description}>{nutrient.sourceNote}</Text>
           <Text style={styles.disclaimer}>
-            Please note, FoodFriend does not represent expert advice and should
-            never be used as a substitute for direct medical advice. If you are
-            experiencing a health issue, we ask that you reach out to a
-            healthcare professional. Additionally, we encourage you to explore
-            how the introduction of new nutrients into your diet might impact
-            your health with your doctor or other qualified healthcare provider.
+            Please note, FoodFriend is a reference tool. It does not represent
+            expert advice and should never be used as a substitute for direct
+            medical counsel. If you are experiencing a health issue, we ask that
+            you reach out to a healthcare professional. Additionally, we
+            encourage you to explore how the introduction of new nutrients or
+            foods into your diet might impact your health with your doctor or
+            other qualified healthcare provider.
           </Text>
           <BlueBottomElipse style={styles.bottomElipse} />
 
@@ -144,7 +147,7 @@ const styles = StyleSheet.create({
     width: normalize(301),
     color: '#aaaaaa',
     fontFamily: 'Cabin-Regular',
-    fontSize: normalize(12),
+    fontSize: normalize(9),
   },
   bottomElipse: {
     marginTop: normalize(80),

@@ -8,30 +8,23 @@ import propTypes from 'prop-types';
 
 class RecipeCarousel extends React.Component {
   static propTypes = {
-    nutrientId: propTypes.number.isRequired,
+    keyPrefix: propTypes.string.isRequired,
     recipes: propTypes.array.isRequired,
     savedRecipeIds: propTypes.array.isRequired,
     style: propTypes.object,
   };
   renderRecipeCard = (item) => {
-    const {nutrientId, savedRecipeIds} = this.props;
+    const {keyPrefix, savedRecipeIds} = this.props;
     const recipe = item.item;
-    // console.log('////');
-    // console.log(`nutrient id: ${nutrientId}`);
-    // console.log(savedRecipeIds);
-    // console.log(recipe.id);
     const recipeIsSaved = savedRecipeIds.includes(recipe.id);
-    // console.log(recipeIsSaved);
     return (
-      <RecipeCard
-        recipeIsSaved={recipeIsSaved}
-        recipeKey={`${nutrientId}${recipe.id}`}
-        recipe={recipe}
-      />
+      <View key={`${keyPrefix}${recipe.id}`}>
+        <RecipeCard recipeIsSaved={recipeIsSaved} recipe={recipe} />
+      </View>
     );
   };
   render() {
-    const {recipes, style, nutrientId} = this.props;
+    const {recipes, style} = this.props;
     const recipeCardWidth = normalize(300);
     const cardMarginRight = 0;
     const recipeWidth = recipeCardWidth + cardMarginRight;

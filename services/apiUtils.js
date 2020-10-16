@@ -1,11 +1,18 @@
 import asyncStorage from '../asyncStorage';
 
-const API_HOST = 'http://localhost:5000';
+// const API_HOST = __DEV__
+//   ? 'http://localhost:5000/api'
+//   : 'http://foodfriend.io/api';
+const API_HOST = 'http://foodfriend.io/api'; //make a staging version of this
+// const API_HOST = 'http://localhost:5000/api';
 
 export async function getRequest(endpoint) {
+  const date = new Date();
+  const offsetInHours = date.getTimezoneOffset() / 60;
   let headers = {
     Accept: 'application/json',
     'Content-Type': 'application/json',
+    utcoffsetinhours: offsetInHours,
   };
   // accessToken granted on login. need accessToken to get any user data.
   const accessToken = await asyncStorage._retrieveData('ACCESS_TOKEN');
@@ -33,9 +40,12 @@ export async function deleteRequest(endpoint, body = {}) {
 }
 
 export async function request(method, endpoint, body = {}) {
+  const date = new Date();
+  const offsetInHours = date.getTimezoneOffset() / 60;
   let headers = {
     Accept: 'application/json',
     'Content-Type': 'application/json',
+    utcoffsetinhours: offsetInHours,
   };
   // accessToken granted on login. need accessToken to get any user data.
   const accessToken = await asyncStorage._retrieveData('ACCESS_TOKEN');

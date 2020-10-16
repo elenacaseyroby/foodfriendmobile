@@ -26,6 +26,8 @@ export const dailyProgressReducer = (prevState = initialState, action) => {
     newState.error = action.payload.error;
     newState.loading = false;
     return newState;
+  } else if (action.type === C.DESTROY_SESSION) {
+    return {};
   } else {
     return prevState;
   }

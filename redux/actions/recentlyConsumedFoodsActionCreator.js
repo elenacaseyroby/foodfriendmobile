@@ -3,8 +3,8 @@ import {buildOrRetrieveRecentlyConsumedFoodsCache} from '../../asyncStorage/cach
 
 export function fetchRecentlyConsumedFoods(userId) {
   console.log('FETCH RECENTLY CONSUMED FOODS');
-  fetchRecentlyConsumedFoodsBegin();
   return async function (dispatch) {
+    dispatch(fetchRecentlyConsumedFoodsBegin());
     const recentlyConsumedFoods = await buildOrRetrieveRecentlyConsumedFoodsCache(
       userId,
     );

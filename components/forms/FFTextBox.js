@@ -19,6 +19,7 @@ class FFTextBox extends React.Component {
         <TextInput
           style={styles.formText}
           placeholder={this.props.placeholder}
+          placeholderTextColor="#aaaaaa"
           autoCapitalize={this.props.autoCapitalize}
           onChangeText={this.props.onChangeText}
           maxLength={this.props.maxLength}

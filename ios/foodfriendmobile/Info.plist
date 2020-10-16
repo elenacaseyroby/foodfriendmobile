@@ -25,7 +25,7 @@
 		<dict>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>foodfriend</string>
+				<string>FoodFriend</string>
 			</array>
 		</dict>
 	</array>
@@ -57,7 +57,7 @@
 		<string>Cabin-MediumItalic.ttf</string>
 		<string>Cabin-Regular.ttf</string>
 		<string>Cabin-SemiBold.ttf</string>
-		<string>Cabin-SemiBoldItalic.ttf</string>		
+		<string>Cabin-SemiBoldItalic.ttf</string>
 		<string>Bellota-Bold.ttf</string>
 		<string>Bellota-BoldItalic.ttf</string>
 		<string>Bellota-Italic.ttf</string>
@@ -74,8 +74,6 @@
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>

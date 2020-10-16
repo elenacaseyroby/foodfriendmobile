@@ -12,7 +12,7 @@ import {normalize} from '../utils/deviceScaling';
 
 class Dashboard extends React.Component {
   state = {
-    activeScreen: 'path',
+    activeScreen: 'progress',
     displayNutrientJournal: false,
   };
   updateActiveScreen = (screenName) => {
@@ -26,10 +26,10 @@ class Dashboard extends React.Component {
     const {user} = this.props;
     // Had to add user&&user.id so that it won't start on the onboarding
     // slides when the user is already onboarded.
-    const userNotHasOnboarded =
+    const userHasNotOnboarded =
       user && user.id && !user.activePathId && !user.birthday;
     const userHasNotSelectedPath = user && user.id && !user.activePathId;
-    if (userNotHasOnboarded) {
+    if (userHasNotOnboarded) {
       return this.props.navigation.navigate('Onboarding Slides');
     }
     if (userHasNotSelectedPath) {
@@ -48,7 +48,7 @@ class Dashboard extends React.Component {
     return (
       <View style={styles.rectangle}>
         {this.renderActiveScreen()}
-        <OfflineNotificationBanner />
+        <OfflineNotificationBanner style={styles.offlineBanner} />
         <NavBar
           updateActiveScreen={this.updateActiveScreen}
           activeScreen={this.state.activeScreen}
@@ -63,6 +63,9 @@ class Dashboard extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  offlineBanner: {
+    height: normalize(50),
+  },
   test: {
     alignSelf: 'center',
     marginTop: normalize(330),

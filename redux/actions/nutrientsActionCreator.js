@@ -5,6 +5,7 @@ export function fetchNutrients() {
   console.log('FETCH NUTRIENTS');
   fetchNutrientsBegin();
   return async function (dispatch) {
+    dispatch(fetchNutrientsBegin());
     const nutrients = await buildOrRetrieveNutrientsCache();
     if (!nutrients) {
       const error = 'Could not fetch nutrients from db or cache.';

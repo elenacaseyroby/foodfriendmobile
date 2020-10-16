@@ -3,8 +3,8 @@ import {buildOrRetrieveUserRecipesCache} from '../../asyncStorage/cache';
 
 export function fetchUserRecipes(userId) {
   console.log('FETCH USER RECIPES');
-  fetchUserRecipesBegin();
   return async function (dispatch) {
+    dispatch(fetchUserRecipesBegin());
     const userRecipes = await buildOrRetrieveUserRecipesCache(userId);
     if (!userRecipes) {
       const error = 'Could not fetch user recipes from db or cache.';

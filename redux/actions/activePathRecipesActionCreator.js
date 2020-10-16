@@ -3,8 +3,8 @@ import {buildOrRetrieveActivePathRecipesCache} from '../../asyncStorage/cache';
 
 export function fetchActivePathRecipes(userId) {
   console.log('FETCH ACTIVEPATH RECIPES');
-  fetchActivePathRecipesBegin();
   return async function (dispatch) {
+    dispatch(fetchActivePathRecipesBegin());
     const activePathRecipes = await buildOrRetrieveActivePathRecipesCache(
       userId,
     );

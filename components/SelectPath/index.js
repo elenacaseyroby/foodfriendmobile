@@ -83,7 +83,7 @@ class SelectPath extends React.Component {
           </TouchableOpacity>
           <BlueBottomElipse2 style={styles.elipse} />
         </ScrollView>
-        <OfflineNotificationBanner />
+        <OfflineNotificationBanner style={styles.offlineBanner} />
       </>
     );
   }
@@ -141,6 +141,10 @@ const styles = StyleSheet.create({
     fontSize: normalize(16),
     fontFamily: 'Cabin-Regular',
     color: '#ed762c',
+  },
+  offlineBanner: {
+    position: 'absolute',
+    bottom: normalize(5),
   },
   elipse: {
     marginTop: '3%',

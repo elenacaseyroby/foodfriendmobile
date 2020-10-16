@@ -11,7 +11,7 @@ import {userReducer} from './userReducer';
 import {userFoodsReducer} from './userFoodsReducer';
 import {userRecipesReducer} from './userRecipesReducer';
 
-export default combineReducers({
+const appReducer = combineReducers({
   activePathRecipes: activePathRecipesReducer,
   auth: authReducer,
   dailyProgress: dailyProgressReducer,
@@ -24,3 +24,7 @@ export default combineReducers({
   userFoods: userFoodsReducer,
   userRecipes: userRecipesReducer,
 });
+const rootReducer = (state, action) => {
+  return appReducer(state, action);
+};
+export default rootReducer;

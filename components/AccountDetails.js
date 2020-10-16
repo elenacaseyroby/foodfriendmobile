@@ -8,8 +8,7 @@ import {
 } from '../utils/formValidation';
 import {getUserUpdateError} from '../utils/auth';
 import {normalize} from '../utils/deviceScaling';
-import {fetchUser} from '../redux/actions/userActionCreator';
-import {fetchActivePathRecipes} from '../redux/actions/activePathRecipesActionCreator';
+import {fetchAllActivePathData} from '../redux/bulkFetch';
 import BackArrow from './common/BackArrow';
 import FFEmailTextBox from './forms/FFEmailTextBox';
 import FFNameTextBox from './forms/FFNameTextBox';
@@ -18,7 +17,6 @@ import FFErrorMessage from './forms/FFErrorMessage';
 import FFNarrowButton from './common/FFNarrowButton';
 import FFStatusBar from './common/FFStatusBar';
 import FFRadioButtons from './forms/FFRadioButtons';
-import OfflineNotificationBanner from './common/OfflineNotificationBanner';
 import Elipse from './common/BlueBottomElipse';
 import api from '../services/api';
 
@@ -111,8 +109,7 @@ class AccountDetails extends React.Component {
     }
 
     // Update state.
-    this.props.dispatch(fetchUser(user.id));
-    this.props.dispatch(fetchActivePathRecipes(user.id));
+    fetchAllActivePathData(this.props.dispatch, user.id);
   };
   handleEdit = (fieldName, value) => {
     if (fieldName === 'firstName') {
@@ -199,7 +196,6 @@ class AccountDetails extends React.Component {
           <FFNarrowButton label="Save" onClick={this.handleSubmit} />
         </View>
         <Elipse style={styles.elipse} />
-        <OfflineNotificationBanner />
       </View>
     );
   }

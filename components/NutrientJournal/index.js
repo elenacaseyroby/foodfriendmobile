@@ -4,7 +4,6 @@ import {connect} from 'react-redux';
 import {normalize, getIosStatusBarHeight} from '../../utils/deviceScaling';
 import backgroundImage from './assets/background-image.png';
 import FFStatusBar from '../common/FFStatusBar';
-import OfflineNotificationBanner from '../common/OfflineNotificationBanner';
 import ExitButton from '../common/ExitButton';
 import Tab from './Tab';
 import SearchBar from '../common/SearchBar';
@@ -20,13 +19,10 @@ class NutrientJournal extends React.Component {
     isVisible: propTypes.bool.isRequired,
     onClose: propTypes.func.isRequired,
   };
-  constructor(props) {
-    super(props);
-    this.state = {
-      activeTab: 'search',
-      filteredFoods: null,
-    };
-  }
+  state = {
+    activeTab: 'search',
+    filteredFoods: null,
+  };
   search = (keyword) => {
     const foodsToRender = this.getFoodsToRender();
     const filteredFoods = searchFoods(foodsToRender, keyword);
@@ -49,7 +45,7 @@ class NutrientJournal extends React.Component {
         foodsToRender.push(food);
       }
     });
-    if (!user || (user && !user.activePath)) return foodsToRender;
+    if (!user || (user && !user.activePathId)) return foodsToRender;
     // get list of ids for nutrients in active path.
     const pathNutrientIds = user.activePath.nutrients.map((nutrient) => {
       return nutrient.id;
@@ -83,7 +79,11 @@ class NutrientJournal extends React.Component {
           />
         </View>
         <ScrollView>
-          <FoodTable foods={searchResults} permissions="write" />
+          <FoodTable
+            keyPrefix={'search'}
+            foods={searchResults}
+            permissions="write"
+          />
         </ScrollView>
       </>
     );
@@ -91,7 +91,7 @@ class NutrientJournal extends React.Component {
   renderListByNutrients = () => {
     if (this.state.activeTab !== 'listByNutrients') return;
     const {user} = this.props;
-    if (!user && !user.activePath) return;
+    if (!user || (user && !user.activePathId)) return;
     if (!this.props.nutrients) return;
     const nutrients = this.props.nutrients.list;
     // get list of ids for nutrients in path.
@@ -102,15 +102,18 @@ class NutrientJournal extends React.Component {
     let nutrientHasBeenExpanded = false;
     return (
       <ScrollView>
-        {nutrients.map((nutrient) => {
-          if (!pathNutrientIds.includes(nutrient.id)) return <></>;
+        {nutrients.map((nutrient, index) => {
+          if (!pathNutrientIds.includes(nutrient.id)) return;
           const defaultIsExpanded = !nutrientHasBeenExpanded;
           nutrientHasBeenExpanded = true;
+          const key = `njAddNutrientFoodTable-${index.toString()}`;
           return (
-            <AddNutrientFoodsList
-              nutrient={nutrient}
-              defaultIsExpanded={defaultIsExpanded}
-            />
+            <View key={key}>
+              <AddNutrientFoodsList
+                nutrient={nutrient}
+                defaultIsExpanded={defaultIsExpanded}
+              />
+            </View>
           );
         })}
       </ScrollView>
@@ -128,7 +131,6 @@ class NutrientJournal extends React.Component {
         transparent={false}
         visible={this.props.isVisible}>
         <FFStatusBar />
-        <OfflineNotificationBanner />
         <View style={styles.headerContainer}>
           <View style={styles.headerContent}>
             <ExitButton
