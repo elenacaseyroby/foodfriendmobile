@@ -66,7 +66,11 @@ async function getData(endpoint, KEY) {
   let data;
   try {
     const res = await getRequest(endpoint);
-    if (res.status === 200) {
+    if (res.status === 503) {
+      console.log(
+        `Error fetching ${KEY} from db at endpoint /api/${endpoint}. 503: service unavailable error thrown. Check heroku logs for more details.`,
+      );
+    } else if (res.status === 200) {
       // if succeeds, get data from db
       data = res.response;
     } else {
