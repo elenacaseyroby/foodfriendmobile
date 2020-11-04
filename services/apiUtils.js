@@ -3,7 +3,7 @@ import asyncStorage from '../asyncStorage';
 // const API_HOST = __DEV__
 //   ? 'http://localhost:5000/api'
 //   : 'http://foodfriend.io/api';
-const API_HOST = 'http://foodfriend.io/api'; //make a staging version of this
+const API_HOST = 'http://www.foodfriend.io/api'; //make a staging version of this
 // const API_HOST = 'http://localhost:5000/api';
 
 export async function getRequest(endpoint) {
