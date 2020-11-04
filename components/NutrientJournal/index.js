@@ -37,6 +37,7 @@ class NutrientJournal extends React.Component {
     // to get list of foods to render.
     let addedfoodIds = [];
     let foodsToRender = [];
+    if (!nutrients || nutrients.length < 1) return foodsToRender;
     // make sure recently consumed foods are at top of list.
     recentlyConsumedFoods.map((food) => {
       // weed out duplicate food records.
