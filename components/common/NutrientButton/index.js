@@ -66,17 +66,20 @@ class NutrientButton extends React.Component {
     const {nutrient} = this.props;
     const theme = themes[nutrient.themeId];
     let benefitsText = '';
-    let counter = 1;
     const firstFewBenefits = nutrient.benefits.slice(0, 6);
-    firstFewBenefits.map((benefit) => {
+    nutrient.benefits.map((benefit, index) => {
+      // Only add first 6 benefits.
+      if (index > 5) return;
       benefitsText = benefitsText + benefit.name.toLowerCase();
-      if (counter !== firstFewBenefits.length) {
+      // if not the last benefit or the 6th benefit, append comma.
+      if (index + 1 !== nutrient.benefits.length && index !== 5) {
         benefitsText = benefitsText + ', ';
       }
-      if (counter === firstFewBenefits.length) {
+      // if adding the 6th benefit and there are more than 6
+      // append '...'
+      if (index === 5 && nutrient.benefits.length > 6) {
         benefitsText = benefitsText + '...';
       }
-      counter++;
     });
     return (
       <View style={[styles.buttonContainer, this.props.style]}>
@@ -87,9 +90,7 @@ class NutrientButton extends React.Component {
               <Text style={styles.buttonHeaderText}>{nutrient.name}</Text>
             </View>
             <View style={styles.benefitsTextContainer}>
-              <Text style={styles.benefitsLabel}>
-                Benefits the following...
-              </Text>
+              <Text style={styles.benefitsLabel}>Benefits the following:</Text>
               <Text style={styles.benefitsText}>{benefitsText}</Text>
             </View>
           </View>
