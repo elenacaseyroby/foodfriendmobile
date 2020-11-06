@@ -38,6 +38,13 @@ class NutrientBar extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  button: {
+    height: '100%',
+    width: '20%',
+    justifyContent: 'center',
+    alignItems: 'flex-end',
+    paddingRight: '7%',
+  },
   backgroundColor: {
     backgroundColor: '#ed762c',
   },
@@ -48,7 +55,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingLeft: '5%',
-    paddingRight: '7%',
+    paddingRight: 0,
   },
   label: {
     fontFamily: 'Cabin-Regular',
