@@ -11,7 +11,7 @@ import {normalize} from '../../utils/deviceScaling';
 
 class FoodSection extends React.Component {
   state = {
-    activeScreen: 'nutrientFoods',
+    activeScreen: 'recipes',
   };
   updateActiveScreen = (screenName) => {
     this.setState({activeScreen: screenName});

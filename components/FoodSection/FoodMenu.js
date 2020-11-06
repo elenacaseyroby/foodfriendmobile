@@ -7,7 +7,7 @@ import propTypes from 'prop-types';
 class FoodMenu extends React.Component {
   static propTypes = {
     updateActiveScreen: propTypes.func.isRequired,
-    // activeScreen: 'nutrientFoods', 'recipes
+    // activeScreen: 'nutrientFoods', 'recipes'
     activeScreen: propTypes.string.isRequired,
   };
   render() {
@@ -15,26 +15,6 @@ class FoodMenu extends React.Component {
       <>
         <View style={styles.menuContainer}>
           <View style={styles.buttonContainer}>
-            <TouchableOpacity
-              style={[
-                styles.button,
-                this.props.activeScreen === 'nutrientFoods'
-                  ? styles.activeButton
-                  : styles.passiveButton,
-              ]}
-              onPress={() => {
-                this.props.updateActiveScreen('nutrientFoods');
-              }}>
-              <Text
-                style={[
-                  styles.text,
-                  this.props.activeScreen === 'nutrientFoods'
-                    ? styles.activeText
-                    : styles.passiveText,
-                ]}>
-                Food
-              </Text>
-            </TouchableOpacity>
             <TouchableOpacity
               style={[
                 styles.button,
@@ -53,6 +33,26 @@ class FoodMenu extends React.Component {
                     : styles.passiveText,
                 ]}>
                 Recipes
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[
+                styles.button,
+                this.props.activeScreen === 'nutrientFoods'
+                  ? styles.activeButton
+                  : styles.passiveButton,
+              ]}
+              onPress={() => {
+                this.props.updateActiveScreen('nutrientFoods');
+              }}>
+              <Text
+                style={[
+                  styles.text,
+                  this.props.activeScreen === 'nutrientFoods'
+                    ? styles.activeText
+                    : styles.passiveText,
+                ]}>
+                Food
               </Text>
             </TouchableOpacity>
             {/* add new touchable menu item here and update styles.button.width */}
