@@ -66,18 +66,23 @@ class NutrientButton extends React.Component {
     const {nutrient} = this.props;
     const theme = themes[nutrient.themeId];
     let benefitsText = '';
-    const firstFewBenefits = nutrient.benefits.slice(0, 6);
     nutrient.benefits.map((benefit, index) => {
-      // Only add first 6 benefits.
-      if (index > 5) return;
+      const roughCharacterLimit = 70;
+      // If benefits exceed characterLimit, don't add more.
+      if (benefitsText.length >= roughCharacterLimit) return;
       benefitsText = benefitsText + benefit.name.toLowerCase();
-      // if not the last benefit or the 6th benefit, append comma.
-      if (index + 1 !== nutrient.benefits.length && index !== 5) {
+      // If has not reached character limit and there are still more benefits to add, append comma.
+      if (
+        benefitsText.length < roughCharacterLimit &&
+        nutrient.benefits.length > index + 1
+      ) {
         benefitsText = benefitsText + ', ';
       }
-      // if adding the 6th benefit and there are more than 6
-      // append '...'
-      if (index === 5 && nutrient.benefits.length > 6) {
+      // Append '...' if character limit is reached and there are still more benefits to add.
+      if (
+        benefitsText.length >= roughCharacterLimit &&
+        nutrient.benefits.length > index + 1
+      ) {
         benefitsText = benefitsText + '...';
       }
     });
