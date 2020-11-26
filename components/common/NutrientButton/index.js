@@ -66,17 +66,25 @@ class NutrientButton extends React.Component {
     const {nutrient} = this.props;
     const theme = themes[nutrient.themeId];
     let benefitsText = '';
-    let counter = 1;
-    const firstFewBenefits = nutrient.benefits.slice(0, 6);
-    firstFewBenefits.map((benefit) => {
+    nutrient.benefits.map((benefit, index) => {
+      const roughCharacterLimit = 70;
+      // If benefits exceed characterLimit, don't add more.
+      if (benefitsText.length >= roughCharacterLimit) return;
       benefitsText = benefitsText + benefit.name.toLowerCase();
-      if (counter !== firstFewBenefits.length) {
+      // If has not reached character limit and there are still more benefits to add, append comma.
+      if (
+        benefitsText.length < roughCharacterLimit &&
+        nutrient.benefits.length > index + 1
+      ) {
         benefitsText = benefitsText + ', ';
       }
-      if (counter === firstFewBenefits.length) {
+      // Append '...' if character limit is reached and there are still more benefits to add.
+      if (
+        benefitsText.length >= roughCharacterLimit &&
+        nutrient.benefits.length > index + 1
+      ) {
         benefitsText = benefitsText + '...';
       }
-      counter++;
     });
     return (
       <View style={[styles.buttonContainer, this.props.style]}>
@@ -87,9 +95,7 @@ class NutrientButton extends React.Component {
               <Text style={styles.buttonHeaderText}>{nutrient.name}</Text>
             </View>
             <View style={styles.benefitsTextContainer}>
-              <Text style={styles.benefitsLabel}>
-                Benefits the following...
-              </Text>
+              <Text style={styles.benefitsLabel}>Benefits the following:</Text>
               <Text style={styles.benefitsText}>{benefitsText}</Text>
             </View>
           </View>

@@ -166,6 +166,9 @@ const styles = StyleSheet.create({
   },
   deleteButton: {
     marginTop: '2%',
+    alignItems: 'flex-end',
+    height: '90%',
+    width: '20%',
   },
 });
 
