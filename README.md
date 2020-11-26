@@ -12,7 +12,96 @@ You will need to make sure that `API_HOST` is set to the API website or localhos
 
 The code for the API is in this repo: https://github.com/elenacaseyroby/ff
 
+# Onboarding
 
 ![alt text](https://github.com/elenacaseyroby/ffmobile/blob/master/screenshots/IMG-0803.PNG)
+
+![alt text](https://github.com/elenacaseyroby/ffmobile/blob/master/screenshots/IMG-0805.PNG)
+
+![alt text](https://github.com/elenacaseyroby/ffmobile/blob/master/screenshots/IMG-0806.PNG)
+
+![alt text](https://github.com/elenacaseyroby/ffmobile/blob/master/screenshots/IMG-0807.PNG)
+
+![alt text](https://github.com/elenacaseyroby/ffmobile/blob/master/screenshots/IMG-0808.PNG)
+
+![alt text](https://github.com/elenacaseyroby/ffmobile/blob/master/screenshots/IMG-0809.PNG)
+
+![alt text](https://github.com/elenacaseyroby/ffmobile/blob/master/screenshots/IMG-0810.PNG)
+
+![alt text](https://github.com/elenacaseyroby/ffmobile/blob/master/screenshots/IMG-0811.PNG)
+
+![alt text](https://github.com/elenacaseyroby/ffmobile/blob/master/screenshots/IMG-0812.PNG)
+
+![alt text](https://github.com/elenacaseyroby/ffmobile/blob/master/screenshots/IMG-0813.PNG)
+
+![alt text](https://github.com/elenacaseyroby/ffmobile/blob/master/screenshots/IMG-0815.PNG)
+
+
+
+
+
+# Recommended Path
+![alt text](https://github.com/elenacaseyroby/ffmobile/blob/master/screenshots/IMG-0816.PNG)
+![alt text](https://github.com/elenacaseyroby/ffmobile/blob/master/screenshots/IMG-0820.PNG)
+
+
+
+
+
+
+# Nutrient Screen
+
+![alt text](https://github.com/elenacaseyroby/ffmobile/blob/master/screenshots/IMG-0817.PNG)
+
+![alt text](https://github.com/elenacaseyroby/ffmobile/blob/master/screenshots/IMG-0818.PNG)
+
+![alt text](https://github.com/elenacaseyroby/ffmobile/blob/master/screenshots/IMG-0819.PNG)
+
+
+
+
+
+
+# Food Journal
+
+![alt text](https://github.com/elenacaseyroby/ffmobile/blob/master/screenshots/IMG-0821.PNG)
+
+![alt text](https://github.com/elenacaseyroby/ffmobile/blob/master/screenshots/IMG-0823.PNG)
+
+![alt text](https://github.com/elenacaseyroby/ffmobile/blob/master/screenshots/IMG-0824.PNG)
+
+
+
+
+# Progress Screen
+![alt text](https://github.com/elenacaseyroby/ffmobile/blob/master/screenshots/IMG-0825.PNG)
+
+![alt text](https://github.com/elenacaseyroby/ffmobile/blob/master/screenshots/IMG-0826.PNG)
+
+![alt text](https://github.com/elenacaseyroby/ffmobile/blob/master/screenshots/IMG-0827.PNG)
+
+
+# Foods Screen: Recipes & Foods List
+
+![alt text](https://github.com/elenacaseyroby/ffmobile/blob/master/screenshots/IMG-0830.PNG)
+
+![alt text](https://github.com/elenacaseyroby/ffmobile/blob/master/screenshots/IMG-0829.PNG)
+
+
+# Account Screen
+![alt text](https://github.com/elenacaseyroby/ffmobile/blob/master/screenshots/IMG-0831.PNG)
+
+![alt text](https://github.com/elenacaseyroby/ffmobile/blob/master/screenshots/IMG-0833.PNG)
+
+
+# Building a Custom Path 
+
+![alt text](https://github.com/elenacaseyroby/ffmobile/blob/master/screenshots/IMG-0834.PNG)
+
+![alt text](https://github.com/elenacaseyroby/ffmobile/blob/master/screenshots/IMG-0835.PNG)
+
+![alt text](https://github.com/elenacaseyroby/ffmobile/blob/master/screenshots/IMG-0836.PNG)
+
+![alt text](https://github.com/elenacaseyroby/ffmobile/blob/master/screenshots/IMG-0837.PNG)
 
 
