@@ -105,3 +105,5 @@ The code for the API is in this repo: https://github.com/elenacaseyroby/ff
 ![alt text](https://github.com/elenacaseyroby/ffmobile/blob/master/screenshots/IMG-0837.PNG)
 
 
+© All artwork, layout and concepts for the above app are copyright Dylan Cameron and Casey Roby © 2020
+With all copyrighted materials on this page Dylan Cameron and Casey Roby assert their moral, commercial and intellectual rights to be known as the authors of works produced.
