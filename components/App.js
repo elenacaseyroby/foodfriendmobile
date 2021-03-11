@@ -24,6 +24,7 @@ import PathDetail from './PathDetail';
 import TermsAndConditions from './TermsAndConditions';
 import PrivacyPolicy from './PrivacyPolicy';
 // import asyncStorage from '../asyncStorage';
+// test is foodfriendmobile
 
 const Stack = createStackNavigator();
 
