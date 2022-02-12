@@ -1,4 +1,4 @@
-# FoodFriend
+# FoodFriend Mobile
  
 With this React Native app, users can select a nutrient path comprised of a group of nutrients to help them meet a goal, like improved mood.  They can then track the foods they eat and watch as they get closer to reaching their daily value of each of the nutrients in their path.  Users can also read about different nutrients and learn about their health properties and what foods contain them.
 
